@@ -1,0 +1,13 @@
+{
+  "name": "interface",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "types": "index.ts",
+  "author": "AcadArena",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "tsconfig": "*",
+    "typescript": "^4.6.3"
+  }
+}

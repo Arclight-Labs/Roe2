@@ -1,3 +1,3 @@
 {
-  "conventionalCommits.scopes": ["tour", "team", "user", "ui", "sv"]
+  "conventionalCommits.scopes": ["tour", "team", "user", "ui", "sv", "utils"]
 }
