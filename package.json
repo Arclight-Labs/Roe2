@@ -19,9 +19,11 @@
     "@commitlint/config-conventional": "^16.2.1",
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.12.0",
     "husky": "^7.0.4",
-    "prettier": "2.6.1",
-    "turbo": "latest"
+    "prettier": "^2.6.2",
+    "turbo": "latest",
+    "typescript": "^4.6.3"
   },
   "engines": {
     "npm": ">=7.0.0",

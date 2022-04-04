@@ -1,7 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit"
+import tournament from "./slice/tournament"
 
 export const store = configureStore({
-  reducer: {},
+  reducer: { tournament },
+  devTools: true,
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

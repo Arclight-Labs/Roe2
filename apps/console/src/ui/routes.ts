@@ -6,7 +6,7 @@ interface NavLink {
   icon: ReactNode
 }
 
-const routes = [
+const routes: NavLink[] = [
   { link: "", label: "Tournament", icon: "" },
   { link: "", label: "Participants", icon: "" },
   { link: "", label: "Matches", icon: "" },

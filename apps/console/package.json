@@ -1,5 +1,5 @@
 {
-  "name": "console",
+  "name": "console-dashboard",
   "private": true,
   "version": "0.0.0",
   "scripts": {
@@ -8,21 +8,27 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@mantine/core": "^4.1.0",
+    "@mantine/core": "^4.1.2",
     "@mantine/dropzone": "^4.1.0",
     "@mantine/form": "^4.1.0",
     "@mantine/hooks": "^4.1.0",
     "@mantine/modals": "^4.1.0",
+    "@reduxjs/toolkit": "^1.8.1",
     "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react-dom": "^18.0.0",
+    "react-redux": "^7.2.8",
+    "redux": "^4.1.2",
+    "vite-plugin-package-version": "^1.0.2"
   },
   "devDependencies": {
-    "@types/react": "^17.0.33",
-    "@types/react-dom": "^17.0.10",
+    "@types/react": "^17.0.43",
+    "@types/react-dom": "^17.0.14",
     "@vitejs/plugin-react": "^1.0.7",
     "config": "*",
+    "tsconfig": "*",
     "typescript": "^4.6.3",
     "ui": "*",
+    "utils": "*",
     "vite": "^2.9.0"
   }
 }

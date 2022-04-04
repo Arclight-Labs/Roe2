@@ -18,3 +18,6 @@ export const tournamentSlice = createSlice({
     }),
   },
 })
+
+export const { set } = tournamentSlice.actions
+export default tournamentSlice.reducer

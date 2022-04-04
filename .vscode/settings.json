@@ -1,3 +1,5 @@
 {
-  "conventionalCommits.scopes": ["tour", "team", "user", "ui", "sv", "utils"]
+  "conventionalCommits.scopes": ["tour", "team", "player", "ui", "sv", "utils"],
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
