@@ -1,6 +1,6 @@
 # Alliance Games Web App
 
-A full fledge overlay toold for AcadArena Alliance Games Broadcast
+A full fledge overlay tool for AcadArena Alliance Games Broadcast
 
 ## What's inside?
 
@@ -8,11 +8,14 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/lang/en/) as a package ma
 
 ### Apps and Packages
 
-- `console`: Console for Remote Overlay Tool
-- `allg`: Web based stream overlay
+- `host`: Console for Remote Overlay Tool
+- `overlay`: Web based stream overlay
+- `server`: Websocket and API server
+- `utils`: utilities that can be used through all of the apps
 - `ui`: a stub React component library shared by both `web` and `docs` applications
-- `config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
+- `config`: configurations (includes `vite.config.js` `eslint-config-next` and `eslint-config-prettier`)
 - `tsconfig`: `tsconfig.json`s used throughout the monorepo
+- `interface`: typescript types and interfaces
 
 Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
