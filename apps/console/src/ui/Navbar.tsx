@@ -94,7 +94,10 @@ const useStyles = createStyles((theme, _params, getRef) => {
   }
 })
 
-export function NavbarSimple() {
+interface Props {
+  version: string
+}
+export function NavbarSimple({ version }: Props) {
   const { classes, cx } = useStyles()
   const [active, setActive] = useState("Billing")
 
@@ -120,7 +123,7 @@ export function NavbarSimple() {
       <Navbar.Section grow>
         <Group className={classes.header} position="apart">
           {/* <MantineLogo /> */}
-          <Code sx={{ fontWeight: 700 }}>v3.1.2</Code>
+          <Code sx={{ fontWeight: 700 }}>{version}</Code>
         </Group>
         {links}
       </Navbar.Section>

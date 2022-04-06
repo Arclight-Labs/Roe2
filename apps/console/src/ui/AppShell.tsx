@@ -1,11 +1,15 @@
 import { AppShell as Shell, AppShellProps } from "@mantine/core"
 import { FC } from "react"
 import Navbar from "./Navbar"
-const AppShell: FC<AppShellProps> = ({ children, ...props }) => {
+
+interface Props extends AppShellProps {
+  version: string
+}
+const AppShell: FC<Props> = ({ children, version, ...props }) => {
   return (
     <Shell
       {...props}
-      navbar={<Navbar />}
+      navbar={<Navbar version={version} />}
       sx={(theme) => ({
         main: {
           backgroundColor:
