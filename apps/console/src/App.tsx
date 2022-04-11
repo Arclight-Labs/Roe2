@@ -5,6 +5,7 @@ import AppShell from "./ui/AppShell"
 import { Provider } from "react-redux"
 import { store } from "utils"
 import TextComponent from "./pages/TextComponent"
+import SocketProvider from "./contexts/socket"
 
 function App() {
   const [colorScheme, setColorScheme] = useState<ColorScheme>("light")
@@ -13,16 +14,18 @@ function App() {
 
   return (
     <Provider store={store}>
-      <ColorSchemeProvider
-        colorScheme={colorScheme}
-        toggleColorScheme={toggleColorScheme}
-      >
-        <MantineProvider theme={{ colorScheme }}>
-          <AppShell version={import.meta.env.PACKAGE_VERSION}>
-            <TextComponent />
-          </AppShell>
-        </MantineProvider>
-      </ColorSchemeProvider>
+      <SocketProvider>
+        <ColorSchemeProvider
+          colorScheme={colorScheme}
+          toggleColorScheme={toggleColorScheme}
+        >
+          <MantineProvider theme={{ colorScheme }}>
+            <AppShell version={import.meta.env.PACKAGE_VERSION}>
+              <TextComponent />
+            </AppShell>
+          </MantineProvider>
+        </ColorSchemeProvider>
+      </SocketProvider>
     </Provider>
   )
 }

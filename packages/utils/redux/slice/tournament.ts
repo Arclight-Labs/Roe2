@@ -3,10 +3,7 @@ import type { RootState } from "../store"
 
 import { Tournament } from "interface"
 
-const initialState: Tournament = {
-  name: "",
-  id: 0,
-}
+const initialState: Tournament = { name: "", id: 0 }
 
 export const tournamentSlice = createSlice({
   name: "tournament",
@@ -16,8 +13,12 @@ export const tournamentSlice = createSlice({
       ...state,
       ...action.payload,
     }),
+    changeTournamentName: (state, action: PayloadAction<string>) => ({
+      ...state,
+      name: action.payload,
+    }),
   },
 })
 
-export const { set } = tournamentSlice.actions
+export const { set: setAction, changeTournamentName } = tournamentSlice.actions
 export default tournamentSlice.reducer
