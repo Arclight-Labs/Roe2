@@ -20,7 +20,9 @@ const PORT = process.env.PORT || 1337
 // })
 
 const httpServer = http.createServer()
-const io = new Server(httpServer)
+const io = new Server(httpServer, {
+  cors: { origin: "*" },
+})
 
 io.on("connection", async (socket) => {
   socket.emit("connectSuccess", {
