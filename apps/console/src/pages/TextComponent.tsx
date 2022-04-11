@@ -1,12 +1,11 @@
 import { Button } from "@mantine/core"
-import { useAppSelector } from "utils"
-import { useTournamentAction } from "../contexts/socket"
+import { useAppSelector, useTournamentAction } from "utils"
 
 const TextComponent = () => {
   const tournament = useAppSelector((state) => state.tournament)
-  const { setTournament } = useTournamentAction()
+  const { ping } = useTournamentAction()
   const onClick = () => {
-    setTournament({ name: `${Math.random() * 10}` })
+    ping(Date.now())
   }
   return (
     <div>

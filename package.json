@@ -26,12 +26,14 @@
     "typescript": "^4.6.3"
   },
   "engines": {
-    "npm": ">=7.0.0",
-    "node": ">=14.0.0"
+    "npm": ">=8.6.0",
+    "node": ">=16.14.0"
   },
   "packageManager": "yarn@1.22.18",
   "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
+    "**/*": "prettier --write --ignore-unknown",
+    "*.js": "eslint --cache --fix",
+    "*.{ts,tsx,md}": "prettier --write"
   },
   "config": {
     "commitizen": {

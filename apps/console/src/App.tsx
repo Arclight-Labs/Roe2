@@ -5,7 +5,7 @@ import AppShell from "./ui/AppShell"
 import { Provider } from "react-redux"
 import { store } from "utils"
 import TextComponent from "./pages/TextComponent"
-import SocketProvider from "./contexts/socket"
+import { SocketProvider } from "utils"
 
 function App() {
   const [colorScheme, setColorScheme] = useState<ColorScheme>("light")

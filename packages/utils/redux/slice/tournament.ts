@@ -13,12 +13,8 @@ export const tournamentSlice = createSlice({
       ...state,
       ...action.payload,
     }),
-    changeTournamentName: (state, action: PayloadAction<string>) => ({
-      ...state,
-      name: action.payload,
-    }),
   },
 })
 
-export const { set: setAction, changeTournamentName } = tournamentSlice.actions
+export const { set: setTournament } = tournamentSlice.actions
 export default tournamentSlice.reducer
