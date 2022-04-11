@@ -8,7 +8,7 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/lang/en/) as a package ma
 
 ### Apps and Packages
 
-- `host`: Console for Remote Overlay Tool
+- `console-dashboard`: Console for Remote Overlay Tool
 - `overlay`: Web based stream overlay
 - `server`: Websocket and API server
 - `utils`: utilities that can be used through all of the apps
