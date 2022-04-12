@@ -18,5 +18,8 @@
     "**/.DS_Store": true,
     "**/Thumbs.db": true,
     "**/node_modules": true
-  }
+  },
+  "color-highlight.markRuler": false,
+  "color-highlight.markerType": "dot-before",
+  "color-highlight.matchWords": true
 }

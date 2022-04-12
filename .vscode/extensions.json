@@ -1,8 +1,14 @@
 {
   "recommendations": [
-    "arcanis.vscode-zipfs",
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
-    "vivaxy.vscode-conventional-commits"
+    "vivaxy.vscode-conventional-commits",
+    "naumovs.color-highlight",
+    "chrisbibby.hide-node-modules",
+    "louiswt.regexp-preview",
+    "albert.tabout",
+    "toba.vsfire",
+    "ms-vsliveshare.vsliveshare",
+    "eamodio.gitlens"
   ]
 }
