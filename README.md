@@ -1,6 +1,6 @@
 # Alliance Games Web App
 
-A full fledge overlay tool for AcadArena Alliance Games Broadcast
+A full fledge overlay tool for AcadArena Alliance Games Broadcast. This app is intended to be run locally for optimal latency.
 
 ## What's inside?
 
