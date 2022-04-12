@@ -33,6 +33,7 @@ This repository is used in the `npx create-turbo` command, and selected when cho
 
 ### Build
 
+To build you must have the same node version or higher.
 To build all apps and packages, run the following command:
 
 ```
