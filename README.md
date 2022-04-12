@@ -29,7 +29,13 @@ This turborepo has some additional tools already setup for you:
 
 ## Setup
 
-This repository is used in the `npx create-turbo` command, and selected when choosing which package manager you wish to use with your monorepo (Yarn).
+<!-- This repository is used in the `npx create-turbo` command, and selected when choosing which package manager you wish to use with your monorepo (Yarn). -->
+
+This repo requires `Yarn` as a package manager. Run this command to install yarn
+
+```sh
+npm install --global yarn
+```
 
 ### Build
 
