@@ -19,7 +19,7 @@ jobs:
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
-        node-version: '16.12.x'
+        node-version: '16.14.x'
         npm-version: '8.6.x'
         cache: 'npm'
     - run: yarn install --frozen-lockfile
