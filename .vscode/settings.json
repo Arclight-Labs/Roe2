@@ -1,10 +1,12 @@
 {
   "conventionalCommits.scopes": [
-    "tour",
-    "team",
-    "player",
+    "console",
+    "overlay",
     "ui",
-    "sv",
+    "ws",
+    "api",
+    "db",
+    "type",
     "utils",
     "env"
   ],
