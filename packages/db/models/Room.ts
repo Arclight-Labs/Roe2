@@ -1,7 +1,7 @@
 import { DataTypes, Model, Optional } from "sequelize"
 import { sequelize } from "../sequelize"
 
-import { Room as RoomInterface } from "interface"
+import { RoomInterface } from "interface"
 
 type RoomCreate = Optional<RoomInterface, "id">
 
