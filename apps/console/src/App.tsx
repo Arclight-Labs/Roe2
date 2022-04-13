@@ -6,6 +6,7 @@ import { Provider } from "react-redux"
 import { store } from "utils"
 import TextComponent from "./pages/TextComponent"
 import { SocketProvider } from "utils"
+import { NotificationsProvider } from "@mantine/notifications"
 
 function App() {
   const [colorScheme, setColorScheme] = useState<ColorScheme>("light")
@@ -14,18 +15,20 @@ function App() {
 
   return (
     <Provider store={store}>
-      <SocketProvider>
-        <ColorSchemeProvider
-          colorScheme={colorScheme}
-          toggleColorScheme={toggleColorScheme}
-        >
-          <MantineProvider theme={{ colorScheme }}>
-            <AppShell version={import.meta.env.PACKAGE_VERSION}>
-              <TextComponent />
-            </AppShell>
-          </MantineProvider>
-        </ColorSchemeProvider>
-      </SocketProvider>
+      <NotificationsProvider>
+        <SocketProvider>
+          <ColorSchemeProvider
+            colorScheme={colorScheme}
+            toggleColorScheme={toggleColorScheme}
+          >
+            <MantineProvider theme={{ colorScheme }}>
+              <AppShell version={import.meta.env.PACKAGE_VERSION}>
+                <TextComponent />
+              </AppShell>
+            </MantineProvider>
+          </ColorSchemeProvider>
+        </SocketProvider>
+      </NotificationsProvider>
     </Provider>
   )
 }

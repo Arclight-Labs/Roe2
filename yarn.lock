@@ -4333,7 +4333,7 @@ turbo-windows-64@1.2.2:
   resolved "https://registry.yarnpkg.com/turbo-windows-64/-/turbo-windows-64-1.2.2.tgz#446d96ce8c015d380dfa4d805296cc4e3ce6c00d"
   integrity sha512-o7jF8cCzfhTZXvGySudi/Tx72Dqv6mce8Qq58jXWXEpbMV8KJwYuX2BMhIZilNZWyCk0IUqofVPMmampga6nfQ==
 
-turbo@^1.2.2:
+turbo@latest:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/turbo/-/turbo-1.2.2.tgz#27e9530cfa8457d2dae50c538073f6d8fcc2e78c"
   integrity sha512-gt+QuvZVAQVcrKhgSCDJObIdh12bpt4zWOPe0yiWD/zyRJjNzkiXxR6WKSuAEUl0uQIB4XrRn2OGTmrR7KROJw==
