@@ -1,0 +1,21 @@
+{
+  "name": "db",
+  "version": "1.0.0",
+  "description": "Database (sqlite + sequalize)",
+  "main": "./dist/index.js",
+  "files": [
+    "models/**/*.ts"
+  ],
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "tsconfig": "*",
+    "interface": "*",
+    "utils": "*",
+    "typescript": "^4.6.3"
+  },
+  "dependencies": {
+    "sequelize": "^6.19.0",
+    "sqlite3": "^5.0.3"
+  }
+}
