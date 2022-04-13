@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "ws",
   "version": "1.0.0",
   "description": "Api and websocket server",
   "main": "dist/server.js",
