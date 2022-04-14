@@ -1,8 +1,8 @@
 export interface TournamentResponse {
-  tournament: TournamentInterface
+  tournament: Tournament
 }
 
-export type TournamentInterface = {
+export type Tournament = {
   accept_attachments?: boolean
   allow_participant_match_reporting?: boolean
   anonymous_voting?: boolean

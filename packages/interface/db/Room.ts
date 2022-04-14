@@ -1,8 +1,8 @@
-import { TournamentInterface } from "../challonge"
+import { Tournament } from "../challonge"
 
 export interface RoomInterface {
   id: number
   name: string
   password: string | null
-  tournament: TournamentInterface
+  tournament: Tournament
 }

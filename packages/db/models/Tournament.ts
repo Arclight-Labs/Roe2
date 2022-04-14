@@ -1,4 +1,4 @@
-import { TournamentInterface } from "interface"
+import { Tournament as TournamentInterface } from "interface"
 import { DataTypes, Model } from "sequelize"
 import { sequelize } from "../sequelize"
 

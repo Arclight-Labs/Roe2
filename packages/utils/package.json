@@ -6,7 +6,8 @@
     "hooks/**/*.ts",
     "redux/**/*.ts",
     "socket/**/*.ts",
-    "api/**/*.ts"
+    "api/**/*.ts",
+    "./**/*.ts"
   ],
   "author": "AcadArena",
   "license": "MIT",

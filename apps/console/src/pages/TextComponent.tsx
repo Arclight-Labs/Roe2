@@ -1,5 +1,6 @@
 import { Button } from "@mantine/core"
-import { useAppSelector, useTournamentAction } from "utils"
+import { useAppSelector } from "utils/hooks"
+import { useTournamentAction } from "utils/socket"
 
 const TextComponent = () => {
   const tournament = useAppSelector((state) => state.tournament)

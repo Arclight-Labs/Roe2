@@ -3,9 +3,9 @@ import { MantineProvider } from "ui"
 import { ColorScheme, ColorSchemeProvider } from "@mantine/core"
 import AppShell from "./ui/AppShell"
 import { Provider } from "react-redux"
-import { store } from "utils"
+import { store } from "utils/redux"
 import TextComponent from "./pages/TextComponent"
-import { SocketProvider } from "utils"
+import { SocketProvider } from "utils/socket"
 import { NotificationsProvider } from "@mantine/notifications"
 
 function App() {
