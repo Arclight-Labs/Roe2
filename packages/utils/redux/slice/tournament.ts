@@ -1,9 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import type { RootState } from "../store"
 
 import { Tournament } from "interface"
 
-const initialState: Tournament = { name: "", id: 0 }
+const initialState: Tournament = { name: "", _id: 0 }
 
 export const tournamentSlice = createSlice({
   name: "tournament",

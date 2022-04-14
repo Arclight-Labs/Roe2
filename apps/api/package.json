@@ -5,7 +5,8 @@
   "main": "./dist/index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "tsnd --respawn ./src"
+    "dev": "tsnd --respawn ./src",
+    "build": "tsc"
   },
   "devDependencies": {
     "interface": "*",
