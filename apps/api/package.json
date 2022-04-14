@@ -2,6 +2,20 @@
   "name": "api",
   "version": "1.0.0",
   "description": "REST api for saving changes",
-  "main": "index.js",
-  "license": "MIT"
+  "main": "./dist/index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsnd --respawn ./src"
+  },
+  "devDependencies": {
+    "interface": "*",
+    "typescript": "^4.6.3"
+  },
+  "dependencies": {
+    "utils": "*",
+    "fastify": "^3.28.0",
+    "fastify-plugin": "^3.0.1",
+    "sequelize": "^6.19.0",
+    "sqlite3": "^5.0.3"
+  }
 }

@@ -2,7 +2,9 @@ export interface TournamentResponse {
   tournament: Tournament
 }
 
-export type Tournament = {
+type ID = { _id: number }
+
+export type Tournament = ID & {
   accept_attachments?: boolean
   allow_participant_match_reporting?: boolean
   anonymous_voting?: boolean
