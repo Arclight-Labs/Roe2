@@ -9,7 +9,7 @@ import { sequelize } from "./sequelize"
  * - {@link Room}
  * - {@link Tournament}
  */
-export async function initialize() {
+export function initialize() {
   // Initialize sequelize
   sequelize
     .authenticate()
@@ -17,8 +17,8 @@ export async function initialize() {
     .catch((err) => console.error("Unable to connect to database:", err))
 
   // Initialize all models
-  await Room.sync()
-  await Tournament.sync()
+  Room.sync().then(() => console.log("Room table synced"))
+  Tournament.sync().then(() => console.log("Tournament table synced"))
 
   /**
    * Return sequelize instance. This package is intended to be exported
