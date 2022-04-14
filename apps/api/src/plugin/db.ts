@@ -2,6 +2,7 @@ import fp from "fastify-plugin"
 import { ErrMsg } from "utils/api"
 import { Room } from "../models/Room"
 import { Tournament } from "../models/Tournament"
+import { User } from "../models/User"
 import { sequelize } from "../sequelize"
 
 export default fp(async (server) => {
@@ -14,6 +15,7 @@ export default fp(async (server) => {
 
   Room.sync().then(() => console.log("[Table] Room - synced"))
   Tournament.sync().then(() => console.log("[Table] Tournament - synced"))
+  User.sync().then(() => console.log("[Table] User - synced"))
 
   await Room.create({ name: "DEFAULT Room", password: "test" })
     .then((room) => console.log(room.get()))

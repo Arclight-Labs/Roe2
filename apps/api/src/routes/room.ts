@@ -19,7 +19,7 @@ export const room: FastifyPluginCallback = (server, opts, done) => {
       const err = { message: "Room not found", error, statusCode }
       return res.status(statusCode).send(err)
     }
-    res.status(200).send(room)
+    res.status(200).send(room.toJSON())
   })
 
   done()

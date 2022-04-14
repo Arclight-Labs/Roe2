@@ -1,4 +1,4 @@
-import { DataTypes, Model, Optional } from "sequelize"
+import { DataTypes, Model } from "sequelize"
 import { sequelize } from "../sequelize"
 
 import { Room as RoomInterface } from "interface/db"
@@ -10,11 +10,11 @@ type RoomCreate = Pick<RoomInterface, "name" | "password">
 export class Room extends Model<RoomInterface, RoomCreate> {}
 Room.init(
   {
-    id: {
-      type: DataTypes.INTEGER,
+    _id: {
+      type: DataTypes.UUID,
       primaryKey: true,
-      autoIncrement: true,
       unique: true,
+      defaultValue: DataTypes.UUIDV4,
     },
     name: { type: DataTypes.STRING, allowNull: false, unique: true },
     password: {
@@ -33,9 +33,5 @@ Room.init(
       },
     },
   },
-  {
-    sequelize,
-    modelName: "Room",
-    tableName: process.env.NODE_ENV === "development" ? "Room_DEV" : "Room",
-  }
+  { sequelize, modelName: "Room" }
 )

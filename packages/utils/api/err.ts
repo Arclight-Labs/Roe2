@@ -5,7 +5,6 @@ export interface Error {
 
 export function ErrMsg(error: Error) {
   const { message = "", errors = [] } = error
-  console.log(error)
   const errorMessages = errors
     .map(
       ({ message, value, path }, i) =>

@@ -13,10 +13,5 @@ Tournament.init(
     },
     name: DataTypes.STRING,
   },
-  {
-    sequelize,
-    modelName: "Tournament",
-    tableName:
-      process.env.NODE_ENV === "development" ? "Tournament_DEV" : "Tournament",
-  }
+  { sequelize, modelName: "Tournament" }
 )
