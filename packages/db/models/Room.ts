@@ -2,6 +2,7 @@ import { DataTypes, Model, Optional } from "sequelize"
 import { sequelize } from "../sequelize"
 
 import { RoomInterface } from "interface"
+import { Tournament } from "./Tournament"
 
 type RoomCreate = Optional<RoomInterface, "id">
 
@@ -16,6 +17,13 @@ Room.init(
     },
     name: { type: DataTypes.STRING, allowNull: false, unique: true },
     password: { type: DataTypes.STRING, allowNull: true },
+    tournament: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: Tournament,
+        key: "id",
+      },
+    },
   },
   { sequelize, modelName: "Room" }
 )

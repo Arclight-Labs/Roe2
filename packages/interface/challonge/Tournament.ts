@@ -1,8 +1,8 @@
 export interface TournamentResponse {
-  tournament: Tournament
+  tournament: TournamentInterface
 }
 
-export type Tournament = {
+export type TournamentInterface = {
   accept_attachments?: boolean
   allow_participant_match_reporting?: boolean
   anonymous_voting?: boolean
@@ -44,9 +44,9 @@ export type Tournament = {
   sequential_pairings?: boolean
   show_rounds?: boolean
   signup_cap?: null
-  start_at?: null
-  started_at?: null
-  started_checking_in_at?: null
+  start_at?: Date | null
+  started_at?: Date | null
+  started_checking_in_at?: String | null
   state?: string
   swiss_rounds?: number
   teams?: boolean
@@ -55,7 +55,7 @@ export type Tournament = {
   updated_at?: string
   url?: string
   description_source?: string
-  subdomain?: null
+  subdomain?: string
   full_challonge_url?: string
   live_image_url?: string
   sign_up_url?: null

@@ -2,7 +2,7 @@
   "name": "db",
   "version": "1.0.0",
   "description": "Database (sqlite + sequalize)",
-  "main": "./dist/index.js",
+  "main": "index.ts",
   "files": [
     "models/**/*.ts"
   ],
