@@ -1,0 +1,7 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "REST api for saving changes",
+  "main": "index.js",
+  "license": "MIT"
+}
