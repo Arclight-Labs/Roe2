@@ -2,8 +2,7 @@ import { FastifyReply, FastifyRequest, RouteHandler } from "fastify"
 import jwt from "jsonwebtoken"
 import { JWT_SECRET } from "../utils/secrets"
 import { RouteGenericInterface } from "fastify/types/route"
-import { getUser } from "../service/user"
-import { User, User as UserModel } from "../models/User"
+import { Room } from "../models/Room"
 
 /**
  * Higher order function that acts as a middleware to check auth
@@ -12,7 +11,7 @@ import { User, User as UserModel } from "../models/User"
  * Usage:
  * ---
  * ```ts
- * server.get("/", withAuth((req, res, user) => {
+ * server.get("/", withRoomAuth((req, res, room) => {
  *  //... your code here
  * }))
  *
@@ -22,21 +21,21 @@ import { User, User as UserModel } from "../models/User"
 type Fn = (
   req: FastifyRequest,
   res: FastifyReply,
-  user: User
+  room: Room
 ) => void | Promise<RouteGenericInterface["Reply"] | void>
 
-export const withAuth = (fn: Fn): RouteHandler => {
+export const withRoomAuth = (fn: Fn): RouteHandler => {
   return async (req, res) => {
-    const token = req.headers.authorization || req.cookies.token || ""
+    const token =
+      (req.headers.roomToken as string) || req.cookies.roomToken || ""
     try {
       if (!token) throw new Error("Unauthorized")
-      const user = jwt.verify(token, JWT_SECRET) as User
-      const updatedUser = await getUser(user._id)
-      return fn(req, res, updatedUser || user)
+      const room = jwt.verify(token, JWT_SECRET) as Room
+      return fn(req, res, room)
     } catch (e) {
-      const message = ((e as Error).message as string) || "Invalid token"
+      const message = ((e as Error).message as string) || "Invalid room token"
       return res
-        .clearCookie(UserModel.tokenName)
+        .clearCookie(Room.tokenName)
         .status(400)
         .send({ success: false, message })
     }

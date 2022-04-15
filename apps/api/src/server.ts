@@ -1,20 +1,24 @@
 import fastify from "fastify"
 import db from "./plugin/db"
-import { room, tournament, user } from "./routes"
+import { roomRoutes, tournamentRoutes, userRoutes, authRoutes } from "./routes"
 import fastifyCookie from "fastify-cookie"
-// import { initialize } from "./sequelize"
+import { COOKIE_SECRET } from "./utils/secrets"
 
 function createServer() {
   const server = fastify()
   const instance = server
     .register(db)
     .register(fastifyCookie, {
-      secret: process.env.COOKIE_SECRET,
-      parseOptions: {},
+      secret: COOKIE_SECRET.split(","),
+      parseOptions: {
+        httpOnly: true,
+        path: "/",
+      },
     })
-    .register(room, { prefix: "room" })
-    .register(tournament, { prefix: "tournament" })
-    .register(user, { prefix: "user" })
+    .register(roomRoutes, { prefix: "room" })
+    .register(tournamentRoutes, { prefix: "tournament" })
+    .register(userRoutes, { prefix: "user" })
+    .register(authRoutes, { prefix: "auth" })
   return instance
 }
 

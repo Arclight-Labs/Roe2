@@ -8,6 +8,7 @@ export class User extends Model<
   UserCredentials,
   Optional<UserCredentials, "_id" | "avatar">
 > {
+  static tokenName = "token"
   declare _id: string
   declare username: string
   declare avatar: string | null

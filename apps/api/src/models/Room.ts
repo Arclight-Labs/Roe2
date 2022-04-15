@@ -7,7 +7,13 @@ import hash from "../utils/hash"
 
 type RoomCreate = Pick<RoomInterface, "name" | "password">
 
-export class Room extends Model<RoomInterface, RoomCreate> {}
+export class Room extends Model<RoomInterface, RoomCreate> {
+  static tokenName = "roomToken"
+  declare _id: string
+  declare name: string
+  declare password: string
+  declare tournament: string
+}
 Room.init(
   {
     _id: {
@@ -22,6 +28,9 @@ Room.init(
       allowNull: true,
       set(value: string) {
         this.setDataValue("password", hash(value))
+      },
+      get() {
+        return undefined
       },
     },
     tournament: {

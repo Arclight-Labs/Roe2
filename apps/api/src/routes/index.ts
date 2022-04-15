@@ -1,3 +1,4 @@
-export { room } from "./room"
-export { tournament } from "./tournament"
-export { user } from "./user"
+export { roomRoutes } from "./room"
+export { tournamentRoutes } from "./tournament"
+export { userRoutes } from "./user"
+export { authRoutes } from "./auth"
