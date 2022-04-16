@@ -20,6 +20,10 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/lang/en/) as a package ma
 
 Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
+### API
+
+Read the [documentation](https://documenter.getpostman.com/view/15039556/Uyr5ne83)
+
 ### Utilities
 
 This turborepo has some additional tools already setup for you:
