@@ -2,7 +2,7 @@ import { DataTypes, Model, Optional } from "sequelize"
 import { sequelize } from "../sequelize"
 
 import { UserCredentials } from "interface/db"
-import hash from "../utils/hash"
+import { hash } from "utils/api"
 
 export class User extends Model<
   UserCredentials,

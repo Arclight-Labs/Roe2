@@ -3,7 +3,7 @@ import { sequelize } from "../sequelize"
 
 import { Room as RoomInterface } from "interface/db"
 import { Tournament } from "./Tournament"
-import hash from "../utils/hash"
+import { hash } from "utils/api"
 
 type RoomCreate = Pick<RoomInterface, "name" | "password">
 

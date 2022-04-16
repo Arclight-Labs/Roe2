@@ -2,11 +2,9 @@
  * Root level routes
  */
 import { FastifyPluginCallback } from "fastify"
-import { User } from "../models/User"
 import { withAuth } from "../plugin/withAuth"
 import { LoginInfer, loginSchema } from "../schema/login"
 import { loginUser } from "../service/user"
-import hash from "../utils/hash"
 import { setLoginCookie } from "../utils/setJwtCookie"
 
 export const authRoutes: FastifyPluginCallback = (server, opts, done) => {

@@ -8,4 +8,6 @@ export const SocketContext = createContext<Socket>(socket)
 export const SocketContextDispatch = createContext<SocketEmitters>({
   tournament() {},
   ping() {},
+  error() {},
+  joinRoom() {},
 })

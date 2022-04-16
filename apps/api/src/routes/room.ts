@@ -5,7 +5,6 @@ import { withAuth } from "../plugin/withAuth"
 import { withRoomAuth } from "../plugin/withRoomAuth"
 import { LoginInfer, loginSchema } from "../schema/login"
 import { loginRoom, updateRoom } from "../service/room"
-import hash from "../utils/hash"
 import { setLoginCookie } from "../utils/setJwtCookie"
 
 interface Params {
