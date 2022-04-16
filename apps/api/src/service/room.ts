@@ -1,7 +1,7 @@
 import { Room } from "../models/Room"
 import { Room as RoomInterface } from "interface/db/Room"
 import { Op } from "sequelize"
-import hash from "../utils/hash"
+import { hash } from "utils/api"
 
 export const getRoom = (idOrRoomname: string) => {
   return Room.findOne({

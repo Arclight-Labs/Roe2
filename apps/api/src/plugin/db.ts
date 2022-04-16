@@ -17,7 +17,7 @@ export default fp(async (server) => {
   Tournament.sync().then(() => console.log("[Table] Tournament - synced"))
   User.sync().then(() => console.log("[Table] User - synced"))
 
-  await Room.create({ name: "DEFAULT Room", password: "test" })
+  await Room.create({ name: "Default", password: "123123" })
     .then((room) => console.log(room.get()))
     .catch((err) => console.error(ErrMsg(err)))
 })

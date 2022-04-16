@@ -5,12 +5,12 @@ import { useWsAction } from "utils/socket"
 
 const TextComponent = () => {
   const tournament = useAppSelector((state) => state.tournament)
-  const [roomName, setRoomName] = useState("")
+  const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const { joinRoom } = useWsAction()
 
   const onJoin = () => {
-    joinRoom({ roomName, password })
+    joinRoom({ username, password })
   }
 
   return (
@@ -18,8 +18,8 @@ const TextComponent = () => {
       <Group>
         <TextInput
           label="Room"
-          value={roomName}
-          onChange={(e) => setRoomName(e.target.value)}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
         <TextInput
           label="Password"
