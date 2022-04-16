@@ -1,6 +1,7 @@
 import { User } from "../models/User"
 import { Op } from "sequelize"
 import hash from "../utils/hash"
+import { UserCreateInfer } from "../schema/user"
 
 export const getUser = (idOrUsername: string) =>
   User.findOne({
@@ -15,3 +16,6 @@ export const loginUser = (username: string, password: string) =>
     attributes: { exclude: ["password"] },
     where: { username, password: hash(password) },
   })
+
+export const createUser = (credentials: UserCreateInfer) =>
+  User.create(credentials)

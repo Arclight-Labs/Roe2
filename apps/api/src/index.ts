@@ -1,4 +1,4 @@
-import "dotenv/config"
+require("dotenv").config({ path: "../../.env" })
 import createServer from "./server"
 
 const PORT = process.env.PORT || 1400
