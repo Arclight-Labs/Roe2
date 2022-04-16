@@ -9,6 +9,8 @@
     "albert.tabout",
     "toba.vsfire",
     "ms-vsliveshare.vsliveshare",
-    "eamodio.gitlens"
+    "eamodio.gitlens",
+    "qwtel.sqlite-viewer",
+    "alexcvzz.vscode-sqlite"
   ]
 }
