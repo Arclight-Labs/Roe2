@@ -4,7 +4,7 @@ import { FunctionComponent, Suspense } from "react"
 import { useRoutes } from "react-router-dom"
 import TextComponent from "../pages/TextComponent"
 import AppShell from "../ui/AppShell"
-import AuthGuard from "../ui/AuthGuard"
+import AuthGuard from "../ui/guards/AuthGuard"
 
 const Login = Loadable(lazy(() => import("../pages/Login")))
 const SignUp = Loadable(lazy(() => import("../pages/SignUp")))

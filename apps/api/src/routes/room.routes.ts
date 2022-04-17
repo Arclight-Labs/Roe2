@@ -1,9 +1,9 @@
 import { FastifyPluginCallback } from "fastify"
 import { runAsync } from "utils/hooks"
-import { Room } from "../models/Room"
+import { Room } from "../models/Room.model"
 import { withAuth } from "../plugin/withAuth"
 import { withRoomAuth } from "../plugin/withRoomAuth"
-import { LoginInfer, loginSchema } from "utils/schema/login"
+import { LoginInfer, loginSchema } from "utils/schema/login.schema"
 import { loginRoom, updateRoom } from "../service/room"
 import { setLoginCookie } from "../utils/setJwtCookie"
 

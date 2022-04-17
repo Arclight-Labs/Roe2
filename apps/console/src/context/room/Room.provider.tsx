@@ -1,22 +1,22 @@
 import { showNotification } from "@mantine/notifications"
-import { Cookie, User } from "interface"
+import { Cookie, Room, User } from "interface"
 import { PropsWithChildren, useState } from "react"
 import { useCookies } from "react-cookie"
 import { userCreate, userLogin, userLogout } from "utils/api/queries"
 import { queryClient } from "../../App"
-import { authContext, authActions } from "./Auth.context"
+import { roomContext, roomActions } from "./Room.context"
 
-const AuthProvider = ({ children }: PropsWithChildren<{}>) => {
-  const [, , removeCookie] = useCookies([Cookie.User])
+const RoomProvider = ({ children }: PropsWithChildren<{}>) => {
+  const [, , removeCookie] = useCookies([Cookie.Room])
   const [user, setUser] = useState<User | null>(null)
 
-  const set = (user: User | null) => {
-    setUser(user)
+  const set = (room: Partial<Room>) => {
+    // setRoom(room)
   }
 
   const logout = async () => {
-    await userLogout()
-    removeCookie(Cookie.User)
+    // await userLogout()
+    removeCookie(Cookie.Room)
     setUser(null)
     queryClient.removeQueries("authCheck")
   }
@@ -49,18 +49,18 @@ const AuthProvider = ({ children }: PropsWithChildren<{}>) => {
   }
 
   return (
-    <authContext.Provider value={user}>
-      <authActions.Provider
+    <roomContext.Provider value={user}>
+      <roomActions.Provider
         value={{
-          set,
           login,
           logout,
           create,
+          set,
         }}
       >
         {children}
-      </authActions.Provider>
-    </authContext.Provider>
+      </roomActions.Provider>
+    </roomContext.Provider>
   )
 }
-export default AuthProvider
+export default RoomProvider

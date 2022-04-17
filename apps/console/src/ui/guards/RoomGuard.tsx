@@ -2,11 +2,11 @@ import { PropsWithChildren, useEffect, useState } from "react"
 import { useCookies } from "react-cookie"
 import { useQuery } from "react-query"
 import { Navigate, useLocation, useNavigate } from "react-router-dom"
-import { checkAuth } from "utils/api"
-import { useAuth, useAuthActions } from "../context/auth/Auth.hooks"
-import Login from "../pages/Login"
+import { checkAuth } from "utils/api/queries"
+import { useAuth, useAuthActions } from "../../context/auth/Auth.hooks"
+import Login from "../../pages/Login"
 
-const AuthGuard = ({ children }: PropsWithChildren<{}>) => {
+const RoomGuard = ({ children }: PropsWithChildren<{}>) => {
   const auth = useAuth()
   const [cookies] = useCookies(["token"])
   const navigate = useNavigate()
@@ -34,4 +34,4 @@ const AuthGuard = ({ children }: PropsWithChildren<{}>) => {
   return <>{children}</>
 }
 
-export default AuthGuard
+export default RoomGuard

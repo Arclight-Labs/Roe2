@@ -1,5 +1,5 @@
 import { FastifyReply } from "fastify"
-import { User } from "../models/User"
+import { User } from "../models/User.model"
 import jwt from "jsonwebtoken"
 import { JWT_SECRET } from "./secrets"
 import { Model } from "sequelize"

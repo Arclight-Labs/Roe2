@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken"
 import { JWT_SECRET } from "../utils/secrets"
 import { RouteGenericInterface } from "fastify/types/route"
 import { getUser } from "../service/user"
-import { User, User as UserModel } from "../models/User"
+import { User, User as UserModel } from "../models/User.model"
 
 /**
  * Higher order function that acts as a middleware to check auth

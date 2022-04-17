@@ -2,7 +2,7 @@ import { FastifyReply, FastifyRequest, RouteHandler } from "fastify"
 import jwt from "jsonwebtoken"
 import { JWT_SECRET } from "../utils/secrets"
 import { RouteGenericInterface } from "fastify/types/route"
-import { Room } from "../models/Room"
+import { Room } from "../models/Room.model"
 
 /**
  * Higher order function that acts as a middleware to check auth

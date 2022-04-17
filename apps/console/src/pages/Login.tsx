@@ -12,7 +12,7 @@ import {
 } from "@mantine/core"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { LoginInfer, loginSchema } from "utils/schema/login"
+import { LoginInfer, loginSchema } from "utils/schema/login.schema"
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import { useAuthActions } from "../context/auth/Auth.hooks"

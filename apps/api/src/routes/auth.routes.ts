@@ -3,10 +3,10 @@
  */
 import { FastifyPluginCallback } from "fastify"
 import { withAuth } from "../plugin/withAuth"
-import { LoginInfer, loginSchema } from "utils/schema/login"
+import { LoginInfer, loginSchema } from "utils/schema/login.schema"
 import { loginUser } from "../service/user"
 import { setLoginCookie } from "../utils/setJwtCookie"
-import { User } from "../models/User"
+import { User } from "../models/User.model"
 
 export const authRoutes: FastifyPluginCallback = (server, opts, done) => {
   // Check current logged-in user

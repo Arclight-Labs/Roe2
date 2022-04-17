@@ -1,8 +1,8 @@
 import fp from "fastify-plugin"
 import { ErrMsg } from "utils/api"
-import { Room } from "../models/Room"
-import { Tournament } from "../models/Tournament"
-import { User } from "../models/User"
+import { Room } from "../models/Room.model"
+import { Tournament } from "../models/Tournament.model"
+import { User } from "../models/User.model"
 import { sequelize } from "../sequelize"
 
 export default fp(async (server) => {
