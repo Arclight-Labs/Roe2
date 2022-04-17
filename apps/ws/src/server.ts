@@ -3,7 +3,7 @@ import { Server } from "socket.io"
 import http from "http"
 import { tournamentEvents } from "./events/tournaments"
 import { getTournament } from "./store/tournament"
-import { roomEvents } from "./events/room"
+import roomEvents from "./events/room"
 
 const PORT = process.env.PORT || 1337
 
@@ -27,7 +27,7 @@ io.on("connection", async (socket) => {
     io.emit("ping", data)
   })
   tournamentEvents(io, socket)
-  roomEvents(io, socket)
+  roomEvents(socket)
 })
 
 httpServer.listen(PORT, () => {

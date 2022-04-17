@@ -1,7 +1,5 @@
 import { Server, Socket } from "socket.io"
 import { NotifProps, Room, SocketEvent } from "interface"
-import { joinRoom } from "utils/api"
-import { runAsync } from "utils/hooks"
 
 interface JoinRoomProps {
   username: string
