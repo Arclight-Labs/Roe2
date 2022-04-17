@@ -28,7 +28,6 @@ type Fn = (
 export const withAuth = (fn: Fn): RouteHandler => {
   return async (req, res) => {
     const token = req.headers.authorization || req.cookies.token || ""
-    console.log(token)
     try {
       if (!token) {
         return res
