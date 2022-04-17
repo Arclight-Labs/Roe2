@@ -1,13 +1,15 @@
 import { SocketEvent } from "./SocketEvent.interface"
 import { Tournament } from ".."
 import { NotificationProps } from "@mantine/notifications"
+import { WithAuth } from "../utils"
 export type SocketEmitter = (...args: any[]) => any
 export type SocketEmitterType = Record<SocketEvent, SocketEmitter>
 
-type Ping = (date: number) => void
-type SetTournament = (payload: Partial<Tournament>) => void
-type JoinRoom = (payload: { username: string; password: string }) => void
-type Notif = (props: NotificationProps) => void
+export type Ping = (date: number) => any | Promise<any>
+export type SetTournament = (payload: Partial<Tournament>) => any | Promise<any>
+export type JoinRoomProps = WithAuth<{ username: string; password: string }>
+export type JoinRoom = (payload: JoinRoomProps) => any | Promise<any>
+export type Notif = (props: NotificationProps) => any | Promise<any>
 
 export interface SocketEmitters extends SocketEmitterType {
   joinRoom: JoinRoom

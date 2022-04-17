@@ -1,10 +1,6 @@
-import { SocketEvent } from "interface"
+import { JoinRoom, SocketEvent, WithAuth } from "interface"
 import { socket } from "../Socket.instance"
 
-interface Props {
-  username: string
-  password: string
-}
-export const joinRoom = (props: Props) => {
+export const joinRoom: JoinRoom = (props) => {
   socket.emit(SocketEvent.JoinRoom, props)
 }

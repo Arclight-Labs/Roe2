@@ -1,7 +1,6 @@
-import { NotificationProps } from "@mantine/notifications"
-import { SocketEvent } from "interface"
+import { Notif, SocketEvent } from "interface/ws"
 import { socket } from "../Socket.instance"
 
-export const errorEmit = (props: NotificationProps) => {
+export const errorEmit: Notif = (props) => {
   socket.emit(SocketEvent.Error, props)
 }
