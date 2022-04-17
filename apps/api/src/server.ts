@@ -10,10 +10,7 @@ function createServer() {
     .register(db)
     .register(fastifyCookie, {
       secret: COOKIE_SECRET.split(","),
-      parseOptions: {
-        httpOnly: true,
-        path: "/",
-      },
+      parseOptions: { httpOnly: true, path: "/" },
     })
     .register(roomRoutes, { prefix: "room" })
     .register(tournamentRoutes, { prefix: "tournament" })

@@ -12,9 +12,10 @@ const AuthGuard = ({ children }: PropsWithChildren<{}>) => {
   const navigate = useNavigate()
   const { set } = useAuthActions()
   const { data } = useQuery("authCheck", checkAuth, {
-    enabled: cookies.token,
     keepPreviousData: false,
+    refetchInterval: 3000,
     onSuccess: set,
+    onError: () => set(null),
   })
   const { pathname } = useLocation()
   const [reqLocation, setReqLocation] = useState<string | null>(null)

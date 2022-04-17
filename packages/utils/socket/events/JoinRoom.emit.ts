@@ -1,9 +1,8 @@
-import { NotificationProps } from "@mantine/notifications"
 import { SocketEvent } from "interface"
 import { socket } from "../Socket.instance"
 
 interface Props {
-  roomName: string
+  username: string
   password: string
 }
 export const joinRoom = (props: Props) => {

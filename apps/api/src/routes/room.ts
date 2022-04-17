@@ -31,10 +31,6 @@ export const roomRoutes: FastifyPluginCallback = (server, opts, done) => {
   server.post(
     "/join",
     withAuth(async (req, res, user) => {
-      if (!user) {
-        return res.status(401).send({ message: "Login Required" })
-      }
-
       const body = req.body as LoginInfer
       const result = loginSchema.safeParse(body)
       if (!result.success) {
@@ -44,7 +40,9 @@ export const roomRoutes: FastifyPluginCallback = (server, opts, done) => {
       const password = body.password
       const room = await loginRoom(roomname, password)
       if (!room) {
-        return res.status(400).send({ success: false, message: "Unauthorized" })
+        return res
+          .status(400)
+          .send({ success: false, message: "Invalid room credentials" })
       }
 
       return setLoginCookie(res, room, Room.tokenName).send({

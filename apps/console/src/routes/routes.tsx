@@ -2,6 +2,7 @@ import { LoadingOverlay } from "@mantine/core"
 import { lazy } from "react"
 import { FunctionComponent, Suspense } from "react"
 import { useRoutes } from "react-router-dom"
+import TextComponent from "../pages/TextComponent"
 import AppShell from "../ui/AppShell"
 import AuthGuard from "../ui/AuthGuard"
 
@@ -38,7 +39,7 @@ const Routes = () => {
       element: (
         <AuthGuard>
           <AppShell version={import.meta.env.PACKAGE_VERSION}>
-            <div>halo</div>
+            <TextComponent />
           </AppShell>
         </AuthGuard>
       ),

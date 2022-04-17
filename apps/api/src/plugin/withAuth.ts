@@ -28,11 +28,13 @@ type Fn = (
 export const withAuth = (fn: Fn): RouteHandler => {
   return async (req, res) => {
     const token = req.headers.authorization || req.cookies.token || ""
+    console.log(token)
     try {
-      if (!token)
+      if (!token) {
         return res
           .status(401)
           .send({ success: false, message: "Login Required" })
+      }
       const user = jwt.verify(token, JWT_SECRET) as User
       const updatedUser = await getUser(user._id)
       return fn(req, res, updatedUser || user)
