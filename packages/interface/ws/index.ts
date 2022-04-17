@@ -1,2 +1,2 @@
-export * from "./SocketEvent"
-export * from "./SocketEmitter"
+export * from "./SocketEvent.interface"
+export * from "./SocketEmitter.interface"

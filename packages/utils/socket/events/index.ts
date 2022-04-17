@@ -1,7 +1,13 @@
-export * from "./Tournament.emit"
-export * from "./Tournament.listen"
-export * from "./Ping.emit"
-export * from "./Ping.listen"
+export { tournament } from "./Tournament.emit"
+export { tournamentListen } from "./Tournament.listen"
+
+export { ping } from "./Ping.emit"
+export { pingListen } from "./Ping.listen"
+
 export { errorEmit } from "./Error.emit"
 export { errorListen } from "./Error.listen"
+
 export { joinRoom } from "./JoinRoom.emit"
+
+export { notif } from "./Notif.emit"
+export { notifListen } from "./Notif.listen"

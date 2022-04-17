@@ -3,4 +3,5 @@ export enum SocketEvent {
   Ping = "ping",
   JoinRoom = "joinRoom",
   Error = "error",
+  Notify = "notif",
 }

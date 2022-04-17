@@ -1,1 +1,1 @@
-export * from "./Tournament"
+export * from "./Tournament.interface"

@@ -1,3 +1,3 @@
-export * from "./Room"
-export * from "./User"
-export * from "./Utils"
+export * from "./Room.interface"
+export * from "./User.interface"
+export * from "./Utils.interface"

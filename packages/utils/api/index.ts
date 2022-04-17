@@ -1,3 +1,3 @@
 export { ErrMsg } from "./err"
 export { default as hash } from "./hash"
-export { ax, joinRoom, checkAuth, userLogin, userCreate } from "./queries"
+export { default as ax } from "./axios"

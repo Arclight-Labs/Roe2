@@ -9,5 +9,8 @@
   "devDependencies": {
     "tsconfig": "*",
     "typescript": "^4.6.3"
+  },
+  "dependencies": {
+    "@mantine/notifications": "^4.1.4"
   }
 }
