@@ -35,5 +35,16 @@ User.init(
       },
     },
   },
-  { sequelize, modelName: "User" }
+  {
+    sequelize,
+    modelName: "User",
+    defaultScope: {
+      attributes: { exclude: ["password"] },
+    },
+    scopes: {
+      withPassword: {
+        attributes: { include: ["password"] },
+      },
+    },
+  }
 )

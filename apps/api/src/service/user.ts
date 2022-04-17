@@ -1,7 +1,7 @@
 import { User } from "../models/User"
 import { Op } from "sequelize"
 import { hash } from "utils/api"
-import { UserCreateInfer } from "../schema/user"
+import { UserCreateInfer } from "utils/schema/user"
 
 export const getUser = (idOrUsername: string) =>
   User.findOne({

@@ -3,16 +3,17 @@
  */
 import { FastifyPluginCallback } from "fastify"
 import { withAuth } from "../plugin/withAuth"
-import { LoginInfer, loginSchema } from "../schema/login"
+import { LoginInfer, loginSchema } from "utils/schema/login"
 import { loginUser } from "../service/user"
 import { setLoginCookie } from "../utils/setJwtCookie"
+import { User } from "../models/User"
 
 export const authRoutes: FastifyPluginCallback = (server, opts, done) => {
   // Check current logged-in user
   server.get(
     "/me",
-    withAuth((req, res, user) => {
-      res.status(200).send(user)
+    withAuth(async (req, res, user) => {
+      return res.status(200).send(user)
     })
   )
 
@@ -33,7 +34,9 @@ export const authRoutes: FastifyPluginCallback = (server, opts, done) => {
     const password = body.password
     const user = await loginUser(username, password)
     if (!user) {
-      return res.status(400).send({ success: false, message: "Unauthorized" })
+      return res
+        .status(400)
+        .send({ success: false, message: "Invalid credentials" })
     }
 
     return setLoginCookie(res, user).send({
@@ -41,6 +44,13 @@ export const authRoutes: FastifyPluginCallback = (server, opts, done) => {
       message: "You are are now logged in",
       data: user.toJSON(),
     })
+  })
+
+  server.post("/logout", async (req, res) => {
+    res
+      .clearCookie(User.tokenName)
+      .setCookie(User.tokenName, "")
+      .send({ success: true, message: "You are now logged out" })
   })
 
   done()

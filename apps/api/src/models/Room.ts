@@ -42,5 +42,16 @@ Room.init(
       },
     },
   },
-  { sequelize, modelName: "Room" }
+  {
+    sequelize,
+    modelName: "Room",
+    defaultScope: {
+      attributes: { exclude: ["password"] },
+    },
+    scopes: {
+      withPassword: {
+        attributes: { include: ["password"] },
+      },
+    },
+  }
 )

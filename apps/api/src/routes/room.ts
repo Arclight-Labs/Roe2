@@ -3,7 +3,7 @@ import { runAsync } from "utils/hooks"
 import { Room } from "../models/Room"
 import { withAuth } from "../plugin/withAuth"
 import { withRoomAuth } from "../plugin/withRoomAuth"
-import { LoginInfer, loginSchema } from "../schema/login"
+import { LoginInfer, loginSchema } from "utils/schema/login"
 import { loginRoom, updateRoom } from "../service/room"
 import { setLoginCookie } from "../utils/setJwtCookie"
 
@@ -27,9 +27,14 @@ export const roomRoutes: FastifyPluginCallback = (server, opts, done) => {
     res.status(200).send(room.toJSON())
   })
 
+  // Authenticate to a room and save it to a cookie
   server.post(
-    "/authenticate",
-    withAuth(async (req, res) => {
+    "/join",
+    withAuth(async (req, res, user) => {
+      if (!user) {
+        return res.status(401).send({ message: "Login Required" })
+      }
+
       const body = req.body as LoginInfer
       const result = loginSchema.safeParse(body)
       if (!result.success) {

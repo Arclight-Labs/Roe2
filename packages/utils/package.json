@@ -7,6 +7,7 @@
     "redux/**/*.ts",
     "socket/**/*.ts",
     "api/**/*.ts",
+    "schema/**/*.ts",
     "./**/*.ts"
   ],
   "author": "AcadArena",
@@ -20,7 +21,8 @@
     "react": "^18.0.0",
     "react-redux": "^7.2.8",
     "redux": "^4.1.2",
-    "socket.io-client": "^4.4.1"
+    "socket.io-client": "^4.4.1",
+    "zod": "^3.14.4"
   },
   "devDependencies": {
     "@types/react": "^18.0.1",

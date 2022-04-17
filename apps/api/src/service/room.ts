@@ -12,10 +12,11 @@ export const getRoom = (idOrRoomname: string) => {
   })
 }
 export const loginRoom = (username: string, password: string) => {
+  const sentinelValue = { [Op.like]: username }
   return Room.findOne({
     attributes: { exclude: ["password"] },
     where: {
-      [Op.or]: [{ _id: username, name: username }],
+      [Op.or]: [{ _id: username }, { name: sentinelValue }],
       password: hash(password),
     },
   })
