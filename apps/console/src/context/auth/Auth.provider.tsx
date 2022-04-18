@@ -33,13 +33,15 @@ const AuthProvider = ({ children }: PropsWithChildren<{}>) => {
       })
     }
   }
+
   const create = async (username: string, password: string) => {
     try {
       const user = await userCreate(username, password)
       setUser(user)
       return user
     } catch (e: any) {
-      const message = e?.response?.data?.message || ""
+      console
+      const message = e?.response?.data?.message || e?.message || ""
       showNotification({
         title: "Signup failed",
         message,
