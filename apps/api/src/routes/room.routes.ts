@@ -4,7 +4,7 @@ import { Room } from "../models/Room.model"
 import { withAuth } from "../plugin/withAuth"
 import { withRoomAuth } from "../plugin/withRoomAuth"
 import { LoginInfer, loginSchema } from "utils/schema/login.schema"
-import { loginRoom, updateRoom } from "../service/room"
+import { loginRoom, updateRoom } from "../service/room.service"
 import { setLoginCookie } from "../utils/setJwtCookie"
 
 interface Params {

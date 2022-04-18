@@ -2441,9 +2441,9 @@ fast-safe-stringify@^2.0.8:
   integrity sha512-W+KJc2dmILlPplD/H4K9l9LcAHAfPtP6BY84uVLXQ6Evcz9Lcg33Y2z1IVblT6xdY54PXYVHEv+0Wpq8Io6zkA==
 
 fastify-cookie@^5.6.0:
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/fastify-cookie/-/fastify-cookie-5.6.0.tgz#90f098779438524e7ac6624c00ff5787b865d313"
-  integrity sha512-zmZhw1CugavEZjFToMDz6FTawXw9QQ6bJ1vhhalMLYTbhog8C42+1jIWENKjV6PkiERdDRhXahj9MiYSVNynDw==
+  version "5.6.1"
+  resolved "https://registry.yarnpkg.com/fastify-cookie/-/fastify-cookie-5.6.1.tgz#885a15bd7cf459158a6df12a898075cf5e2a3733"
+  integrity sha512-qKFxDOLkrXn2TkxlO/+cK0tWYCTSrJDmuwty6Zl7kD5FtALwcjUHPFzOdR1Gxupb5oWhvbpSHBMx2XS+t9fbQQ==
   dependencies:
     cookie-signature "^1.1.0"
     fastify-plugin "^3.0.1"
@@ -4229,10 +4229,10 @@ react-popper@^2.2.5:
     react-fast-compare "^3.0.1"
     warning "^4.0.2"
 
-react-query@^3.34.20:
-  version "3.34.20"
-  resolved "https://registry.yarnpkg.com/react-query/-/react-query-3.34.20.tgz#649e83073b7e3350cd3fc78f8b2370e9252c4a64"
-  integrity sha512-I0nGBu/4bebKodwwHSFmdMCjgx4bAjn2p5OQRFIlGX7GhVAyTWGRWEWAP3+KG06bb062HPOMqcy9jw086snfQg==
+react-query@^3.35.0:
+  version "3.35.0"
+  resolved "https://registry.yarnpkg.com/react-query/-/react-query-3.35.0.tgz#f807ba8497f8d6218a73e81a977e44ea786a7267"
+  integrity sha512-mRBJdpELLV+snzyXDsXM5ZEXM+HYt05L7st6ihSXr3nHX+4ULFr30mDjsziZvx0oF5dhlSDB8aMdvG6Ah4Bukg==
   dependencies:
     "@babel/runtime" "^7.5.5"
     broadcast-channel "^3.4.1"

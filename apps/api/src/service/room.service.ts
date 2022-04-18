@@ -1,5 +1,5 @@
 import { Room } from "../models/Room.model"
-import { Room as RoomInterface } from "interface/db/Room"
+import { Room as RoomInterface } from "interface/db/Room.interface"
 import { Op } from "sequelize"
 import { hash } from "utils/api"
 

@@ -4,7 +4,7 @@
 import { FastifyPluginCallback } from "fastify"
 import { withAuth } from "../plugin/withAuth"
 import { LoginInfer, loginSchema } from "utils/schema/login.schema"
-import { loginUser } from "../service/user"
+import { loginUser } from "../service/user.service"
 import { setLoginCookie } from "../utils/setJwtCookie"
 import { User } from "../models/User.model"
 

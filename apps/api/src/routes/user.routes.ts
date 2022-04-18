@@ -2,7 +2,7 @@ import { FastifyPluginCallback } from "fastify"
 import { User } from "../models/User.model"
 import { UserCreateInfer, userCreateSchema } from "utils/schema/user.schema"
 import { setLoginCookie } from "../utils/setJwtCookie"
-import { getUser } from "../service/user"
+import { getUser } from "../service/user.service"
 import { runAsync } from "utils/hooks"
 
 export const userRoutes: FastifyPluginCallback = (server, opts, done) => {

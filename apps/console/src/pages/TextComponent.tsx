@@ -14,9 +14,9 @@ const TextComponent = () => {
   const onJoin = () => {
     joinRoom({ username, password })
   }
-  const onJoin2 = () => {
-    joinRoom2({ username, password })
-  }
+  // const onJoin2 = () => {
+  //   joinRoom2({ username, password })
+  // }
 
   return (
     <div>
@@ -33,7 +33,6 @@ const TextComponent = () => {
         />
       </Group>
       <Button onClick={onJoin}>Join Room</Button>
-      <Button onClick={onJoin2}>test</Button>
     </div>
   )
 }
