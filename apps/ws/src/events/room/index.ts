@@ -1,4 +1,4 @@
-import { ev } from "events/event.hoc"
+import { ev } from "../event.hoc"
 import { SocketEvent } from "interface"
 import { Socket } from "socket.io"
 import { joinRoomListen } from "./joinRoom.event"
