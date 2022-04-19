@@ -3,7 +3,6 @@ import { Cookie, User } from "interface"
 import { PropsWithChildren, useState } from "react"
 import { useCookies } from "react-cookie"
 import { userCreate, userLogin, userLogout } from "utils/api/queries"
-import { queryClient } from "../../App"
 import { authContext, authActions } from "./Auth.context"
 
 const AuthProvider = ({ children }: PropsWithChildren<{}>) => {
@@ -18,7 +17,6 @@ const AuthProvider = ({ children }: PropsWithChildren<{}>) => {
     await userLogout()
     removeCookie(Cookie.User)
     setUser(null)
-    queryClient.removeQueries("authCheck")
   }
 
   const login = async (username: string, password: string) => {
