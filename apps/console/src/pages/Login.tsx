@@ -13,12 +13,11 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { LoginInfer, loginSchema } from "utils/schema/login.schema"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
-import { useAuth, useAuthActions } from "../context/auth/Auth.hooks"
+import { useAuthActions } from "../context/auth/Auth.hooks"
 
 const Login = () => {
-  const user = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
   const { login } = useAuthActions()
