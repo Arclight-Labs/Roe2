@@ -14,3 +14,8 @@ export const joinRoom = async (
   const res = await ax.post<Room>("/room/join", props, config)
   return res.data
 }
+
+export const logout = async () => {
+  const res = await ax.post("/room/logout")
+  return res.data
+}

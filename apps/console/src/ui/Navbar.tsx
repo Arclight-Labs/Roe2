@@ -2,6 +2,7 @@ import { useState } from "react"
 import { createStyles, Navbar, Group, Code } from "@mantine/core"
 import routes from "./routes"
 import { useAuthActions } from "../context/auth/Auth.hooks"
+import { Text } from "@mantine/core"
 // import {
 //   BellRinging,
 //   Fingerprint,
@@ -131,26 +132,15 @@ export function NavbarSimple({ version }: Props) {
       </Navbar.Section>
 
       <Navbar.Section className={classes.footer}>
-        {/* <a
-          href="#"
-          className={classes.link}
-          onClick={(event) => event.preventDefault()}
-        >*/}
-        {/* <SwitchHorizontal className={classes.linkIcon} /> */}
-        {/* <span>Change account</span>
-        </a>  */}
+        <Text className={classes.link}>test</Text>
 
-        <a
-          href="#"
-          className={classes.link}
-          onClick={(event) => {
-            event.preventDefault()
-            logout()
-          }}
-        >
-          {/* <Logout className={classes.linkIcon} /> */}
+        <Text className={classes.link} onClick={() => {}}>
+          <span>Leave Room</span>
+        </Text>
+
+        <Text className={classes.link} onClick={logout}>
           <span>Logout</span>
-        </a>
+        </Text>
       </Navbar.Section>
     </Navbar>
   )

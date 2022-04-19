@@ -53,6 +53,18 @@ export const roomRoutes: FastifyPluginCallback = (server, opts, done) => {
     })
   )
 
+  server.post(
+    "/leave",
+    withAuth(
+      withRoomAuth((req, res, room) => {
+        res
+          .clearCookie(Room.tokenName)
+          .setCookie(Room.tokenName, "")
+          .send({ success: true, message: `You have left room: ${room.name}` })
+      })
+    )
+  )
+
   // Update a room
   server.put(
     "/:id",
