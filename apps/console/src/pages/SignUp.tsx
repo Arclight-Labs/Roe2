@@ -33,7 +33,7 @@ const Login = () => {
     resolver: zodResolver(loginSchema),
   })
 
-  const onClick = handleSubmit(async ({ username, password }) => {
+  const submit = handleSubmit(async ({ username, password }) => {
     if (password !== password2) {
       setError("password", { message: "passwords do not match" })
     }
@@ -60,7 +60,7 @@ const Login = () => {
         <Title order={3} align="center">
           Sign up
         </Title>
-        <Card withBorder>
+        <Card withBorder component="form" onSubmit={submit}>
           <Stack>
             <Stack spacing="sm">
               <TextInput {...register("username")} label="Username" />
@@ -76,7 +76,7 @@ const Login = () => {
                 required
               />
             </Stack>
-            <Button onClick={onClick}>Sign Up</Button>
+            <Button type="submit">Sign Up</Button>
           </Stack>
         </Card>
         <Text align="center">

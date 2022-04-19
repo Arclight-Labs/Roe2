@@ -28,7 +28,7 @@ const Login = () => {
     resolver: zodResolver(loginSchema),
   })
 
-  const onClick = handleSubmit(async ({ username, password }) => {
+  const submit = handleSubmit(async ({ username, password }) => {
     setLoading(true)
     await login(username, password)
     setLoading(false)
@@ -41,7 +41,7 @@ const Login = () => {
         <Title order={3} align="center">
           Sign in
         </Title>
-        <Card withBorder>
+        <Card withBorder component="form" onSubmit={submit}>
           <Stack>
             <Stack spacing="sm">
               <TextInput {...register("username")} label="Username" />
@@ -51,7 +51,7 @@ const Login = () => {
                 required
               />
             </Stack>
-            <Button onClick={onClick}>Login</Button>
+            <Button type="submit">Login</Button>
           </Stack>
         </Card>
         <Text align="center">
