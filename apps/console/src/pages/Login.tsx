@@ -13,11 +13,14 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { LoginInfer, loginSchema } from "utils/schema/login.schema"
-import { useState } from "react"
-import { Link } from "react-router-dom"
-import { useAuthActions } from "../context/auth/Auth.hooks"
+import { useEffect, useState } from "react"
+import { Link, useLocation, useNavigate } from "react-router-dom"
+import { useAuth, useAuthActions } from "../context/auth/Auth.hooks"
 
 const Login = () => {
+  const user = useAuth()
+  const navigate = useNavigate()
+  const location = useLocation()
   const { login } = useAuthActions()
   const [loading, setLoading] = useState(false)
   const { register, handleSubmit } = useForm<LoginInfer>({
@@ -30,7 +33,12 @@ const Login = () => {
 
   const submit = handleSubmit(async ({ username, password }) => {
     setLoading(true)
-    await login(username, password)
+
+    login(username, password).then(() => {
+      if (location.pathname === "/auth/login") {
+        navigate("/")
+      }
+    })
     setLoading(false)
   }, console.error)
 
