@@ -2,28 +2,34 @@ import { showNotification } from "@mantine/notifications"
 import { Cookie, Room, User } from "interface"
 import { PropsWithChildren, useState } from "react"
 import { useCookies } from "react-cookie"
-import { userCreate, userLogin, userLogout } from "utils/api/queries"
+import { joinRoom, leave } from "utils/api/queries/room.queries"
+import { ax } from "../../App"
 import { roomContext, roomActions } from "./Room.context"
+
+const fn = {
+  joinRoom: joinRoom(ax),
+  leave: leave(ax),
+}
 
 const RoomProvider = ({ children }: PropsWithChildren<{}>) => {
   const [, , removeCookie] = useCookies([Cookie.Room])
-  const [user, setUser] = useState<User | null>(null)
+  const [room, setRoom] = useState<Room | null>(null)
 
-  const set = (room: Partial<Room>) => {
-    // setRoom(room)
-  }
+  // const set = (room: Partial<Room>) => {
+  //   setRoom(room)
+  // }
 
-  const logout = async () => {
+  const leave = async () => {
     // await userLogout()
     removeCookie(Cookie.Room)
-    setUser(null)
+    setRoom(null)
   }
 
-  const login = async (username: string, password: string) => {
+  const join = async (username: string, password: string) => {
     try {
-      const user = await userLogin(username, password)
-      setUser(user)
-      return user
+      const room = await fn.joinRoom({ username, password })
+      setRoom(room)
+      return room
     } catch (e: any) {
       showNotification({
         title: "Login failed",
@@ -31,29 +37,13 @@ const RoomProvider = ({ children }: PropsWithChildren<{}>) => {
       })
     }
   }
-  const create = async (username: string, password: string) => {
-    try {
-      const user = await userCreate(username, password)
-      setUser(user)
-      return user
-    } catch (e: any) {
-      const message = e?.response?.data?.message || ""
-      showNotification({
-        title: "Signup failed",
-        message,
-      })
-      throw new Error(message)
-    }
-  }
 
   return (
-    <roomContext.Provider value={user}>
+    <roomContext.Provider value={room}>
       <roomActions.Provider
         value={{
-          login,
-          logout,
-          create,
-          set,
+          join,
+          leave,
         }}
       >
         {children}

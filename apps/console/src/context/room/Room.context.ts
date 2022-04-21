@@ -1,19 +1,19 @@
-import { Room, User } from "interface"
+import { Room } from "interface"
 import { createContext } from "react"
 
-export const roomContext = createContext<User | null>(null)
+export const roomContext = createContext<Room | null>(null)
 
-type LoginOrCreate = (username: string, password: string) => Promise<any>
+type Join = (username: string, password: string) => Promise<any>
 type RoomActions = {
-  set: (Partial: Room) => void
-  logout: VoidFunction
-  login: LoginOrCreate
-  create: LoginOrCreate
+  // set: (Partial: Room) => void
+  leave: VoidFunction
+  join: Join
+  // create: Join
 }
 
 export const roomActions = createContext<RoomActions>({
-  login: async () => {},
-  logout: () => {},
-  set: () => {},
-  create: async () => {},
+  join: async () => {},
+  leave: () => {},
+  // set: () => {},
+  // create: async () => {},
 })

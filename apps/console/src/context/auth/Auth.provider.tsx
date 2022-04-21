@@ -2,8 +2,15 @@ import { showNotification } from "@mantine/notifications"
 import { Cookie, User } from "interface"
 import { PropsWithChildren, useState } from "react"
 import { useCookies } from "react-cookie"
+import { ax } from "../../App"
 import { userCreate, userLogin, userLogout } from "utils/api/queries"
 import { authContext, authActions } from "./Auth.context"
+
+const fn = {
+  userCreate: userCreate(ax),
+  userLogin: userLogin(ax),
+  userLogout: userLogout(ax),
+}
 
 const AuthProvider = ({ children }: PropsWithChildren<{}>) => {
   const [, , removeCookie] = useCookies([Cookie.User])
@@ -14,14 +21,14 @@ const AuthProvider = ({ children }: PropsWithChildren<{}>) => {
   }
 
   const logout = async () => {
-    await userLogout()
+    await fn.userLogout()
     removeCookie(Cookie.User)
     setUser(null)
   }
 
   const login = async (username: string, password: string) => {
     try {
-      const user = await userLogin(username, password)
+      const user = await fn.userLogin(username, password)
       setUser(user)
       return user
     } catch (e: any) {
@@ -34,7 +41,7 @@ const AuthProvider = ({ children }: PropsWithChildren<{}>) => {
 
   const create = async (username: string, password: string) => {
     try {
-      const user = await userCreate(username, password)
+      const user = await fn.userCreate(username, password)
       setUser(user)
       return user
     } catch (e: any) {

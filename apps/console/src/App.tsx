@@ -10,8 +10,10 @@ import { QueryClient, QueryClientProvider } from "react-query"
 import { BrowserRouter } from "react-router-dom"
 import Routes from "./routes"
 import AuthProvider from "./context/auth/Auth.provider"
+import axios from "utils/api/axios"
 
 export const queryClient = new QueryClient()
+export const ax = axios(window.location.hostname)
 
 function App() {
   const [colorScheme, setColorScheme] = useState<ColorScheme>("light")
