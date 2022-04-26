@@ -4,14 +4,17 @@ import { useQuery } from "react-query"
 import { Navigate, useLocation, useNavigate } from "react-router-dom"
 import { checkAuth } from "utils/api/queries"
 import { useAuth, useAuthActions } from "../../context/auth/Auth.hooks"
+import { withAxios } from "../../context/axios/axios.hoc"
+import { useAx } from "../../context/axios/axios.hook"
 import Login from "../../pages/Login"
 
 const AuthGuard = ({ children }: PropsWithChildren<{}>) => {
   const auth = useAuth()
+  const ax = useAx()
   const [cookies] = useCookies(["token"])
   const navigate = useNavigate()
   const { set } = useAuthActions()
-  const { data } = useQuery("authCheck", checkAuth, {
+  const { data } = useQuery("authCheck", checkAuth(ax), {
     keepPreviousData: false,
     refetchInterval: 3000,
     onSuccess: set,
@@ -34,4 +37,4 @@ const AuthGuard = ({ children }: PropsWithChildren<{}>) => {
   return <>{children}</>
 }
 
-export default AuthGuard
+export default withAxios(AuthGuard)

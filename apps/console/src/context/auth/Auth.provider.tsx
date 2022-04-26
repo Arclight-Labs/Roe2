@@ -5,16 +5,19 @@ import { useCookies } from "react-cookie"
 import { ax } from "../../App"
 import { userCreate, userLogin, userLogout } from "utils/api/queries"
 import { authContext, authActions } from "./Auth.context"
-
-const fn = {
-  userCreate: userCreate(ax),
-  userLogin: userLogin(ax),
-  userLogout: userLogout(ax),
-}
+import { withAxios } from "../axios/axios.hoc"
+import { useAx } from "../axios/axios.hook"
 
 const AuthProvider = ({ children }: PropsWithChildren<{}>) => {
+  const ax = useAx()
   const [, , removeCookie] = useCookies([Cookie.User])
   const [user, setUser] = useState<User | null>(null)
+
+  const fn = {
+    userCreate: userCreate(ax),
+    userLogin: userLogin(ax),
+    userLogout: userLogout(ax),
+  }
 
   const set = (user: User | null) => {
     setUser(user)
@@ -70,4 +73,4 @@ const AuthProvider = ({ children }: PropsWithChildren<{}>) => {
     </authContext.Provider>
   )
 }
-export default AuthProvider
+export default withAxios(AuthProvider)
