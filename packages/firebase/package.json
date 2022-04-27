@@ -1,0 +1,11 @@
+{
+  "name": "firebase",
+  "version": "1.0.0",
+  "description": "firebase settings",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "firebase emulators:start --import=./data --export-on-exit=./data"
+  }
+}

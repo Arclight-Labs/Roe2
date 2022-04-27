@@ -1,0 +1,327 @@
+[debug] [2022-04-27T14:09:46.766Z] ----------------------------------------------------------------------
+[debug] [2022-04-27T14:09:46.768Z] Command:       /home/manok/.nvm/versions/node/v16.14.2/bin/node /home/manok/.nvm/versions/node/v16.14.2/bin/firebase emulators:start --import=./data --export-on-exit=./data
+[debug] [2022-04-27T14:09:46.769Z] CLI Version:   10.7.1
+[debug] [2022-04-27T14:09:46.769Z] Platform:      linux
+[debug] [2022-04-27T14:09:46.769Z] Node Version:  v16.14.2
+[debug] [2022-04-27T14:09:46.772Z] Time:          Wed Apr 27 2022 22:09:46 GMT+0800 (China Standard Time)
+[debug] [2022-04-27T14:09:46.773Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-04-27T14:09:46.855Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-04-27T14:09:46.855Z] > authorizing via signed-in user (jasper@acadarena.com)
+[debug] [2022-04-27T14:09:47.045Z] openjdk version "11.0.14.1" 2022-02-08
+
+[debug] [2022-04-27T14:09:47.046Z] OpenJDK Runtime Environment (build 11.0.14.1+1-Ubuntu-0ubuntu1.20.04)
+OpenJDK 64-Bit Server VM (build 11.0.14.1+1-Ubuntu-0ubuntu1.20.04, mixed mode, sharing)
+
+[debug] [2022-04-27T14:09:47.054Z] Parsed Java major version: 11
+[info] i  emulators: Starting emulators: auth, functions, firestore, database, hosting, pubsub, storage {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: auth, functions, firestore, database, hosting, pubsub, storage"}}
+[debug] [2022-04-27T14:09:47.079Z] [hub] writing locator at /tmp/hub-roe2-prod.json
+[info] ✔  functions: Using node@16 from host. {"metadata":{"emulator":{"name":"functions"},"message":"Using node@16 from host."}}
+[debug] [2022-04-27T14:09:47.095Z] defaultcredentials: writing to file /home/manok/.config/firebase/jasper_acadarena_com_application_default_credentials.json
+[debug] [2022-04-27T14:09:47.099Z] Setting GAC to /home/manok/.config/firebase/jasper_acadarena_com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to /home/manok/.config/firebase/jasper_acadarena_com_application_default_credentials.json"}}
+[debug] [2022-04-27T14:09:47.102Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/roe2-prod/adminSdkConfig [none]
+[debug] [2022-04-27T14:09:47.453Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/roe2-prod/adminSdkConfig 200
+[debug] [2022-04-27T14:09:47.453Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/roe2-prod/adminSdkConfig {"projectId":"roe2-prod","databaseURL":"https://roe2-prod-default-rtdb.asia-southeast1.firebasedatabase.app","storageBucket":"roe2-prod.appspot.com","locationId":"asia-east2"}
+[info] i  firestore: Importing data from /home/manok/AcadArena/AllianceGames/packages/firebase/data/firestore_export/firestore_export.overall_export_metadata {"metadata":{"emulator":{"name":"firestore"},"message":"Importing data from /home/manok/AcadArena/AllianceGames/packages/firebase/data/firestore_export/firestore_export.overall_export_metadata"}}
+[debug] [2022-04-27T14:09:47.466Z] Ignoring unsupported arg: projectId {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: projectId"}}
+[debug] [2022-04-27T14:09:47.466Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"firestore"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2022-04-27T14:09:47.466Z] Starting Firestore Emulator with command {"binary":"java","args":["-Djava.net.preferIPv4Stack=true","-Dgoogle.cloud_firestore.debug_log_level=FINE","-Duser.language=en","-jar","/home/manok/.cache/firebase/emulators/cloud-firestore-emulator-v1.14.3.jar","--host","127.0.0.1","--port",8080,"--seed_from_export","/home/manok/AcadArena/AllianceGames/packages/firebase/data/firestore_export/firestore_export.overall_export_metadata","--rules","/home/manok/AcadArena/AllianceGames/packages/firebase/firestore.rules","--functions_emulator","127.0.0.1:5001"],"optionalArgs":["port","webchannel_port","host","rules","functions_emulator","seed_from_export"],"joinArgs":false} {"metadata":{"emulator":{"name":"firestore"},"message":"Starting Firestore Emulator with command {\"binary\":\"java\",\"args\":[\"-Djava.net.preferIPv4Stack=true\",\"-Dgoogle.cloud_firestore.debug_log_level=FINE\",\"-Duser.language=en\",\"-jar\",\"/home/manok/.cache/firebase/emulators/cloud-firestore-emulator-v1.14.3.jar\",\"--host\",\"127.0.0.1\",\"--port\",8080,\"--seed_from_export\",\"/home/manok/AcadArena/AllianceGames/packages/firebase/data/firestore_export/firestore_export.overall_export_metadata\",\"--rules\",\"/home/manok/AcadArena/AllianceGames/packages/firebase/firestore.rules\",\"--functions_emulator\",\"127.0.0.1:5001\"],\"optionalArgs\":[\"port\",\"webchannel_port\",\"host\",\"rules\",\"functions_emulator\",\"seed_from_export\"],\"joinArgs\":false}"}}
+[info] i  firestore: Firestore Emulator logging to firestore-debug.log {"metadata":{"emulator":{"name":"firestore"},"message":"Firestore Emulator logging to \u001b[1mfirestore-debug.log\u001b[22m"}}
+[debug] [2022-04-27T14:09:48.835Z] Apr 27, 2022 10:09:48 PM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketServer start
+INFO: Started WebSocket server on ws://127.0.0.1:46851
+ {"metadata":{"emulator":{"name":"firestore"},"message":"Apr 27, 2022 10:09:48 PM com.google.cloud.datastore.emulator.firestore.websocket.WebSocketServer start\nINFO: Started WebSocket server on ws://127.0.0.1:46851\n"}}
+[debug] [2022-04-27T14:09:48.864Z] API endpoint: http:// {"metadata":{"emulator":{"name":"firestore"},"message":"API endpoint: http://"}}
+[debug] [2022-04-27T14:09:48.865Z] 127.0.0.1:8080
+If you are using a library that supports the FIRESTORE_EMULATOR_HOST environment variable, run:
+
+   export FIRESTORE_EMULATOR_HOST=127.0.0.1:8080
+
+Dev App Server is now running.
+
+ {"metadata":{"emulator":{"name":"firestore"},"message":"127.0.0.1:8080\nIf you are using a library that supports the FIRESTORE_EMULATOR_HOST environment variable, run:\n\n   export FIRESTORE_EMULATOR_HOST=127.0.0.1:8080\n\nDev App Server is now running.\n\n"}}
+[debug] [2022-04-27T14:09:48.981Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/roe2-prod [none]
+[debug] [2022-04-27T14:09:49.315Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/roe2-prod 200
+[debug] [2022-04-27T14:09:49.315Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/roe2-prod {"projectId":"roe2-prod","projectNumber":"679338301123","displayName":"roe2-prod","name":"projects/roe2-prod","resources":{"hostingSite":"roe2-prod","realtimeDatabaseInstance":"roe2-prod-default-rtdb","storageBucket":"roe2-prod.appspot.com","locationId":"asia-east2"},"state":"ACTIVE"}
+[debug] [2022-04-27T14:09:49.315Z] database rules config:  [{"instance":"roe2-prod-default-rtdb","rules":"/home/manok/AcadArena/AllianceGames/packages/firebase/database.rules.json"}]
+[debug] [2022-04-27T14:09:49.317Z] Ignoring unsupported arg: projectId {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: projectId"}}
+[debug] [2022-04-27T14:09:49.317Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2022-04-27T14:09:49.317Z] Ignoring unsupported arg: rules {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: rules"}}
+[debug] [2022-04-27T14:09:49.317Z] Starting Database Emulator with command {"binary":"java","args":["-Djava.net.preferIPv4Stack=true","-Duser.language=en","-jar","/home/manok/.cache/firebase/emulators/firebase-database-emulator-v4.7.3.jar","--host","127.0.0.1","--port",9000,"--functions_emulator_host","127.0.0.1","--functions_emulator_port",5001],"optionalArgs":["port","host","functions_emulator_port","functions_emulator_host"],"joinArgs":false} {"metadata":{"emulator":{"name":"database"},"message":"Starting Database Emulator with command {\"binary\":\"java\",\"args\":[\"-Djava.net.preferIPv4Stack=true\",\"-Duser.language=en\",\"-jar\",\"/home/manok/.cache/firebase/emulators/firebase-database-emulator-v4.7.3.jar\",\"--host\",\"127.0.0.1\",\"--port\",9000,\"--functions_emulator_host\",\"127.0.0.1\",\"--functions_emulator_port\",5001],\"optionalArgs\":[\"port\",\"host\",\"functions_emulator_port\",\"functions_emulator_host\"],\"joinArgs\":false}"}}
+[info] i  database: Database Emulator logging to database-debug.log {"metadata":{"emulator":{"name":"database"},"message":"Database Emulator logging to \u001b[1mdatabase-debug.log\u001b[22m"}}
+[debug] [2022-04-27T14:09:49.957Z] WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by io.netty.util.internal.ReflectionUtil (file:/home/manok/.cache/firebase/emulators/firebase-database-emulator-v4.7.3.jar) to field sun.nio.ch.SelectorImpl.selectedKeys
+WARNING: Please consider reporting this to the maintainers of io.netty.util.internal.ReflectionUtil
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release {"metadata":{"emulator":{"name":"database"},"message":"WARNING: An illegal reflective access operation has occurred\nWARNING: Illegal reflective access by io.netty.util.internal.ReflectionUtil (file:/home/manok/.cache/firebase/emulators/firebase-database-emulator-v4.7.3.jar) to field sun.nio.ch.SelectorImpl.selectedKeys\nWARNING: Please consider reporting this to the maintainers of io.netty.util.internal.ReflectionUtil\nWARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations\nWARNING: All illegal access operations will be denied in a future release"}}
+[debug] [2022-04-27T14:09:49.958Z] 
+ {"metadata":{"emulator":{"name":"database"},"message":"\n"}}
+[debug] [2022-04-27T14:09:50.722Z] 22:09:50.720 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+ {"metadata":{"emulator":{"name":"database"},"message":"22:09:50.720 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started\n"}}
+[debug] [2022-04-27T14:09:50.874Z] 22:09:50.874 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
+ {"metadata":{"emulator":{"name":"database"},"message":"22:09:50.874 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000\n"}}
+[info] i  auth: Importing config from /home/manok/AcadArena/AllianceGames/packages/firebase/data/auth_export/config.json {"metadata":{"emulator":{"name":"database"},"message":"Importing config from /home/manok/AcadArena/AllianceGames/packages/firebase/data/auth_export/config.json"}}
+[info] i  auth: Importing accounts from /home/manok/AcadArena/AllianceGames/packages/firebase/data/auth_export/accounts.json {"metadata":{"emulator":{"name":"database"},"message":"Importing accounts from /home/manok/AcadArena/AllianceGames/packages/firebase/data/auth_export/accounts.json"}}
+[debug] [2022-04-27T14:09:57.349Z] Ignoring unsupported arg: projectId {"metadata":{"emulator":{"name":"pubsub"},"message":"Ignoring unsupported arg: projectId"}}
+[debug] [2022-04-27T14:09:57.350Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"pubsub"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2022-04-27T14:09:57.350Z] Starting Pub/Sub Emulator with command {"binary":"/home/manok/.cache/firebase/emulators/pubsub-emulator-0.1.0/pubsub-emulator/bin/cloud-pubsub-emulator","args":["--host=127.0.0.1","--port=8085"],"optionalArgs":["port","host"],"joinArgs":true} {"metadata":{"emulator":{"name":"pubsub"},"message":"Starting Pub/Sub Emulator with command {\"binary\":\"/home/manok/.cache/firebase/emulators/pubsub-emulator-0.1.0/pubsub-emulator/bin/cloud-pubsub-emulator\",\"args\":[\"--host=127.0.0.1\",\"--port=8085\"],\"optionalArgs\":[\"port\",\"host\"],\"joinArgs\":true}"}}
+[info] i  pubsub: Pub/Sub Emulator logging to pubsub-debug.log {"metadata":{"emulator":{"name":"pubsub"},"message":"Pub/Sub Emulator logging to \u001b[1mpubsub-debug.log\u001b[22m"}}
+[debug] [2022-04-27T14:09:57.504Z] This is the Google Pub/Sub fake. {"metadata":{"emulator":{"name":"pubsub"},"message":"This is the Google Pub/Sub fake."}}
+[debug] [2022-04-27T14:09:57.504Z] 
+Implementation may be incomplete or differ from the real system.
+ {"metadata":{"emulator":{"name":"pubsub"},"message":"\nImplementation may be incomplete or differ from the real system.\n"}}
+[debug] [2022-04-27T14:09:57.539Z] Apr 27, 2022 10:09:57 PM com.google.cloud.pubsub.testing.v1.Main main
+INFO: IAM integration is disabled. IAM policy methods and ACL checks are not supported
+ {"metadata":{"emulator":{"name":"pubsub"},"message":"Apr 27, 2022 10:09:57 PM com.google.cloud.pubsub.testing.v1.Main main\nINFO: IAM integration is disabled. IAM policy methods and ACL checks are not supported\n"}}
+[debug] [2022-04-27T14:09:57.954Z] Apr 27, 2022 10:09:57 PM io.gapi.emulators.netty.NettyUtil applyJava7LongHostnameWorkaround
+INFO: Applied Java 7 long hostname workaround.
+ {"metadata":{"emulator":{"name":"pubsub"},"message":"Apr 27, 2022 10:09:57 PM io.gapi.emulators.netty.NettyUtil applyJava7LongHostnameWorkaround\nINFO: Applied Java 7 long hostname workaround.\n"}}
+[debug] [2022-04-27T14:09:58.002Z] Apr 27, 2022 10:09:58 PM com.google.cloud.pubsub.testing.v1.Main main
+INFO: Server started, listening on 8085
+ {"metadata":{"emulator":{"name":"pubsub"},"message":"Apr 27, 2022 10:09:58 PM com.google.cloud.pubsub.testing.v1.Main main\nINFO: Server started, listening on 8085\n"}}
+[debug] [2022-04-27T14:09:58.111Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"storage"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2022-04-27T14:09:58.197Z] Apr 27, 2022 10:09:58 PM io.gapi.emulators.grpc.GrpcServer$3 operationComplete
+INFO: Adding handler(s) to newly registered Channel.
+ {"metadata":{"emulator":{"name":"pubsub"},"message":"Apr 27, 2022 10:09:58 PM io.gapi.emulators.grpc.GrpcServer$3 operationComplete\nINFO: Adding handler(s) to newly registered Channel.\n"}}
+[debug] [2022-04-27T14:09:58.928Z] Temp file directory for storage emulator: /tmp/firebase/storage/blobs {"metadata":{"emulator":{"name":"storage"},"message":"Temp file directory for storage emulator: /tmp/firebase/storage/blobs"}}
+[debug] [2022-04-27T14:09:58.934Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/roe2-prod/sites 
+[debug] [2022-04-27T14:10:00.186Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/roe2-prod/sites 200
+[debug] [2022-04-27T14:10:00.186Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/roe2-prod/sites {"sites":[{"name":"projects/679338301123/sites/roe2-prod","defaultUrl":"https://roe2-prod.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2022-04-27T14:10:00.186Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/roe2-prod/webApps/-/config [none]
+[debug] [2022-04-27T14:10:00.880Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/roe2-prod/webApps/-/config 200
+[debug] [2022-04-27T14:10:00.881Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/roe2-prod/webApps/-/config {"projectId":"roe2-prod","databaseURL":"https://roe2-prod-default-rtdb.asia-southeast1.firebasedatabase.app","storageBucket":"roe2-prod.appspot.com","locationId":"asia-east2","apiKey":"AIzaSyDZ9GdrlFSRINMrnSJBrOfKXGb3q2f0-Gc","authDomain":"roe2-prod.firebaseapp.com","messagingSenderId":"679338301123"}
+[info] i  hosting: Serving hosting files from: ../../apps/console/dist {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1m../../apps/console/dist\u001b[22m"}}
+[info] ✔  hosting: Local server: http://127.0.0.1:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://127.0.0.1:5000\u001b[22m\u001b[24m"}}
+[debug] [2022-04-27T14:10:00.899Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2022-04-27T14:10:00.900Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2022-04-27T14:10:00.900Z] Starting Emulator UI with command {"binary":"node","args":["/home/manok/.cache/firebase/emulators/ui-v1.6.5/server.bundle.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"/home/manok/.cache/firebase/emulators/ui-v1.6.5/server.bundle.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
+[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
+[debug] [2022-04-27T14:10:00.977Z] Web / API server started at 127.0.0.1:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at 127.0.0.1:4000\n"}}
+[info] i  functions: Watching "/home/manok/AcadArena/AllianceGames/packages/cloud-functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"/home/manok/AcadArena/AllianceGames/packages/cloud-functions\" for Cloud Functions..."}}
+[debug] [2022-04-27T14:10:01.163Z] Validating nodejs source
+[debug] [2022-04-27T14:10:02.465Z] checkFunctionsSDKVersion encountered error:Invalid Version:  {}
+[debug] [2022-04-27T14:10:02.466Z] > [functions] package.json contents: {
+  "name": "cloud-functions",
+  "version": "1.0.0",
+  "scripts": {
+    "lint": "eslint --ext .js,.ts .",
+    "build": "yarn lint && tsc",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "firebase-admin": "^10.1.0",
+    "firebase-functions": "^3.20.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.21.0",
+    "@typescript-eslint/parser": "^5.21.0",
+    "eslint": "^8.9.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.25.4",
+    "firebase-functions-test": "^0.2.0",
+    "tsconfig": "*",
+    "typescript": "^4.5.4"
+  },
+  "private": true
+}
+[debug] [2022-04-27T14:10:02.466Z] Building nodejs source
+[debug] [2022-04-27T14:10:02.466Z] Analyzing nodejs backend spec
+[info] ✔  functions[us-central1-helloWorld]: http function initialized (http://127.0.0.1:5001/roe2-prod/us-central1/helloWorld). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/roe2-prod/us-central1/helloWorld)."}}
+[debug] [2022-04-27T14:10:02.691Z] >>> HTTP REQUEST PUT http://127.0.0.1:9000/.settings/rules.json?ns=roe2-prod-default-rtdb  
+ {
+  "rules": {
+    ".read": false,
+    ".write": false
+  }
+}
+
+[debug] [2022-04-27T14:10:02.988Z] <<< HTTP RESPONSE 200 {"content-length":"15","content-type":"application/json; charset=utf-8","access-control-allow-origin":"*","cache-control":"no-cache","x-firebase-project-id":"roe2-prod-default-rtdb","x-firebase-project-number":"123456789","x-firebase-uuid":"c707e2ee-4785-4e72-bcec-e4dbc775d705"}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://127.0.0.1:4000                │
+└─────────────────────────────────────────────────────────────┘
+
+┌────────────────┬────────────────┬─────────────────────────────────┐
+│ Emulator       │ Host:Port      │ View in Emulator UI             │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Authentication │ 127.0.0.1:9099 │ http://127.0.0.1:4000/auth      │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Functions      │ 127.0.0.1:5001 │ http://127.0.0.1:4000/functions │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Firestore      │ 127.0.0.1:8080 │ http://127.0.0.1:4000/firestore │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Database       │ 127.0.0.1:9000 │ http://127.0.0.1:4000/database  │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Hosting        │ 127.0.0.1:5000 │ n/a                             │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Pub/Sub        │ 127.0.0.1:8085 │ n/a                             │
+├────────────────┼────────────────┼─────────────────────────────────┤
+│ Storage        │ 127.0.0.1:9199 │ http://127.0.0.1:4000/storage   │
+└────────────────┴────────────────┴─────────────────────────────────┘
+  Emulator Hub running at 127.0.0.1:4400
+  Other reserved ports: 4500
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
+[debug] [2022-04-27T14:10:10.907Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-04-27T14:10:10.907Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-04-27T14:10:10.908Z] Accepted request GET /roe2-prod/us-central1/helloWorld --> us-central1-helloWorld
+[debug] [2022-04-27T14:10:10.917Z] [worker-pool] addWorker(us-central1-helloWorld) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] addWorker(us-central1-helloWorld)"}}
+[debug] [2022-04-27T14:10:10.918Z] [worker-pool] Adding worker with key us-central1-helloWorld, total=1 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Adding worker with key us-central1-helloWorld, total=1"}}
+[debug] [2022-04-27T14:10:10.918Z] [worker-pool] submitWork(triggerId=us-central1-helloWorld) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitWork(triggerId=us-central1-helloWorld)"}}
+[debug] [2022-04-27T14:10:10.918Z] [worker-us-central1-helloWorld-c5ace861-24b3-478c-a8c0-b0f51076b012]: Assigning socketPath: /tmp/fire_emu_2003.sock {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-helloWorld-c5ace861-24b3-478c-a8c0-b0f51076b012]: Assigning socketPath: /tmp/fire_emu_2003.sock"}}
+[debug] [2022-04-27T14:10:10.918Z] [worker-us-central1-helloWorld-c5ace861-24b3-478c-a8c0-b0f51076b012]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-helloWorld-c5ace861-24b3-478c-a8c0-b0f51076b012]: BUSY"}}
+[debug] [2022-04-27T14:10:11.516Z] [runtime-status] [2003] Functions runtime initialized. {"cwd":"/home/manok/AcadArena/AllianceGames/packages/cloud-functions","node_version":"16.14.2"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-helloWorld"},"extension":{},"message":"[runtime-status] [2003] Functions runtime initialized. {\"cwd\":\"/home/manok/AcadArena/AllianceGames/packages/cloud-functions\",\"node_version\":\"16.14.2\"}"}}
+[debug] [2022-04-27T14:10:11.517Z] [runtime-status] [2003] Disabled runtime features: undefined {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-helloWorld"},"extension":{},"message":"[runtime-status] [2003] Disabled runtime features: undefined"}}
+[debug] [2022-04-27T14:10:11.518Z] [runtime-status] [2003] Resolved module firebase-admin {"declared":true,"installed":true,"version":"10.1.0","resolution":"/home/manok/AcadArena/AllianceGames/node_modules/firebase-admin/lib/index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-helloWorld"},"extension":{},"message":"[runtime-status] [2003] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"10.1.0\",\"resolution\":\"/home/manok/AcadArena/AllianceGames/node_modules/firebase-admin/lib/index.js\"}"}}
+[debug] [2022-04-27T14:10:11.519Z] [runtime-status] [2003] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.20.1","resolution":"/home/manok/AcadArena/AllianceGames/node_modules/firebase-functions/lib/index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-helloWorld"},"extension":{},"message":"[runtime-status] [2003] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"3.20.1\",\"resolution\":\"/home/manok/AcadArena/AllianceGames/node_modules/firebase-functions/lib/index.js\"}"}}
+[debug] [2022-04-27T14:10:11.519Z] [runtime-status] [2003] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-helloWorld"},"extension":{},"message":"[runtime-status] [2003] Outgoing network have been stubbed. [{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"net\",\"status\":\"mocked\"}]"}}
+[debug] [2022-04-27T14:10:11.520Z] [runtime-status] [2003] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.20.1","resolution":"/home/manok/AcadArena/AllianceGames/node_modules/firebase-functions/lib/index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-helloWorld"},"extension":{},"message":"[runtime-status] [2003] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"3.20.1\",\"resolution\":\"/home/manok/AcadArena/AllianceGames/node_modules/firebase-functions/lib/index.js\"}"}}
+[debug] [2022-04-27T14:10:11.566Z] [runtime-status] [2003] Checked functions.config() {"config":{}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-helloWorld"},"extension":{},"message":"[runtime-status] [2003] Checked functions.config() {\"config\":{}}"}}
+[debug] [2022-04-27T14:10:11.566Z] [runtime-status] [2003] firebase-functions has been stubbed. {"functionsResolution":{"declared":true,"installed":true,"version":"3.20.1","resolution":"/home/manok/AcadArena/AllianceGames/node_modules/firebase-functions/lib/index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-helloWorld"},"extension":{},"message":"[runtime-status] [2003] firebase-functions has been stubbed. {\"functionsResolution\":{\"declared\":true,\"installed\":true,\"version\":\"3.20.1\",\"resolution\":\"/home/manok/AcadArena/AllianceGames/node_modules/firebase-functions/lib/index.js\"}}"}}
+[debug] [2022-04-27T14:10:11.566Z] [runtime-status] [2003] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.20.1","resolution":"/home/manok/AcadArena/AllianceGames/node_modules/firebase-functions/lib/index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-helloWorld"},"extension":{},"message":"[runtime-status] [2003] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"3.20.1\",\"resolution\":\"/home/manok/AcadArena/AllianceGames/node_modules/firebase-functions/lib/index.js\"}"}}
+[debug] [2022-04-27T14:10:11.567Z] [runtime-status] [2003] Resolved module firebase-admin {"declared":true,"installed":true,"version":"10.1.0","resolution":"/home/manok/AcadArena/AllianceGames/node_modules/firebase-admin/lib/index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-helloWorld"},"extension":{},"message":"[runtime-status] [2003] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"10.1.0\",\"resolution\":\"/home/manok/AcadArena/AllianceGames/node_modules/firebase-admin/lib/index.js\"}"}}
+[debug] [2022-04-27T14:10:11.567Z] [runtime-status] [2003] Resolved module firebase-functions {"declared":true,"installed":true,"version":"3.20.1","resolution":"/home/manok/AcadArena/AllianceGames/node_modules/firebase-functions/lib/index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-helloWorld"},"extension":{},"message":"[runtime-status] [2003] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"3.20.1\",\"resolution\":\"/home/manok/AcadArena/AllianceGames/node_modules/firebase-functions/lib/index.js\"}"}}
+[debug] [2022-04-27T14:10:11.568Z] [runtime-status] [2003] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"10.1.0","resolution":"/home/manok/AcadArena/AllianceGames/node_modules/firebase-admin/lib/index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-helloWorld"},"extension":{},"message":"[runtime-status] [2003] firebase-admin has been stubbed. {\"adminResolution\":{\"declared\":true,\"installed\":true,\"version\":\"10.1.0\",\"resolution\":\"/home/manok/AcadArena/AllianceGames/node_modules/firebase-admin/lib/index.js\"}}"}}
+[debug] [2022-04-27T14:10:11.570Z] [runtime-status] [2003] initializeApp(DEFAULT) {"storageBucket":"roe2-prod.appspot.com","databaseURL":"http://127.0.0.1:9000/?ns=roe2-prod-default-rtdb","projectId":"roe2-prod"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-helloWorld"},"extension":{},"message":"[runtime-status] [2003] initializeApp(DEFAULT) {\"storageBucket\":\"roe2-prod.appspot.com\",\"databaseURL\":\"http://127.0.0.1:9000/?ns=roe2-prod-default-rtdb\",\"projectId\":\"roe2-prod\"}"}}
+[debug] [2022-04-27T14:10:11.623Z] [runtime-status] [2003] Beginning invocation function helloWorld! {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-helloWorld"},"extension":{},"message":"[runtime-status] [2003] Beginning invocation function helloWorld!"}}
+[info] i  functions: Beginning execution of "helloWorld" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-helloWorld"},"extension":{},"message":"Beginning execution of \"helloWorld\""}}
+[debug] [2022-04-27T14:10:11.624Z] [runtime-status] [2003] Running helloWorld in signature http {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-helloWorld"},"extension":{},"message":"[runtime-status] [2003] Running helloWorld in signature http"}}
+[debug] [2022-04-27T14:10:11.626Z] [runtime-status] [2003] Attempting to listen to socketPath: /tmp/fire_emu_2003.sock {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-helloWorld"},"extension":{},"message":"[runtime-status] [2003] Attempting to listen to socketPath: /tmp/fire_emu_2003.sock"}}
+[debug] [2022-04-27T14:10:11.629Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-04-27T14:10:11.630Z] [functions] Got req.url=/roe2-prod/us-central1/helloWorld, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/roe2-prod/us-central1/helloWorld, mapping to path=/"}}
+[debug] [2022-04-27T14:10:11.633Z] [runtime-status] [2003] Ephemeral server handling GET request {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-helloWorld"},"extension":{},"message":"[runtime-status] [2003] Ephemeral server handling GET request"}}
+[info] >  IS EMULATED undefined {"user":"IS EMULATED undefined","metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-helloWorld"},"extension":{},"message":"\u001b[90m> \u001b[39m IS EMULATED undefined"}}
+[info] >  {"structuredData":true,"severity":"INFO","message":"Hello logs!"} {"user":{"structuredData":true,"severity":"INFO","message":"Hello logs!"},"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-helloWorld"},"extension":{},"message":"\u001b[90m> \u001b[39m {\"structuredData\":true,\"severity\":\"INFO\",\"message\":\"Hello logs!\"}"}}
+[debug] [2022-04-27T14:10:11.638Z] [runtime-status] [2003] Ephemeral server survived. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-helloWorld"},"extension":{},"message":"[runtime-status] [2003] Ephemeral server survived."}}
+[info] i  functions: Finished "helloWorld" in ~1s {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-helloWorld"},"extension":{},"message":"Finished \"helloWorld\" in ~1s"}}
+[debug] [2022-04-27T14:10:11.639Z] [worker-us-central1-helloWorld-c5ace861-24b3-478c-a8c0-b0f51076b012]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-helloWorld-c5ace861-24b3-478c-a8c0-b0f51076b012]: IDLE"}}
+[debug] [2022-04-27T14:10:11.639Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[debug] [2022-04-27T14:11:10.025Z] File /home/manok/AcadArena/AllianceGames/packages/cloud-functions/src/helloWorld.onRequest.ts changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File /home/manok/AcadArena/AllianceGames/packages/cloud-functions/src/helloWorld.onRequest.ts changed, reloading triggers"}}
+[debug] [2022-04-27T14:11:11.025Z] [worker-pool] Shutting down IDLE worker (us-central1-helloWorld) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Shutting down IDLE worker (us-central1-helloWorld)"}}
+[debug] [2022-04-27T14:11:11.026Z] [worker-us-central1-helloWorld-c5ace861-24b3-478c-a8c0-b0f51076b012]: FINISHING {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-helloWorld-c5ace861-24b3-478c-a8c0-b0f51076b012]: FINISHING"}}
+[debug] [2022-04-27T14:11:11.026Z] Validating nodejs source
+[debug] [2022-04-27T14:11:12.507Z] checkFunctionsSDKVersion encountered error:Invalid Version:  {}
+[debug] [2022-04-27T14:11:12.507Z] > [functions] package.json contents: {
+  "name": "cloud-functions",
+  "version": "1.0.0",
+  "scripts": {
+    "lint": "eslint --ext .js,.ts .",
+    "build": "yarn lint && tsc",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "firebase-admin": "^10.1.0",
+    "firebase-functions": "^3.20.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.21.0",
+    "@typescript-eslint/parser": "^5.21.0",
+    "eslint": "^8.9.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.25.4",
+    "firebase-functions-test": "^0.2.0",
+    "tsconfig": "*",
+    "typescript": "^4.5.4"
+  },
+  "private": true
+}
+[debug] [2022-04-27T14:11:12.508Z] Building nodejs source
+[debug] [2022-04-27T14:11:12.508Z] Analyzing nodejs backend spec
+[debug] [2022-04-27T14:11:12.512Z] [worker-us-central1-helloWorld-c5ace861-24b3-478c-a8c0-b0f51076b012]: exited {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-helloWorld-c5ace861-24b3-478c-a8c0-b0f51076b012]: exited"}}
+[debug] [2022-04-27T14:11:12.513Z] [worker-us-central1-helloWorld-c5ace861-24b3-478c-a8c0-b0f51076b012]: FINISHED {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-helloWorld-c5ace861-24b3-478c-a8c0-b0f51076b012]: FINISHED"}}
+[debug] [2022-04-27T14:11:12.514Z] File /home/manok/AcadArena/AllianceGames/packages/cloud-functions/src/helloWorld.onRequest.ts changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File /home/manok/AcadArena/AllianceGames/packages/cloud-functions/src/helloWorld.onRequest.ts changed, reloading triggers"}}
+[debug] [2022-04-27T14:11:13.515Z] Validating nodejs source
+[debug] [2022-04-27T14:11:14.905Z] checkFunctionsSDKVersion encountered error:Invalid Version:  {}
+[debug] [2022-04-27T14:11:14.906Z] > [functions] package.json contents: {
+  "name": "cloud-functions",
+  "version": "1.0.0",
+  "scripts": {
+    "lint": "eslint --ext .js,.ts .",
+    "build": "yarn lint && tsc",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "firebase-admin": "^10.1.0",
+    "firebase-functions": "^3.20.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.21.0",
+    "@typescript-eslint/parser": "^5.21.0",
+    "eslint": "^8.9.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.25.4",
+    "firebase-functions-test": "^0.2.0",
+    "tsconfig": "*",
+    "typescript": "^4.5.4"
+  },
+  "private": true
+}
+[debug] [2022-04-27T14:11:14.906Z] Building nodejs source
+[debug] [2022-04-27T14:11:14.906Z] Analyzing nodejs backend spec
+[debug] [2022-04-27T14:11:30.486Z] File /home/manok/AcadArena/AllianceGames/packages/cloud-functions/tsconfig.dev.json changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File /home/manok/AcadArena/AllianceGames/packages/cloud-functions/tsconfig.dev.json changed, reloading triggers"}}
+[debug] [2022-04-27T14:11:31.487Z] Validating nodejs source
+[debug] [2022-04-27T14:11:33.134Z] checkFunctionsSDKVersion encountered error:Invalid Version:  {}
+[debug] [2022-04-27T14:11:33.135Z] > [functions] package.json contents: {
+  "name": "cloud-functions",
+  "version": "1.0.0",
+  "scripts": {
+    "lint": "eslint --ext .js,.ts .",
+    "build": "yarn lint && tsc",
+    "serve": "npm run build && firebase emulators:start --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "firebase-admin": "^10.1.0",
+    "firebase-functions": "^3.20.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.21.0",
+    "@typescript-eslint/parser": "^5.21.0",
+    "eslint": "^8.9.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-import": "^2.25.4",
+    "firebase-functions-test": "^0.2.0",
+    "tsconfig": "*",
+    "typescript": "^4.5.4"
+  },
+  "private": true
+}
+[debug] [2022-04-27T14:11:33.136Z] Building nodejs source
+[debug] [2022-04-27T14:11:33.136Z] Analyzing nodejs backend spec
