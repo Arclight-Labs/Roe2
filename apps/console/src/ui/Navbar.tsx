@@ -1,8 +1,9 @@
 import { useState } from "react"
 import { createStyles, Navbar, Group, Code } from "@mantine/core"
 import routes from "./routes"
-import { useAuthActions } from "../context/auth/Auth.hooks"
 import { Text } from "@mantine/core"
+import { signOut } from "firebase/auth"
+import { auth } from "utils/firebase"
 // import {
 //   BellRinging,
 //   Fingerprint,
@@ -102,7 +103,6 @@ interface Props {
 export function NavbarSimple({ version }: Props) {
   const { classes, cx } = useStyles()
   const [active, setActive] = useState("Billing")
-  const { logout } = useAuthActions()
 
   const links = routes.map((item) => (
     <a
@@ -138,7 +138,7 @@ export function NavbarSimple({ version }: Props) {
           <span>Leave Room</span>
         </Text>
 
-        <Text className={classes.link} onClick={logout}>
+        <Text className={classes.link} onClick={() => signOut(auth)}>
           <span>Logout</span>
         </Text>
       </Navbar.Section>

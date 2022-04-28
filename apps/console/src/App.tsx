@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { MantineProvider } from "ui"
 import { ColorScheme, ColorSchemeProvider } from "@mantine/core"
 import { Provider } from "react-redux"
@@ -10,15 +10,21 @@ import { QueryClient, QueryClientProvider } from "react-query"
 import { BrowserRouter } from "react-router-dom"
 import Routes from "./routes"
 import AuthProvider from "./context/auth/Auth.provider"
-import axios from "utils/api/axios"
+import { connectEmulators } from "utils/firebase"
 
 export const queryClient = new QueryClient()
-export const ax = axios(window.location.hostname)
 
 function App() {
   const [colorScheme, setColorScheme] = useState<ColorScheme>("light")
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"))
+
+  console.log(import.meta.env.IS_EMULATED)
+  useEffect(() => {
+    if (import.meta.env.DEV) {
+      connectEmulators()
+    }
+  }, [])
 
   return (
     <AuthProvider>

@@ -15,29 +15,37 @@ import { useForm } from "react-hook-form"
 import { LoginInfer, loginSchema } from "utils/schema/login.schema"
 import { useState } from "react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
-import { useAuthActions } from "../context/auth/Auth.hooks"
+import { signInWithEmailAndPassword } from "firebase/auth"
+import { auth as FirebaseAuth } from "utils/firebase"
+import { showNotification } from "@mantine/notifications"
 
 const Login = () => {
   const navigate = useNavigate()
   const location = useLocation()
-  const { login } = useAuthActions()
   const [loading, setLoading] = useState(false)
   const { register, handleSubmit } = useForm<LoginInfer>({
     defaultValues: {
-      username: "",
+      email: "",
       password: "",
     },
     resolver: zodResolver(loginSchema),
   })
 
-  const submit = handleSubmit(async ({ username, password }) => {
+  const submit = handleSubmit(async ({ email, password }) => {
     setLoading(true)
 
-    login(username, password).then(() => {
-      if (location.pathname === "/auth/login") {
-        navigate("/")
-      }
-    })
+    signInWithEmailAndPassword(FirebaseAuth, email, password)
+      .then(() => {
+        if (location.pathname === "/auth/login") {
+          navigate("/")
+        }
+      })
+      .catch((err) => {
+        showNotification({
+          message: err.message || "An error occurred",
+          color: "error",
+        })
+      })
     setLoading(false)
   }, console.error)
 
@@ -51,7 +59,7 @@ const Login = () => {
         <Card withBorder component="form" onSubmit={submit}>
           <Stack>
             <Stack spacing="sm">
-              <TextInput {...register("username")} label="Username" />
+              <TextInput {...register("email")} label="Email" />
               <PasswordInput
                 {...register("password")}
                 label="Password"

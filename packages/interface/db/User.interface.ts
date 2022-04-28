@@ -1,11 +1,7 @@
 export interface User {
-  _id: string
+  uid: string
   username: string
-  avatar: string | null
+  _username: string
+  socialHandle: string
+  avatar: string
 }
-
-export interface UserCredentials extends User {
-  password: string
-}
-
-export type UserCreate = Omit<UserCredentials, "_id">
