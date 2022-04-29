@@ -2,14 +2,7 @@ import { showNotification } from "@mantine/notifications"
 import { Cookie, Room, User } from "interface"
 import { PropsWithChildren, useState } from "react"
 import { useCookies } from "react-cookie"
-import { joinRoom, leave } from "utils/api/queries/room.queries"
-import { ax } from "../../App"
 import { roomContext, roomActions } from "./Room.context"
-
-const fn = {
-  joinRoom: joinRoom(ax),
-  leave: leave(ax),
-}
 
 const RoomProvider = ({ children }: PropsWithChildren<{}>) => {
   const [, , removeCookie] = useCookies([Cookie.Room])
@@ -26,16 +19,16 @@ const RoomProvider = ({ children }: PropsWithChildren<{}>) => {
   }
 
   const join = async (username: string, password: string) => {
-    try {
-      const room = await fn.joinRoom({ username, password })
-      setRoom(room)
-      return room
-    } catch (e: any) {
-      showNotification({
-        title: "Login failed",
-        message: e?.response?.data?.message || "",
-      })
-    }
+    // try {
+    //   const room = await fn.joinRoom({ username, password })
+    //   setRoom(room)
+    //   return room
+    // } catch (e: any) {
+    //   showNotification({
+    //     title: "Login failed",
+    //     message: e?.response?.data?.message || "",
+    //   })
+    // }
   }
 
   return (
