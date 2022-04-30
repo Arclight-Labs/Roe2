@@ -1,8 +1,8 @@
-import { Tournament } from "../challonge"
+import { User } from "./User.interface"
 
 export interface Room {
-  _id: string
-  name: string
-  password: string | null
-  tournament: Tournament
+  id: string
+  owner: User
+  admins: string[]
+  users: Record<string, User>
 }

@@ -19,12 +19,12 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig)
 export const auth = getAuth(app)
 export const db = getFirestore(app)
-export const fn = getFunctions(app)
+export const fn = getFunctions(app, "asia-east2")
 export const storage = getStorage(app)
 
 export function connectEmulators() {
-  connectAuthEmulator(auth, "https://localhost:9099")
-  connectFirestoreEmulator(db, "0.0.0.0", 8080)
-  connectFunctionsEmulator(fn, "0.0.0.0", 5001)
-  connectStorageEmulator(storage, "0.0.0.0", 9199)
+  connectAuthEmulator(auth, "http://localhost:9099")
+  connectFirestoreEmulator(db, "localhost", 8080)
+  connectFunctionsEmulator(fn, "localhost", 5001)
+  connectStorageEmulator(storage, "localhost", 9199)
 }

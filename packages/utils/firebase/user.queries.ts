@@ -4,6 +4,7 @@ import {
   QueryDocumentSnapshot,
   WithFieldValue,
 } from "@firebase/firestore"
+import { collection } from "firebase/firestore"
 import { User } from "interface"
 import { db } from "./firebase.instance"
 
@@ -22,6 +23,8 @@ const converter: FirestoreDataConverter<User> = {
   },
 }
 
-export const getUserById = (uid: string) => {
+export const getUserRefById = (uid: string) => {
   return doc(db, `users`, uid).withConverter(converter)
 }
+
+export const userColRef = collection(db, "users").withConverter(converter)
