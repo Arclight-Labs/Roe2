@@ -1,10 +1,10 @@
 {
   "database": {
-    "rules": "packages/firebase/database.rules.json"
+    "rules": "database.rules.json"
   },
   "firestore": {
-    "rules": "packages/firebase/firestore.rules",
-    "indexes": "packages/firebase/firestore.indexes.json"
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
   },
   "functions": {
     "source": "packages/cloud-functions",
@@ -24,7 +24,7 @@
     ]
   },
   "storage": {
-    "rules": "packages/firebase/storage.rules"
+    "rules": "storage.rules"
   },
   "emulators": {
     "auth": {
