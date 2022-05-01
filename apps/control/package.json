@@ -8,9 +8,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.1.1",
-    "@fortawesome/free-solid-svg-icons": "^6.1.1",
-    "@fortawesome/react-fontawesome": "^0.1.18",
     "@hookform/resolvers": "^2.8.8",
     "@mantine/core": "^4.2.1",
     "@mantine/dropzone": "^4.2.1",
@@ -30,6 +27,7 @@
     "react-redux": "^8.0.1",
     "react-router-dom": "^6.3.0",
     "redux": "^4.1.2",
+    "tabler-icons-react": "^1.47.0",
     "ui": "*",
     "utils": "*",
     "vite-plugin-package-version": "^1.0.2"
