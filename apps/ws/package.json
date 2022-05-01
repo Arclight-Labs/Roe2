@@ -11,7 +11,7 @@
     "build": "tsc"
   },
   "dependencies": {
-    "axios": "^0.26.1",
+    "axios": "^0.27.2",
     "dotenv": "^16.0.0",
     "fastify": "^3.27.4",
     "ip": "^1.1.5",
