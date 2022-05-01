@@ -18,8 +18,10 @@ import { Link, useLocation, useNavigate } from "react-router-dom"
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { auth as FirebaseAuth } from "utils/firebase"
 import { showNotification } from "@mantine/notifications"
+import { useAuth } from "../context/auth/Auth.hooks"
 
 const Login = () => {
+  const { loading: userLoading } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
   const [loading, setLoading] = useState(false)
@@ -51,7 +53,7 @@ const Login = () => {
 
   return (
     <Center sx={{ height: "100vh", width: "100vw" }}>
-      <LoadingOverlay visible={loading} />
+      <LoadingOverlay visible={loading || userLoading} />
       <Stack>
         <Title order={3} align="center">
           Sign in

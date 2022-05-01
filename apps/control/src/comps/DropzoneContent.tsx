@@ -6,15 +6,8 @@ import {
   Image,
 } from "@mantine/core"
 import { DropzoneStatus } from "@mantine/dropzone"
-import {
-  FontAwesomeIcon,
-  FontAwesomeIconProps,
-} from "@fortawesome/react-fontawesome"
-import {
-  faFileArrowUp,
-  faImage,
-  faXmark,
-} from "@fortawesome/free-solid-svg-icons"
+import { Icon as TablerIcon, Photo, Upload, X } from "tabler-icons-react"
+import { ComponentProps } from "react"
 
 interface Props {
   status: DropzoneStatus
@@ -63,16 +56,16 @@ export const DropzoneContent = ({ status, preview }: Props) => {
 function ImageUploadIcon({
   status,
   ...props
-}: Omit<FontAwesomeIconProps, "icon"> & { status: DropzoneStatus }) {
+}: ComponentProps<TablerIcon> & { status: DropzoneStatus }) {
   if (status.accepted) {
-    return <FontAwesomeIcon {...props} icon={faFileArrowUp} />
+    return <Upload {...props} />
   }
 
   if (status.rejected) {
-    return <FontAwesomeIcon {...props} icon={faXmark} />
+    return <X {...props} />
   }
 
-  return <FontAwesomeIcon {...props} icon={faImage} />
+  return <Photo {...props} />
 }
 
 function getIconColor(status: DropzoneStatus, theme: MantineTheme) {
