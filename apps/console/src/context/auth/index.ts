@@ -1,1 +1,1 @@
-export { authContext, authActions } from "./Auth.context"
+export { authContext } from "./Auth.context"

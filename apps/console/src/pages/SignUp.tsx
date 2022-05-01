@@ -12,40 +12,49 @@ import {
 } from "@mantine/core"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import { LoginInfer, loginSchema } from "utils/schema/login.schema"
+import { UserCreateInfer, userCreateSchema } from "utils/schema/user.schema"
 import { useEffect, useState } from "react"
-import { userCreate } from "utils/api/queries"
 import { Link, useNavigate } from "react-router-dom"
 import { showNotification } from "@mantine/notifications"
-import { useAuth, useAuthActions } from "../context/auth/Auth.hooks"
+import { useAuth } from "../context/auth/Auth.hooks"
+import { createUserWithEmailAndPassword } from "firebase/auth"
+import { auth as FirebaseAuth } from "utils/firebase"
+import { runAsync } from "utils/hooks"
 
 const Login = () => {
   const auth = useAuth()
-  const { create } = useAuthActions()
-  const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
   const [password2, setPassword2] = useState("")
-  const { register, handleSubmit, setError } = useForm<LoginInfer>({
+  const navigate = useNavigate()
+  const { register, handleSubmit, setError } = useForm<UserCreateInfer>({
     defaultValues: {
-      username: "",
+      email: "",
       password: "",
     },
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(userCreateSchema),
   })
 
-  const submit = handleSubmit(async ({ username, password }) => {
+  const submit = handleSubmit(async ({ email, password }) => {
     if (password !== password2) {
       setError("password", { message: "passwords do not match" })
     }
     setLoading(true)
-    create(username, password)
-      .then(() => {
-        setLoading(false)
-        navigate("/")
+    const promise = createUserWithEmailAndPassword(
+      FirebaseAuth,
+      email,
+      password
+    )
+    const [, err] = await runAsync(promise)
+    if (err) {
+      showNotification({
+        color: "error",
+        message: err.message,
       })
-      .catch((e) => {
-        setLoading(false)
-      })
+      return setLoading(false)
+    }
+
+    setLoading(false)
+    navigate("/")
   }, console.error)
 
   useEffect(() => {
@@ -63,7 +72,7 @@ const Login = () => {
         <Card withBorder component="form" onSubmit={submit}>
           <Stack>
             <Stack spacing="sm">
-              <TextInput {...register("username")} label="Username" />
+              <TextInput {...register("email")} label="Email" />
               <PasswordInput
                 {...register("password")}
                 label="Password"

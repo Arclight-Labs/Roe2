@@ -6,8 +6,9 @@
     "hooks/**/*.ts",
     "redux/**/*.ts",
     "socket/**/*.ts",
-    "api/**/*.ts",
     "schema/**/*.ts",
+    "general/**/*.ts",
+    "firebase/**/*.ts",
     "./**/*.ts"
   ],
   "author": "AcadArena",
@@ -18,6 +19,7 @@
     "@reduxjs/toolkit": "^1.8.1",
     "axios": "^0.26.1",
     "dotenv": "^16.0.0",
+    "firebase": "^9.7.0",
     "ip": "^1.1.5",
     "lodash-es": "^4.17.21",
     "react": "^18.0.0",

@@ -12,5 +12,6 @@
       "cache": false
     }
   },
+  "baseBranch": "origin/main",
   "globalDependencies": [".env"]
 }

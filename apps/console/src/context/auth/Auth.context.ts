@@ -1,19 +1,15 @@
-import { User } from "interface"
+import { User } from "firebase/auth"
+import { QueryDocumentSnapshot } from "firebase/firestore"
+import { User as Roe2User } from "interface"
 import { createContext } from "react"
 
-export const authContext = createContext<User | null>(null)
+export const authContext = createContext<
+  | {
+      userDoc: QueryDocumentSnapshot<Roe2User>
+      user: Roe2User
+    }
+  | { auth: User }
+  | null
+>(null)
 
-type LoginOrCreate = (username: string, password: string) => Promise<any>
-type AuthActionProps = {
-  set: (user: User | null) => void
-  logout: VoidFunction
-  login: LoginOrCreate
-  create: LoginOrCreate
-}
-
-export const authActions = createContext<AuthActionProps>({
-  login: async () => {},
-  logout: () => {},
-  set: () => {},
-  create: async () => {},
-})
+export type EmailAndPassFn = (email: string, password: string) => Promise<any>

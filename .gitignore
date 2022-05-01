@@ -31,3 +31,11 @@ yarn-error.log*
 
 # turbo
 .turbo
+
+
+.eslintcache
+
+# Firebase
+data
+*.log
+firebase-export*
