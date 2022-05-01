@@ -1,3 +1,3 @@
-export * from "./Room.interface"
-export * from "./User.interface"
-export * from "./Utils.interface"
+export type { Room } from "./Room.interface"
+export type { User } from "./User.interface"
+export type { FilePreview } from "./Utils.interface"

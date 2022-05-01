@@ -1,1 +1,5 @@
-export * from "./Tournament.interface"
+export type {
+  Tournament,
+  TournamentResponse,
+  TournamentType,
+} from "./Tournament.interface"
