@@ -7,6 +7,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "start": "node dist/server.js",
     "dev": "tsnd --respawn src/server.ts",
     "build": "tsc"
   },
