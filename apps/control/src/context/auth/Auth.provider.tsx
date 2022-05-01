@@ -4,7 +4,7 @@ import { PropsWithChildren } from "react"
 import { useAuthState } from "react-firebase-hooks/auth"
 import { authContext, defaultRoe2AuthContext } from "./Auth.context"
 import { useDocument } from "react-firebase-hooks/firestore"
-import { getUserRefById } from "utils/firebase/user.queries"
+import { getUserRef } from "utils/firebase/user.queries"
 import UserModal from "../../modals/User.modal"
 
 const AuthProvider = ({ children }: PropsWithChildren<{}>) => {
@@ -18,7 +18,7 @@ const AuthDataProvider = ({
   children,
   user,
 }: PropsWithChildren<{ user: FireUser }>) => {
-  const [q, loading] = useDocument(getUserRefById(user.uid))
+  const [q, loading] = useDocument(getUserRef(user.uid))
 
   if (loading) return <NullProvider loading>{children}</NullProvider>
 

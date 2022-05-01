@@ -9,6 +9,7 @@
     "schema/**/*.ts",
     "general/**/*.ts",
     "firebase/**/*.ts",
+    "models/**/*.ts",
     "./**/*.ts"
   ],
   "author": "AcadArena",
