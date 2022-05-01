@@ -9,13 +9,13 @@ import {
   TextInput,
 } from "@mantine/core"
 import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from "@mantine/dropzone"
-import { showNotification } from "@mantine/notifications"
 import { User as FireUser } from "firebase/auth"
 import { doc, setDoc } from "firebase/firestore"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
 import { FilePreview, User } from "interface"
 import { MouseEventHandler, useState } from "react"
 import { useForm } from "react-hook-form"
+import { At } from "tabler-icons-react"
 import { storage } from "utils/firebase"
 import { userColRef } from "utils/firebase/user.queries"
 import { UserUpdate, userUpdateSchema } from "utils/schema/user.schema"
@@ -40,7 +40,7 @@ const UserModal = ({ user, data, ...props }: Props) => {
 
   const save = handleSubmit(async (data) => {
     setLoading(true)
-    const docRef = doc(userColRef)
+    const docRef = doc(userColRef, user.uid)
     await setDoc(docRef, {
       uid: user.uid,
       username: data.username,
@@ -81,7 +81,8 @@ const UserModal = ({ user, data, ...props }: Props) => {
         />
         <TextInput
           label="Social Handle"
-          placeholder="@yourMom"
+          placeholder="yourMom"
+          icon={<At size={14} />}
           {...register("socialHandle")}
         />
         <Dropzone
