@@ -58,7 +58,7 @@ const Login = () => {
   }, console.error)
 
   useEffect(() => {
-    if (!auth) return
+    if (!auth.user) return
     navigate("/")
   }, [auth])
 
