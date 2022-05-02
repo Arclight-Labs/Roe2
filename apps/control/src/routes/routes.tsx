@@ -38,7 +38,11 @@ const Routes = () => {
       path: "/",
       element: (
         <AuthGuard>
-          <AppShell version={import.meta.env.PACKAGE_VERSION}>
+          <AppShell
+            version={`${import.meta.env.PACKAGE_VERSION}${
+              import.meta.env.DEV && " Emulated"
+            }`}
+          >
             <TextComponent />
           </AppShell>
         </AuthGuard>
