@@ -36,7 +36,7 @@ export const DropzoneContent = ({ status, preview }: Props) => {
           <ImageUploadIcon
             status={status}
             style={{ color: getIconColor(status, theme) }}
-            fontSize={80}
+            size={80}
           />
 
           <div>
