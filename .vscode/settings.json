@@ -1,6 +1,6 @@
 {
   "conventionalCommits.scopes": [
-    "console",
+    "ctrl",
     "overlay",
     "ui",
     "ws",
