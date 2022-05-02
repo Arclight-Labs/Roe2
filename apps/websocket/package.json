@@ -1,0 +1,29 @@
+{
+  "name": "websocket",
+  "version": "1.0.0",
+  "description": "Websocket server used to communicate between the control and overlay",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "nodemon --exec \"node -r esbuild-register ./src/index.ts\" -e .ts",
+    "start": "node -r esbuild-register ./src/index.ts",
+    "build": "tsc",
+    "lint": "tsc --noEmit && TIMING=1 eslint src --fix",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "dependencies": {
+    "interface": "*",
+    "socket.io": "^4.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.31",
+    "config": "*",
+    "esbuild": "^0.14.38",
+    "esbuild-register": "^3.3.2",
+    "eslint": "^8.14.0",
+    "nodemon": "^2.0.16",
+    "tsconfig": "*",
+    "typescript": "^4.6.4"
+  }
+}

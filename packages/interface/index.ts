@@ -3,7 +3,8 @@ export type {
   TournamentResponse,
   TournamentType,
 } from "./challonge"
-export * from "./utils"
+export { Cookie } from "./utils"
+export type { NotifProps, Path, WithAuth } from "./utils"
 export type {
   JoinRoom,
   JoinRoomProps,
@@ -15,4 +16,5 @@ export type {
   SocketEmitters,
 } from "./ws"
 export { SocketEvent } from "./ws"
-export type { FilePreview, Room, User } from "./db"
+export { FilePreview } from "./db"
+export type { Room, User } from "./db"
