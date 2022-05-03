@@ -85,6 +85,9 @@ service cloud.firestore {
       function isRoom(room, roomId) {
         return (
           room.id == roomId
+          && room.name is string
+          && room.name.size() > 1
+          && room.avatar is string
           && room.owner is string
           && room.owner == uid()
           && exists(/databases/$(database)/documents/users/$(room.owner))
@@ -94,11 +97,11 @@ service cloud.firestore {
 
       allow create: if isRoom(requestData(), roomId)
         && requestData().owner == uid()
-        && fields(["id", "owner", "admins"], [])
+        && fields(["id", "owner", "admins", "name", "avatar"], [])
 
       allow update: if isRoom(requestData(), roomId)
         && uid() in resource.data.admins
-        && editFields(["admins"])
+        && editFields(["admins", "name", "avatar"])
 
       allow delete: if uid() in resource.data.owner
 
@@ -107,10 +110,8 @@ service cloud.firestore {
 
       // Broadcast Data
       match /live/{docId} {
-
         function isRoomAdmin() {
           let ROOM = get(/databases/$(database)/documents/rooms/$(roomId)).data;
-
           return (uid() == ROOM.owner
             || uid() in ROOM.admins
           )
@@ -121,7 +122,26 @@ service cloud.firestore {
       }
 
 
+      // Access Requests
+      match /requestAccess/{userId} {
+        function isRoomRequest(req) {
+          let user = userDoc();
+          return (
+            userId == uid()
+            && req.uid == uid()
+            && req.email == user.email
+            && req.username == user.username
+            && req._username == user._username
+            && req.socialHandle == user.socialHandle
+            && req.avatar == user.avatar
+            && req.type == user.type
+            && req.roomId == roomId
+            && req.roomName is string
+          )
+        }
 
+        allow create: if isRoomRequest(requestData())
+      }
 
       // Chatrooms
       match /chat {
