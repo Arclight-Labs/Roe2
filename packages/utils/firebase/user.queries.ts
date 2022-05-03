@@ -3,6 +3,7 @@ import {
   FirestoreDataConverter,
   getDocs,
   limit,
+  PartialWithFieldValue,
   QueryDocumentSnapshot,
   setDoc,
   SetOptions,
@@ -41,7 +42,7 @@ export async function updateUser(uid: string, data: UserUpdateData) {
 
 export async function setUser(
   uid: string,
-  data: Partial<User>,
+  data: PartialWithFieldValue<User>,
   options: SetOptions = {}
 ) {
   return setDoc(getUserRef(uid), data, options)
