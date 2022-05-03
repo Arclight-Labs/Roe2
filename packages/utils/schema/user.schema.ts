@@ -9,6 +9,7 @@ export const userUpdateSchema = z.object({
   username: z.string().min(1),
   socialHandle: z.string().min(3),
   avatar: z.string().optional(),
+  isTalent: z.boolean(),
 })
 
 export type UserUpdate = z.infer<typeof userUpdateSchema>

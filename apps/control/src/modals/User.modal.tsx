@@ -6,31 +6,39 @@ import {
   Modal,
   ModalProps,
   Stack,
+  Switch,
   TextInput,
+  Text,
 } from "@mantine/core"
 import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from "@mantine/dropzone"
 import { User as FireUser } from "firebase/auth"
-import { doc, setDoc } from "firebase/firestore"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
 import { FilePreview, User } from "interface"
 import { MouseEventHandler, useState } from "react"
 import { useForm } from "react-hook-form"
 import { At } from "tabler-icons-react"
 import { storage } from "utils/firebase"
-import { userColRef } from "utils/firebase/user.queries"
+import { setUser, getUserByUsername } from "utils/firebase/user.queries"
+import { UserModel } from "utils/models/User.model"
 import { UserUpdate, userUpdateSchema } from "utils/schema/user.schema"
-import { DropzoneContent } from "../comps/DropzoneContent"
+import { DropzoneContent } from "../comps/DropzoneContent.component"
 
 interface Props extends ModalProps {
   user: FireUser
-  data?: User
+  data?: UserModel | null
 }
 
 const UserModal = ({ user, data, ...props }: Props) => {
-  const { register, handleSubmit, setValue } = useForm<UserUpdate>({
-    defaultValues: { avatar: "", ...data },
-    resolver: zodResolver(userUpdateSchema),
-  })
+  const { register, handleSubmit, setValue, getFieldState, setError } =
+    useForm<UserUpdate>({
+      defaultValues: {
+        avatar: data?.avatar || "",
+        isTalent: data?.type === "talent",
+        username: data?.username || "",
+        socialHandle: data?.socialHandle || "",
+      },
+      resolver: zodResolver(userUpdateSchema),
+    })
 
   const [loading, setLoading] = useState(false)
   const [uploading, setUploading] = useState(false)
@@ -40,16 +48,26 @@ const UserModal = ({ user, data, ...props }: Props) => {
 
   const save = handleSubmit(async (data) => {
     setLoading(true)
-    const docRef = doc(userColRef, user.uid)
-    await setDoc(docRef, {
-      uid: user.uid,
-      username: data.username,
-      _username: data.username.toLowerCase(),
-      avatar: data.avatar,
-      email: user.email,
-      socialHandle: data.socialHandle,
-    })
+    const userCheck = await getUserByUsername(data.username)
+    if (userCheck && userCheck.id !== user.uid) {
+      setLoading(false)
+      return setError("username", { message: "Username already taken" })
+    }
+    await setUser(
+      user.uid,
+      {
+        uid: user.uid,
+        username: data.username,
+        _username: data.username.toLowerCase(),
+        avatar: data.avatar,
+        email: user.email || "",
+        socialHandle: data.socialHandle,
+        type: data.isTalent ? "talent" : "default",
+      },
+      { merge: true }
+    )
     setLoading(false)
+    props.onClose()
   }, console.error)
 
   const uploadAndSet: MouseEventHandler<HTMLButtonElement> = async (e) => {
@@ -74,27 +92,38 @@ const UserModal = ({ user, data, ...props }: Props) => {
       <LoadingOverlay visible={loading} />
       <Stack>
         <TextInput
-          label="Username"
+          label="Username / Alias"
           placeholder="xXxSlayerxXx"
           {...register("username")}
+          error={getFieldState("username").error?.message}
           autoFocus
+          required
         />
         <TextInput
           label="Social Handle"
-          placeholder="yourMom"
+          placeholder="gitGud69"
           icon={<At size={14} />}
+          required
+          error={getFieldState("socialHandle").error?.message}
           {...register("socialHandle")}
         />
-        <Dropzone
-          multiple={false}
-          onDrop={onDrop}
-          accept={IMAGE_MIME_TYPE}
-          loading={uploading}
-        >
-          {(status) => (
-            <DropzoneContent status={status} preview={[avatarPreview.path]} />
-          )}
-        </Dropzone>
+        <Stack spacing={4}>
+          <Text size="sm">Avatar</Text>
+          <Dropzone
+            multiple={false}
+            onDrop={onDrop}
+            accept={IMAGE_MIME_TYPE}
+            loading={uploading}
+          >
+            {(status) => (
+              <DropzoneContent status={status} preview={[avatarPreview.path]} />
+            )}
+          </Dropzone>
+        </Stack>
+        <Switch
+          label="I am a talent / caster / host / guest"
+          {...register("isTalent")}
+        />
         <Group position="right">
           <Button onClick={uploadAndSet} disabled={loading}>
             Save
