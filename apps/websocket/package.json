@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "interface": "*",
-    "socket.io": "^4.5.0"
+    "socket.io": "4.5.0"
   },
   "devDependencies": {
     "@types/node": "17.0.31",
