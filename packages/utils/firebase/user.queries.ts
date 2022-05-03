@@ -1,18 +1,23 @@
 import {
   doc,
   FirestoreDataConverter,
+  getDocs,
+  limit,
   QueryDocumentSnapshot,
+  setDoc,
+  SetOptions,
   updateDoc,
+  where,
   WithFieldValue,
 } from "@firebase/firestore"
-import { collection } from "firebase/firestore"
+import { collection, query } from "firebase/firestore"
 import { User } from "interface"
 import { db } from "./firebase.instance"
-import { UserUpdateData } from "../models/User.model"
+import { UserModel, UserUpdateData } from "../models/User.model"
 
-const converter: FirestoreDataConverter<User> = {
+export const userFC: FirestoreDataConverter<UserModel> = {
   fromFirestore(snap: QueryDocumentSnapshot<User>, options) {
-    return snap.data(options)
+    return new UserModel(snap.data(options))
   },
   toFirestore(data: WithFieldValue<User>) {
     return {
@@ -24,13 +29,31 @@ const converter: FirestoreDataConverter<User> = {
     }
   },
 }
+export const userColRef = collection(db, "users").withConverter(userFC)
 
-export const getUserRef = (uid: string) => {
-  return doc(db, `users`, uid).withConverter(converter)
+export function getUserRef(uid: string) {
+  return doc(db, `users`, uid).withConverter(userFC)
 }
 
-export const userColRef = collection(db, "users").withConverter(converter)
-
-export const updateUser = async (uid: string, data: UserUpdateData) => {
+export async function updateUser(uid: string, data: UserUpdateData) {
   return updateDoc(getUserRef(uid), data)
+}
+
+export async function setUser(
+  uid: string,
+  data: Partial<User>,
+  options: SetOptions = {}
+) {
+  return setDoc(getUserRef(uid), data, options)
+}
+
+export async function getUserByUsername(username: string) {
+  const q = query(
+    userColRef,
+    where("_username", "==", username.toLowerCase()),
+    limit(1)
+  )
+  const snap = await getDocs(q)
+  const [doc] = snap.docs
+  return !!doc ? doc : null
 }

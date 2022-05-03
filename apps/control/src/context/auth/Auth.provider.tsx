@@ -22,7 +22,7 @@ const AuthDataProvider = ({
 
   if (loading) return <NullProvider loading>{children}</NullProvider>
 
-  return q?.exists() ? (
+  return q?.exists() && q.data().username ? (
     <authContext.Provider
       value={{
         auth: user,
