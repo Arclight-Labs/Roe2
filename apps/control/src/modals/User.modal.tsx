@@ -116,7 +116,10 @@ const UserModal = ({ user, data, ...props }: Props) => {
             loading={uploading}
           >
             {(status) => (
-              <DropzoneContent status={status} preview={[avatarPreview.path]} />
+              <DropzoneContent
+                status={status}
+                preview={[avatarPreview.path || data?.avatar || ""]}
+              />
             )}
           </Dropzone>
         </Stack>
