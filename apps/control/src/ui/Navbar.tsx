@@ -4,6 +4,8 @@ import routes from "./routes"
 import { Text } from "@mantine/core"
 import { signOut } from "firebase/auth"
 import { auth } from "utils/firebase"
+import { useAuth } from "../context/auth/Auth.hooks"
+import UserButton from "../comps/UserButton.component"
 // import {
 //   BellRinging,
 //   Fingerprint,
@@ -101,6 +103,7 @@ interface Props {
   version: string
 }
 export function NavbarSimple({ version }: Props) {
+  const { user } = useAuth()
   const { classes, cx } = useStyles()
   const [active, setActive] = useState("Billing")
 
@@ -116,7 +119,7 @@ export function NavbarSimple({ version }: Props) {
         setActive(item.label)
       }}
     >
-      {/* <item.icon /> */}
+      <item.icon className={classes.linkIcon} />
       <span>{item.label}</span>
     </a>
   ))
@@ -132,7 +135,9 @@ export function NavbarSimple({ version }: Props) {
       </Navbar.Section>
 
       <Navbar.Section className={classes.footer}>
-        <Text className={classes.link}>test</Text>
+        <UserButton />
+
+        {/* <Text className={classes.link}>test</Text>
 
         <Text className={classes.link} onClick={() => {}}>
           <span>Leave Room</span>
@@ -140,7 +145,7 @@ export function NavbarSimple({ version }: Props) {
 
         <Text className={classes.link} onClick={() => signOut(auth)}>
           <span>Logout</span>
-        </Text>
+        </Text> */}
       </Navbar.Section>
     </Navbar>
   )

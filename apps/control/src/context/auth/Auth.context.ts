@@ -1,11 +1,11 @@
 import { User } from "firebase/auth"
 import { QueryDocumentSnapshot } from "firebase/firestore"
-import { User as Roe2User } from "interface"
 import { createContext } from "react"
+import { UserModel } from "utils/models/User.model"
 
 export interface Roe2Auth {
-  userDoc: QueryDocumentSnapshot<Roe2User> | null
-  user: Roe2User | null
+  userDoc: QueryDocumentSnapshot<UserModel> | null
+  user: UserModel | null
   auth: User | null
   loading: boolean
 }

@@ -1,9 +1,10 @@
-import { PartialWithFieldValue } from "firebase/firestore"
+import { PartialWithFieldValue, SetOptions } from "firebase/firestore"
 import { User } from "interface"
-import { getUserRef, updateUser } from "../firebase/user.queries"
+import { UserType } from "interface/db/User.interface"
+import { getUserRef, setUser, updateUser } from "../firebase/user.queries"
 
 export type UserUpdateData = PartialWithFieldValue<
-  Pick<User, "socialHandle" | "avatar" | "username">
+  Pick<User, "socialHandle" | "avatar" | "username" | "type">
 >
 
 export class UserModel implements User {
@@ -13,6 +14,7 @@ export class UserModel implements User {
   socialHandle: string
   uid: string
   username: string
+  type: UserType
 
   constructor(props: User) {
     this.uid = props.uid
@@ -21,6 +23,7 @@ export class UserModel implements User {
     this.socialHandle = props.socialHandle
     this.email = props.email
     this.avatar = props.avatar
+    this.type = props.type
   }
 
   ref() {
@@ -31,8 +34,12 @@ export class UserModel implements User {
     return updateUser(this.uid, data)
   }
 
+  async set(data: User | Partial<User>, options: SetOptions = {}) {
+    return setUser(this.uid, data, options)
+  }
+
   toJSON(): User {
-    const { ref, update, toJSON, ...data } = this
+    const { ref, update, toJSON, set, ...data } = this
     return data
   }
 }

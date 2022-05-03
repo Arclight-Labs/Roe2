@@ -26,6 +26,7 @@ export const DropzoneContent = ({ status, preview }: Props) => {
           <Image
             radius="md"
             height={100}
+            sx={{ filter: "drop-shadow(0px 8px 8px rgba(0,0,0,.5))" }}
             width="auto"
             src={url}
             key={url + i}

@@ -5,22 +5,149 @@ service cloud.firestore {
       allow read, write: if false;
     }
 
+    // function optional(field, data) {
+    //   return !(field in data.keys()) || data[field] == null
+    // }
+
+    function userDoc() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data
+    }
+
+    function userType() {
+      return userDoc().data.type
+    }
+
+    function isAdmin() {
+      return (
+        auth().token.admin == true
+        || auth().token.super_admin == true
+        || userDoc().data.type == "admin"
+      )
+    }
+
+    function auth() {
+      return request.auth
+    }
+
+    function uid() {
+      return request.auth.uid
+    }
+
+    function requestData() {
+      return request.resource.data
+    }
+
+    function fields(requiredFields, optionalFields) {
+      let allFields = requiredFields.concat(optionalFields);
+      return requestData().keys().hasAll(requiredFields) &&
+        requestData().keys().hasOnly(allFields)
+    }
+
+    function editFields(allowedFields) {
+      let affectedKeys = requestData().diff(resource.data).affectedKeys();
+      return affectedKeys.hasOnly(allowedFields)
+    }
+
+    function isUser(user, userId) {
+      return (
+        user.uid == userId
+        && user.uid == uid()
+        && user.email == request.auth.token.email
+        && user.username is string
+        && user.username.size() > 0
+        && user._username == user.username.lower()
+        && user.socialHandle is string
+        && user.avatar is string
+        && user.type in ["admin", "talent", "default"]
+      )
+    }
+
 
     match /users/{userId} {
-      function isValidUser(user) {
-        return ( user.uid == userId
-          && user.uid == request.auth.uid
-          && user.email == request.auth.token.email
-          && user.username is string
-          && user.username.size() > 0
-          && user._username == user.username.lower()
-          && user.socialHandle is string
-          && user.avatar is string
+      allow create: if
+        uid() == userId
+        && isUser(requestData(), userId)
+        && fields(["uid", "email", "username", "_username", "socialHandle", "avatar", "type"],[])
+        && requestData().type in ["talent", "default"]
+
+      allow update: if
+        uid() == userId
+        && isUser(requestData(), userId)
+        && editFields(["email", "username", "_username", "socialHandle", "avatar", "type"])
+        && (requestData().type in ["talent", "default"]
+        || requestData().type == resource.data.type)
+
+      allow get;
+      allow list: if request.query.limit <= 50
+    }
+
+    match /rooms/{roomId} {
+      function isRoom(room, roomId) {
+        return (
+          room.id == roomId
+          && room.owner is string
+          && room.owner == uid()
+          && exists(/databases/$(database)/documents/users/$(room.owner))
+          && room.admins is list
         )
       }
 
-      allow write: if isValidUser(request.resource.data)
+      allow create: if isRoom(requestData(), roomId)
+        && requestData().owner == uid()
+        && fields(["id", "owner", "admins"], [])
+
+      allow update: if isRoom(requestData(), roomId)
+        && uid() in resource.data.admins
+        && editFields(["admins"])
+
+      allow delete: if uid() in resource.data.owner
+
       allow read;
+
+
+      // Broadcast Data
+      match /live/{docId} {
+
+        function isRoomAdmin() {
+          let ROOM = get(/databases/$(database)/documents/rooms/$(roomId)).data;
+
+          return (uid() == ROOM.owner
+            || uid() in ROOM.admins
+          )
+        }
+
+        allow read;
+        allow create, update: if isRoomAdmin()
+      }
+
+
+
+
+      // Chatrooms
+      match /chat {
+        function isChat(chat) {
+          return (
+            isUser(chat.author, uid())
+            && chat.author.uid == uid()
+            && chat.roomId == roomId
+            && chat.room in ["everyone", "talent", "admin"]
+            && chat.message is string
+            && chat.message.size() <= 2000
+          )
+      }
+
+        match /everyone {
+          allow list: if request.query.limit <= 100
+          allow write: if isChat(requestData())
+        }
+
+        match /talents {
+          allow list: if request.query.limit <= 100
+            && (isAdmin() || userType() == "talent")
+          allow write: if isChat(requestData())
+        }
+
+      }
     }
   }
 }
