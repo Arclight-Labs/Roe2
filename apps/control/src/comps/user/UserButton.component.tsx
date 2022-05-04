@@ -10,7 +10,7 @@ import {
   LoadingOverlay,
 } from "@mantine/core"
 import { ChevronRight } from "tabler-icons-react"
-import { useAuth } from "../context/auth/Auth.hooks"
+import { useAuth } from "../../context/auth/Auth.hooks"
 import { UserMenu } from "./UserMenu.component"
 
 const useStyles = createStyles((theme) => ({
@@ -37,6 +37,7 @@ const UserButton: FC<UserButtonProps> = ({ icon, ...props }) => {
   const { classes } = useStyles()
   return (
     <UserMenu
+      sx={{ width: "100%" }}
       control={
         <UnstyledButton className={classes.user} {...props}>
           <LoadingOverlay visible={loading} />

@@ -1,16 +1,9 @@
-import React, { useState } from "react"
+import { useState } from "react"
 import { Menu, Group, MenuProps, LoadingOverlay } from "@mantine/core"
-import {
-  Logout,
-  Message,
-  Settings,
-  PlayerPause,
-  Trash,
-  SwitchHorizontal,
-} from "tabler-icons-react"
+import { Logout, Settings } from "tabler-icons-react"
 import { auth as firebaseAuth } from "utils/firebase"
-import UserModal from "../modals/User.modal"
-import { useAuth } from "../context/auth/Auth.hooks"
+import UserModal from "../../overlays/User.modal"
+import { useAuth } from "../../context/auth/Auth.hooks"
 import { signOut } from "firebase/auth"
 
 interface Props extends Omit<MenuProps, "children"> {}

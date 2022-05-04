@@ -1,8 +1,10 @@
 import { LoadingOverlay } from "@mantine/core"
 import { lazy } from "react"
 import { FunctionComponent, Suspense } from "react"
-import { useRoutes } from "react-router-dom"
+import { Outlet, useRoutes } from "react-router-dom"
+import RoomComponent from "../comps/room/Room.component"
 import TextComponent from "../pages/TextComponent"
+import TournamentPage from "../pages/Tournament.page"
 import AppShell from "../ui/AppShell"
 import AuthGuard from "../ui/guards/AuthGuard"
 import RoomGuard from "../ui/guards/RoomGuard"
@@ -39,17 +41,21 @@ const Routes = () => {
       path: "/",
       element: (
         <AuthGuard>
-          <RoomGuard>
-            <AppShell
-              version={`${import.meta.env.PACKAGE_VERSION}${
-                import.meta.env.DEV && " Emulated"
-              }`}
-            >
-              <TextComponent />
-            </AppShell>
-          </RoomGuard>
+          <AppShell
+            version={`${import.meta.env.PACKAGE_VERSION}${
+              import.meta.env.DEV && " Emulated"
+            }`}
+          >
+            <RoomGuard>
+              <Outlet />
+            </RoomGuard>
+          </AppShell>
         </AuthGuard>
       ),
+      children: [
+        { path: "rooms", element: <RoomComponent /> },
+        { path: "tournaments", element: <TournamentPage /> },
+      ],
     },
   ])
 }

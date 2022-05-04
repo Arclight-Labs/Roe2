@@ -2,7 +2,7 @@ import { PropsWithChildren } from "react"
 import { User } from "firebase/auth"
 import { useDocument } from "react-firebase-hooks/firestore"
 import { getUserRef } from "utils/firebase/user.queries"
-import UserModal from "../../modals/User.modal"
+import UserModal from "../../overlays/User.modal"
 import { authContext } from "./Auth.context"
 import AuthNullProvider from "./Auth.provider.null"
 
