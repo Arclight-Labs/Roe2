@@ -19,7 +19,6 @@ function App() {
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === "dark" ? "light" : "dark"))
 
-  console.log(import.meta.env.IS_EMULATED)
   useEffect(() => {
     if (import.meta.env.DEV) {
       connectEmulators()

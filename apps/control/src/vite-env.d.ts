@@ -2,7 +2,6 @@
 
 interface ImportMetaEnv {
   readonly PACKAGE_VERSION: string
-  readonly IS_EMULATED?: "true"
   // more env variables...
 }
 
