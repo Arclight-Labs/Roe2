@@ -73,7 +73,7 @@ const UserModal = ({ user, data, ...props }: Props) => {
   const uploadAndSet: MouseEventHandler<HTMLButtonElement> = async (e) => {
     if (!avatarPreview.file) return save(e)
     setUploading(true)
-    const uploadRef = ref(storage, `${user.uid}/avatar/${Date.now()}`)
+    const uploadRef = ref(storage, `public/user/${user.uid}/avatar`)
     const snap = await uploadBytes(uploadRef, avatarPreview.file)
     const downloadUrl = await getDownloadURL(snap.ref)
     setValue("avatar", downloadUrl)
@@ -88,7 +88,7 @@ const UserModal = ({ user, data, ...props }: Props) => {
   }
 
   return (
-    <Modal {...props} title="Update User Info">
+    <Modal {...props} centered title="Update User Info">
       <LoadingOverlay visible={loading} />
       <Stack>
         <TextInput

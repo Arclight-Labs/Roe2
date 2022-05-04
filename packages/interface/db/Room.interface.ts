@@ -4,7 +4,7 @@ export interface Room {
   id: string
   name: string
   avatar: string
-  owner: User
+  owner: string
   admins: string[]
 }
 

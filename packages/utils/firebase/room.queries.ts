@@ -32,6 +32,8 @@ export const getRoomRef = (roomId: string) => {
   return doc(db, "rooms", roomId).withConverter(roomFC)
 }
 
+export const roomColRef = collection(db, "rooms").withConverter(roomFC)
+
 export const updateRoom = async (roomId: string, data: RoomUpdateData) => {
   return updateDoc(getRoomRef(roomId), data)
 }
@@ -41,7 +43,7 @@ export const setRoom = (
   data: RoomUpdateData,
   options: SetOptions = {}
 ) => {
-  return setDoc(getUserRef(roomId), data, options)
+  return setDoc(getRoomRef(roomId), data, options)
 }
 
 export const addRoomAdmins = async (roomId: string, newAdmins: string[]) => {

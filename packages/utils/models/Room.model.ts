@@ -1,9 +1,10 @@
-import { PartialWithFieldValue, SetOptions } from "firebase/firestore"
+import { doc, PartialWithFieldValue, SetOptions } from "firebase/firestore"
 import { Room, User } from "interface"
 import {
   addRoomAdmins,
   getRoomRef,
   requestRoomAccess,
+  roomColRef,
   RoomUpdateData,
   setRoom,
   updateRoom,
@@ -13,14 +14,14 @@ interface RoomConstructor {
   name: string
   avatar: string
   admins: string[]
-  owner: User
+  owner: string
 }
 export class RoomModel implements Room {
   id: string
   name: string
   avatar: string
   admins: string[]
-  owner: User
+  owner: string
 
   constructor(props: RoomConstructor) {
     this.id = props.id
@@ -53,5 +54,9 @@ export class RoomModel implements Room {
   toJSON() {
     const { ref, addAdmins, set, update, ...data } = this
     return data as Room
+  }
+
+  static create() {
+    return doc(roomColRef)
   }
 }

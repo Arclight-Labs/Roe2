@@ -26,7 +26,7 @@ export const userFC: FirestoreDataConverter<UserModel> = {
       _username:
         typeof data.username === "string"
           ? data.username.toLowerCase()
-          : data._username,
+          : data._username || "",
     }
   },
 }
