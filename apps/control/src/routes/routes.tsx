@@ -5,6 +5,7 @@ import { useRoutes } from "react-router-dom"
 import TextComponent from "../pages/TextComponent"
 import AppShell from "../ui/AppShell"
 import AuthGuard from "../ui/guards/AuthGuard"
+import RoomGuard from "../ui/guards/RoomGuard"
 
 const Login = Loadable(lazy(() => import("../pages/Login")))
 const SignUp = Loadable(lazy(() => import("../pages/SignUp")))
@@ -38,13 +39,15 @@ const Routes = () => {
       path: "/",
       element: (
         <AuthGuard>
-          <AppShell
-            version={`${import.meta.env.PACKAGE_VERSION}${
-              import.meta.env.DEV && " Emulated"
-            }`}
-          >
-            <TextComponent />
-          </AppShell>
+          <RoomGuard>
+            <AppShell
+              version={`${import.meta.env.PACKAGE_VERSION}${
+                import.meta.env.DEV && " Emulated"
+              }`}
+            >
+              <TextComponent />
+            </AppShell>
+          </RoomGuard>
         </AuthGuard>
       ),
     },
