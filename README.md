@@ -8,9 +8,10 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/lang/en/) as a package ma
 
 ### Apps and Packages
 
-- `console-dashboard`: Console for Remote Overlay Tool
+- `ctrl`: Console for Remote Overlay Tool
 - `overlay`: Web based stream overlay
 - `ws`: Websocket server
+- `cloud-functions`: Cloud Functions for Firebase
 - `utils`: utilities that can be used through all of the apps
 - `ui`: a stub React component library shared by both `web` and `docs` applications
 - `config`: configurations (includes `vite.config.js` `eslint-config-next` and `eslint-config-prettier`)
