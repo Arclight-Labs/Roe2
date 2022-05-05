@@ -10,4 +10,10 @@ export type {
   SocketEmitters,
 } from "./SocketEmitter.interface"
 
-export type { WebsocketRoom, WebsocketStore } from "./WebsocketStore.interface"
+export type {
+  WebsocketRoom,
+  WebsocketStore,
+  SanitizedWebsocketRoom,
+  BroadcastData,
+  SanitizedBroadcastData,
+} from "./WebsocketStore.interface"

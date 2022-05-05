@@ -21,3 +21,5 @@ export type { Room, User } from "./db"
 
 // waypoint
 export * as Waypoint from "./waypoint"
+
+export * as Websocket from "./ws"
