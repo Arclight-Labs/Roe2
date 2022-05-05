@@ -1,4 +1,3 @@
-import { Room } from "interface"
 import { RoomModel } from "utils/models/Room.model"
 import { createContext } from "react"
 

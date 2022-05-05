@@ -5,7 +5,7 @@ export type {
   Notif,
   Ping,
   SetTournament,
-  SocketEmitter,
-  SocketEmitterType,
+  SocketEmitterFn as SocketEmitter,
+  SocketEmitterRecord as SocketEmitterType,
   SocketEmitters,
 } from "./SocketEmitter.interface"

@@ -1,1 +1,1 @@
-export { helloWorld } from "./helloWorld.onRequest"
+export * as auth from "./auth"

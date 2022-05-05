@@ -58,3 +58,13 @@ export async function getUserByUsername(username: string) {
   const [doc] = snap.docs
   return !!doc ? doc : null
 }
+
+export async function getUsers(username: string, searchLimit: number = 5) {
+  const q = query(
+    userColRef,
+    where("_username", "==", username.toLowerCase()),
+    limit(searchLimit)
+  )
+  const snap = await getDocs(q)
+  return snap.docs.map((doc) => doc.data())
+}

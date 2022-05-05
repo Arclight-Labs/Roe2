@@ -13,7 +13,7 @@ import {
 import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from "@mantine/dropzone"
 import { User as FireUser } from "firebase/auth"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
-import { FilePreview, User } from "interface"
+import { FilePreview } from "interface"
 import { MouseEventHandler, useState } from "react"
 import { useForm } from "react-hook-form"
 import { At } from "tabler-icons-react"

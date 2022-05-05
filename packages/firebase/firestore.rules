@@ -100,8 +100,8 @@ service cloud.firestore {
         && fields(["id", "owner", "admins", "name", "avatar"], [])
 
       allow update: if isRoom(requestData(), roomId)
-        && uid() in resource.data.admins
-        && editFields(["admins", "name", "avatar"])
+        && (resource.data.owner == uid() && editFields(["owner", "admins", "name", "avatar"])
+          || (uid() in resource.data.admins && editFields(["admins", "name", "avatar"])))
 
       allow delete: if uid() in resource.data.owner
 

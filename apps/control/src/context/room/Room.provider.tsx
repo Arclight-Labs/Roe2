@@ -1,21 +1,16 @@
-import { useLocalStorage } from "@mantine/hooks"
-import { Room } from "interface"
 import { PropsWithChildren } from "react"
-import RoomModal from "../../modals/Room.modal"
+import { useActiveRoom } from "../../hooks/useActiveRoom.hook"
+import RoomSelect from "../../pages/RoomSelect"
 import RoomDataProvider from "./Room.provider.data"
 import RoomNullProvider from "./Room.provider.null"
 
 const RoomProvider = ({ children }: PropsWithChildren<{}>) => {
-  const [activeRoom] = useLocalStorage<Room | null>({
-    key: "activeRoom",
-    defaultValue: null,
-  })
+  const [activeRoom, setActiveRoom] = useActiveRoom()
 
   if (!activeRoom) {
     return (
       <RoomNullProvider>
-        {children}
-        <RoomModal opened onClose={() => {}} withCloseButton={false} />
+        <RoomSelect />
       </RoomNullProvider>
     )
   }

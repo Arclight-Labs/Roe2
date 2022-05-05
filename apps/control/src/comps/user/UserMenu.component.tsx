@@ -1,16 +1,9 @@
-import React, { useState } from "react"
+import { useState } from "react"
 import { Menu, Group, MenuProps, LoadingOverlay } from "@mantine/core"
-import {
-  Logout,
-  Message,
-  Settings,
-  PlayerPause,
-  Trash,
-  SwitchHorizontal,
-} from "tabler-icons-react"
+import { Logout, Settings } from "tabler-icons-react"
 import { auth as firebaseAuth } from "utils/firebase"
-import UserModal from "../modals/User.modal"
-import { useAuth } from "../context/auth/Auth.hooks"
+import UserModal from "../../overlays/User.modal"
+import { useAuth } from "../../context/auth/Auth.hooks"
 import { signOut } from "firebase/auth"
 
 interface Props extends Omit<MenuProps, "children"> {}
@@ -36,25 +29,12 @@ export function UserMenu(props: Props) {
             <Menu.Item onClick={open} icon={<Settings size={14} />}>
               Account settings
             </Menu.Item>
-            {/* <Menu.Item icon={<SwitchHorizontal size={14} />}>
-					Change account
-				</Menu.Item> */}
             <Menu.Item
               onClick={() => signOut(firebaseAuth)}
               icon={<Logout size={14} />}
             >
               Logout
             </Menu.Item>
-            {/*
-				<Divider />
-
-				<Menu.Label>Danger zone</Menu.Label>
-				<Menu.Item icon={<PlayerPause size={14} />}>
-				Pause subscription
-				</Menu.Item>
-				<Menu.Item color="red" icon={<Trash size={14} />}>
-				Delete account
-				</Menu.Item> */}
           </>
         )}
       </Menu>

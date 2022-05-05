@@ -1,4 +1,4 @@
-import { JoinRoom, SocketEvent, WithAuth } from "interface"
+import { JoinRoom, SocketEvent } from "interface"
 import { socket } from "../Socket.instance"
 
 export const joinRoom: JoinRoom = (props) => {

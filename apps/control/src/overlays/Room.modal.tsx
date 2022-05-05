@@ -11,49 +11,66 @@ import {
 import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from "@mantine/dropzone"
 import { DocumentReference } from "firebase/firestore"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
-import { FilePreview } from "interface"
-import { MouseEventHandler, useState } from "react"
+import { FilePreview, Room } from "interface"
+import { MouseEventHandler, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { storage } from "utils/firebase"
 import { setRoom } from "utils/firebase/room.queries"
 import { RoomModel } from "utils/models/Room.model"
 import { RoomCreateSchema, roomCreateSchema } from "utils/schema/room.schema"
 import { DropzoneContent } from "../comps/DropzoneContent.component"
+import UserSelect from "../comps/user/UserMultiInput.component"
 import { useAuth } from "../context/auth/Auth.hooks"
+import { useActiveRoom } from "../hooks/useActiveRoom.hook"
 
-interface RoomCreateModalProps extends ModalProps {}
+interface RoomCreateModalProps extends ModalProps {
+  data?: RoomModel
+}
 
-const RoomCreateModal = (props: RoomCreateModalProps) => {
+const RoomModal = ({ data, ...props }: RoomCreateModalProps) => {
   const { auth } = useAuth()
+  const [activeRoom, setActiveRoom] = useActiveRoom()
   const [loading, setLoading] = useState(false)
   const [uploading, setUploading] = useState(false)
   const [avatarPreview, setAvatarPreview] = useState<FilePreview>(
     new FilePreview()
   )
-  const { register, setValue, getFieldState, handleSubmit } =
+  const { register, setValue, getFieldState, handleSubmit, watch, reset } =
     useForm<RoomCreateSchema>({
-      defaultValues: { avatar: "", name: "" },
+      defaultValues: {
+        avatar: data?.avatar || "",
+        name: data?.name || "",
+        admins: data?.admins || [],
+      },
       resolver: zodResolver(roomCreateSchema),
     })
+
+  useEffect(() => {
+    reset(data)
+  }, [data])
 
   const save = (roomRef: DocumentReference<RoomModel>) =>
     handleSubmit(async (data) => {
       if (!auth) return
       setLoading(true)
-      setRoom(roomRef.id, {
-        admins: [],
+      const newData = {
+        admins: data.admins,
         avatar: data.avatar,
         id: roomRef.id,
         name: data.name,
         owner: auth.uid || "",
-      })
+      }
+      setRoom(roomRef.id, newData, { merge: true })
+      if (activeRoom?.id === roomRef.id) {
+        setActiveRoom((s) => new RoomModel({ ...s?.toJSON(), ...newData }))
+      }
       props.onClose()
     }, console.error)
 
   const uploadAndSet: MouseEventHandler<HTMLButtonElement> = async (e) => {
     if (!auth) return
 
-    const roomRef = RoomModel.create()
+    const roomRef = data ? data.ref() : RoomModel.create()
     const saveFn = save(roomRef)
     if (!avatarPreview.file) return saveFn(e)
 
@@ -71,6 +88,10 @@ const RoomCreateModal = (props: RoomCreateModalProps) => {
     const file = files[0]
     if (!file) return
     setAvatarPreview(new FilePreview(file))
+  }
+
+  const onChangeAdmins = (uids: string[]) => {
+    setValue("admins", uids)
   }
 
   return (
@@ -91,16 +112,21 @@ const RoomCreateModal = (props: RoomCreateModalProps) => {
             loading={uploading}
           >
             {(status) => (
-              <DropzoneContent status={status} preview={[avatarPreview.path]} />
+              <DropzoneContent
+                status={status}
+                preview={[avatarPreview.path || data?.avatar || ""]}
+              />
             )}
           </Dropzone>
         </Stack>
 
+        <UserSelect onSelect={onChangeAdmins} selected={watch("admins")} />
+
         <Group position="right">
-          <Button onClick={uploadAndSet}>Create</Button>
+          <Button onClick={uploadAndSet}>{data ? "Save" : "Create"}</Button>
         </Group>
       </Stack>
     </Modal>
   )
 }
-export default RoomCreateModal
+export default RoomModal

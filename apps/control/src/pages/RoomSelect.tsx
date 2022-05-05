@@ -1,4 +1,11 @@
+import { Container } from "@mantine/core"
+import RoomDirectory from "../comps/room/Room.component"
+
 const RoomSelect = () => {
-  return <div>RoomSelect</div>
+  return (
+    <Container size="xl">
+      <RoomDirectory />
+    </Container>
+  )
 }
 export default RoomSelect

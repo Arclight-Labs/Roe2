@@ -1,10 +1,12 @@
 import { ev } from "../event.hoc"
 import { SocketEvent } from "interface"
-import { Socket } from "socket.io"
-import { joinRoomListen } from "./joinRoom.event"
+import { Server, Socket } from "socket.io"
+import { joinRoomEvent } from "./joinRoom.event"
+import { leaveRoomEvent } from "./leaveRoom.event"
 
-const roomEvents = (socket: Socket) => {
-  socket.on(SocketEvent.JoinRoom, ev(socket, joinRoomListen))
+const roomEvents = (io: Server, socket: Socket) => {
+  socket.on(SocketEvent.JoinRoom, ev(socket, io, joinRoomEvent))
+  socket.on(SocketEvent.LeaveRoom, ev(socket, io, leaveRoomEvent))
 }
 
 export default roomEvents

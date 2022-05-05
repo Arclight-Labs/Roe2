@@ -8,6 +8,7 @@ export { errorEmit } from "./Error.emit"
 export { errorListen } from "./Error.listen"
 
 export { joinRoom } from "./JoinRoom.emit"
+export { leaveRoom } from "./LeaveRoom.emit"
 
 export { notif } from "./Notif.emit"
 export { notifListen } from "./Notif.listen"

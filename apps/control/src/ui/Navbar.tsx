@@ -1,23 +1,10 @@
 import { useState } from "react"
 import { createStyles, Navbar, Group, Code } from "@mantine/core"
 import routes from "./routes"
-import { Text } from "@mantine/core"
-import { signOut } from "firebase/auth"
-import { auth } from "utils/firebase"
 import { useAuth } from "../context/auth/Auth.hooks"
-import UserButton from "../comps/UserButton.component"
-// import {
-//   BellRinging,
-//   Fingerprint,
-//   Key,
-//   Settings,
-//   TwoFA,
-//   DatabaseImport,
-//   Receipt2,
-//   SwitchHorizontal,
-//   Logout,
-// } from 'tabler-icons-react';
-// import { MantineLogo } from '../../shared/MantineLogo';
+import UserButton from "../comps/user/UserButton.component"
+import RoomButton from "../comps/room/RoomButton.component"
+import { Link } from "react-router-dom"
 
 const useStyles = createStyles((theme, _params, getRef) => {
   const icon = getRef("icon")
@@ -108,20 +95,19 @@ export function NavbarSimple({ version }: Props) {
   const [active, setActive] = useState("Billing")
 
   const links = routes.map((item) => (
-    <a
+    <Link
       className={cx(classes.link, {
         [classes.linkActive]: item.label === active,
       })}
-      href={item.link}
+      to={item.link}
       key={item.label}
-      onClick={(event) => {
-        event.preventDefault()
+      onClick={() => {
         setActive(item.label)
       }}
     >
       <item.icon className={classes.linkIcon} />
       <span>{item.label}</span>
-    </a>
+    </Link>
   ))
 
   return (
@@ -135,6 +121,7 @@ export function NavbarSimple({ version }: Props) {
       </Navbar.Section>
 
       <Navbar.Section className={classes.footer}>
+        <RoomButton />
         <UserButton />
 
         {/* <Text className={classes.link}>test</Text>
