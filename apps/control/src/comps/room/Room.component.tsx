@@ -17,20 +17,31 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { Photo, Plus } from "tabler-icons-react"
 import { roomColRef } from "utils/firebase/room.queries"
 import { RoomModel } from "utils/models/Room.model"
+import { useWsAction } from "utils/socket"
+import { useAuth } from "../../context/auth/Auth.hooks"
 import { useActiveRoom } from "../../hooks/useActiveRoom.hook"
 import RoomModal from "../../overlays/Room.modal"
 
-const RoomComponent = () => {
+const RoomDirectory = () => {
   const [createState, setCreateState] = useState(false)
   const [activeRoom, setActiveRoom] = useActiveRoom()
   const location = useLocation()
   const navigate = useNavigate()
   const openCreate = () => setCreateState(true)
   const closeCreate = () => setCreateState(false)
+  const { user } = useAuth()
+  const { leaveRoom } = useWsAction()
 
   const [rooms = [], loading] = useCollectionData(roomColRef)
 
   const selectRoom = (room: RoomModel) => () => {
+    if (activeRoom && user) {
+      leaveRoom({
+        roomId: activeRoom.id,
+        roomName: room.name,
+        username: user.username,
+      })
+    }
     setActiveRoom(room)
     if (location.pathname === "/rooms") {
       navigate("/")
@@ -96,4 +107,4 @@ const RoomComponent = () => {
     </Stack>
   )
 }
-export default RoomComponent
+export default RoomDirectory

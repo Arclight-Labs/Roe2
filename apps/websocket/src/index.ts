@@ -27,7 +27,7 @@ io.on("connection", async (socket) => {
     io.emit("ping", data)
   })
   tournamentEvents(io, socket)
-  roomEvents(socket)
+  roomEvents(io, socket)
 })
 
 httpServer.listen(PORT, () => {

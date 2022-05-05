@@ -1,7 +1,14 @@
-import { Socket } from "socket.io"
+import { Server, Socket } from "socket.io"
+export type InnerEventFunction = (...args: any[]) => any | Promise<any>
+export type EventFn<T extends InnerEventFunction = InnerEventFunction> = (
+  socket: Socket,
+  io: Server
+) => T
 
-export type EventFn = (socket: Socket) => (...args: any[]) => any | Promise<any>
-
-export const ev = (socket: Socket, callback: EventFn): EventFn => {
-  return callback(socket)
+export const ev = <T extends InnerEventFunction>(
+  socket: Socket,
+  io: Server,
+  callback: EventFn<T>
+): EventFn<T> => {
+  return callback(socket, io)
 }

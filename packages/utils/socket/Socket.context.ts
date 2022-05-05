@@ -10,5 +10,6 @@ export const SocketContextDispatch = createContext<SocketEmitters>({
   ping() {},
   error() {},
   joinRoom() {},
+  leaveRoom() {},
   notif() {},
 })
