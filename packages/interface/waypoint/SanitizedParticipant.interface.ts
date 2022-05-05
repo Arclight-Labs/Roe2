@@ -9,3 +9,4 @@ export type SanitizedParticipant = Omit<Participant, OmitProps> & {
 } & Path
 
 export type SanitizedParticipantMap = Record<string, SanitizedParticipant>
+export type SanitizedParticipantHashMap = Map<string, SanitizedParticipant>

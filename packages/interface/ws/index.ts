@@ -9,3 +9,5 @@ export type {
   SocketEmitterRecord as SocketEmitterType,
   SocketEmitters,
 } from "./SocketEmitter.interface"
+
+export type { WebsocketRoom, WebsocketStore } from "./WebsocketStore.interface"

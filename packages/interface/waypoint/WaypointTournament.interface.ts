@@ -1,3 +1,6 @@
+import { SanitizedParticipantMap } from "./SanitizedParticipant.interface"
+import { SanitizedSeriesMap } from "./SanitizedSeries.interface"
+
 export interface ChalTourRes {
   tournament: ChallongeTournament
 }
@@ -78,9 +81,9 @@ export type Tournament = {
   tournament: ChallongeTournament
   orgId: string
   autoAcceptParticipants?: boolean
-  activePlayerCountPerTeam: number
+  activePlayerCountPerTeam?: number
   maxTeamCount?: number
-  maxSubPlayerPerTeam: number
+  maxSubPlayerPerTeam?: number
   /**
    * means...
    * # IS VERIFIED STUDENTS ONLY?
@@ -102,7 +105,7 @@ export type Tournament = {
   schoolsAllowed?: string[]
   admins?: string[]
   orgData?: any
-  id?: string
+  id: string
   game?: string
   description?: string
   rules?: string
@@ -122,6 +125,8 @@ export type Tournament = {
   checkInStartedAt?: boolean
   allowContainedTeams?: boolean
   checkInProcessed?: boolean
+  matches: SanitizedSeriesMap
+  participants: SanitizedParticipantMap
 }
 
 type DateFields =
