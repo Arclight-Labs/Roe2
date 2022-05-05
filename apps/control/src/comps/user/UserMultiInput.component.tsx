@@ -1,15 +1,22 @@
-import { Group, Stack, Button, Loader, TextInput } from "@mantine/core"
+import {
+  Group,
+  Stack,
+  Button,
+  Loader,
+  TextInput,
+  TextInputProps,
+} from "@mantine/core"
 import { useMemo, useState } from "react"
 import { UserModel } from "utils/models/User.model"
 import { debounce } from "lodash-es"
 import { getUserByUsername } from "utils/firebase/user.queries"
 import UserGroup from "./UserGroup.component"
 
-interface UserSearchProps {
+interface UserSearchProps extends Omit<TextInputProps, "onSelect"> {
   onSelect: (user: string[]) => void
   selected: string[]
 }
-const UserSelect = ({ onSelect, selected }: UserSearchProps) => {
+const UserSelect = ({ onSelect, selected, ...props }: UserSearchProps) => {
   const [user, setUser] = useState<UserModel | undefined>()
   const [loading, setLoading] = useState(false)
 
@@ -56,6 +63,7 @@ const UserSelect = ({ onSelect, selected }: UserSearchProps) => {
         onChange={(e) => searchUser(e.target.value)}
         rightSection={rightSection}
         rightSectionWidth={60}
+        {...props}
       />
       <UserGroup uids={selected} removeUser={remove} />
     </Stack>
