@@ -18,3 +18,6 @@ export type {
 export { SocketEvent } from "./ws"
 export { FilePreview } from "./db"
 export type { Room, User } from "./db"
+
+// waypoint
+export * as Waypoint from "./waypoint"
