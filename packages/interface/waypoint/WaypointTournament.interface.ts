@@ -99,8 +99,8 @@ export type Tournament = {
   regEndDate?: Date
   startDate?: Date
   endDate?: Date
-  schoolsAllowed: string[]
-  admins: string[]
+  schoolsAllowed?: string[]
+  admins?: string[]
   orgData?: any
   id?: string
   game?: string
