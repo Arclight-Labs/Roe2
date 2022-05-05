@@ -1,5 +1,4 @@
 import { FC, ReactNode } from "react"
-import { UserModel } from "utils/models/User.model"
 import {
   Avatar,
   createStyles,

@@ -29,25 +29,12 @@ export function UserMenu(props: Props) {
             <Menu.Item onClick={open} icon={<Settings size={14} />}>
               Account settings
             </Menu.Item>
-            {/* <Menu.Item icon={<SwitchHorizontal size={14} />}>
-					Change account
-				</Menu.Item> */}
             <Menu.Item
               onClick={() => signOut(firebaseAuth)}
               icon={<Logout size={14} />}
             >
               Logout
             </Menu.Item>
-            {/*
-				<Divider />
-
-				<Menu.Label>Danger zone</Menu.Label>
-				<Menu.Item icon={<PlayerPause size={14} />}>
-				Pause subscription
-				</Menu.Item>
-				<Menu.Item color="red" icon={<Trash size={14} />}>
-				Delete account
-				</Menu.Item> */}
           </>
         )}
       </Menu>

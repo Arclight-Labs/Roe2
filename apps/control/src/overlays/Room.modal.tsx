@@ -12,15 +12,14 @@ import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from "@mantine/dropzone"
 import { DocumentReference } from "firebase/firestore"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
 import { FilePreview, Room } from "interface"
-import { MouseEventHandler, useState } from "react"
+import { MouseEventHandler, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { storage } from "utils/firebase"
 import { setRoom } from "utils/firebase/room.queries"
 import { RoomModel } from "utils/models/Room.model"
-import { UserModel } from "utils/models/User.model"
 import { RoomCreateSchema, roomCreateSchema } from "utils/schema/room.schema"
 import { DropzoneContent } from "../comps/DropzoneContent.component"
-import UserSearch from "../comps/UserSearch.component"
+import UserSelect from "../comps/user/UserMultiInput.component"
 import { useAuth } from "../context/auth/Auth.hooks"
 import { useActiveRoom } from "../hooks/useActiveRoom.hook"
 
@@ -36,7 +35,7 @@ const RoomModal = ({ data, ...props }: RoomCreateModalProps) => {
   const [avatarPreview, setAvatarPreview] = useState<FilePreview>(
     new FilePreview()
   )
-  const { register, setValue, getFieldState, handleSubmit, getValues, watch } =
+  const { register, setValue, getFieldState, handleSubmit, watch, reset } =
     useForm<RoomCreateSchema>({
       defaultValues: {
         avatar: data?.avatar || "",
@@ -45,6 +44,10 @@ const RoomModal = ({ data, ...props }: RoomCreateModalProps) => {
       },
       resolver: zodResolver(roomCreateSchema),
     })
+
+  useEffect(() => {
+    reset(data)
+  }, [data])
 
   const save = (roomRef: DocumentReference<RoomModel>) =>
     handleSubmit(async (data) => {
@@ -59,7 +62,7 @@ const RoomModal = ({ data, ...props }: RoomCreateModalProps) => {
       }
       setRoom(roomRef.id, newData, { merge: true })
       if (activeRoom?.id === roomRef.id) {
-        setActiveRoom({ ...activeRoom, ...newData })
+        setActiveRoom((s) => new RoomModel({ ...s?.toJSON(), ...newData }))
       }
       props.onClose()
     }, console.error)
@@ -88,11 +91,8 @@ const RoomModal = ({ data, ...props }: RoomCreateModalProps) => {
   }
 
   const onChangeAdmins = (uids: string[]) => {
-    console.log(uids)
     setValue("admins", uids)
   }
-
-  console.log(watch("admins"))
 
   return (
     <Modal {...props} centered title="Create Room">
@@ -120,7 +120,7 @@ const RoomModal = ({ data, ...props }: RoomCreateModalProps) => {
           </Dropzone>
         </Stack>
 
-        <UserSearch onSelect={onChangeAdmins} selected={getValues("admins")} />
+        <UserSelect onSelect={onChangeAdmins} selected={watch("admins")} />
 
         <Group position="right">
           <Button onClick={uploadAndSet}>{data ? "Save" : "Create"}</Button>

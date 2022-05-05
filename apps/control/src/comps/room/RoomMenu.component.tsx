@@ -52,16 +52,6 @@ export function RoomMenu(props: RoomMenuProps) {
           <Menu.Item onClick={leaveRoom} icon={<Logout size={14} />}>
             Leave
           </Menu.Item>
-          {/*
-				<Divider />
-
-				<Menu.Label>Danger zone</Menu.Label>
-				<Menu.Item icon={<PlayerPause size={14} />}>
-				Pause subscription
-				</Menu.Item>
-				<Menu.Item color="red" icon={<Trash size={14} />}>
-				Delete account
-				</Menu.Item> */}
         </>
       </Menu>
       {activeRoom && (
@@ -71,14 +61,6 @@ export function RoomMenu(props: RoomMenuProps) {
           onClose={close}
         />
       )}
-      {/* {auth && (
-        <UserModal
-          user={auth}
-          data={user || null}
-          opened={opened}
-          onClose={close}
-        />
-      )} */}
     </Group>
   )
 }

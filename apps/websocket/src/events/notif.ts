@@ -7,7 +7,6 @@ interface JoinRoomProps {
 }
 export const roomEvents = (io: Server, socket: Socket) => {
   socket.on(SocketEvent.JoinRoom, async (props: JoinRoomProps) => {
-    console.log(socket.handshake)
     // const promise = joinRoom(props)
     // const [room, error] = await runAsync(promise)
     // if (error || !room) {

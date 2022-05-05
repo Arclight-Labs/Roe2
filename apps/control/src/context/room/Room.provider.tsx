@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react"
-import RoomComponent from "../../comps/room/Room.component"
 import { useActiveRoom } from "../../hooks/useActiveRoom.hook"
+import RoomSelect from "../../pages/RoomSelect"
 import RoomDataProvider from "./Room.provider.data"
 import RoomNullProvider from "./Room.provider.null"
 
@@ -10,8 +10,7 @@ const RoomProvider = ({ children }: PropsWithChildren<{}>) => {
   if (!activeRoom) {
     return (
       <RoomNullProvider>
-        {/* {children} */}
-        <RoomComponent />
+        <RoomSelect />
       </RoomNullProvider>
     )
   }
