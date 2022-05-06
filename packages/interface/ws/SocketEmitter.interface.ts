@@ -1,5 +1,5 @@
 import { SocketEvent } from "./SocketEvent.interface"
-import { Tournament, Waypoint } from ".."
+import { Waypoint } from "../"
 import { NotificationProps } from "@mantine/notifications"
 export type SocketEmitterFn = (...args: any[]) => any
 export type SocketEmitterRecord = Record<SocketEvent, SocketEmitterFn>

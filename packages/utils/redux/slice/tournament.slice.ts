@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 import { Waypoint } from "interface"
 
-const initialState: Waypoint.Tournament = {
+const initialState: Waypoint.ApiRes = {
   leagueId: "",
   leagueTitle: "",
   _leagueTitle: "",
@@ -16,13 +16,15 @@ const initialState: Waypoint.Tournament = {
   },
   id: "",
   visibility: "public",
+  matches: {},
+  participants: {},
 }
 
 export const tournamentSlice = createSlice({
   name: "tournament",
   initialState,
   reducers: {
-    set: (state, action: PayloadAction<Partial<Waypoint.Tournament>>) => ({
+    set: (state, action: PayloadAction<Partial<Waypoint.ApiRes>>) => ({
       ...state,
       ...action.payload,
     }),

@@ -1,6 +1,6 @@
-import { Tournament } from "interface"
+import { Waypoint } from "interface"
 import { globalDispatch, setTournament } from "../../redux"
 
-export const tournamentListen = (tournament: Tournament) => {
+export const tournamentListen = (tournament: Waypoint.ApiRes) => {
   globalDispatch(setTournament(tournament))
 }

@@ -1,11 +1,11 @@
 import { SetTournament, SocketEvent, Waypoint } from "interface"
-import { sanitizeHashMap } from "../../general/sanitizeHashMap.util"
+import { fromHashMap } from "../../general/mapConverter.util"
 import { socket } from "../Socket.instance"
 
 export const tournament: SetTournament = (payload) => {
   socket.emit(SocketEvent.Tournament, {
     ...payload,
-    matches: sanitizeHashMap(payload.matches),
-    participants: sanitizeHashMap(payload.participants),
+    matches: fromHashMap(payload.matches ?? new Map()),
+    participants: fromHashMap(payload.participants ?? new Map()),
   })
 }
