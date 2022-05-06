@@ -2,7 +2,6 @@ import { Waypoint } from "interface"
 import { ax } from "./axios.instance"
 
 export type ShallowTournaments = ShallowTournament[]
-
 export interface ShallowTournament {
   id: string
   name: string
@@ -11,21 +10,17 @@ export interface ShallowTournament {
   path: string
 }
 
-export const getAllTournaments = async () => {
+type GetAllTournaments = () => Promise<ShallowTournaments>
+type GetTournament = (id: string) => Promise<Waypoint.ApiRes>
+
+export const getAllTournaments: GetAllTournaments = async () => {
   const path = "/tournaments"
   const res = await ax.get<ShallowTournaments>(path)
   return res.data
 }
 
-export const getTournament = async (
-  tournamentId: string
-): Promise<Waypoint.ApiResHashed> => {
-  const path = `/tournaments/${tournamentId}`
+export const getTournament: GetTournament = async (id) => {
+  const path = `/tournaments/${id}`
   const res = await ax.get<Waypoint.ApiRes>(path)
-  const data = res.data
-  return {
-    ...data,
-    matches: new Map(Object.entries(data.matches)),
-    participants: new Map(Object.entries(data.participants)),
-  }
+  return res.data
 }

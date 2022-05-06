@@ -11,4 +11,3 @@ export type SanitizedUserProps =
   | "school"
 export type SanitizedUser = Pick<WaypointUser, SanitizedUserProps> & Path
 export type SanitizedUserMap = Record<string, SanitizedUser>
-export type SanitizedUserHashMap = Map<string, SanitizedUser>

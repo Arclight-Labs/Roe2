@@ -1,8 +1,8 @@
 import { FastifyPluginCallback } from "fastify"
 import { Room } from "interface/db"
+import { WebsocketRoom } from "interface/ws"
 import { db } from "../../admin"
 import { Col, Doc } from "../../types"
-import { SanitizedWebsocketRoom } from "interface/ws"
 import { getRoomData } from "../utils/getRoomData.cfUtil"
 
 interface Params {
@@ -14,7 +14,7 @@ export const roomRoutes: FastifyPluginCallback = (sv, _, done) => {
     const snap = await colRef.get()
     const roomDocs = snap.docs ?? []
 
-    const rooms: Record<string, SanitizedWebsocketRoom> = {}
+    const rooms: Record<string, WebsocketRoom> = {}
     for (const roomSnap of roomDocs) {
       const room = roomSnap.data()
       const data = await getRoomData(room)

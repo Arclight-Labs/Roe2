@@ -13,7 +13,5 @@ export type {
 export type {
   WebsocketRoom,
   WebsocketStore,
-  SanitizedWebsocketRoom,
   BroadcastData,
-  SanitizedBroadcastData,
 } from "./WebsocketStore.interface"

@@ -1,11 +1,5 @@
-import {
-  SanitizedParticipantHashMap,
-  SanitizedParticipantMap,
-} from "./SanitizedParticipant.interface"
-import {
-  SanitizedSeriesHashMap,
-  SanitizedSeriesMap,
-} from "./SanitizedSeries.interface"
+import { SanitizedParticipantMap } from "./SanitizedParticipant.interface"
+import { SanitizedSeriesMap } from "./SanitizedSeries.interface"
 
 export interface ChalTourRes {
   tournament: ChallongeTournament
@@ -131,11 +125,6 @@ export type Tournament = {
   checkInStartedAt?: boolean
   allowContainedTeams?: boolean
   checkInProcessed?: boolean
-}
-
-export type ApiResHashed = Tournament & {
-  matches: SanitizedSeriesHashMap
-  participants: SanitizedParticipantHashMap
 }
 
 export type ApiRes = Tournament & {

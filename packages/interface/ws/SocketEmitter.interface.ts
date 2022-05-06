@@ -7,7 +7,7 @@ export type SocketEmitterType = Omit<SocketEmitterRecord, "log">
 
 export type Ping = (date: number) => any | Promise<any>
 export type SetTournament = (
-  payload: Partial<Waypoint.ApiResHashed>
+  payload: Partial<Waypoint.Tournament>
 ) => any | Promise<any>
 export type JoinRoomProps = {
   roomId: string
