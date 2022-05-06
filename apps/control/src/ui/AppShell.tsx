@@ -1,5 +1,11 @@
-import { AppShell as Shell, AppShellProps } from "@mantine/core"
+import {
+  AppShell as Shell,
+  AppShellProps,
+  Stack,
+  Container,
+} from "@mantine/core"
 import { FC } from "react"
+import {} from "tabler-icons-react"
 import Navbar from "./Navbar"
 
 interface Props extends AppShellProps {
@@ -18,10 +24,17 @@ const AppShell: FC<Props> = ({ children, version, ...props }) => {
               : theme.colors.gray[0],
           height: "100vh",
           width: "100vw",
+          maxHeight: "100%",
         },
       })}
+      padding={0}
     >
-      {children}
+      <Stack
+        p="xl"
+        sx={{ maxHeight: "100%", maxWidth: "100%", overflow: "auto" }}
+      >
+        {children}
+      </Stack>
     </Shell>
   )
 }

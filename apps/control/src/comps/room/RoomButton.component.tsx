@@ -10,6 +10,7 @@ import {
 } from "@mantine/core"
 import { useNavigate } from "react-router-dom"
 import { ChevronRight, Message } from "tabler-icons-react"
+import { useRoom } from "../../context/room/Room.hooks"
 import { useActiveRoom } from "../../hooks/useActiveRoom.hook"
 import { RoomMenu } from "./RoomMenu.component"
 
@@ -31,7 +32,7 @@ const useStyles = createStyles((theme) => ({
 
 interface RoomButtonProps extends UnstyledButtonProps<"button"> {}
 const RoomButton = (props: RoomButtonProps) => {
-  const [activeRoom] = useActiveRoom()
+  const activeRoom = useRoom()
 
   const { classes } = useStyles()
   const theme = useMantineTheme()

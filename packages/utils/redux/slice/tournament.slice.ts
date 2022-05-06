@@ -14,6 +14,7 @@ const initialState: Waypoint.Tournament = {
   tournament: {
     name: "",
   },
+  id: "",
   visibility: "public",
 }
 

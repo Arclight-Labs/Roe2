@@ -4,7 +4,7 @@ import { FunctionComponent, Suspense } from "react"
 import { Navigate, Outlet, useRoutes } from "react-router-dom"
 import RoomSelect from "../pages/RoomSelect"
 import TournamentPage from "../pages/tournament"
-import AppShell from "../ui/AppShell"
+import AppShellWrapper from "../ui/AppShellWrapper"
 import AuthGuard from "../ui/guards/AuthGuard"
 import RoomGuard from "../ui/guards/RoomGuard"
 
@@ -40,15 +40,11 @@ const Routes = () => {
       path: "/",
       element: (
         <AuthGuard>
-          <AppShell
-            version={`${import.meta.env.PACKAGE_VERSION}${
-              import.meta.env.DEV && " Emulated"
-            }`}
-          >
-            <RoomGuard>
+          <RoomGuard>
+            <AppShellWrapper>
               <Outlet />
-            </RoomGuard>
-          </AppShell>
+            </AppShellWrapper>
+          </RoomGuard>
         </AuthGuard>
       ),
       children: [

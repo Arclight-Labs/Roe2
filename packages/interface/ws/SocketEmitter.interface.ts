@@ -1,12 +1,14 @@
 import { SocketEvent } from "./SocketEvent.interface"
-import { Tournament } from ".."
+import { Tournament, Waypoint } from ".."
 import { NotificationProps } from "@mantine/notifications"
 export type SocketEmitterFn = (...args: any[]) => any
 export type SocketEmitterRecord = Record<SocketEvent, SocketEmitterFn>
 export type SocketEmitterType = Omit<SocketEmitterRecord, "log">
 
 export type Ping = (date: number) => any | Promise<any>
-export type SetTournament = (payload: Partial<Tournament>) => any | Promise<any>
+export type SetTournament = (
+  payload: Partial<Waypoint.ApiResHashed>
+) => any | Promise<any>
 export type JoinRoomProps = {
   roomId: string
   roomName: string

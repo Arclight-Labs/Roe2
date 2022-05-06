@@ -10,6 +10,7 @@
     "general/**/*.ts",
     "firebase/**/*.ts",
     "models/**/*.ts",
+    "axios/**/*.ts",
     "./**/*.ts"
   ],
   "author": "AcadArena",
