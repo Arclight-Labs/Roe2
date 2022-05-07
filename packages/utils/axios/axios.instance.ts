@@ -6,3 +6,7 @@ export const ax = axios.create({
     "Access-Control-Allow-Origin": "*",
   },
 })
+
+// export const ax2 = axios.create({
+//   baseURL: "https://roe2.acadarena.com",
+// })

@@ -6,19 +6,23 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "nodemon --exec \"node -r esbuild-register ./src/index.ts\" -e .ts",
-    "start": "node -r esbuild-register ./src/index.ts",
+    "dev": "cross-env NODE_ENV=development nodemon --exec \"node -r esbuild-register ./src/index.ts\" -e .ts",
+    "start": "cross-env NODE_ENV=production node -r esbuild-register ./src/index.ts",
     "build": "tsc",
     "lint": "tsc --noEmit && TIMING=1 eslint src --fix",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
+    "axios": "^0.27.2",
+    "dotenv": "^16.0.0",
     "interface": "*",
+    "ip": "^1.1.5",
     "socket.io": "4.5.0"
   },
   "devDependencies": {
     "@types/node": "17.0.31",
     "config": "*",
+    "cross-env": "^7.0.3",
     "esbuild": "0.14.38",
     "esbuild-register": "3.3.2",
     "eslint": "8.14.0",

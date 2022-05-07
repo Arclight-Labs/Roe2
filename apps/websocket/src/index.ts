@@ -4,8 +4,13 @@ import http from "http"
 import { tournamentEvents } from "./events/tournament.server.events"
 import { getTournament } from "./store/tournament"
 import roomEvents from "./events/room"
+import { initialize, store } from "./store/store.server"
+import "dotenv/config"
 
 const PORT = process.env.PORT || 1337
+
+console.info("Loading rooms...")
+initialize()
 
 const httpServer = http.createServer()
 const io = new Server(httpServer, {
