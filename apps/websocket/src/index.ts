@@ -1,7 +1,7 @@
 // import Fastify from "fastify"
 import { Server } from "socket.io"
 import http from "http"
-import { tournamentEvents } from "./events/tournaments"
+import { tournamentEvents } from "./events/tournament.server.events"
 import { getTournament } from "./store/tournament"
 import roomEvents from "./events/room"
 

@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit"
 import tournament from "./slice/tournament.slice"
+import matches from "./slice/match.slice"
+import participants from "./slice/participant.slice"
 
 export const store = configureStore({
-  reducer: { tournament },
+  reducer: { tournament, matches, participants },
   devTools: true,
 })
 

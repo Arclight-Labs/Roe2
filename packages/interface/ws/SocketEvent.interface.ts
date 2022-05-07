@@ -6,4 +6,6 @@ export enum SocketEvent {
   Error = "error",
   Notify = "notif",
   Log = "log",
+  Matches = "matches",
+  Participants = "participants",
 }

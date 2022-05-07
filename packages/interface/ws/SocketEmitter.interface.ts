@@ -1,23 +1,24 @@
 import { SocketEvent } from "./SocketEvent.interface"
 import { Waypoint } from "../"
 import { NotificationProps } from "@mantine/notifications"
+import { SanitizedParticipantMap, SanitizedSeriesMap } from "../waypoint"
 export type SocketEmitterFn = (...args: any[]) => any
 export type SocketEmitterRecord = Record<SocketEvent, SocketEmitterFn>
 export type SocketEmitterType = Omit<SocketEmitterRecord, "log">
 
-export type Ping = (date: number) => any | Promise<any>
-export type SetTournament = (
-  payload: Partial<Waypoint.Tournament>
-) => any | Promise<any>
+export type Ping = (date: number) => any
+export type SetMatches = (payload: SanitizedSeriesMap) => any
+export type SetParticipants = (payload: SanitizedParticipantMap) => any
+export type SetTournament = (payload: Partial<Waypoint.Tournament>) => any
 export type JoinRoomProps = {
   roomId: string
   roomName: string
   username: string
 }
 export type LeaveRoomProps = JoinRoomProps
-export type LeaveRoom = (props: LeaveRoomProps) => any | Promise<any>
-export type JoinRoom = (props: JoinRoomProps) => any | Promise<any>
-export type Notif = (props: NotificationProps) => any | Promise<any>
+export type LeaveRoom = (props: LeaveRoomProps) => any
+export type JoinRoom = (props: JoinRoomProps) => any
+export type Notif = (props: NotificationProps) => any
 
 export interface SocketEmitters extends SocketEmitterType {
   joinRoom: JoinRoom
@@ -25,4 +26,6 @@ export interface SocketEmitters extends SocketEmitterType {
   tournament: SetTournament
   ping: Ping
   notif: Notif
+  matches: SetMatches
+  participants: SetParticipants
 }

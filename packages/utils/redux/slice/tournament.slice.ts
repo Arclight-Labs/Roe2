@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-
 import { Waypoint } from "interface"
 
 const initialState: Waypoint.Tournament = {

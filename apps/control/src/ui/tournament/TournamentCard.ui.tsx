@@ -15,22 +15,38 @@ import {
   getTournament,
   ShallowTournament,
 } from "utils/axios/tournament.queries"
-import { useAppSelector } from "utils/hooks"
+import {
+  useAppSelector,
+  useMatches,
+  useParticipants,
+  useTournament,
+} from "utils/hooks"
 import { useWsAction } from "utils/socket"
 
 type TournamentCardProps = Omit<CardProps<"div">, "children"> &
   ShallowTournament
 const TournamentCard = ({ id, logo, name, org }: TournamentCardProps) => {
   const [loading, setLoading] = useState(false)
-  const tournament = useAppSelector((s) => s.tournament)
+  const tournament = useTournament()
+  const { matches } = useMatches()
+  const { participants } = useParticipants()
 
-  const { tournament: setTournament } = useWsAction()
+  console.log("tournament", tournament)
+  console.log("matches", matches)
+  console.log("participants", participants)
+  const {
+    tournament: setTournament,
+    participants: setParticipants,
+    matches: setMatches,
+  } = useWsAction()
   const theme = useMantineTheme()
 
   const selectTournament = async () => {
     setLoading(true)
-    const tour = await getTournament(id)
+    const { matches, participants, ...tour } = await getTournament(id)
     setTournament(tour)
+    setMatches(matches)
+    setParticipants(participants)
     setLoading(false)
   }
 
