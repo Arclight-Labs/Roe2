@@ -13,16 +13,16 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
-    "axios": "^0.27.2",
-    "dotenv": "^16.0.0",
+    "axios": "0.27.2",
+    "dotenv": "16.0.0",
     "interface": "*",
-    "ip": "^1.1.5",
+    "ip": "1.1.5",
     "socket.io": "4.5.0"
   },
   "devDependencies": {
     "@types/node": "17.0.31",
     "config": "*",
-    "cross-env": "^7.0.3",
+    "cross-env": "7.0.3",
     "esbuild": "0.14.38",
     "esbuild-register": "3.3.2",
     "eslint": "8.15.0",
