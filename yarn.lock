@@ -1065,7 +1065,18 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@mantine/core@4.2.2", "@mantine/core@^4.1.3":
+"@mantine/core@4.2.4":
+  version "4.2.4"
+  resolved "https://registry.yarnpkg.com/@mantine/core/-/core-4.2.4.tgz#9c36acbaaa4287f61e9dc85eb631c4e5a7e417de"
+  integrity sha512-YeN8slz3bcb47NUUkSZ4UAedMZH7bWvqIx7OfRf2D0m2o4Fu1BLO73xUCpgj18R31fx3BcSopRujZC9x/8bqUg==
+  dependencies:
+    "@mantine/styles" "4.2.4"
+    "@popperjs/core" "^2.9.3"
+    "@radix-ui/react-scroll-area" "^0.1.1"
+    react-popper "^2.2.5"
+    react-textarea-autosize "^8.3.2"
+
+"@mantine/core@^4.1.3":
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/@mantine/core/-/core-4.2.2.tgz#ef63b6494f1d709d82d0d676fe667e577d32e532"
   integrity sha512-K8m9oNUs1dqE9qoqXcjrum0rCpG+M9245Q7Qh1FezOPyrdUcfSFVvfrBguuGnWtQXOm0EpWwG7Wqj4uojgjQng==
@@ -1109,6 +1120,18 @@
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/@mantine/styles/-/styles-4.2.2.tgz#915cd8cc98a86f5e4e20328558892dcc581d99ee"
   integrity sha512-0aPm0Zc3zFOGOT1ZGAShBg+/rE+hMU81ZJk4guEWv1j8snoqg55y9G9mIpfsgffkQc0NhkGAX++CAA/0BBSxFQ==
+  dependencies:
+    "@emotion/cache" "11.7.1"
+    "@emotion/react" "11.7.1"
+    "@emotion/serialize" "1.0.2"
+    "@emotion/utils" "1.0.0"
+    clsx "^1.1.1"
+    csstype "3.0.9"
+
+"@mantine/styles@4.2.4":
+  version "4.2.4"
+  resolved "https://registry.yarnpkg.com/@mantine/styles/-/styles-4.2.4.tgz#6e6e6f999cff1bc1600082714946b2c8ce5b4c49"
+  integrity sha512-nG8qwE7uuZ7pJaY5jES9DLIkYxlLf3pK8Gn01gdbSfcyDC8hldvr83bMQOS9gLZ/3F/lrhtsu8u+31kxXIBIsw==
   dependencies:
     "@emotion/cache" "11.7.1"
     "@emotion/react" "11.7.1"
