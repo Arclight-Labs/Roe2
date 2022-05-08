@@ -11,6 +11,6 @@
     "typescript": "4.6.4"
   },
   "dependencies": {
-    "@mantine/notifications": "4.2.2"
+    "@mantine/notifications": "4.2.4"
   }
 }
