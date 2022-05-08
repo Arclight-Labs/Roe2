@@ -17,6 +17,15 @@ export let store: WebsocketStore = {
 }
 
 export const initialize = async () => {
-  const res = await ax.get<WebsocketStore>(`/rooms`)
-  store = res.data
+  const interval = setInterval(async () => {
+    try {
+      console.log("loading rooms...")
+      const res = await ax.get<WebsocketStore>(`/rooms`)
+      store = res.data
+      clearInterval(interval)
+      console.log("Rooms successfully loaded")
+    } catch (e) {
+      console.error("Failed to initialize rooms. Retrying in 3 seconds...")
+    }
+  }, 10000)
 }

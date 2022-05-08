@@ -9,7 +9,6 @@ import "dotenv/config"
 
 const PORT = process.env.PORT || 1337
 
-console.info("Loading rooms...")
 initialize()
 
 const httpServer = http.createServer()
