@@ -31,9 +31,6 @@ const TournamentCard = ({ id, logo, name, org }: TournamentCardProps) => {
   const { matches } = useMatches()
   const { participants } = useParticipants()
 
-  console.log("tournament", tournament)
-  console.log("matches", matches)
-  console.log("participants", participants)
   const {
     tournament: setTournament,
     participants: setParticipants,
