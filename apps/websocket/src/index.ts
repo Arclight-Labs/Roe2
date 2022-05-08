@@ -4,14 +4,21 @@ import { Server } from "socket.io"
 import roomEvents from "./events/room"
 import http from "http"
 import "dotenv/config"
+import Fastify from "fastify"
 
 const PORT = process.env.PORT || 1337
 
 initialize()
 
-const httpServer = http.createServer()
-const io = new Server(httpServer, {
-  cors: { origin: "*" },
+const fastify = Fastify()
+fastify.register(require("@fastify/cors"), { origin: true })
+
+fastify.get("/", (req, reply) => {
+  reply.send("Websocket Server is running!")
+})
+
+const io = new Server(fastify.server, {
+  cors: { origin: true },
   cookie: true,
 })
 
@@ -30,6 +37,4 @@ io.on("connection", async (socket) => {
   roomEvents(io, socket)
 })
 
-httpServer.listen(PORT, () => {
-  console.log(`listening on ${PORT}`)
-})
+fastify.listen(PORT)

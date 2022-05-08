@@ -13,8 +13,10 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
+    "@fastify/cors": "^7.0.0",
     "axios": "0.27.2",
     "dotenv": "16.0.0",
+    "fastify": "^3.29.0",
     "interface": "*",
     "ip": "1.1.5",
     "socket.io": "4.5.0"
