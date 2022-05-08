@@ -24,7 +24,7 @@
     "react-dom": "18.1.0",
     "react-firebase-hooks": "5.0.3",
     "react-hook-form": "7.30.0",
-    "react-query": "3.38.1",
+    "react-query": "3.39.0",
     "react-redux": "8.0.1",
     "react-router-dom": "6.3.0",
     "redux": "4.2.0",
