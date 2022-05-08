@@ -14,4 +14,5 @@ export const SocketContextDispatch = createContext<SocketEmitters>({
   notif() {},
   matches() {},
   participants() {},
+  setRoom() {},
 })

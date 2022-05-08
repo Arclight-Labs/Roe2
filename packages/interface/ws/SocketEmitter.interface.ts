@@ -2,6 +2,7 @@ import { SocketEvent } from "./SocketEvent.interface"
 import { Waypoint } from "../"
 import { NotificationProps } from "@mantine/notifications"
 import { SanitizedParticipantMap, SanitizedSeriesMap } from "../waypoint"
+import { WebsocketRoom } from "./WebsocketStore.interface"
 export type SocketEmitterFn = (...args: any[]) => any
 export type SocketEmitterRecord = Record<SocketEvent, SocketEmitterFn>
 export type SocketEmitterType = Omit<SocketEmitterRecord, "log">
@@ -19,6 +20,7 @@ export type LeaveRoomProps = JoinRoomProps
 export type LeaveRoom = (props: LeaveRoomProps) => any
 export type JoinRoom = (props: JoinRoomProps) => any
 export type Notif = (props: NotificationProps) => any
+export type SetRoom = (room: WebsocketRoom) => any
 
 export interface SocketEmitters extends SocketEmitterType {
   joinRoom: JoinRoom
@@ -28,4 +30,5 @@ export interface SocketEmitters extends SocketEmitterType {
   notif: Notif
   matches: SetMatches
   participants: SetParticipants
+  setRoom: SetRoom
 }

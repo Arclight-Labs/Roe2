@@ -9,15 +9,16 @@ import {
   Text,
 } from "@mantine/core"
 import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from "@mantine/dropzone"
-import { DocumentReference } from "firebase/firestore"
+import { DocumentReference, writeBatch } from "firebase/firestore"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
-import { FilePreview, Room } from "interface"
+import { FilePreview } from "interface"
 import { MouseEventHandler, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
-import { storage } from "utils/firebase"
-import { setRoom } from "utils/firebase/room.queries"
+import { db, storage } from "utils/firebase"
+import { getBroadcastData, getBroadcastRef } from "utils/firebase/room.queries"
 import { RoomModel } from "utils/models/Room.model"
 import { RoomCreateSchema, roomCreateSchema } from "utils/schema/room.schema"
+import { useWsAction } from "utils/socket"
 import { DropzoneContent } from "../comps/DropzoneContent.component"
 import UserSelect from "../comps/user/UserMultiInput.component"
 import { useAuth } from "../context/auth/Auth.hooks"
@@ -29,6 +30,7 @@ interface RoomCreateModalProps extends ModalProps {
 
 const RoomModal = ({ data, ...props }: RoomCreateModalProps) => {
   const { auth } = useAuth()
+  const { setRoom } = useWsAction()
   const [activeRoom, setActiveRoom] = useActiveRoom()
   const [loading, setLoading] = useState(false)
   const [uploading, setUploading] = useState(false)
@@ -60,10 +62,34 @@ const RoomModal = ({ data, ...props }: RoomCreateModalProps) => {
         name: data.name,
         owner: auth.uid || "",
       }
-      setRoom(roomRef.id, newData, { merge: true })
+      const batch = writeBatch(db)
+
+      const broadcastData = await getBroadcastData(roomRef.id)
+      const broadcastRef = getBroadcastRef(roomRef.id)
+      const defaultBroadcastData = {
+        tournament: null,
+        matches: {},
+        participants: {},
+        talents: {},
+        roomId: roomRef.id,
+      }
+
+      batch.set(roomRef, newData, { merge: true })
+      if (!broadcastData) {
+        batch.set(broadcastRef, defaultBroadcastData)
+      }
+
+      batch.commit()
+
+      if (!data) {
+        const liveData = broadcastData ?? defaultBroadcastData
+        setRoom({ ...newData, ...liveData, listeners: {} })
+      }
+
       if (activeRoom?.id === roomRef.id) {
         setActiveRoom((s) => new RoomModel({ ...s?.toJSON(), ...newData }))
       }
+
       props.onClose()
     }, console.error)
 

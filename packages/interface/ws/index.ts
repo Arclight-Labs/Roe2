@@ -5,13 +5,13 @@ export type {
   Notif,
   Ping,
   SetTournament,
-  SocketEmitterFn as SocketEmitter,
-  SocketEmitterRecord as SocketEmitterType,
+  SocketEmitterFn,
+  SocketEmitterRecord,
   SocketEmitters,
 } from "./SocketEmitter.interface"
 
 export type {
   WebsocketRoom,
   WebsocketStore,
-  BroadcastData,
+  Broadcast,
 } from "./WebsocketStore.interface"

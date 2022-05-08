@@ -15,6 +15,7 @@ export { errorListen } from "./Error.listen"
 
 export { joinRoom } from "./JoinRoom.emit"
 export { leaveRoom } from "./LeaveRoom.emit"
+export { setRoom } from "./SetRoom.emit"
 
 export { notif } from "./Notif.emit"
 export { notifListen } from "./Notif.listen"

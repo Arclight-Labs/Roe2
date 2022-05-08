@@ -3,7 +3,7 @@ import RoomDirectory from "../comps/room/Room.component"
 
 const RoomSelect = () => {
   return (
-    <Container size="xl">
+    <Container size="xl" sx={{ width: "100%" }}>
       <RoomDirectory />
     </Container>
   )

@@ -1,5 +1,5 @@
 import { Room } from "interface"
-import { BroadcastData, WebsocketRoom } from "interface/ws"
+import { Broadcast, WebsocketRoom } from "interface/ws"
 import { db } from "../../admin"
 import { Doc } from "../../types"
 
@@ -7,7 +7,7 @@ export const getRoomData = async (room: Room): Promise<WebsocketRoom> => {
   const roomRef = db.collection("rooms").doc(room.id)
   const broadcastDataRef = roomRef
     .collection("public")
-    .doc("broadcast") as Doc<BroadcastData>
+    .doc("broadcast") as Doc<Broadcast>
 
   const broadcastDataSnap = await broadcastDataRef.get()
   const broadcastData = broadcastDataSnap.data() || {
@@ -15,7 +15,8 @@ export const getRoomData = async (room: Room): Promise<WebsocketRoom> => {
     participants: {},
     talents: {},
     tournament: null,
+    roomId: room.id,
   }
 
-  return { ...room, ...broadcastData }
+  return { ...room, ...broadcastData, listeners: {} }
 }
