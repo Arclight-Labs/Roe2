@@ -29,7 +29,7 @@
     "react-redux": "8.0.1",
     "redux": "4.2.0",
     "socket.io-client": "4.5.0",
-    "zod": "3.14.4"
+    "zod": "3.15.1"
   },
   "devDependencies": {
     "@types/ip": "1.1.0",
