@@ -1,6 +1,6 @@
 import { Path } from "./Path.type"
 import { SanitizedUserMap } from "./SanitizedUser.interface"
-import { Participant } from "./Waypoint.interface"
+import { Participant } from "./WaypointTournament.interface"
 
 type OmitProps = "players" | "subs" | "teamData"
 export type SanitizedParticipant = Omit<Participant, OmitProps> & {

@@ -123,16 +123,6 @@ export function NavbarSimple({ version }: Props) {
       <Navbar.Section className={classes.footer}>
         <RoomButton />
         <UserButton />
-
-        {/* <Text className={classes.link}>test</Text>
-
-        <Text className={classes.link} onClick={() => {}}>
-          <span>Leave Room</span>
-        </Text>
-
-        <Text className={classes.link} onClick={() => signOut(auth)}>
-          <span>Logout</span>
-        </Text> */}
       </Navbar.Section>
     </Navbar>
   )

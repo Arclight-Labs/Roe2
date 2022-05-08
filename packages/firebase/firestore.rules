@@ -109,11 +109,12 @@ service cloud.firestore {
 
 
       // Broadcast Data
+
       match /live/{docId} {
         function isRoomAdmin() {
-          let ROOM = get(/databases/$(database)/documents/rooms/$(roomId)).data;
-          return (uid() == ROOM.owner
-            || uid() in ROOM.admins
+          let ROOM = getAfter(/databases/$(database)/documents/rooms/$(roomId)).data;
+          return ((uid() == ROOM.owner|| uid() in ROOM.admins)
+            && requestData().roomId == roomId
           )
         }
 

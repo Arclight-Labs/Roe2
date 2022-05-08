@@ -9,7 +9,6 @@ export const useActiveRoom = () =>
     serialize: (room) => JSON.stringify(room?.toJSON() || null),
     deserialize: (json) => {
       const data = json ? (JSON.parse(json) as Room | null) : null
-      console.log(data)
       if (!data) return null
       return new RoomModel(data)
     },

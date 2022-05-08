@@ -13,6 +13,7 @@ import {
 } from "firebase/firestore"
 import { Room, User } from "interface"
 import { RoomRequestAccess } from "interface/db/Room.interface"
+import { Broadcast as Broadcast } from "interface/ws"
 import { RoomModel } from "../models/Room.model"
 import { db } from "./firebase.instance"
 import { getUserRef } from "./user.queries"
@@ -30,6 +31,17 @@ export const roomFC: FirestoreDataConverter<RoomModel> = {
 
 export const getRoomRef = (roomId: string) => {
   return doc(db, "rooms", roomId).withConverter(roomFC)
+}
+
+export const getBroadcastRef = (roomId: string) => {
+  const path = `rooms/${roomId}/live/broadcast`
+  return doc(db, path) as DocumentReference<Broadcast>
+}
+
+export const getBroadcastData = async (roomId: string) => {
+  const ref = getBroadcastRef(roomId)
+  const snap = await getDoc(ref)
+  return snap.data()
 }
 
 export const roomColRef = collection(db, "rooms").withConverter(roomFC)

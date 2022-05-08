@@ -10,11 +10,12 @@ import {
   Text,
   Title,
 } from "@mantine/core"
+import { showNotification } from "@mantine/notifications"
 import { Room } from "interface"
 import { useState } from "react"
 import { useCollectionData } from "react-firebase-hooks/firestore"
 import { useLocation, useNavigate } from "react-router-dom"
-import { Photo, Plus } from "tabler-icons-react"
+import { Messages, Photo, Plus } from "tabler-icons-react"
 import { roomColRef } from "utils/firebase/room.queries"
 import { RoomModel } from "utils/models/Room.model"
 import { useWsAction } from "utils/socket"
@@ -43,6 +44,11 @@ const RoomDirectory = () => {
       })
     }
     setActiveRoom(room)
+    showNotification({
+      title: "Room Joined",
+      message: room.name,
+      icon: <Messages />,
+    })
     if (location.pathname === "/rooms") {
       navigate("/")
     }

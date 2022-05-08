@@ -1,5 +1,5 @@
 import { Path } from "./Path.type"
-import { WaypointUser } from "./Waypoint.interface"
+import { WaypointUser } from "./WaypointTournament.interface"
 
 export type SanitizedUserProps =
   | "_username"
