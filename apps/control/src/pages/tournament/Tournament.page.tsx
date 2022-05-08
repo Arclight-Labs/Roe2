@@ -28,10 +28,9 @@ const TournamentPage = () => {
                 {Array(3)
                   .fill("1")
                   .map((_, i) => (
-                    <Grid.Col xs={6} md={4} xl={3}>
+                    <Grid.Col key={i} xs={6} md={4} xl={3}>
                       <Skeleton>
                         <TournamentCard
-                          key={i}
                           id=""
                           logo=""
                           name="Test Tournament Name"
@@ -46,8 +45,8 @@ const TournamentPage = () => {
           ) : (
             <Grid>
               {data.map((tour) => (
-                <Grid.Col xs={6} md={4} xl={3}>
-                  <TournamentCard {...tour} key={tour.id} />
+                <Grid.Col xs={6} md={4} xl={3} key={tour.id}>
+                  <TournamentCard {...tour} />
                 </Grid.Col>
               ))}
             </Grid>
