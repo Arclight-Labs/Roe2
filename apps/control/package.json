@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "2.8.8",
-    "@mantine/core": "4.2.2",
+    "@mantine/core": "4.2.4",
     "@mantine/dropzone": "4.2.2",
     "@mantine/form": "4.2.2",
     "@mantine/hooks": "4.2.2",
