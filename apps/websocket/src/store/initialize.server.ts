@@ -17,21 +17,20 @@ const ax = axios.create({
 })
 
 export const initialize = async () => {
-  let success = false
-  while (!success) {
-    setTimeout(async () => {
+  setTimeout(
+    async () => {
       try {
         console.log(`loading rooms from ${process.env.NODE_ENV}...`)
         const res = await ax.get<Record<string, WebsocketRoom>>(`/rooms`)
         if (res) {
           setStore((s) => ({ ...s, rooms: res.data || {} }))
           console.log("Rooms successfully loaded")
-          success = true
         }
       } catch (e) {
         console.log(e)
         console.error("Failed to initialize rooms. Retrying in 5 seconds...")
       }
-    }, 5000)
-  }
+    },
+    isDev ? 30000 : 1000
+  )
 }
