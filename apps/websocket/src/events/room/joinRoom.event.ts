@@ -1,16 +1,21 @@
 import { JoinRoom, SocketEvent } from "interface"
 import { roomDataEmit } from "../../emitters"
 import { getRoom } from "../../store"
+import { loadRoom } from "../../store/services/loadRoom.service"
 import { EventFn } from "../event.hoc"
 
 export const joinRoomEvent: EventFn<JoinRoom> = (socket, io) => {
   return async ({ roomId, roomName, username }) => {
-    const room = getRoom(roomId)
+    let room = getRoom(roomId)
     if (!room) {
-      socket.emit(SocketEvent.Notify, {
-        message: "Room not found",
-      })
-      return
+      const loadedRoom = await loadRoom(roomId)
+      if (!loadedRoom) {
+        socket.emit(SocketEvent.Notify, {
+          message: "Room not found",
+        })
+        return
+      }
+      room = loadedRoom
     }
 
     socket.join(roomId)

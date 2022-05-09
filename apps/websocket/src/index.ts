@@ -1,14 +1,10 @@
 import { tournamentEvents } from "./events/tournament.events"
-import { initialize } from "./store"
 import { Server } from "socket.io"
 import roomEvents from "./events/room"
-import http from "http"
 import "dotenv/config"
 import Fastify from "fastify"
 
 const PORT = process.env.PORT || 1337
-
-initialize()
 
 const fastify = Fastify()
 fastify.register(require("@fastify/cors"), { origin: true })
