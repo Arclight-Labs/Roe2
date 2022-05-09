@@ -1,7 +1,9 @@
 import axios from "axios"
 
 export const ax = axios.create({
-  baseURL: "https://waypoint-api.acadarena.com",
+  baseURL: `https://waypoint-api${
+    import.meta.env.DEV ? "-staging" : ""
+  }.acadarena.com`,
   headers: {
     "Access-Control-Allow-Origin": "*",
   },
