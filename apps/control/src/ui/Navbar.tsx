@@ -2,8 +2,8 @@ import { useState } from "react"
 import { createStyles, Navbar, Group, Code } from "@mantine/core"
 import routes from "./routes"
 import { useAuth } from "../context/auth/Auth.hooks"
-import UserButton from "../comps/user/UserButton.component"
-import RoomButton from "../comps/room/RoomButton.component"
+import UserButton from "./user/UserButton.component"
+import RoomButton from "./room/RoomButton.component"
 import { Link } from "react-router-dom"
 
 const useStyles = createStyles((theme, _params, getRef) => {

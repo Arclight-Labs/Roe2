@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react"
 import { useActiveRoom } from "../../hooks/useActiveRoom.hook"
-import RoomSelect from "../../pages/RoomSelect"
+import RoomSelect from "../../ui/RoomSelect.ui"
 import AppShellWrapper from "../../ui/AppShellWrapper"
 import RoomDataProvider from "./Room.provider.data"
 import RoomNullProvider from "./Room.provider.null"

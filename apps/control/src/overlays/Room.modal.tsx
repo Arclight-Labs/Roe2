@@ -19,10 +19,10 @@ import { getBroadcastData, getBroadcastRef } from "utils/firebase/room.queries"
 import { RoomModel } from "utils/models/Room.model"
 import { RoomCreateSchema, roomCreateSchema } from "utils/schema/room.schema"
 import { useWsAction } from "utils/socket"
-import { DropzoneContent } from "../comps/DropzoneContent.component"
-import UserSelect from "../comps/user/UserMultiInput.component"
 import { useAuth } from "../context/auth/Auth.hooks"
 import { useActiveRoom } from "../hooks/useActiveRoom.hook"
+import { DropzoneContent } from "../ui/DropzoneContent.component"
+import UserSelect from "../ui/user/UserMultiInput.component"
 
 interface RoomCreateModalProps extends ModalProps {
   data?: RoomModel

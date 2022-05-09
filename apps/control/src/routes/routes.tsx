@@ -2,14 +2,14 @@ import { LoadingOverlay } from "@mantine/core"
 import { lazy } from "react"
 import { FunctionComponent, Suspense } from "react"
 import { Navigate, Outlet, useRoutes } from "react-router-dom"
-import RoomSelect from "../pages/RoomSelect"
+import RoomSelect from "../ui/RoomSelect.ui"
 import TournamentPage from "../pages/tournament"
 import AppShellWrapper from "../ui/AppShellWrapper"
 import AuthGuard from "../ui/guards/AuthGuard"
 import RoomGuard from "../ui/guards/RoomGuard"
 
-const Login = Loadable(lazy(() => import("../pages/Login")))
-const SignUp = Loadable(lazy(() => import("../pages/SignUp")))
+const Login = Loadable(lazy(() => import("../pages/Login.page")))
+const SignUp = Loadable(lazy(() => import("../pages/SignUp.page")))
 
 function Loadable<T extends object = {}>(Component: FunctionComponent<T>) {
   return (props: T) => {

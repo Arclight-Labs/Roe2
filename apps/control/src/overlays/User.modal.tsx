@@ -21,7 +21,7 @@ import { storage } from "utils/firebase"
 import { setUser, getUserByUsername } from "utils/firebase/user.queries"
 import { UserModel } from "utils/models/User.model"
 import { UserUpdate, userUpdateSchema } from "utils/schema/user.schema"
-import { DropzoneContent } from "../comps/DropzoneContent.component"
+import { DropzoneContent } from "../ui/DropzoneContent.component"
 
 interface Props extends ModalProps {
   user: FireUser
