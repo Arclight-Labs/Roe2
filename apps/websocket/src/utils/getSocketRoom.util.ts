@@ -3,7 +3,7 @@ import { emitNotify } from "../emitters"
 
 type GetSocketRoom = (socket: Socket) => string | null
 export const getSocketRoom: GetSocketRoom = (socket) => {
-  const [room] = Array.from(socket.rooms)
+  const [_, room] = Array.from(socket.rooms)
   if (!room) {
     emitNotify(socket, {
       title: "Error!",

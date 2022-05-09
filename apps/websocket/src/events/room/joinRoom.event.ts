@@ -1,6 +1,6 @@
 import { JoinRoom, SocketEvent } from "interface"
 import { roomDataEmit } from "../../emitters"
-import { getRoom } from "../../store"
+import { getRoom, setRoom } from "../../store"
 import { loadRoom } from "../../store/services/loadRoom.service"
 import { EventFn } from "../event.hoc"
 
@@ -15,6 +15,7 @@ export const joinRoomEvent: EventFn<JoinRoom> = (socket, io) => {
         })
         return
       }
+      setRoom(loadedRoom.roomId, loadedRoom)
       room = loadedRoom
     }
 

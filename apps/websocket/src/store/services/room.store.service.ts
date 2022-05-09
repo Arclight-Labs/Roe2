@@ -1,6 +1,5 @@
 import { WebsocketRoom } from "interface/ws"
 import { getStore, setStore } from "../store.server"
-import { loadRoom } from "./loadRoom.service"
 
 type RoomMap = Record<string, WebsocketRoom>
 type GetRooms = () => RoomMap
@@ -30,9 +29,9 @@ export const setRoom: SetRoom = (roomId, payload) => {
   const isFn = typeof payload === "function"
   if (isFn) {
     const room = payload(rooms[roomId])
-    store.rooms[roomId] = room
+    setStore((s) => ({ ...s, rooms: { ...s.rooms, [roomId]: room } }))
     return room
   }
-  store.rooms[roomId] = payload
+  setStore((s) => ({ ...s, rooms: { ...s.rooms, [roomId]: payload } }))
   return payload
 }
