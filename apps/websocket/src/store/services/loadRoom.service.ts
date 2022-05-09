@@ -1,8 +1,6 @@
 import ip from "ip"
 import axios from "axios"
 import { WebsocketRoom } from "interface/ws"
-import { setStore } from "../store.server"
-import { setRoom } from "../../events/room/setRoom.event"
 
 const isDev = process.env.NODE_ENV === "development"
 const devUrl = `http://${ip.address()}:5001/roe2-prod/us-central1/api/api`

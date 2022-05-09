@@ -1,19 +1,13 @@
 import { tournamentEvents } from "./events/tournament.events"
 import { Server } from "socket.io"
 import roomEvents from "./events/room"
+import { createServer } from "http"
 import "dotenv/config"
-import Fastify from "fastify"
 
 const PORT = process.env.PORT || 1337
 
-const fastify = Fastify()
-fastify.register(require("@fastify/cors"), { origin: true })
-
-fastify.get("/", (req, reply) => {
-  reply.send("Websocket Server is running!")
-})
-
-const io = new Server(fastify.server, {
+const server = createServer()
+const io = new Server(server, {
   cors: { origin: true },
   cookie: true,
 })
@@ -33,4 +27,6 @@ io.on("connection", async (socket) => {
   roomEvents(io, socket)
 })
 
-fastify.listen(PORT)
+server.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`)
+})
