@@ -5,7 +5,7 @@ const AppShellWrapper = ({ children }: PropsWithChildren<{}>) => {
   return (
     <AppShell
       version={`${import.meta.env.PACKAGE_VERSION}${
-        import.meta.env.DEV && " Emulated"
+        import.meta.env.DEV ? " Emulated" : ""
       }`}
     >
       {children}
