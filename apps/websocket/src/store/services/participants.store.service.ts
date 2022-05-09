@@ -27,8 +27,8 @@ export const getParticipant: GetParticipant = (roomId, participantId) => {
   return (room?.participants ?? {})[participantId]
 }
 
-export const setAllParticipant: SetAllParticipant = (roomId, participant) => {
-  setRoom(roomId, (s) => ({ ...s, participant }))
+export const setAllParticipant: SetAllParticipant = (roomId, participants) => {
+  setRoom(roomId, (s) => ({ ...s, participants }))
 }
 
 export const setParticipant: SetParticipant = (

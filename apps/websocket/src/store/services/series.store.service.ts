@@ -24,8 +24,8 @@ export const getSeries: GetSeries = (roomId, seriesId) => {
   return (room?.matches ?? {})[seriesId]
 }
 
-export const setAllSeries: SetAllSeries = (roomId, series) => {
-  setRoom(roomId, (s) => ({ ...s, series }))
+export const setAllSeries: SetAllSeries = (roomId, matches) => {
+  setRoom(roomId, (s) => ({ ...s, matches }))
 }
 
 export const setSeries: SetSeries = (roomId, seriesId, payload) => {
