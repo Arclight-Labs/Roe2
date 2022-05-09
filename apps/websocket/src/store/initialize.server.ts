@@ -1,6 +1,6 @@
 import ip from "ip"
 import axios from "axios"
-import { WebsocketRoom, WebsocketStore } from "interface/ws"
+import { WebsocketRoom } from "interface/ws"
 import { setStore } from "./store.server"
 
 const isDev = process.env.NODE_ENV === "development"
@@ -17,16 +17,21 @@ const ax = axios.create({
 })
 
 export const initialize = async () => {
-  const interval = setInterval(async () => {
-    try {
-      console.log(`loading rooms from ${process.env.NODE_ENV}...`)
-      const res = await ax.get<Record<string, WebsocketRoom>>(`/rooms`)
-      setStore((s) => ({ ...s, rooms: res.data || {} }))
-      clearInterval(interval)
-      console.log("Rooms successfully loaded")
-    } catch (e) {
-      console.log(e)
-      console.error("Failed to initialize rooms. Retrying in 10 seconds...")
-    }
-  }, 10000)
+  let success = false
+  while (!success) {
+    setTimeout(async () => {
+      try {
+        console.log(`loading rooms from ${process.env.NODE_ENV}...`)
+        const res = await ax.get<Record<string, WebsocketRoom>>(`/rooms`)
+        if (res) {
+          setStore((s) => ({ ...s, rooms: res.data || {} }))
+          console.log("Rooms successfully loaded")
+          success = true
+        }
+      } catch (e) {
+        console.log(e)
+        console.error("Failed to initialize rooms. Retrying in 5 seconds...")
+      }
+    }, 5000)
+  }
 }
