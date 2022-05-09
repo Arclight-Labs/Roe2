@@ -6,7 +6,7 @@ import { Doc } from "../../types"
 export const getRoomData = async (room: Room): Promise<WebsocketRoom> => {
   const roomRef = db.collection("rooms").doc(room.id)
   const broadcastDataRef = roomRef
-    .collection("public")
+    .collection("live")
     .doc("broadcast") as Doc<Broadcast>
 
   const broadcastDataSnap = await broadcastDataRef.get()

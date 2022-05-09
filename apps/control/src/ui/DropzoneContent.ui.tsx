@@ -12,14 +12,19 @@ import { ComponentProps } from "react"
 interface Props {
   status: DropzoneStatus
   preview: string[]
+  minHeight?: number
 }
-export const DropzoneContent = ({ status, preview }: Props) => {
+export const DropzoneContent = ({
+  status,
+  preview,
+  minHeight = 220,
+}: Props) => {
   const theme = useMantineTheme()
   return (
     <Group
       position="center"
       spacing="xl"
-      style={{ minHeight: 220, pointerEvents: "none" }}
+      style={{ minHeight, pointerEvents: "none" }}
     >
       {preview.filter(Boolean).length ? (
         preview.map((url, i) => (

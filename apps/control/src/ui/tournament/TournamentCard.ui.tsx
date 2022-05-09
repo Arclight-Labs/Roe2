@@ -41,6 +41,12 @@ const TournamentCard = ({ id, logo, name, org }: TournamentCardProps) => {
     setTournament(tour)
     setMatches(matches)
     setParticipants(participants)
+    await room?.save({
+      tournament: tour,
+      matches: matches,
+      participants: participants,
+      roomId: room.id,
+    })
     setLoading(false)
   }
 

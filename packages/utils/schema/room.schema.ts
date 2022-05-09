@@ -4,6 +4,8 @@ export const roomUpdateSchema = z.object({
   tournament: z.string().optional(),
 })
 
+export type RoomUpdateSchema = z.infer<typeof roomUpdateSchema>
+
 export const roomCreateSchema = z.object({
   name: z.string().min(3, "name must be at least 3 characters"),
   avatar: z.string(),

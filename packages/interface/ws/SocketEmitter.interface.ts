@@ -41,4 +41,5 @@ export interface SocketEmitters extends SocketEmitterType {
   matches: SetMatches
   participants: SetParticipants
   setRoom: SetRoom
+  setParticipant: SetPariticipant
 }

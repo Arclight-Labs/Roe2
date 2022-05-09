@@ -3,13 +3,14 @@ import { lazy } from "react"
 import { FunctionComponent, Suspense } from "react"
 import { Navigate, Outlet, useRoutes } from "react-router-dom"
 import RoomSelect from "../ui/RoomSelect.ui"
-import TournamentPage from "../pages/tournament"
-import AppShellWrapper from "../ui/AppShellWrapper"
+import AppShellWrapper from "../ui/AppShellWrapper.ui"
 import AuthGuard from "../ui/guards/AuthGuard"
 import RoomGuard from "../ui/guards/RoomGuard"
 
 const Login = Loadable(lazy(() => import("../pages/Login.page")))
 const SignUp = Loadable(lazy(() => import("../pages/SignUp.page")))
+const TournamentPage = Loadable(lazy(() => import("../pages/tournament")))
+const ParticipantsPage = Loadable(lazy(() => import("../pages/participants")))
 
 function Loadable<T extends object = {}>(Component: FunctionComponent<T>) {
   return (props: T) => {
@@ -51,6 +52,7 @@ const Routes = () => {
         { path: "rooms", element: <RoomSelect /> },
         { path: "/", element: <Navigate to="tournaments" /> },
         { path: "tournaments", element: <TournamentPage /> },
+        { path: "participants", element: <ParticipantsPage /> },
       ],
     },
   ])

@@ -33,7 +33,7 @@ export const tournamentEvents = (io: Server, socket: Socket) => {
     if (!room) return
 
     setAllSeries(room, payload)
-    io.emit(SocketEvent.Matches, getAllSeries(room))
+    io.to(room).emit(SocketEvent.Matches, getAllSeries(room))
   })
 
   socket.on(SocketEvent.SetMatch, (payload: Payload.MatchUpdate) => {
@@ -42,6 +42,7 @@ export const tournamentEvents = (io: Server, socket: Socket) => {
 
     const { matchId, data } = payload
     setSeries(room, matchId, (series) => ({ ...series, ...data }))
+    io.to(room).emit(SocketEvent.SetMatch, payload)
   })
 
   // PARTICIPANTS
@@ -51,7 +52,7 @@ export const tournamentEvents = (io: Server, socket: Socket) => {
     if (!room) return
 
     setAllParticipant(room, payload)
-    io.emit(SocketEvent.Participants, getAllParticipant(room))
+    io.to(room).emit(SocketEvent.Participants, getAllParticipant(room))
   })
 
   socket.on(SocketEvent.SetParticipant, (payload: Payload.TeamUpdate) => {
@@ -60,5 +61,6 @@ export const tournamentEvents = (io: Server, socket: Socket) => {
 
     const { teamId, data } = payload
     setParticipant(room, teamId, (participant) => ({ ...participant, ...data }))
+    io.to(room).emit(SocketEvent.SetParticipant, payload)
   })
 }

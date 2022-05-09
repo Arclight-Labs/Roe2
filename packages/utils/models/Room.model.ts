@@ -1,5 +1,12 @@
-import { doc, PartialWithFieldValue, SetOptions } from "firebase/firestore"
+import {
+  doc,
+  PartialWithFieldValue,
+  SetOptions,
+  writeBatch,
+} from "firebase/firestore"
 import { Room, User } from "interface"
+import { Broadcast, WebsocketRoom } from "interface/ws"
+import { db } from "../firebase"
 import {
   addRoomAdmins,
   getRoomRef,
@@ -8,6 +15,7 @@ import {
   RoomUpdateData,
   setRoom,
   updateRoom,
+  getBroadcastRef,
 } from "../firebase/room.queries"
 interface RoomConstructor {
   id: string
@@ -35,6 +43,10 @@ export class RoomModel implements Room {
     return getRoomRef(this.id)
   }
 
+  broadcastRef() {
+    return getBroadcastRef(this.id)
+  }
+
   addAdmins(uids: string[]) {
     return addRoomAdmins(this.id, uids)
   }
@@ -51,12 +63,21 @@ export class RoomModel implements Room {
     return requestRoomAccess(this.id, this.name, user)
   }
 
-  toJSON() {
-    const { ref, addAdmins, set, update, ...data } = this
-    return data as Room
-  }
-
   static create() {
     return doc(roomColRef)
+  }
+
+  async save(broadcastData: PartialWithFieldValue<Broadcast>) {
+    const roomRef = this.ref()
+    const broadcastRef = this.broadcastRef()
+    const batch = writeBatch(db)
+    batch.update(roomRef, this.toJSON())
+    batch.set(broadcastRef, broadcastData, { merge: true })
+    return batch.commit()
+  }
+
+  toJSON() {
+    const { ref, addAdmins, set, update, save, ...data } = this
+    return data as Room
   }
 }
