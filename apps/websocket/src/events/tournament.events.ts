@@ -1,21 +1,39 @@
 import { Server, Socket } from "socket.io"
-import { SocketEvent, Tournament } from "interface"
+import { SocketEvent, Tournament, Waypoint } from "interface"
 import { SanitizedParticipantMap, SanitizedSeriesMap } from "interface/waypoint"
 import { getSocketRoom } from "../utils/getSocketRoom.util"
+import {
+  getAllParticipant,
+  getAllSeries,
+  getTournament,
+  setAllParticipant,
+  setAllSeries,
+  setTournament,
+} from "../store"
 
 export const tournamentEvents = (io: Server, socket: Socket) => {
-  socket.on(SocketEvent.Tournament, (payload: Partial<Tournament>) => {
+  socket.on(SocketEvent.Tournament, (payload: Partial<Waypoint.Tournament>) => {
     const room = getSocketRoom(socket)
     if (!room) return
-    // const newTournament = setTournament(payload)
-    // io.emit(SocketEvent.Tournament, newTournament)
+    setTournament(room, (tour) => ({
+      ...tour,
+      ...payload,
+    }))
+    const newTournament = getTournament(room)
+    io.to(room).emit(SocketEvent.Tournament, newTournament)
   })
 
   socket.on(SocketEvent.Participants, (payload: SanitizedParticipantMap) => {
-    io.emit(SocketEvent.Participants, payload)
+    const room = getSocketRoom(socket)
+    if (!room) return
+    setAllParticipant(room, payload)
+    io.emit(SocketEvent.Participants, getAllParticipant(room))
   })
 
   socket.on(SocketEvent.Matches, (payload: SanitizedSeriesMap) => {
-    io.emit(SocketEvent.Matches, payload)
+    const room = getSocketRoom(socket)
+    if (!room) return
+    setAllSeries(room, payload)
+    io.emit(SocketEvent.Matches, getAllSeries(room))
   })
 }

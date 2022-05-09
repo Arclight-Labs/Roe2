@@ -7,6 +7,19 @@ type SetTournamentFn = (state: Tour) => Tour
 type SetTournamentAction = SetTournamentFn | Tour
 type SetTournament = (roomId: string, payload: SetTournamentAction) => void
 
+const defaultTour: Tour = {
+  _leagueTitle: "",
+  customFields: {},
+  id: "",
+  leagueId: "",
+  leagueTitle: "",
+  orgId: "",
+  tournament: {
+    name: "",
+  },
+  visibility: "public",
+}
+
 export const getTournament: GetTournament = (roomId) => {
   const room = getRoom(roomId)
   if (!room) return null
@@ -17,8 +30,7 @@ export const setTournament: SetTournament = (roomId, payload) => {
   const isFn = typeof payload === "function"
   const tour = getTournament(roomId)
   if (isFn) {
-    if (!tour) return null
-    const tournament = payload(tour)
+    const tournament = { ...tour, ...payload(tour || defaultTour) }
     setRoom(roomId, (s) => ({ ...s, tournament }))
     return
   }
