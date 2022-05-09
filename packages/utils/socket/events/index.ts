@@ -1,11 +1,11 @@
 export { tournament } from "./Tournament.emit"
 export { tournamentListen } from "./Tournament.listen"
 
-export { setMatches } from "./Match.emit"
-export { matchesListen } from "./Match.listen"
+export { setMatches, setMatch } from "./Match.emit"
+export { matchesListen, setMatchListen } from "./Match.listen"
 
-export { setParticipants } from "./Participant.emit"
-export { participantsListen } from "./Participant.listen"
+export { setParticipants, setParticipant } from "./Participant.emit"
+export { participantsListen, setParticipantListen } from "./Participant.listen"
 
 export { ping } from "./Ping.emit"
 export { pingListen } from "./Ping.listen"

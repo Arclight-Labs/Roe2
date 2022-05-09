@@ -1,12 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import { SanitizedSeries, SanitizedSeriesMap } from "interface/waypoint"
+import { SanitizedSeriesMap } from "interface/waypoint"
+import { Payload } from "interface/ws"
 import { nanoid } from "nanoid"
 
-type SetMatchesAction = PayloadAction<SanitizedSeriesMap>
-type UpdateMatchPayload = { matchId: string; data: Partial<SanitizedSeries> }
-type UpdateMatchAction = PayloadAction<UpdateMatchPayload>
-type AddMatchPayload = { matchId?: string; data: SanitizedSeries }
-type AddMatchAction = PayloadAction<AddMatchPayload>
+type SetMatchesAction = PayloadAction<Payload.MatchesSet>
+type UpdateMatchAction = PayloadAction<Payload.MatchUpdate>
+type AddMatchAction = PayloadAction<Payload.MatchAdd>
 
 const initialState: SanitizedSeriesMap = {}
 
@@ -21,7 +20,6 @@ const matchSlice = createSlice({
     updateMatch(state, action: UpdateMatchAction) {
       const matchId = action.payload.matchId
       const data = action.payload.data
-      if (!state[matchId]) return state
       return { ...state, [matchId]: { ...state[matchId], ...data } }
     },
 

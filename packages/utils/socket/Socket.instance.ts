@@ -6,6 +6,8 @@ import {
   pingListen,
   tournamentListen,
   participantsListen,
+  setMatchListen,
+  setParticipantListen,
 } from "./events"
 
 const isDev = import.meta.env.DEV
@@ -32,3 +34,5 @@ socket.on(SocketEvent.Ping, pingListen)
 socket.on(SocketEvent.Error, errorListen)
 socket.on(SocketEvent.Matches, matchesListen)
 socket.on(SocketEvent.Participants, participantsListen)
+socket.on(SocketEvent.SetMatch, setMatchListen)
+socket.on(SocketEvent.SetParticipant, setParticipantListen)

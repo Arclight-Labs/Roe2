@@ -15,3 +15,5 @@ export type {
   WebsocketStore,
   Broadcast,
 } from "./WebsocketStore.interface"
+
+export * as Payload from "./Payload.interface"

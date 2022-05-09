@@ -1,34 +1,26 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
-import {
-  SanitizedParticipant,
-  SanitizedParticipantMap,
-} from "interface/waypoint"
+import { SanitizedParticipantMap } from "interface/waypoint"
+import { Payload } from "interface/ws"
 import { nanoid } from "nanoid"
 
-type SetMatchesAction = PayloadAction<SanitizedParticipantMap>
-type UpdateParticipantPayload = {
-  teamId: string
-  data: Partial<SanitizedParticipant>
-}
+type SetParticipantsAction = PayloadAction<Payload.TeamsSet>
 
-type UpdateParticipantAction = PayloadAction<UpdateParticipantPayload>
-type AddParticipantPayload = { teamId?: string; data: SanitizedParticipant }
-type AddParticipantAction = PayloadAction<AddParticipantPayload>
+type UpdateParticipantAction = PayloadAction<Payload.TeamUpdate>
+type AddParticipantAction = PayloadAction<Payload.TeamAdd>
 
 const initialState: SanitizedParticipantMap = {}
 
 const participantSlice = createSlice({
   initialState,
-  name: "matches",
+  name: "participants",
   reducers: {
-    setParticipants(state, action: SetMatchesAction) {
+    setParticipants(state, action: SetParticipantsAction) {
       return { ...state, ...action.payload }
     },
 
     updateParticipant(state, action: UpdateParticipantAction) {
       const matchId = action.payload.teamId
       const data = action.payload.data
-      if (!state[matchId]) return state
       return { ...state, [matchId]: { ...state[matchId], ...data } }
     },
 

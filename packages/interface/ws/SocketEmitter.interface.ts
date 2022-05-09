@@ -1,7 +1,12 @@
 import { SocketEvent } from "./SocketEvent.interface"
 import { Waypoint } from "../"
 import { NotificationProps } from "@mantine/notifications"
-import { SanitizedParticipantMap, SanitizedSeriesMap } from "../waypoint"
+import {
+  SanitizedParticipant,
+  SanitizedParticipantMap,
+  SanitizedSeries,
+  SanitizedSeriesMap,
+} from "../waypoint"
 import { WebsocketRoom } from "./WebsocketStore.interface"
 export type SocketEmitterFn = (...args: any[]) => any
 export type SocketEmitterRecord = Record<SocketEvent, SocketEmitterFn>
@@ -9,7 +14,12 @@ export type SocketEmitterType = Omit<SocketEmitterRecord, "log">
 
 export type Ping = (date: number) => any
 export type SetMatches = (payload: SanitizedSeriesMap) => any
+export type SetMatch = (matchId: string, data: Partial<SanitizedSeries>) => any
 export type SetParticipants = (payload: SanitizedParticipantMap) => any
+export type SetPariticipant = (
+  teamId: string,
+  payload: Partial<SanitizedParticipant>
+) => any
 export type SetTournament = (payload: Partial<Waypoint.Tournament>) => any
 export type JoinRoomProps = {
   roomId: string

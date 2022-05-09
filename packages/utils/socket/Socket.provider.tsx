@@ -9,6 +9,8 @@ import {
   setMatches,
   setParticipants,
   setRoom,
+  setMatch,
+  setParticipant,
 } from "./events"
 import { SocketContextDispatch } from "./Socket.context"
 import { SocketContext } from "./Socket.context"
@@ -27,6 +29,8 @@ export const SocketProvider = ({ children }: PropsWithChildren<{}>) => {
         matches: setMatches,
         participants: setParticipants,
         setRoom,
+        setMatch,
+        setParticipant,
       }}
     >
       <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>

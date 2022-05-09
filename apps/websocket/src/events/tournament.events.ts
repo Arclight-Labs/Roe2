@@ -1,6 +1,10 @@
 import { Server, Socket } from "socket.io"
-import { SocketEvent, Tournament, Waypoint } from "interface"
-import { SanitizedParticipantMap, SanitizedSeriesMap } from "interface/waypoint"
+import { SocketEvent, Waypoint } from "interface"
+import {
+  SanitizedParticipantMap,
+  SanitizedSeries,
+  SanitizedSeriesMap,
+} from "interface/waypoint"
 import { getSocketRoom } from "../utils/getSocketRoom.util"
 import {
   getAllParticipant,
@@ -8,13 +12,17 @@ import {
   getTournament,
   setAllParticipant,
   setAllSeries,
+  setParticipant,
+  setSeries,
   setTournament,
 } from "../store"
+import { Payload } from "interface/ws"
 
 export const tournamentEvents = (io: Server, socket: Socket) => {
   socket.on(SocketEvent.Tournament, (payload: Partial<Waypoint.Tournament>) => {
     const room = getSocketRoom(socket)
     if (!room) return
+
     setTournament(room, (tour) => ({
       ...tour,
       ...payload,
@@ -23,17 +31,38 @@ export const tournamentEvents = (io: Server, socket: Socket) => {
     io.to(room).emit(SocketEvent.Tournament, newTournament)
   })
 
+  // MATCHES
+  socket.on(SocketEvent.Matches, (payload: SanitizedSeriesMap) => {
+    const room = getSocketRoom(socket)
+    if (!room) return
+
+    setAllSeries(room, payload)
+    io.emit(SocketEvent.Matches, getAllSeries(room))
+  })
+
+  socket.on(SocketEvent.SetMatch, (payload: Payload.MatchUpdate) => {
+    const room = getSocketRoom(socket)
+    if (!room) return
+
+    const { matchId, data } = payload
+    setSeries(room, matchId, (series) => ({ ...series, ...data }))
+  })
+
+  // PARTICIPANTS
+
   socket.on(SocketEvent.Participants, (payload: SanitizedParticipantMap) => {
     const room = getSocketRoom(socket)
     if (!room) return
+
     setAllParticipant(room, payload)
     io.emit(SocketEvent.Participants, getAllParticipant(room))
   })
 
-  socket.on(SocketEvent.Matches, (payload: SanitizedSeriesMap) => {
+  socket.on(SocketEvent.SetParticipant, (payload: Payload.TeamUpdate) => {
     const room = getSocketRoom(socket)
     if (!room) return
-    setAllSeries(room, payload)
-    io.emit(SocketEvent.Matches, getAllSeries(room))
+
+    const { teamId, data } = payload
+    setParticipant(room, teamId, (participant) => ({ ...participant, ...data }))
   })
 }
