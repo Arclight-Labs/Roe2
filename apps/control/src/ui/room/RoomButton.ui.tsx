@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom"
 import { ChevronRight, Message } from "tabler-icons-react"
 import { useRoom } from "../../context/room/Room.hooks"
 import { useActiveRoom } from "../../hooks/useActiveRoom.hook"
-import { RoomMenu } from "./RoomMenu.component"
+import { RoomMenu } from "./RoomMenu.ui"
 
 const useStyles = createStyles((theme) => ({
   room: {

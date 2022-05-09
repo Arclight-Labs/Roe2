@@ -1,5 +1,5 @@
 import { Container } from "@mantine/core"
-import RoomDirectory from "./room/Room.component"
+import RoomDirectory from "./room/Room.ui"
 
 const RoomSelect = () => {
   return (

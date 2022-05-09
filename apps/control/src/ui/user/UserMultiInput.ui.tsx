@@ -10,7 +10,7 @@ import { useMemo, useState } from "react"
 import { UserModel } from "utils/models/User.model"
 import { debounce } from "lodash-es"
 import { getUserByUsername } from "utils/firebase/user.queries"
-import UserGroup from "./UserGroup.component"
+import UserGroup from "./UserGroup.ui"
 
 interface UserSearchProps extends Omit<TextInputProps, "onSelect"> {
   onSelect: (user: string[]) => void

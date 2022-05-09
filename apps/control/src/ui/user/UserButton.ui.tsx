@@ -10,7 +10,7 @@ import {
 } from "@mantine/core"
 import { ChevronRight } from "tabler-icons-react"
 import { useAuth } from "../../context/auth/Auth.hooks"
-import { UserMenu } from "./UserMenu.component"
+import { UserMenu } from "./UserMenu.ui"
 
 const useStyles = createStyles((theme) => ({
   user: {

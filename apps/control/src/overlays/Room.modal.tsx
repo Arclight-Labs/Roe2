@@ -21,8 +21,8 @@ import { RoomCreateSchema, roomCreateSchema } from "utils/schema/room.schema"
 import { useWsAction } from "utils/socket"
 import { useAuth } from "../context/auth/Auth.hooks"
 import { useActiveRoom } from "../hooks/useActiveRoom.hook"
-import { DropzoneContent } from "../ui/DropzoneContent.component"
-import UserSelect from "../ui/user/UserMultiInput.component"
+import { DropzoneContent } from "../ui/DropzoneContent.ui"
+import UserSelect from "../ui/user/UserMultiInput.ui"
 
 interface RoomCreateModalProps extends ModalProps {
   data?: RoomModel

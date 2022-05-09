@@ -1,12 +1,7 @@
-import {
-  AppShell as Shell,
-  AppShellProps,
-  Stack,
-  Container,
-} from "@mantine/core"
+import { AppShell as Shell, AppShellProps, Stack } from "@mantine/core"
 import { FC } from "react"
 import {} from "tabler-icons-react"
-import Navbar from "./Navbar"
+import Navbar from "./Navbar.ui"
 
 interface Props extends AppShellProps {
   version: string

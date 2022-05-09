@@ -4,14 +4,11 @@ import {
   Grid,
   Group,
   Image,
-  LoadingOverlay,
-  ModalProps,
   Stack,
   Text,
   Title,
 } from "@mantine/core"
 import { showNotification } from "@mantine/notifications"
-import { Room } from "interface"
 import { useState } from "react"
 import { useCollectionData } from "react-firebase-hooks/firestore"
 import { useLocation, useNavigate } from "react-router-dom"

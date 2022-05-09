@@ -16,7 +16,7 @@ interface NavLink {
 
 const routes: NavLink[] = [
   { link: "/tournaments", label: "Tournament", icon: Tournament },
-  { link: "", label: "Participants", icon: Users },
+  { link: "/participants", label: "Participants", icon: Users },
   { link: "", label: "Matches", icon: GitFork },
   { link: "", label: "Talents", icon: Headset },
   { link: "", label: "Lower Thirds", icon: Ad },

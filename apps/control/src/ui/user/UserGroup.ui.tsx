@@ -1,5 +1,5 @@
 import { Group, GroupProps } from "@mantine/core"
-import UserBadge from "./UserBadge.compnent"
+import UserBadge from "./UserBadge.ui"
 
 interface UserGroupProps extends GroupProps {
   uids: string[]

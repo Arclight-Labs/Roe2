@@ -1,5 +1,5 @@
-import React, { PropsWithChildren } from "react"
-import AppShell from "./AppShell"
+import { PropsWithChildren } from "react"
+import AppShell from "./AppShell.ui"
 
 const AppShellWrapper = ({ children }: PropsWithChildren<{}>) => {
   return (
