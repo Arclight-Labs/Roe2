@@ -15,21 +15,18 @@ import {
   getTournament,
   ShallowTournament,
 } from "utils/axios/tournament.queries"
-import {
-  useAppSelector,
-  useMatches,
-  useParticipants,
-  useTournament,
-} from "utils/hooks"
+import { useTournament } from "utils/hooks"
 import { useWsAction } from "utils/socket"
+import { useAuth } from "../../context/auth/Auth.hooks"
+import { useRoom } from "../../context/room/Room.hooks"
 
 type TournamentCardProps = Omit<CardProps<"div">, "children"> &
   ShallowTournament
 const TournamentCard = ({ id, logo, name, org }: TournamentCardProps) => {
+  const { auth } = useAuth()
+  const room = useRoom()
   const [loading, setLoading] = useState(false)
   const tournament = useTournament()
-  const { matches } = useMatches()
-  const { participants } = useParticipants()
 
   const {
     tournament: setTournament,
@@ -47,12 +44,15 @@ const TournamentCard = ({ id, logo, name, org }: TournamentCardProps) => {
     setLoading(false)
   }
 
+  const isAdmin =
+    auth && (room?.owner === auth.uid || room?.admins.includes(auth.uid))
+
   return (
     <Card radius="md" shadow="md" sx={{ height: "100%" }}>
       <Stack>
         <Group position="apart" p={0} align="start">
           <Image src={logo} height={50} width={50} radius="md" />
-          <ActionIcon onClick={selectTournament}>
+          <ActionIcon onClick={selectTournament} disabled={!isAdmin}>
             {loading ? (
               <Loader size={14} />
             ) : tournament.id === id ? (

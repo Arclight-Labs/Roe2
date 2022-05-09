@@ -1,10 +1,6 @@
 import { Server, Socket } from "socket.io"
 import { SocketEvent, Waypoint } from "interface"
-import {
-  SanitizedParticipantMap,
-  SanitizedSeries,
-  SanitizedSeriesMap,
-} from "interface/waypoint"
+import { SanitizedParticipantMap, SanitizedSeriesMap } from "interface/waypoint"
 import { getSocketRoom } from "../utils/getSocketRoom.util"
 import {
   getAllParticipant,
