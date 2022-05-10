@@ -19,11 +19,12 @@ import { useTournament } from "utils/hooks"
 import { useWsAction } from "utils/socket"
 import { useAuth } from "../../context/auth/Auth.hooks"
 import { useRoom } from "../../context/room/Room.hooks"
+import { usePermission } from "../../hooks/usePermission.hook"
 
 type TournamentCardProps = Omit<CardProps<"div">, "children"> &
   ShallowTournament
 const TournamentCard = ({ id, logo, name, org }: TournamentCardProps) => {
-  const { auth } = useAuth()
+  const isAllowed = usePermission()
   const room = useRoom()
   const [loading, setLoading] = useState(false)
   const tournament = useTournament()
@@ -50,18 +51,18 @@ const TournamentCard = ({ id, logo, name, org }: TournamentCardProps) => {
     setLoading(false)
   }
 
-  const isAdmin =
-    auth && (room?.owner === auth.uid || room?.admins.includes(auth.uid))
+  const isSelected = tournament.id === id
+  const shadow = isSelected ? "lg" : "md"
 
   return (
-    <Card radius="md" shadow="md" sx={{ height: "100%" }}>
+    <Card radius="md" shadow={shadow} sx={{ height: "100%" }}>
       <Stack>
         <Group position="apart" p={0} align="start">
           <Image src={logo} height={50} width={50} radius="md" />
-          <ActionIcon onClick={selectTournament} disabled={!isAdmin}>
+          <ActionIcon onClick={selectTournament} disabled={!isAllowed}>
             {loading ? (
               <Loader size={14} />
-            ) : tournament.id === id ? (
+            ) : isSelected ? (
               <Check />
             ) : (
               <Select color={theme.colors.gray[5]} />
@@ -70,12 +71,7 @@ const TournamentCard = ({ id, logo, name, org }: TournamentCardProps) => {
         </Group>
         <Stack spacing={0}>
           <Text>{name}</Text>
-          <Text
-            size="sm"
-            color={tournament.id === id ? theme.black : theme.colors.gray[6]}
-          >
-            Hosted by {org}
-          </Text>
+          <Text size="sm">Hosted by {org}</Text>
         </Stack>
       </Stack>
     </Card>

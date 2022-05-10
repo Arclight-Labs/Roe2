@@ -1,6 +1,6 @@
 import { z } from "zod"
 export const playerSchema = z.object({
-  username: z.string(),
+  username: z.string().min(1),
   photoURL: z.string(),
 })
 

@@ -72,7 +72,7 @@ export class RoomModel implements Room {
     const broadcastRef = this.broadcastRef()
     const batch = writeBatch(db)
     batch.update(roomRef, this.toJSON())
-    batch.set(broadcastRef, broadcastData, { merge: true })
+    batch.update(broadcastRef, broadcastData)
     return batch.commit()
   }
 

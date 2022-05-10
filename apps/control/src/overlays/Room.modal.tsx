@@ -28,7 +28,7 @@ interface RoomCreateModalProps extends ModalProps {
   data?: RoomModel
 }
 
-const RoomModal = ({ data, ...props }: RoomCreateModalProps) => {
+const RoomModal = ({ data: room, ...props }: RoomCreateModalProps) => {
   const { auth } = useAuth()
   const { setRoom } = useWsAction()
   const [activeRoom, setActiveRoom] = useActiveRoom()
@@ -40,16 +40,16 @@ const RoomModal = ({ data, ...props }: RoomCreateModalProps) => {
   const { register, setValue, getFieldState, handleSubmit, watch, reset } =
     useForm<RoomCreateSchema>({
       defaultValues: {
-        avatar: data?.avatar || "",
-        name: data?.name || "",
-        admins: data?.admins || [],
+        avatar: room?.avatar || "",
+        name: room?.name || "",
+        admins: room?.admins || [],
       },
       resolver: zodResolver(roomCreateSchema),
     })
 
   useEffect(() => {
-    reset(data)
-  }, [data])
+    reset(room)
+  }, [room])
 
   const save = (roomRef: DocumentReference<RoomModel>) =>
     handleSubmit(async (data) => {
@@ -60,7 +60,7 @@ const RoomModal = ({ data, ...props }: RoomCreateModalProps) => {
         avatar: data.avatar,
         id: roomRef.id,
         name: data.name,
-        owner: auth.uid || "",
+        owner: room?.owner || auth.uid || "",
       }
       const batch = writeBatch(db)
 
@@ -96,7 +96,7 @@ const RoomModal = ({ data, ...props }: RoomCreateModalProps) => {
   const uploadAndSet: MouseEventHandler<HTMLButtonElement> = async (e) => {
     if (!auth) return
 
-    const roomRef = data ? data.ref() : RoomModel.create()
+    const roomRef = room ? room.ref() : RoomModel.create()
     const saveFn = save(roomRef)
     if (!avatarPreview.file) return saveFn(e)
 
@@ -140,7 +140,7 @@ const RoomModal = ({ data, ...props }: RoomCreateModalProps) => {
             {(status) => (
               <DropzoneContent
                 status={status}
-                preview={[avatarPreview.path || data?.avatar || ""]}
+                preview={[avatarPreview.path || room?.avatar || ""]}
               />
             )}
           </Dropzone>
@@ -149,7 +149,7 @@ const RoomModal = ({ data, ...props }: RoomCreateModalProps) => {
         <UserSelect onSelect={onChangeAdmins} selected={watch("admins")} />
 
         <Group position="right">
-          <Button onClick={uploadAndSet}>{data ? "Save" : "Create"}</Button>
+          <Button onClick={uploadAndSet}>{room ? "Save" : "Create"}</Button>
         </Group>
       </Stack>
     </Modal>
