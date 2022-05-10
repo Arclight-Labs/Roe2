@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: yarn install && cd packages/cloud-functions && yarn build
+      - run: yarn install
       - name: Deploy to Cloud Functions
         uses: w9jds/firebase-action@master
         env:
