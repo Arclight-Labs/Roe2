@@ -13,8 +13,8 @@ const matchSlice = createSlice({
   initialState,
   name: "matches",
   reducers: {
-    setMatches(state, action: SetMatchesAction) {
-      return { ...state, ...action.payload }
+    setMatches(_, action: SetMatchesAction) {
+      return action.payload
     },
 
     updateMatch(state, action: UpdateMatchAction) {

@@ -14,8 +14,8 @@ const participantSlice = createSlice({
   initialState,
   name: "participants",
   reducers: {
-    setParticipants(state, action: SetParticipantsAction) {
-      return { ...state, ...action.payload }
+    setParticipants(_, action: SetParticipantsAction) {
+      return action.payload
     },
 
     updateParticipant(state, action: UpdateParticipantAction) {
