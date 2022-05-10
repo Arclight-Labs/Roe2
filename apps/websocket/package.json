@@ -15,7 +15,7 @@
   "dependencies": {
     "@fastify/cors": "7.0.0",
     "axios": "0.27.2",
-    "dotenv": "16.0.0",
+    "dotenv": "16.0.1",
     "interface": "*",
     "ip": "1.1.7",
     "socket.io": "4.5.0"

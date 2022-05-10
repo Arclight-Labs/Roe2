@@ -20,7 +20,7 @@
     "@mantine/notifications": "4.2.4",
     "@reduxjs/toolkit": "1.8.1",
     "axios": "0.27.2",
-    "dotenv": "16.0.0",
+    "dotenv": "16.0.1",
     "firebase": "9.8.1",
     "ip": "1.1.7",
     "lodash-es": "4.17.21",
