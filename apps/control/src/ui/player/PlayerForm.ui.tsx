@@ -21,10 +21,16 @@ import { useAuth } from "../../context/auth/Auth.hooks"
 import { useRoom } from "../../context/room/Room.hooks"
 import { DropzoneContent } from "../DropzoneContent.ui"
 import { playerSchema, PlayerSchema } from "utils/schema/player.schema"
+import { DeviceFloppy, Trash } from "tabler-icons-react"
 
+export interface PlayerProps {
+  uid?: string
+  username: string
+  photoURL: string
+}
 interface PlayerFormProps {
   teamId: string
-  player: Pick<SanitizedUser, "uid" | "username" | "photoURL">
+  player: PlayerProps
   onCancel?: VoidFunction
   afterSubmit?: VoidFunction
 }
@@ -47,9 +53,9 @@ const PlayerForm = ({
     },
     resolver: zodResolver(playerSchema),
   })
+  const playerId = player.uid || nanoid()
 
   const saveFn = handleSubmit((data) => {
-    const playerId = player.uid || nanoid()
     const participantData = {
       ...participants[teamId],
       players: {
@@ -57,6 +63,7 @@ const PlayerForm = ({
         [playerId]: {
           ...participants[teamId].players[playerId],
           ...data,
+          uid: playerId,
           _username: data.username.toLowerCase(),
         },
       },
@@ -73,9 +80,7 @@ const PlayerForm = ({
     if (!photo.file) return saveFn(e)
 
     setLoading(true)
-    const uploadPath = `public/user/${auth.uid}/room/${room?.id}/players/${
-      player?.uid || nanoid(6)
-    }`
+    const uploadPath = `public/user/${auth.uid}/room/${room?.id}/players/${playerId}`
     const uploadRef = ref(storage, uploadPath)
     const snap = await uploadBytes(uploadRef, photo.file)
     const downloadUrl = await getDownloadURL(snap.ref)
@@ -93,7 +98,7 @@ const PlayerForm = ({
     <form onSubmit={uploadAndSet}>
       <Stack>
         <LoadingOverlay visible={loading} />
-        <TextInput label="username" {...register("username")} />
+        <TextInput label="Username" {...register("username")} data-autofocus />
 
         <Dropzone multiple={false} onDrop={onDrop} accept={IMAGE_MIME_TYPE}>
           {(status) => (
@@ -106,10 +111,16 @@ const PlayerForm = ({
         </Dropzone>
 
         <Group position="apart" style={{ marginTop: 15 }}>
-          <Anchor component="button" color="gray" size="sm" onClick={onCancel}>
-            Cancel
-          </Anchor>
-          <Button type="submit" size="sm">
+          <Button
+            variant="subtle"
+            size="xs"
+            color="red"
+            leftIcon={<Trash size={18} />}
+          >
+            Delete
+          </Button>
+
+          <Button type="submit" size="xs" leftIcon={<DeviceFloppy size={18} />}>
             Save
           </Button>
         </Group>
