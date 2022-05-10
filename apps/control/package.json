@@ -28,7 +28,7 @@
     "react-redux": "8.0.1",
     "react-router-dom": "6.3.0",
     "redux": "4.2.0",
-    "tabler-icons-react": "1.47.0",
+    "tabler-icons-react": "1.48.0",
     "ui": "*",
     "utils": "*",
     "vite-plugin-package-version": "1.0.2"
