@@ -8,7 +8,10 @@
   },
   "functions": {
     "source": "packages/cloud-functions",
-    "predeploy": ["npm run lint", "npm run build"]
+    "predeploy": [
+      "yarn workspace cloud-functions lint",
+      "yarn workspace cloud-functions build"
+    ]
   },
   "hosting": {
     "public": "apps/control/dist",
