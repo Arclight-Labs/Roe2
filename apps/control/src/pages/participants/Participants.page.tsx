@@ -2,10 +2,12 @@ import { ActionIcon, Container, Grid, Group, Stack, Title } from "@mantine/core"
 import { useState } from "react"
 import { Plus } from "tabler-icons-react"
 import { useParticipants } from "utils/hooks"
+import { usePermission } from "../../hooks/usePermission.hook"
 import ParticipantCard from "../../ui/participant/ParticipantCard.ui"
 import ParticipantModal from "../../ui/participant/ParticipantModal.ui"
 
 const ParticipantsPage = () => {
+  const isAllowed = usePermission()
   const [opened, setOpened] = useState(false)
   const open = () => setOpened(true)
   const close = () => setOpened(false)
@@ -18,7 +20,7 @@ const ParticipantsPage = () => {
       <Stack>
         <Group noWrap align="center">
           <Title order={3}>Participants</Title>
-          <ActionIcon variant="filled" onClick={open}>
+          <ActionIcon variant="filled" onClick={open} disabled={!isAllowed}>
             <Plus size={14} />
           </ActionIcon>
         </Group>
