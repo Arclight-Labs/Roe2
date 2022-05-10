@@ -17,7 +17,7 @@
     "axios": "0.27.2",
     "dotenv": "16.0.0",
     "interface": "*",
-    "ip": "1.1.5",
+    "ip": "2.0.0",
     "socket.io": "4.5.0"
   },
   "devDependencies": {
