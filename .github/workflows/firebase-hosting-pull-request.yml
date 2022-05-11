@@ -8,6 +8,7 @@ jobs:
     if: "${{ github.event.pull_request.head.repo.full_name == github.repository }}"
     runs-on: ubuntu-latest
     steps:
+      - if: startsWith(github.head_ref, 'renovate') == false
       - uses: actions/checkout@v3
       - run: yarn install && yarn build
       - uses: FirebaseExtended/action-hosting-deploy@v0
