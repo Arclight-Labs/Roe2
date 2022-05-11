@@ -4,15 +4,11 @@ import { EventFn } from "../event.hoc"
 
 export const setRoom: EventFn<SetRoom> = (socket, io) => {
   return (room) => {
-    setRoomInStore(room.id, {
+    setRoomInStore(room.id, (r) => ({
+      ...r,
       ...room,
-      listeners: {},
-      matches: {},
-      participants: {},
-      talents: {},
-      tournament: null,
       roomId: room.id,
-    })
-    console.log("Added room:", room.id, room.name)
+    }))
+    console.log("[SET] Room:", room.id, room.name)
   }
 }

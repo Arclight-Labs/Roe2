@@ -11,6 +11,7 @@ import {
   setRoom,
   setMatch,
   setParticipant,
+  setLive,
 } from "./events"
 import { SocketContextDispatch } from "./Socket.context"
 import { SocketContext } from "./Socket.context"
@@ -31,6 +32,7 @@ export const SocketProvider = ({ children }: PropsWithChildren<{}>) => {
         setRoom,
         setMatch,
         setParticipant,
+        setLive,
       }}
     >
       <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>

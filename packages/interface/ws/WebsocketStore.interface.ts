@@ -9,7 +9,6 @@ export interface Broadcast extends Partial<Live> {
   tournament: Waypoint.Tournament | null
   matches: SanitizedSeriesMap
   participants: SanitizedParticipantMap
-  talents: Record<string, User>
   roomId: string
 }
 interface Listeners {
@@ -24,4 +23,6 @@ export interface Live {
   prevMatches: string[]
   nextMatch: string
   schedule: Schedule[]
+  invert: boolean
+  talents: Record<string, User>
 }

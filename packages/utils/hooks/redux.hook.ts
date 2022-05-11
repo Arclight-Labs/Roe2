@@ -57,6 +57,7 @@ type GetAffectedMatces = (
 
 export const useMatches = () => {
   const matches = useAppSelector((s) => s.matches)
+  const live = useLive()
 
   // ============ Split Playoffs and Groups
   const splitMatchesByType: SplitMatches = (matchMap) => {
@@ -141,7 +142,6 @@ export const useMatches = () => {
     let b: ScoreValue = { final: 0, scores: [] }
     for (const score of scores) {
       const scoreTuple = score.split("-")
-      console.log(scoreTuple)
       const [aScore = 0, bScore = 0] = scoreTuple.map(Number)
       a.scores.push(aScore)
       b.scores.push(bScore)
@@ -219,6 +219,17 @@ export const useMatches = () => {
     return newMatches
   }
 
+  // Live data helpers
+  const isActive = (match: string | number) => {
+    return live.activeMatch === `${match}`
+  }
+  const isNext = (match: string | number) => {
+    return live.nextMatch === `${match}`
+  }
+  const inSchedule = (match: string | number) => {
+    return !!live.schedule.find((s) => s.matchId === `${match}`)
+  }
+
   const { groupsMatches, playoffsMatches } = splitMatchesByType(matches ?? {})
   const groups = mapByGroup(groupsMatches)
   const brackets = splitByBracket(playoffsMatches)
@@ -239,6 +250,9 @@ export const useMatches = () => {
     getScore,
     getUpdatedMatches,
     getAffectedMatches,
+    isActive,
+    isNext,
+    inSchedule,
   }
 }
 
@@ -259,4 +273,9 @@ export const useParticipants = () => {
     updateParticipant,
     addParticipant,
   }
+}
+
+export const useLive = () => {
+  const live = useAppSelector((s) => s.live)
+  return live
 }

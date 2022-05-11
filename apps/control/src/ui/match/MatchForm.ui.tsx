@@ -100,7 +100,7 @@ const MatchForm = ({
   }
 
   const save = handleSubmit((data) => {
-    const matchId = match.id || nanoid(6)
+    const matchId = match.id || nanoid(6) // used when creating custom match
     const newSeriesData: SanitizedSeries = {
       ...match,
       teamA: {
@@ -160,7 +160,7 @@ const MatchForm = ({
                   <Group noWrap>
                     <Checkbox
                       checked={winnerId === aChalId}
-                      onClick={changeWinner(aChalId)}
+                      onChange={changeWinner(aChalId)}
                     />
                     <Text>{aName}</Text>
                   </Group>
@@ -182,7 +182,7 @@ const MatchForm = ({
                   <Group noWrap>
                     <Checkbox
                       checked={winnerId === bChalId}
-                      onClick={changeWinner(bChalId)}
+                      onChange={changeWinner(bChalId)}
                       disabled={!aChalId}
                     />
                     <Text>{bName}</Text>
@@ -204,7 +204,7 @@ const MatchForm = ({
                 <td></td>
                 {scoresInput.length > 1 &&
                   scoresInput.map((_, i) => (
-                    <td align="center">
+                    <td key={i} align="center">
                       <Tooltip label={`Delete Game ${i + 1}`}>
                         <ActionIcon onClick={deleteMatch(i)}>
                           <Trash size={14} color="red" />

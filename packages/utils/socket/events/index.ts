@@ -19,3 +19,6 @@ export { setRoom } from "./SetRoom.emit"
 
 export { notif } from "./Notif.emit"
 export { notifListen } from "./Notif.listen"
+
+export { setLive } from "./SetLive.emit"
+export { setLiveListen } from "./SetLive.listen"

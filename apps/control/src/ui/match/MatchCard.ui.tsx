@@ -1,17 +1,30 @@
-import { Card, Group, Stack, Text, Title, Tooltip } from "@mantine/core"
+import {
+  Card,
+  CardProps,
+  Group,
+  Stack,
+  Text,
+  ThemeIcon,
+  Title,
+  Tooltip,
+} from "@mantine/core"
 import { SanitizedSeries } from "interface/waypoint"
 import { useState } from "react"
+import { ListDetails, PlayerTrackNext, Select } from "tabler-icons-react"
 import { tbd } from "utils/general"
 import { useMatches, useParticipants } from "utils/hooks"
 import { usePermission } from "../../hooks/usePermission.hook"
+import MatchBadges from "./MatchBadges.ui"
 import MatchCardTeam from "./MatchCardTeam.ui"
+import MatchMenu from "./MatchMenu"
 import MatchModal from "./MatchModal.ui"
 
 type Series = SanitizedSeries
-interface MatchCardProps {
+interface MatchCardProps extends Omit<CardProps<"div">, "children"> {
   match: Series
+  small?: boolean
 }
-const MatchCard = ({ match }: MatchCardProps) => {
+const MatchCard = ({ match, small, ...props }: MatchCardProps) => {
   const isAllowed = usePermission()
   const { chalTeams } = useParticipants()
   const { getScore: getFinalScore } = useMatches()
@@ -32,9 +45,27 @@ const MatchCard = ({ match }: MatchCardProps) => {
 
   return (
     <>
-      <Card sx={{ cursor: "pointer" }} onClick={isAllowed ? open : undefined}>
+      <Card
+        {...props}
+        sx={{ cursor: "pointer", ...props.sx }}
+        onClick={isAllowed ? open : undefined}
+      >
+        <Group
+          align="flex-start"
+          spacing={2}
+          sx={{ top: 2, right: 2, position: "absolute" }}
+        >
+          <MatchBadges matchId={match.id} />
+          <MatchMenu match={match} open={open} />
+        </Group>
+
         <Group sx={{ width: 400 }} noWrap>
-          <MatchCardTeam team={a} dir="rtl" loser={!!winnerId && aLoser} />
+          <MatchCardTeam
+            small={small}
+            team={a}
+            dir="rtl"
+            loser={!!winnerId && aLoser}
+          />
           <Group position="center" sx={{ width: 70 }}>
             <Tooltip
               label={
@@ -52,7 +83,7 @@ const MatchCard = ({ match }: MatchCardProps) => {
               </Title>
             </Tooltip>
           </Group>
-          <MatchCardTeam team={b} loser={!!winnerId && !aLoser} />
+          <MatchCardTeam small={small} team={b} loser={!!winnerId && !aLoser} />
         </Group>
       </Card>
       <MatchModal opened={opened} onClose={close} match={match} />

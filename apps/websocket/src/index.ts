@@ -3,6 +3,7 @@ import { Server } from "socket.io"
 import roomEvents from "./events/room"
 import { createServer } from "http"
 import "dotenv/config"
+import liveEvents from "./events/live"
 
 const PORT = process.env.PORT || 1337
 
@@ -25,6 +26,7 @@ io.on("connection", async (socket) => {
   })
   tournamentEvents(io, socket)
   roomEvents(io, socket)
+  liveEvents(io, socket)
 })
 
 server.listen(PORT, () => {
