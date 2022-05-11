@@ -10,7 +10,6 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      - if: startsWith(${{ github.head_ref }}, 'renovate') == false
       - uses: actions/checkout@v3
       - run: yarn install
       - name: Deploy to Cloud Functions
