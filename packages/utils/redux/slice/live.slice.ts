@@ -1,13 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { Live } from "interface/ws"
+import { defaultLive } from "../../general/defaultValues"
 
-const initialState: Live = {
-  activeMatch: "",
-  invert: false,
-  nextMatch: "",
-  prevMatches: [],
-  schedule: [],
-}
+const initialState: Live = defaultLive
 
 export const liveSlice = createSlice({
   name: "live",

@@ -66,6 +66,7 @@ export const defaultLive: Live = {
   nextMatch: "",
   prevMatches: [],
   schedule: [],
+  talents: {},
 }
 
 export const tbd = { ...defaultParticipant, name: "TBD" }
