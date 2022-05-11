@@ -1,0 +1,231 @@
+import { zodResolver } from "@hookform/resolvers/zod"
+import {
+  ActionIcon,
+  Group,
+  Stack,
+  Table,
+  Title,
+  Text,
+  Checkbox,
+  TextInput,
+  Tooltip,
+  Button,
+} from "@mantine/core"
+import { nanoid } from "@reduxjs/toolkit"
+import { SanitizedSeries } from "interface/waypoint"
+import { ChangeEventHandler } from "react"
+import { useForm } from "react-hook-form"
+import { DeviceFloppy, Plus, Trash } from "tabler-icons-react"
+import { defaultSeries, tbd } from "utils/general"
+import { useMatches, useParticipants } from "utils/hooks"
+import { MatchSchema, matchSchema } from "utils/schema/match.schema"
+import { setMatches } from "utils/socket/events"
+import { useRoom } from "../../context/room/Room.hooks"
+import MatchCardTeam from "./MatchCardTeam.ui"
+
+type Handler = ChangeEventHandler<HTMLInputElement>
+type ChangeWinner = (chalId?: number | null | undefined) => () => void
+type ChangeScore = (team: "a" | "b", matchIndex: number) => Handler
+
+interface MatchFormProps {
+  match?: SanitizedSeries
+  onCancel?: VoidFunction
+  afterSubmit?: VoidFunction
+}
+const MatchForm = ({
+  match = defaultSeries,
+  onCancel,
+  afterSubmit,
+}: MatchFormProps) => {
+  const { chalTeams } = useParticipants()
+  const { getScore, getUpdatedMatches } = useMatches()
+  const room = useRoom()
+  const { handleSubmit, watch, setValue } = useForm<MatchSchema>({
+    defaultValues: {
+      scores: match.scores,
+      teamA: match.teamA.id,
+      teamB: match.teamB.id,
+      winnerId: match.winnerId,
+    },
+    resolver: zodResolver(matchSchema),
+  })
+  const aChalId = watch("teamA")
+  const bChalId = watch("teamB")
+  const scoresInput = watch("scores")
+  const winnerId = watch("winnerId")
+  const a = chalTeams[aChalId || ""] ?? tbd
+  const b = chalTeams[bChalId || ""] ?? tbd
+  const aName = a.shortcode || a.shortname || a.name
+  const bName = b.shortcode || b.shortname || b.name
+
+  // TODO: allow changing team if custom series
+  // const setTeam = (chalId: number) => (team: "teamA" | "teamB") => {
+  //   setValue(team, chalId)
+  // }
+
+  const matchWithNewScore = { ...match, scores: scoresInput }
+  const scores = getScore(matchWithNewScore)
+
+  const changeWinner: ChangeWinner = (chalId) => () => {
+    if (!chalId) return
+    setValue("winnerId", winnerId === chalId ? null : chalId)
+  }
+
+  const addMatch = () => {
+    if (scoresInput.length >= 7) return
+    setValue("scores", [...scoresInput, "0-0"])
+  }
+
+  const deleteMatch = (index: number) => () => {
+    if (scoresInput.length === 1) return
+    const newScores = scoresInput.filter((_, ii) => ii !== index)
+    setValue("scores", newScores)
+  }
+
+  const onChangeScore: ChangeScore = (team, matchIndex) => (e) => {
+    const value = e.target.valueAsNumber
+    let newScores = scoresInput
+
+    let matchScore = newScores[matchIndex]
+    const [aScore = 0, bScore = 0] = matchScore.split("-").map(Number)
+
+    if (team === "a") {
+      matchScore = `${value}-${bScore}`
+    } else {
+      matchScore = `${aScore}-${value}`
+    }
+
+    newScores[matchIndex] = matchScore
+    setValue("scores", newScores)
+  }
+
+  const save = handleSubmit((data) => {
+    const matchId = match.id || nanoid(6)
+    const newSeriesData: SanitizedSeries = {
+      ...match,
+      teamA: {
+        ...match.teamA,
+        id: data.teamA,
+      },
+      teamB: {
+        ...match.teamB,
+        id: data.teamB,
+      },
+      winnerId: data.winnerId,
+      loserId: !!winnerId
+        ? winnerId !== data.teamA
+          ? data.teamA
+          : data.teamB
+        : null,
+      scores: data.scores,
+    }
+
+    const updatedMatches = getUpdatedMatches(newSeriesData)
+    setMatches(updatedMatches)
+    room?.save({ matches: updatedMatches })
+    afterSubmit?.()
+  })
+
+  return (
+    <form onSubmit={save}>
+      <Stack align="center">
+        <Group spacing="xl" sx={{ width: 400 }} noWrap>
+          <MatchCardTeam team={a} dir="rtl" />
+          <MatchCardTeam team={b} />
+        </Group>
+        <Title order={5}>
+          {scores.a.final} - {scores.b.final}
+        </Title>
+
+        <Group sx={{ width: "100%", overflowX: "auto" }}>
+          <Table sx={{ whiteSpace: "nowrap" }}>
+            <thead>
+              <tr>
+                <th></th>
+                {scoresInput.map((_, index) => (
+                  <th style={{ whiteSpace: "nowrap" }} key={index}>
+                    Game {index + 1}
+                  </th>
+                ))}
+                <th style={{ width: "100%" }}>
+                  <ActionIcon onClick={addMatch}>
+                    <Plus size={14} />
+                  </ActionIcon>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style={{ minWidth: 200 }}>
+                  <Group noWrap>
+                    <Checkbox
+                      checked={winnerId === aChalId}
+                      onClick={changeWinner(aChalId)}
+                    />
+                    <Text>{aName}</Text>
+                  </Group>
+                </td>
+                {scores.a.scores.map((score, index) => (
+                  <td key={index} style={{ maxWidth: 40 }}>
+                    <TextInput
+                      sx={{ maxWidth: 60 }}
+                      type="number"
+                      value={score}
+                      onChange={onChangeScore("a", index)}
+                    />
+                  </td>
+                ))}
+                <td />
+              </tr>
+              <tr>
+                <td style={{ minWidth: 200 }}>
+                  <Group noWrap>
+                    <Checkbox
+                      checked={winnerId === bChalId}
+                      onClick={changeWinner(bChalId)}
+                      disabled={!aChalId}
+                    />
+                    <Text>{bName}</Text>
+                  </Group>
+                </td>
+                {scores.b.scores.map((score, index) => (
+                  <td key={index} style={{ maxWidth: 40 }}>
+                    <TextInput
+                      sx={{ maxWidth: 60 }}
+                      value={score}
+                      type="number"
+                      onChange={onChangeScore("b", index)}
+                    />
+                  </td>
+                ))}
+                <td />
+              </tr>
+              <tr>
+                <td></td>
+                {scoresInput.length > 1 &&
+                  scoresInput.map((_, i) => (
+                    <td align="center">
+                      <Tooltip label={`Delete Game ${i + 1}`}>
+                        <ActionIcon onClick={deleteMatch(i)}>
+                          <Trash size={14} color="red" />
+                        </ActionIcon>
+                      </Tooltip>
+                    </td>
+                  ))}
+              </tr>
+            </tbody>
+          </Table>
+        </Group>
+        <Group position="apart" sx={{ width: "100%" }}>
+          <Button variant="subtle" onClick={onCancel}>
+            Cancel
+          </Button>
+          <Button type="submit" leftIcon={<DeviceFloppy size={16} />}>
+            Save
+          </Button>
+        </Group>
+      </Stack>
+    </form>
+  )
+}
+export default MatchForm
