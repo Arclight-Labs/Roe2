@@ -17,14 +17,11 @@ interface Listeners {
 }
 export type WebsocketRoom = Room & Listeners & Broadcast
 
-export interface ScheduleItem {
-  matchId: string
-  schedule: Date
-}
-
+// {[matchId]: Date}
+export type ScheduleMap = Record<string, Date>
 export interface Live {
   activeMatch: string
   prevMatches: string[]
   nextMatch: string
-  schedule: ScheduleItem[]
+  schedule: ScheduleMap
 }

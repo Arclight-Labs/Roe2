@@ -12,6 +12,7 @@ import Routes from "./routes"
 import AuthProvider from "./context/auth/Auth.provider"
 import { connectEmulators } from "utils/firebase"
 import { useHotkeys, useLocalStorage } from "@mantine/hooks"
+import { GreycliffCF } from "./fonts/GreyCliffCF/GreyCliffCF.font"
 
 export const queryClient = new QueryClient()
 
@@ -45,8 +46,14 @@ function App() {
                     colorScheme={colorScheme}
                     toggleColorScheme={toggleColorScheme}
                   >
-                    <MantineProvider theme={{ colorScheme }}>
+                    <MantineProvider
+                      theme={{
+                        colorScheme,
+                        headings: { fontFamily: "Greycliff CF, sans-serif" },
+                      }}
+                    >
                       <Routes />
+                      <GreycliffCF />
                     </MantineProvider>
                   </ColorSchemeProvider>
                 </SocketProvider>

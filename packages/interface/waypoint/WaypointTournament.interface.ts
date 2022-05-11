@@ -172,21 +172,22 @@ export type PrizeItem = {
 export class SeriesTeam {
   id: number | null
   isPrereqMatchLoser: boolean
-  prereqMatchId: number
+  prereqMatchId: number | null
 
   constructor(data: {
     id: number | null
     isPrereqMatchLoser: boolean
-    prereqMatchId: number
+    prereqMatchId: number | null
   }) {
-    ;(this.id = data.id), (this.isPrereqMatchLoser = data.isPrereqMatchLoser)
+    this.id = data.id
+    this.isPrereqMatchLoser = data.isPrereqMatchLoser
     this.prereqMatchId = data.prereqMatchId
   }
 }
 
 export interface Series {
   createdAt: Date
-  groupId: number
+  groupId: number | null
   attachmentCount: number
   hasAttachment: boolean
   id: number

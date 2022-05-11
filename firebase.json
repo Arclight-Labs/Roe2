@@ -7,7 +7,7 @@
     "indexes": "packages/firebase/firestore.indexes.json"
   },
   "functions": {
-    "source": "packages/cloud-functions",
+    "source": "apps/cloud-functions",
     "predeploy": [
       "yarn workspace cloud-functions lint",
       "yarn workspace cloud-functions build"

@@ -26,6 +26,7 @@ import { setParticipant } from "utils/socket/events"
 import { useAuth } from "../../context/auth/Auth.hooks"
 import { useRoom } from "../../context/room/Room.hooks"
 import { DropzoneContent } from "../DropzoneContent.ui"
+import { defaultParticipant } from "utils/general"
 
 type Props = keyof ParticipantSchema
 
@@ -36,22 +37,6 @@ export interface ParticipantFormProps {
   participant?: ParticipantProps
   onCancel?: VoidFunction
   afterSubmit?: VoidFunction
-}
-
-export const defaultParticipant: SanitizedParticipant = {
-  captain: "",
-  createdAt: new Date(),
-  isAccepted: true,
-  name: "",
-  path: "",
-  playerIds: [],
-  players: {},
-  subs: {},
-  school: "",
-  teamId: "",
-  tournamentId: "",
-  updatedAt: new Date(),
-  custom: true,
 }
 
 const ParticipantForm = ({
@@ -84,7 +69,6 @@ const ParticipantForm = ({
       teamId,
       ...data,
     }
-    console.log("participantData", participantData)
     setParticipant(teamId, participantData)
     room?.save({ [`participants.${teamId}`]: participantData })
     setLoading(false)
