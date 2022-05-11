@@ -41,7 +41,7 @@
     "config": "*",
     "tsconfig": "*",
     "typescript": "4.6.4",
-    "vite": "2.9.8",
+    "vite": "2.9.9",
     "vite-plugin-svgr": "2.1.0"
   }
 }
