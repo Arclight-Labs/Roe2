@@ -11,6 +11,7 @@ const Login = Loadable(lazy(() => import("../pages/Login.page")))
 const SignUp = Loadable(lazy(() => import("../pages/SignUp.page")))
 const TournamentPage = Loadable(lazy(() => import("../pages/tournament")))
 const ParticipantsPage = Loadable(lazy(() => import("../pages/participants")))
+const MatchesPage = Loadable(lazy(() => import("../pages/matches")))
 
 function Loadable<T extends object = {}>(Component: FunctionComponent<T>) {
   return (props: T) => {
@@ -53,6 +54,7 @@ const Routes = () => {
         { path: "/", element: <Navigate to="tournaments" /> },
         { path: "tournaments", element: <TournamentPage /> },
         { path: "participants", element: <ParticipantsPage /> },
+        { path: "matches", element: <MatchesPage /> },
       ],
     },
   ])
