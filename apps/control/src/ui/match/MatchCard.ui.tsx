@@ -3,6 +3,7 @@ import { SanitizedSeries } from "interface/waypoint"
 import { useState } from "react"
 import { tbd } from "utils/general"
 import { useMatches, useParticipants } from "utils/hooks"
+import { usePermission } from "../../hooks/usePermission.hook"
 import MatchCardTeam from "./MatchCardTeam.ui"
 import MatchModal from "./MatchModal.ui"
 
@@ -11,6 +12,7 @@ interface MatchCardProps {
   match: Series
 }
 const MatchCard = ({ match }: MatchCardProps) => {
+  const isAllowed = usePermission()
   const { chalTeams } = useParticipants()
   const { getScore: getFinalScore } = useMatches()
   const { teamA, teamB } = match
@@ -30,7 +32,7 @@ const MatchCard = ({ match }: MatchCardProps) => {
 
   return (
     <>
-      <Card sx={{ cursor: "pointer" }} onClick={open}>
+      <Card sx={{ cursor: "pointer" }} onClick={isAllowed ? open : undefined}>
         <Group sx={{ width: 400 }} noWrap>
           <MatchCardTeam team={a} dir="rtl" loser={!!winnerId && aLoser} />
           <Group position="center" sx={{ width: 70 }}>
