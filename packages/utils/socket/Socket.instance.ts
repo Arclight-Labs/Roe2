@@ -1,14 +1,5 @@
-import { SocketEvent } from "interface"
 import { io } from "socket.io-client"
-import {
-  errorListen,
-  matchesListen,
-  pingListen,
-  tournamentListen,
-  participantsListen,
-  setMatchListen,
-  setParticipantListen,
-} from "./events"
+import { listenToSocketEvents } from "./Socket.listeners"
 
 const isDev = import.meta.env.DEV
 const SOCKET_PORT = 1337
@@ -28,11 +19,4 @@ export const socket = io(SOCKET_URL, {
   },
 })
 
-// All websocket listeners
-socket.on(SocketEvent.Tournament, tournamentListen)
-socket.on(SocketEvent.Ping, pingListen)
-socket.on(SocketEvent.Error, errorListen)
-socket.on(SocketEvent.Matches, matchesListen)
-socket.on(SocketEvent.Participants, participantsListen)
-socket.on(SocketEvent.SetMatch, setMatchListen)
-socket.on(SocketEvent.SetParticipant, setParticipantListen)
+listenToSocketEvents(socket)

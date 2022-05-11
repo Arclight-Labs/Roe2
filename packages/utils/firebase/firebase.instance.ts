@@ -23,7 +23,7 @@ export const fn = getFunctions(app, "asia-east2")
 export const storage = getStorage(app)
 
 export function connectEmulators() {
-  connectAuthEmulator(auth, "http://localhost:9099")
+  connectAuthEmulator(auth, "http://localhost:9099", { disableWarnings: true })
   connectFirestoreEmulator(db, "localhost", 8080)
   connectFunctionsEmulator(fn, "localhost", 5001)
   connectStorageEmulator(storage, "localhost", 9199)

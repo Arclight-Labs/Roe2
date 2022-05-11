@@ -13,6 +13,7 @@ import AuthProvider from "./context/auth/Auth.provider"
 import { connectEmulators } from "utils/firebase"
 import { useHotkeys, useLocalStorage } from "@mantine/hooks"
 import { GreycliffCF } from "./fonts/GreyCliffCF/GreyCliffCF.font"
+import LiveDrawer from "./ui/live/LiveDrawer.ui"
 
 export const queryClient = new QueryClient()
 
@@ -54,6 +55,7 @@ function App() {
                     >
                       <Routes />
                       <GreycliffCF />
+                      <LiveDrawer />
                     </MantineProvider>
                   </ColorSchemeProvider>
                 </SocketProvider>

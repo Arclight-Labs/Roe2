@@ -1,11 +1,14 @@
-import { WebsocketRoom } from "interface/ws"
+import { Live, WebsocketRoom } from "interface/ws"
 import { SocketEvent } from "interface"
 import { Socket } from "socket.io"
 
 type RoomDataEmit = (socket: Socket, data: WebsocketRoom) => void
 
 export const roomDataEmit: RoomDataEmit = (socket, data) => {
-  socket.emit(SocketEvent.Tournament, data.tournament)
-  socket.emit(SocketEvent.Matches, data.matches)
-  socket.emit(SocketEvent.Participants, data.participants)
+  const { tournament, matches, participants, ...others } = data
+  const { admins, avatar, id, listeners, name, owner, roomId, ...live } = others
+  socket.emit(SocketEvent.Tournament, tournament)
+  socket.emit(SocketEvent.Matches, matches)
+  socket.emit(SocketEvent.Participants, participants)
+  socket.emit(SocketEvent.SetLive, live)
 }

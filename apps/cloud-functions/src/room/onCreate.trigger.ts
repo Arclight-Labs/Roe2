@@ -16,6 +16,6 @@ export const onCreate = functions.firestore
       activeMatch: "",
       nextMatch: "",
       prevMatches: [],
-      schedule: {},
+      schedule: [],
     } as Broadcast)
   })

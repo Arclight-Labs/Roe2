@@ -9,7 +9,6 @@ export interface Broadcast extends Partial<Live> {
   tournament: Waypoint.Tournament | null
   matches: SanitizedSeriesMap
   participants: SanitizedParticipantMap
-  talents: Record<string, User>
   roomId: string
 }
 interface Listeners {
@@ -18,10 +17,12 @@ interface Listeners {
 export type WebsocketRoom = Room & Listeners & Broadcast
 
 // {[matchId]: Date}
-export type ScheduleMap = Record<string, Date>
+export type Schedule = { matchId: string; date: Date }
 export interface Live {
   activeMatch: string
   prevMatches: string[]
   nextMatch: string
-  schedule: ScheduleMap
+  schedule: Schedule[]
+  invert: boolean
+  talents: Record<string, User>
 }

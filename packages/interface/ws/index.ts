@@ -14,6 +14,7 @@ export type {
   WebsocketRoom,
   WebsocketStore,
   Broadcast,
+  Live,
 } from "./WebsocketStore.interface"
 
 export * as Payload from "./Payload.interface"

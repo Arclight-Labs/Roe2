@@ -16,6 +16,7 @@ import { MouseEventHandler, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { db, storage } from "utils/firebase"
 import { getBroadcastData, getBroadcastRef } from "utils/firebase/room.queries"
+import { defaultBroadcast } from "utils/general"
 import { RoomModel } from "utils/models/Room.model"
 import { RoomCreateSchema, roomCreateSchema } from "utils/schema/room.schema"
 import { useWsAction } from "utils/socket"
@@ -66,14 +67,7 @@ const RoomModal = ({ data: room, ...props }: RoomCreateModalProps) => {
 
       const broadcastData = await getBroadcastData(roomRef.id)
       const broadcastRef = getBroadcastRef(roomRef.id)
-      const defaultBroadcastData = {
-        tournament: null,
-        matches: {},
-        participants: {},
-        talents: {},
-        roomId: roomRef.id,
-      }
-
+      const defaultBroadcastData = { ...defaultBroadcast, roomId: roomRef.id }
       batch.set(roomRef, newData, { merge: true })
       if (!broadcastData) {
         batch.set(broadcastRef, defaultBroadcastData)

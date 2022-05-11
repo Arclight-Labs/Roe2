@@ -11,4 +11,5 @@ export enum SocketEvent {
   SetMatch = "setMatch",
   Participants = "participants",
   SetParticipant = "setParticipant",
+  SetLive = "setLive",
 }
