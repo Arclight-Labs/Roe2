@@ -20,8 +20,8 @@ const MatchCard = ({ match }: MatchCardProps) => {
   const open = () => setOpened(true)
   const close = () => setOpened(false)
 
-  const aChalId = teamA.id || ""
-  const bChalId = teamB.id || ""
+  const aChalId = teamA.id
+  const bChalId = teamB.id
   const a = chalTeams[aChalId || ""] ?? tbd
   const b = chalTeams[bChalId || ""] ?? tbd
 

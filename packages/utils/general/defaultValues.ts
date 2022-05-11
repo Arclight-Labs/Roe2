@@ -1,4 +1,5 @@
 import { SanitizedParticipant, SanitizedSeries } from "interface/waypoint"
+import { Broadcast } from "interface/ws"
 
 export const defaultSeries: SanitizedSeries = {
   attachmentCount: 0,
@@ -49,6 +50,14 @@ export const defaultParticipant: SanitizedParticipant = {
   tournamentId: "",
   updatedAt: new Date(),
   custom: true,
+}
+
+export const defaultBroadcast: Broadcast = {
+  tournament: null,
+  matches: {},
+  participants: {},
+  talents: {},
+  roomId: "",
 }
 
 export const tbd = { ...defaultParticipant, name: "TBD" }
