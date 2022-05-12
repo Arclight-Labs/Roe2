@@ -8,8 +8,7 @@ import {
   Divider,
 } from "@mantine/core"
 import { useToggle } from "@mantine/hooks"
-import { defaultSeries } from "utils/general"
-import { useLive, useMatches } from "utils/hooks"
+import { useMatches } from "utils/hooks"
 import MatchCard from "../match/MatchCard.ui"
 
 const LiveDrawer = () => {
@@ -36,8 +35,7 @@ const LiveDrawer = () => {
 }
 
 const DrawerContent = () => {
-  const { matches, activeMatch, nextMatch, schedule } = useMatches()
-  const live = useLive()
+  const { activeMatch, nextMatch, schedule } = useMatches()
 
   return (
     <Stack spacing="xl" pr="xl" sx={{ height: "100%", overflowY: "auto" }}>
