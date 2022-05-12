@@ -46,6 +46,7 @@ const MatchCard = ({ match, small, ...props }: MatchCardProps) => {
   return (
     <>
       <Card
+        shadow="xs"
         {...props}
         sx={{ cursor: "pointer", ...props.sx }}
         onClick={isAllowed ? open : undefined}
