@@ -1,5 +1,17 @@
 {
   "projects": {
     "default": "roe2-prod"
+  },
+  "targets": {
+    "roe2-prod": {
+      "hosting": {
+        "control": [
+          "roe2-prod"
+        ],
+        "allg": [
+          "allg-s1-prod"
+        ]
+      }
+    }
   }
 }
