@@ -34,7 +34,7 @@
   "devDependencies": {
     "@types/ip": "1.1.0",
     "@types/react": "18.0.9",
-    "@types/react-dom": "18.0.3",
+    "@types/react-dom": "18.0.4",
     "interface": "*",
     "tsconfig": "*",
     "typescript": "4.6.4"
