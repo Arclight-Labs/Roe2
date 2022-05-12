@@ -55,7 +55,6 @@ function App() {
                     >
                       <Routes />
                       <GreycliffCF />
-                      <LiveDrawer />
                     </MantineProvider>
                   </ColorSchemeProvider>
                 </SocketProvider>

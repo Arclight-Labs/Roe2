@@ -6,6 +6,7 @@ import RoomSelect from "../ui/RoomSelect.ui"
 import AppShellWrapper from "../ui/AppShellWrapper.ui"
 import AuthGuard from "../ui/guards/AuthGuard"
 import RoomGuard from "../ui/guards/RoomGuard"
+import LiveDrawer from "../ui/live/LiveDrawer.ui"
 
 const Login = Loadable(lazy(() => import("../pages/Login.page")))
 const SignUp = Loadable(lazy(() => import("../pages/SignUp.page")))
@@ -45,6 +46,7 @@ const Routes = () => {
           <RoomGuard>
             <AppShellWrapper>
               <Outlet />
+              <LiveDrawer />
             </AppShellWrapper>
           </RoomGuard>
         </AuthGuard>
