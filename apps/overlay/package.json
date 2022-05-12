@@ -8,14 +8,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@mantine/core": "^4.2.4",
-    "@mantine/hooks": "^4.2.4",
+    "@mantine/core": "4.2.4",
+    "@mantine/hooks": "4.2.4",
     "interface": "*",
     "react": "18.1.0",
-    "react-dom": "^18.1.0",
-    "react-redux": "^8.0.1",
-    "react-router-dom": "^6.3.0",
-    "redux": "^4.2.0",
+    "react-dom": "18.1.0",
+    "react-redux": "8.0.1",
+    "react-router-dom": "6.3.0",
+    "redux": "4.2.0",
     "utils": "*",
     "ui": "*"
   },
