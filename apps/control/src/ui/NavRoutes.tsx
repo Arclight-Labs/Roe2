@@ -18,10 +18,10 @@ const routes: NavLink[] = [
   { link: "/tournaments", label: "Tournament", icon: Tournament },
   { link: "/participants", label: "Participants", icon: Users },
   { link: "/matches", label: "Matches", icon: GitFork },
-  { link: "", label: "Talents", icon: Headset },
-  { link: "", label: "Lower Thirds", icon: Ad },
-  { link: "", label: "Ingame", icon: DeviceGamepad },
-  { link: "", label: "State", icon: Settings },
+  { link: "/talents", label: "Talents", icon: Headset },
+  { link: "/lowerthirds", label: "Lower Thirds", icon: Ad },
+  { link: "/ingame", label: "Ingame", icon: DeviceGamepad },
+  { link: "/state", label: "State", icon: Settings },
 ]
 
 export default routes

@@ -28,7 +28,9 @@ const LiveMatches = () => {
       <Stack>
         <Title order={4}>Schedule</Title>
         {schedule.length ? (
-          schedule.map((match) => <MatchCard small match={match} withBorder />)
+          schedule.map((match) => (
+            <MatchCard key={match.id} small match={match} withBorder />
+          ))
         ) : (
           <Text align="center">No schedule yet.</Text>
         )}

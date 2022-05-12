@@ -6,6 +6,7 @@ export interface User {
   socialHandle: string
   avatar: string
   type: UserType
+  isTalent?: boolean
 }
 
 export type UserType = "admin" | "talent" | "default"
