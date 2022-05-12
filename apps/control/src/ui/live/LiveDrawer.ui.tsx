@@ -36,12 +36,9 @@ const LiveDrawer = () => {
 }
 
 const DrawerContent = () => {
-  const { matches } = useMatches()
+  const { matches, activeMatch, nextMatch, schedule } = useMatches()
   const live = useLive()
 
-  const activeMatch = matches[live.activeMatch]
-  const nextMatch = matches[live.nextMatch]
-  const schedule = live.schedule
   return (
     <Stack spacing="xl" pr="xl" sx={{ height: "100%", overflowY: "auto" }}>
       <Stack spacing="xs">
@@ -65,18 +62,7 @@ const DrawerContent = () => {
       <Stack>
         <Title order={4}>Schedule</Title>
         {schedule.length ? (
-          schedule.map((match) => (
-            <MatchCard
-              small
-              match={
-                matches[match.matchId] ?? {
-                  ...defaultSeries,
-                  id: Number(match.matchId),
-                }
-              }
-              withBorder
-            />
-          ))
+          schedule.map((match) => <MatchCard small match={match} withBorder />)
         ) : (
           <Text align="center">No schedule yet.</Text>
         )}

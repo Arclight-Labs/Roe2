@@ -4,6 +4,7 @@ import {
   SanitizedSeriesMap as SeriesMap,
 } from "interface/waypoint"
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux"
+import { tbd } from "../general"
 import {
   addMatch,
   setMatches,
@@ -156,9 +157,8 @@ export const useMatches = () => {
     return { a, b }
   }
 
-  // Get all affected matches
+  // ========= Get all affected matches
   const getAffectedMatches: GetAffectedMatces = (matchId, winnerId, round) => {
-    // if (!winnerId) return {}
     let affectedMatches: AffectedMatches = {}
     const matchEntries = Object.entries(matches)
     const roundMatches = matchEntries.filter(
@@ -226,7 +226,7 @@ export const useMatches = () => {
     return newMatches
   }
 
-  // Live data helpers
+  // ========= Live data helpers
   const isActive = (match: string | number) => {
     return live.activeMatch === `${match}`
   }
@@ -237,11 +237,18 @@ export const useMatches = () => {
     return !!live.schedule.find((s) => s.matchId === `${match}`)
   }
 
+  const nextMatch = matches[live.nextMatch]
+  const activeMatch = matches[live.activeMatch]
+  const schedule = live.schedule.map((s) => matches[s.matchId] ?? tbd)
+
   const { groupsMatches, playoffsMatches } = splitMatchesByType(matches ?? {})
   const groups = mapByGroup(groupsMatches)
   const brackets = splitByBracket(playoffsMatches)
 
   return {
+    nextMatch,
+    activeMatch,
+    schedule,
     brackets,
     matches,
     groups,
