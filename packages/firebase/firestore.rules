@@ -5,9 +5,9 @@ service cloud.firestore {
       allow read, write: if false;
     }
 
-    // function optional(field, data) {
-    //   return !(field in data.keys()) || data[field] == null
-    // }
+    function optional(field, data) {
+      return !(field in data.keys()) || data[field] == null
+    }
 
     function userDoc() {
       return get(/databases/$(database)/documents/users/$(request.auth.uid)).data
@@ -92,16 +92,19 @@ service cloud.firestore {
           && room.owner == uid()
           && exists(/databases/$(database)/documents/users/$(room.owner))
           && room.admins is list
+
+          && (optional("uniqueCode", room.uniqueCode)
+          || room.uniqueCode is string)
         )
       }
 
       allow create: if isRoom(requestData(), roomId)
         && requestData().owner == uid()
-        && fields(["id", "owner", "admins", "name", "avatar"], [])
+        && fields(["id", "owner", "admins", "name", "avatar"], ["uniqueCode"])
 
       allow update: if isRoom(requestData(), roomId)
-        && (resource.data.owner == uid() && editFields(["owner", "admins", "name", "avatar"])
-          || (uid() in resource.data.admins && editFields(["admins", "name", "avatar"])))
+        && (resource.data.owner == uid() && editFields(["owner", "admins", "name", "avatar", "uniqueCode"])
+          || (uid() in resource.data.admins && editFields(["admins", "name", "avatar", "uniqueCode"])))
 
       allow delete: if uid() in resource.data.owner
 

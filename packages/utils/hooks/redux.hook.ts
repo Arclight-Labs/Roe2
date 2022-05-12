@@ -280,6 +280,7 @@ export const useParticipants = () => {
     if (!chalId) return acc
     return { ...acc, [chalId]: team }
   }, {})
+
   return {
     participants,
     chalTeams: participantsByChalId,
