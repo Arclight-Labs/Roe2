@@ -5,11 +5,14 @@ import {
   DocumentReference,
   FirestoreDataConverter,
   getDoc,
+  limit,
   PartialWithFieldValue,
+  query,
   QueryDocumentSnapshot,
   setDoc,
   SetOptions,
   updateDoc,
+  where,
 } from "firebase/firestore"
 import { Room, User } from "interface"
 import { RoomRequestAccess } from "interface/db/Room.interface"
@@ -45,6 +48,11 @@ export const getBroadcastData = async (roomId: string) => {
 }
 
 export const roomColRef = collection(db, "rooms").withConverter(roomFC)
+
+export const getRoomColRefByUniqueCode = (uniqueCode: string) => {
+  const ref = roomColRef
+  return query(ref, where("uniqueCode", "==", uniqueCode), limit(1))
+}
 
 export const updateRoom = async (roomId: string, data: RoomUpdateData) => {
   return updateDoc(getRoomRef(roomId), data)

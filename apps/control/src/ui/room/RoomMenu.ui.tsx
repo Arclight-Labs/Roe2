@@ -55,11 +55,7 @@ export function RoomMenu(props: RoomMenuProps) {
         </>
       </Menu>
       {activeRoom && (
-        <RoomModal
-          data={new RoomModel(activeRoom)}
-          opened={opened}
-          onClose={close}
-        />
+        <RoomModal data={activeRoom} opened={opened} onClose={close} />
       )}
     </Group>
   )

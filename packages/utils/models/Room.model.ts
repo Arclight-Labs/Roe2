@@ -23,6 +23,7 @@ interface RoomConstructor {
   avatar: string
   admins: string[]
   owner: string
+  uniqueCode?: string | undefined
 }
 export class RoomModel implements Room {
   id: string
@@ -30,6 +31,7 @@ export class RoomModel implements Room {
   avatar: string
   admins: string[]
   owner: string
+  uniqueCode?: string | undefined
 
   constructor(props: RoomConstructor) {
     this.id = props.id
@@ -37,6 +39,7 @@ export class RoomModel implements Room {
     this.avatar = props.avatar
     this.admins = props.admins
     this.owner = props.owner
+    this.uniqueCode = props.uniqueCode
   }
 
   ref() {

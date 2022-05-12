@@ -8,7 +8,7 @@ const MatchesPage = () => {
   } = useMatches()
 
   const ub = Object.entries(upper)
-  const lb = Object.entries(upper)
+  const lb = Object.entries(lower)
 
   return (
     <Container sx={{ width: "100%" }} size="xl">
@@ -18,7 +18,19 @@ const MatchesPage = () => {
           <Group noWrap spacing="xl">
             {ub.map(([round, seriesMap]) => (
               <Stack key={round} sx={{ alignSelf: "flex-start" }}>
-                <Title order={5}>Round {round}</Title>
+                <Title order={5}>UB Round {round}</Title>
+                <Stack justify="center">
+                  {Object.entries(seriesMap).map(([seriesId, series]) => (
+                    <MatchCard match={series} key={seriesId} />
+                  ))}
+                </Stack>
+              </Stack>
+            ))}
+          </Group>
+          <Group noWrap spacing="xl">
+            {lb.map(([round, seriesMap]) => (
+              <Stack key={round} sx={{ alignSelf: "flex-start" }}>
+                <Title order={5}>LB Round {round}</Title>
                 <Stack justify="center">
                   {Object.entries(seriesMap).map(([seriesId, series]) => (
                     <MatchCard match={series} key={seriesId} />

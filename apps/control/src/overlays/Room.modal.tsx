@@ -7,15 +7,22 @@ import {
   Stack,
   TextInput,
   Text,
+  LoadingOverlay,
+  Code,
 } from "@mantine/core"
 import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from "@mantine/dropzone"
-import { DocumentReference, writeBatch } from "firebase/firestore"
+import { useClipboard } from "@mantine/hooks"
+import { DocumentReference, getDocs, writeBatch } from "firebase/firestore"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
 import { FilePreview } from "interface"
 import { MouseEventHandler, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { db, storage } from "utils/firebase"
-import { getBroadcastData, getBroadcastRef } from "utils/firebase/room.queries"
+import {
+  getBroadcastData,
+  getBroadcastRef,
+  getRoomColRefByUniqueCode,
+} from "utils/firebase/room.queries"
 import { defaultBroadcast } from "utils/general"
 import { RoomModel } from "utils/models/Room.model"
 import { RoomCreateSchema, roomCreateSchema } from "utils/schema/room.schema"
@@ -30,6 +37,7 @@ interface RoomCreateModalProps extends ModalProps {
 }
 
 const RoomModal = ({ data: room, ...props }: RoomCreateModalProps) => {
+  const { copy } = useClipboard()
   const { auth } = useAuth()
   const { setRoom } = useWsAction()
   const [activeRoom, setActiveRoom] = useActiveRoom()
@@ -38,15 +46,23 @@ const RoomModal = ({ data: room, ...props }: RoomCreateModalProps) => {
   const [avatarPreview, setAvatarPreview] = useState<FilePreview>(
     new FilePreview()
   )
-  const { register, setValue, getFieldState, handleSubmit, watch, reset } =
-    useForm<RoomCreateSchema>({
-      defaultValues: {
-        avatar: room?.avatar || "",
-        name: room?.name || "",
-        admins: room?.admins || [],
-      },
-      resolver: zodResolver(roomCreateSchema),
-    })
+  const {
+    register,
+    setValue,
+    getFieldState,
+    handleSubmit,
+    watch,
+    reset,
+    setError,
+  } = useForm<RoomCreateSchema>({
+    defaultValues: {
+      avatar: room?.avatar || "",
+      name: room?.name || "",
+      admins: room?.admins || [],
+      uniqueCode: room?.uniqueCode || "",
+    },
+    resolver: zodResolver(roomCreateSchema),
+  })
 
   useEffect(() => {
     reset(room)
@@ -56,12 +72,26 @@ const RoomModal = ({ data: room, ...props }: RoomCreateModalProps) => {
     handleSubmit(async (data) => {
       if (!auth) return
       setLoading(true)
+
+      // check if uniqueCode is unique
+      const uniqueCode = data.uniqueCode
+      if (uniqueCode && uniqueCode !== room?.uniqueCode) {
+        const refColSnap = await getDocs(getRoomColRefByUniqueCode(uniqueCode))
+        const [doc] = refColSnap.docs ?? []
+        if (!!doc && doc.id !== roomRef.id) {
+          setError("uniqueCode", { message: "Room unique code already taken" })
+          setLoading(false)
+          return
+        }
+      }
+
       const newData = {
         admins: data.admins,
         avatar: data.avatar,
         id: roomRef.id,
         name: data.name,
         owner: room?.owner || auth.uid || "",
+        uniqueCode: data.uniqueCode || "",
       }
       const batch = writeBatch(db)
 
@@ -73,7 +103,8 @@ const RoomModal = ({ data: room, ...props }: RoomCreateModalProps) => {
         batch.set(broadcastRef, defaultBroadcastData)
       }
 
-      batch.commit()
+      await batch.commit()
+      setLoading(false)
 
       if (!data) {
         const liveData = broadcastData ?? defaultBroadcastData
@@ -83,7 +114,6 @@ const RoomModal = ({ data: room, ...props }: RoomCreateModalProps) => {
       if (activeRoom?.id === roomRef.id) {
         setActiveRoom((s) => new RoomModel({ ...s?.toJSON(), ...newData }))
       }
-
       props.onClose()
     }, console.error)
 
@@ -116,11 +146,18 @@ const RoomModal = ({ data: room, ...props }: RoomCreateModalProps) => {
 
   return (
     <Modal {...props} centered title="Create Room">
+      <LoadingOverlay visible={loading} />
       <Stack>
+        {room?.id && <Code onClick={() => copy(room.id)}>{room.id}</Code>}
         <TextInput
           label="Room Name"
           {...register("name")}
           error={getFieldState("name").error?.message}
+        />
+        <TextInput
+          label="Room Unique Code"
+          {...register("uniqueCode")}
+          error={getFieldState("uniqueCode").error?.message}
         />
 
         <Stack spacing={4}>

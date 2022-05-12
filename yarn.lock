@@ -1073,7 +1073,7 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@mantine/core@4.2.4":
+"@mantine/core@4.2.4", "@mantine/core@^4.2.4":
   version "4.2.4"
   resolved "https://registry.yarnpkg.com/@mantine/core/-/core-4.2.4.tgz#9c36acbaaa4287f61e9dc85eb631c4e5a7e417de"
   integrity sha512-YeN8slz3bcb47NUUkSZ4UAedMZH7bWvqIx7OfRf2D0m2o4Fu1BLO73xUCpgj18R31fx3BcSopRujZC9x/8bqUg==
@@ -1107,7 +1107,7 @@
   resolved "https://registry.yarnpkg.com/@mantine/form/-/form-4.2.4.tgz#37719262bf5dfe6ba5a6cce23b4b87b12a1a836d"
   integrity sha512-7exttJwSY0yRjzChL6L0NM5i5xxXuGiP4c8quGb7/mxP/hwfUSFMOua3Pme8svP7U8w3gxZL3HWvzGMQQfXqSw==
 
-"@mantine/hooks@4.2.4":
+"@mantine/hooks@4.2.4", "@mantine/hooks@^4.2.4":
   version "4.2.4"
   resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-4.2.4.tgz#81b049355404d1001a1267e80e1e1aaae4682083"
   integrity sha512-C4Mvm9suYFuM5dDJXKaZ2fRFvJ5JMXl5S7eSNsHvzkRmCy0GppKkDETwXi0uwS7QyjMllNRizGvoyU4CyHyvrA==
@@ -5683,7 +5683,7 @@ react-cookie@4.1.1:
     hoist-non-react-statics "^3.0.0"
     universal-cookie "^4.0.0"
 
-react-dom@18.1.0, react-dom@^18.0.0:
+react-dom@18.1.0, react-dom@^18.0.0, react-dom@^18.1.0:
   version "18.1.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-18.1.0.tgz#7f6dd84b706408adde05e1df575b3a024d7e8a2f"
   integrity sha512-fU1Txz7Budmvamp7bshe4Zi32d0ll7ect+ccxNu9FlObT605GOEB8BfO4tmRJ39R5Zj831VCpvQ05QPBW5yb+w==
@@ -5742,7 +5742,7 @@ react-query@3.39.0:
     broadcast-channel "^3.4.1"
     match-sorter "^6.0.2"
 
-react-redux@8.0.1:
+react-redux@8.0.1, react-redux@^8.0.1:
   version "8.0.1"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-8.0.1.tgz#2bc029f5ada9b443107914c373a2750f6bc0f40c"
   integrity sha512-LMZMsPY4DYdZfLJgd7i79n5Kps5N9XVLCJJeWAaPYTV+Eah2zTuBjTxKtNEbjiyitbq80/eIkm55CYSLqAub3w==
@@ -5759,7 +5759,7 @@ react-refresh@^0.13.0:
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.13.0.tgz#cbd01a4482a177a5da8d44c9755ebb1f26d5a1c1"
   integrity sha512-XP8A9BT0CpRBD+NYLLeIhld/RqG9+gktUjW1FkE+Vm7OCinbG1SshcK5tb9ls4kzvjZr9mOQc7HYgBngEyPAXg==
 
-react-router-dom@6.3.0:
+react-router-dom@6.3.0, react-router-dom@^6.3.0:
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-6.3.0.tgz#a0216da813454e521905b5fa55e0e5176123f43d"
   integrity sha512-uaJj7LKytRxZNQV8+RbzJWnJ8K2nPsOOEuX7aQstlMZKQT0164C+X2w6bnkqU3sjtLvpd5ojrezAyfZ1+0sStw==
@@ -5861,7 +5861,7 @@ redux-thunk@^2.4.1:
   resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.4.1.tgz#0dd8042cf47868f4b29699941de03c9301a75714"
   integrity sha512-OOYGNY5Jy2TWvTL1KgAlVy6dcx3siPJ1wTq741EPyUKfn6W6nChdICjZwCd0p8AZBs5kWpZlbkXW2nE/zjUa+Q==
 
-redux@4.2.0, redux@^4.1.2:
+redux@4.2.0, redux@^4.1.2, redux@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/redux/-/redux-4.2.0.tgz#46f10d6e29b6666df758780437651eeb2b969f13"
   integrity sha512-oSBmcKKIuIR4ME29/AeNUnl5L+hvBq7OaJWzaptTQJAntaPvxIJqfnjbaEiCzzaIz+XmVILfqAM3Ob0aXLPfjA==

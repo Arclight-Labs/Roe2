@@ -28,7 +28,18 @@ export const roomRoutes: FastifyPluginCallback = (sv, _, done) => {
     const { roomId } = req.params as Params
     const roomRef = db.collection("rooms").doc(roomId) as Doc<Room>
     const roomSnap = await roomRef.get()
-    const room = roomSnap.data()
+    let room = roomSnap.data()
+
+    if (!room) {
+      const roomColRef = db.collection("rooms")
+      const roomQuery = roomColRef
+        .where("uniqueCode", "==", roomId)
+        .limit(1) as Col<Room>
+      const roomColSnap = await roomQuery.get()
+      const [doc] = roomColSnap.docs ?? []
+      room = doc?.data()
+    }
+
     if (!room) {
       res.status(404).send({
         success: false,

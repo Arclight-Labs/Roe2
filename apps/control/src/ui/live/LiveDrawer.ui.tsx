@@ -2,19 +2,28 @@ import {
   Affix,
   Burger,
   Drawer,
-  Stack,
-  Title,
   Text,
-  Divider,
+  TabsProps,
+  Tabs,
+  Group,
+  Kbd,
 } from "@mantine/core"
-import { useToggle } from "@mantine/hooks"
-import { defaultSeries } from "utils/general"
-import { useLive, useMatches } from "utils/hooks"
-import MatchCard from "../match/MatchCard.ui"
+import { useHotkeys, useToggle } from "@mantine/hooks"
+import { useState } from "react"
+import LiveMatches from "./LiveMatches.ui"
+import LiveSettings from "./LiveSettings.ui"
 
 const LiveDrawer = () => {
+  const [tab, setTab] = useState(0)
+
   const [opened, toggle] = useToggle(false, [true, false])
   const close = () => toggle(false)
+
+  const onTabChange: TabsProps["onTabChange"] = (index) => {
+    setTab(index)
+  }
+
+  useHotkeys([["mod+L", () => toggle()]])
   return (
     <>
       <Affix position={{ bottom: 20, right: 20 }} zIndex={999}>
@@ -26,57 +35,48 @@ const LiveDrawer = () => {
         onClose={close}
         padding="xl"
         size="xl"
-        title="Live Settings"
-        sx={{ overflowY: "auto" }}
+        styles={{ drawer: { display: "flex", flexDirection: "column" } }}
+        title={
+          <Group noWrap spacing="xs">
+            <Text>Live Settings</Text>
+            <Kbd>CTRL</Kbd>+<Kbd>L</Kbd>
+          </Group>
+        }
       >
-        <DrawerContent />
+        <DrawerContent {...{ tab, onTabChange }} />
       </Drawer>
     </>
   )
 }
 
-const DrawerContent = () => {
-  const { matches } = useMatches()
-  const live = useLive()
-
-  const activeMatch = matches[live.activeMatch]
-  const nextMatch = matches[live.nextMatch]
-  const schedule = live.schedule
+interface DrawerContentProps {
+  tab: number
+  onTabChange: TabsProps["onTabChange"]
+}
+const DrawerContent = ({ tab, onTabChange }: DrawerContentProps) => {
   return (
-    <Stack spacing="xl" pr="xl" sx={{ height: "100%", overflowY: "auto" }}>
-      <Stack spacing="xs">
-        <Title order={4}>Active Match</Title>
-        {activeMatch ? (
-          <MatchCard match={activeMatch} />
-        ) : (
-          <Text align="center">No active match selected.</Text>
-        )}
-      </Stack>
-      <Divider variant="dashed" />
-      <Stack>
-        <Title order={4}>Next Match</Title>
-        {nextMatch ? (
-          <MatchCard match={nextMatch} small withBorder />
-        ) : (
-          <Text align="center">Next match not yet selected.</Text>
-        )}
-      </Stack>
-      <Divider variant="dashed" />
-      <Stack>
-        <Title order={4}>Schedule</Title>
-        {schedule.length ? (
-          schedule.map((match) => (
-            <MatchCard
-              small
-              match={matches[match.matchId] ?? defaultSeries}
-              withBorder
-            />
-          ))
-        ) : (
-          <Text align="center">No schedule yet.</Text>
-        )}
-      </Stack>
-    </Stack>
+    <Tabs
+      active={tab}
+      onTabChange={onTabChange}
+      styles={{
+        root: {
+          display: "flex",
+          flexDirection: "column",
+          maxHeight: "calc(100% - 50px)",
+        },
+        body: {
+          padding: "20px 0 50px 0",
+          overflowY: "scroll",
+        },
+      }}
+    >
+      <Tabs.Tab label="Live">
+        <LiveSettings />
+      </Tabs.Tab>
+      <Tabs.Tab label="Matches">
+        <LiveMatches />
+      </Tabs.Tab>
+    </Tabs>
   )
 }
 export default LiveDrawer

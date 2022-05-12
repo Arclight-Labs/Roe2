@@ -1,3 +1,4 @@
+import { User } from "interface"
 import { SanitizedParticipant, SanitizedSeries } from "interface/waypoint"
 import { Broadcast, Live } from "interface/ws"
 
@@ -68,6 +69,19 @@ export const defaultLive: Live = {
   schedule: [],
   talents: {},
 }
+
+export const defaultUser: User = {
+  username: "",
+  _username: "",
+  avatar: "",
+  email: "",
+  socialHandle: "",
+  type: "default",
+  uid: "",
+  isTalent: false,
+}
+
+export const defaultTalent: User = { ...defaultUser, isTalent: true }
 
 export const tbd = { ...defaultParticipant, name: "TBD" }
 export const fn = () => {}
