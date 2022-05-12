@@ -15,6 +15,9 @@ export const MantineProvider: FC<MantineProviderProps> = ({
       withGlobalStyles
       {...props}
       theme={{ ...MantineSettings, ...props.theme }}
+      defaultProps={{
+        Kbd: { sx: { fontSize: 10 } },
+      }}
     >
       {children}
     </Provider>
