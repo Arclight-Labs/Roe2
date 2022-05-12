@@ -7,13 +7,14 @@ import {
   Text,
   Divider,
 } from "@mantine/core"
-import { useToggle } from "@mantine/hooks"
+import { useHotkeys, useToggle } from "@mantine/hooks"
 import { useMatches } from "utils/hooks"
 import MatchCard from "../match/MatchCard.ui"
 
 const LiveDrawer = () => {
   const [opened, toggle] = useToggle(false, [true, false])
   const close = () => toggle(false)
+  useHotkeys([["mod+L", () => toggle()]])
   return (
     <>
       <Affix position={{ bottom: 20, right: 20 }} zIndex={999}>
