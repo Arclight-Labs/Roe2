@@ -68,7 +68,12 @@ const DrawerContent = () => {
           schedule.map((match) => (
             <MatchCard
               small
-              match={matches[match.matchId] ?? defaultSeries}
+              match={
+                matches[match.matchId] ?? {
+                  ...defaultSeries,
+                  id: Number(match.matchId),
+                }
+              }
               withBorder
             />
           ))

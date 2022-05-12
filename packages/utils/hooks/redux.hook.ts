@@ -46,7 +46,7 @@ type AffectedMatch = {
   prereqMatchId: number
   affectedMatch: number
   /* winner id */
-  id: number
+  id: number | null
 }
 type AffectedMatches = Record<string, AffectedMatch>
 type GetAffectedMatces = (
@@ -158,7 +158,7 @@ export const useMatches = () => {
 
   // Get all affected matches
   const getAffectedMatches: GetAffectedMatces = (matchId, winnerId, round) => {
-    if (!winnerId) return {}
+    // if (!winnerId) return {}
     let affectedMatches: AffectedMatches = {}
     const matchEntries = Object.entries(matches)
     const roundMatches = matchEntries.filter(
@@ -210,9 +210,16 @@ export const useMatches = () => {
 
       if (!newMatches[affectedMatch]) continue
 
+      const oldMatchData = newMatches[affectedMatch]
+      const opposingTeam = team === "teamA" ? "teamB" : "teamA"
+      const hasChangedTeam =
+        !id || !oldMatchData[opposingTeam].id || oldMatchData[team].id !== id
+
       newMatches[affectedMatch] = {
-        ...newMatches[affectedMatch],
-        [team]: { ...newMatches[affectedMatch][team], id },
+        ...oldMatchData,
+        [team]: { ...oldMatchData[team], id },
+        scores: hasChangedTeam ? ["0-0"] : oldMatchData.scores,
+        winnerId: hasChangedTeam ? null : oldMatchData.winnerId,
       }
     }
 
