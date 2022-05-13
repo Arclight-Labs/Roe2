@@ -1,7 +1,8 @@
-import { useMatches, useParticipants } from "utils/hooks"
+import { useLive, useMatches, useParticipants } from "utils/hooks"
 import { useParams } from "react-router-dom"
 import useRoom from "../../hooks/useRoom.hook"
 import { Image, Box } from "@mantine/core"
+import { useInverse } from "../../hooks/useInverse.hook"
 
 type Params = Record<"team", string>
 const Logo = () => {
@@ -10,7 +11,9 @@ const Logo = () => {
   const params = useParams<Params>()
   const { chalTeams } = useParticipants()
   const { activeMatch } = useMatches()
-  const teamSide = params.team === "a" ? "teamA" : "teamB"
+  const isInversed = useInverse()
+  const live = useLive()
+  const teamSide = isInversed(params.team === "a" ? "teamA" : "teamB")
   const teamId = activeMatch?.[teamSide].id || ""
   const team = chalTeams[teamId]
 

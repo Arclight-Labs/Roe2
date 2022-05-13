@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 import useRoom from "../../hooks/useRoom.hook"
 import { Image, Box } from "@mantine/core"
 import { SanitizedParticipant } from "interface/waypoint"
+import { useInverse } from "../../hooks/useInverse.hook"
 
 type TeamCode =
   | "shortcode"
@@ -18,7 +19,8 @@ const TeamName = () => {
   const params = useParams<Params>()
   const { chalTeams } = useParticipants()
   const { activeMatch } = useMatches()
-  const teamSide = params.team === "a" ? "teamA" : "teamB"
+  const isInversed = useInverse()
+  const teamSide = isInversed(params.team === "a" ? "teamA" : "teamB")
   const teamCode = params.name as TeamCode
   const teamId = activeMatch?.[teamSide].id || ""
   const team = chalTeams[teamId]
