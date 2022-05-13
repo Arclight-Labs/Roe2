@@ -12,6 +12,7 @@ function Loadable<T extends object = {}>(Component: FunctionComponent<T>) {
 }
 
 const Logo = Loadable(lazy(() => import("../views/team/Logo.o")))
+const TeamName = Loadable(lazy(() => import("../views/team/TeamName.o")))
 
 const Routes = () => {
   return useRoutes([
@@ -27,6 +28,10 @@ const Routes = () => {
                 {
                   path: "logo",
                   element: <Logo />,
+                },
+                {
+                  path: ":name",
+                  element: <TeamName />,
                 },
               ],
             },
