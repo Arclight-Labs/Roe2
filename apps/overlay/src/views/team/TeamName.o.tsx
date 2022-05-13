@@ -1,7 +1,7 @@
 import { useMatches, useParticipants } from "utils/hooks"
 import { useParams } from "react-router-dom"
 import useRoom from "../../hooks/useRoom.hook"
-import { Image, Box } from "@mantine/core"
+import { Image, Box, Text } from "@mantine/core"
 import { SanitizedParticipant } from "interface/waypoint"
 import { useInverse } from "../../hooks/useInverse.hook"
 
@@ -18,17 +18,21 @@ const TeamName = () => {
   useRoom()
   const params = useParams<Params>()
   const { chalTeams } = useParticipants()
-  const { activeMatch } = useMatches()
+  const { activeMatch, getScore } = useMatches()
   const isInversed = useInverse()
   const teamSide = isInversed(params.team === "a" ? "teamA" : "teamB")
   const teamCode = params.name as TeamCode
   const teamId = activeMatch?.[teamSide].id || ""
   const team = chalTeams[teamId]
+  const teamScore = getScore(activeMatch)?.[teamSide].scores
 
   return (
     <Box sx={{ height: 600, width: 600 }}>
       {/* <Image src={team?.logo} height={600} width={600} fit="contain" /> */}
-      <p>{team?.[teamCode]}</p>
+      <Text sx={{ fontFamily: "Industry", fontSize: 40 }}>
+        {team?.[teamCode]}
+      </Text>
+      <Text sx={{ fontFamily: "Industry", fontSize: 40 }}>{teamScore}</Text>
     </Box>
   )
 }

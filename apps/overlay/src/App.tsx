@@ -6,6 +6,8 @@ import Routes from "./routes"
 import { MantineProvider } from "ui"
 
 import { BrowserRouter } from "react-router-dom"
+import { GreycliffCF } from "./fonts/GreyCliffCF/GreyCliffCF.font"
+import { Industry } from "./fonts/Industry/Industry.font"
 
 function App() {
   return (
@@ -19,6 +21,9 @@ function App() {
               }}
             >
               <Routes />
+              {/* Add Fonts Here */}
+              <GreycliffCF />
+              <Industry />
             </MantineProvider>
           </SocketProvider>
         </Provider>
