@@ -8,10 +8,7 @@ import {
   Group,
   ActionIcon,
   Loader,
-  Popover,
-  Button,
 } from "@mantine/core"
-import { useToggle } from "@mantine/hooks"
 import { useState } from "react"
 import { Check, Select } from "tabler-icons-react"
 import {
@@ -31,8 +28,6 @@ const TournamentCard = ({ id, logo, name, org }: TournamentCardProps) => {
   const room = useRoom()
   const [loading, setLoading] = useState(false)
   const tournament = useTournament()
-  const [opened, toggle] = useToggle(false, [false, true])
-  const close = () => toggle(false)
   const {
     tournament: setTournament,
     participants: setParticipants,
@@ -68,22 +63,24 @@ const TournamentCard = ({ id, logo, name, org }: TournamentCardProps) => {
         <Group position="apart" p={0} align="start">
           <Image src={logo} height={50} width={50} radius="md" />
 
-          <Confirm
-            title="Warning"
-            message="Selecting tournaments will discard all your updated settings for
+          {isAllowed && (
+            <Confirm
+              title="Warning"
+              message="Selecting tournaments will discard all your updated settings for
             this room"
-            onConfirm={selectTournament}
-          >
-            <ActionIcon>
-              {loading ? (
-                <Loader size={14} />
-              ) : isSelected ? (
-                <Check />
-              ) : (
-                <Select color={theme.colors.gray[5]} />
-              )}
-            </ActionIcon>
-          </Confirm>
+              onConfirm={selectTournament}
+            >
+              <ActionIcon>
+                {loading ? (
+                  <Loader size={14} />
+                ) : isSelected ? (
+                  <Check />
+                ) : (
+                  <Select color={theme.colors.gray[5]} />
+                )}
+              </ActionIcon>
+            </Confirm>
+          )}
         </Group>
         <Stack spacing={0}>
           <Text>{name}</Text>
