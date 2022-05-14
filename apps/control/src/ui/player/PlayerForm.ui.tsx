@@ -1,17 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod"
-import {
-  Anchor,
-  Button,
-  Group,
-  LoadingOverlay,
-  Stack,
-  TextInput,
-} from "@mantine/core"
+import { Button, Group, LoadingOverlay, Stack, TextInput } from "@mantine/core"
 import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from "@mantine/dropzone"
 import { nanoid } from "@reduxjs/toolkit"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
 import { FilePreview } from "interface"
-import { SanitizedUser } from "interface/waypoint"
 import { FormEventHandler, useState } from "react"
 import { useForm } from "react-hook-form"
 import { storage } from "utils/firebase"
@@ -22,6 +14,7 @@ import { useRoom } from "../../context/room/Room.hooks"
 import { DropzoneContent } from "../DropzoneContent.ui"
 import { playerSchema, PlayerSchema } from "utils/schema/player.schema"
 import { DeviceFloppy, Trash } from "tabler-icons-react"
+import { useBSave } from "../../context/bsave/bsave.hook"
 
 export interface PlayerProps {
   uid?: string
@@ -40,6 +33,7 @@ const PlayerForm = ({
   onCancel,
   afterSubmit,
 }: PlayerFormProps) => {
+  const bSave = useBSave()
   const [loading, setLoading] = useState(false)
   const [photo, setPhoto] = useState<FilePreview>(new FilePreview())
   const { setParticipant } = useWsAction()
@@ -69,7 +63,7 @@ const PlayerForm = ({
       },
     }
     setParticipant(teamId, participantData)
-    room?.save({ [`participants.${teamId}`]: participantData })
+    bSave({ [`participants.${teamId}`]: participantData })
     setLoading(false)
     afterSubmit?.()
   })
@@ -93,6 +87,8 @@ const PlayerForm = ({
     if (!file) return
     setPhoto(new FilePreview(file))
   }
+
+  const onDelete = () => {}
 
   return (
     <form onSubmit={uploadAndSet}>

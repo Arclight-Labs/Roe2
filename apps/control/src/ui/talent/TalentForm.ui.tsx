@@ -16,6 +16,7 @@ import { setLive } from "utils/socket/events"
 import { useLive } from "utils/hooks"
 import { useRoom } from "../../context/room/Room.hooks"
 import { Live } from "interface/ws"
+import { useBSave } from "../../context/bsave/bsave.hook"
 
 interface TalentModalProps {
   data: User
@@ -23,6 +24,7 @@ interface TalentModalProps {
   afterSubmit?: VoidFunction
 }
 const TalentForm: FC<TalentModalProps> = ({ data, onCancel, afterSubmit }) => {
+  const bSave = useBSave()
   const room = useRoom()
   const live = useLive()
   const { register, handleSubmit, setValue, getFieldState, setError } =
@@ -53,7 +55,7 @@ const TalentForm: FC<TalentModalProps> = ({ data, onCancel, afterSubmit }) => {
       talents: { ...live.talents, [uid]: newTalent },
     }
     setLive(saveData)
-    room?.save(saveData)
+    bSave(saveData)
     afterSubmit?.()
   }, console.error)
 

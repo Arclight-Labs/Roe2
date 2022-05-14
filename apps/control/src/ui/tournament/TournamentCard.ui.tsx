@@ -20,7 +20,6 @@ import {
 } from "utils/axios/tournament.queries"
 import { useTournament } from "utils/hooks"
 import { useWsAction } from "utils/socket"
-import { useAuth } from "../../context/auth/Auth.hooks"
 import { useRoom } from "../../context/room/Room.hooks"
 import { usePermission } from "../../hooks/usePermission.hook"
 
@@ -52,6 +51,9 @@ const TournamentCard = ({ id, logo, name, org }: TournamentCardProps) => {
       matches: matches,
       participants: participants,
       roomId: room.id,
+      activeMatch: "",
+      nextMatch: "",
+      schedule: [],
     })
     setLoading(false)
   }
