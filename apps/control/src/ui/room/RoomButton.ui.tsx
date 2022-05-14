@@ -7,12 +7,13 @@ import {
   Text,
   useMantineTheme,
   Stack,
+  MediaQuery,
 } from "@mantine/core"
 import { useNavigate } from "react-router-dom"
 import { ChevronRight, Message } from "tabler-icons-react"
 import { useRoom } from "../../context/room/Room.hooks"
-import { useActiveRoom } from "../../hooks/useActiveRoom.hook"
 import { RoomMenu } from "./RoomMenu.ui"
+import { useScreen } from "ui/Screen.hook"
 
 const useStyles = createStyles((theme) => ({
   room: {
@@ -38,11 +39,17 @@ const RoomButton = (props: RoomButtonProps) => {
   const theme = useMantineTheme()
 
   const navigate = useNavigate()
+
+  const { sm } = useScreen()
   return activeRoom ? (
     <RoomMenu
       sx={{ width: "100%" }}
       control={
-        <UnstyledButton className={classes.room} {...props}>
+        <UnstyledButton
+          className={classes.room}
+          {...props}
+          sx={{ padding: sm ? theme.spacing.md : 5 }}
+        >
           <Group>
             {activeRoom.avatar ? (
               <Avatar src={activeRoom.avatar} radius="xl" />
@@ -61,16 +68,20 @@ const RoomButton = (props: RoomButtonProps) => {
               </Stack>
             )}
 
-            <div style={{ flex: 1 }}>
-              <Text size="sm" weight={500}>
-                {activeRoom?.name}
-              </Text>
-              <Text size="xs" color="dimmed">
-                Active Room
-              </Text>
-            </div>
+            <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
+              <div style={{ flex: 1 }}>
+                <Text size="sm" weight={500}>
+                  {activeRoom?.name}
+                </Text>
+                <Text size="xs" color="dimmed">
+                  Active Room
+                </Text>
+              </div>
+            </MediaQuery>
 
-            <ChevronRight size={14} />
+            <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
+              <ChevronRight size={14} />
+            </MediaQuery>
           </Group>
         </UnstyledButton>
       }

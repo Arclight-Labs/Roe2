@@ -7,10 +7,13 @@ import {
   UnstyledButtonProps,
   Text,
   LoadingOverlay,
+  MediaQuery,
+  useMantineTheme,
 } from "@mantine/core"
 import { ChevronRight } from "tabler-icons-react"
 import { useAuth } from "../../context/auth/Auth.hooks"
 import { UserMenu } from "./UserMenu.ui"
+import { useScreen } from "ui/Screen.hook"
 
 const useStyles = createStyles((theme) => ({
   user: {
@@ -34,27 +37,36 @@ interface UserButtonProps extends UnstyledButtonProps<"button"> {
 const UserButton: FC<UserButtonProps> = ({ icon, ...props }) => {
   const { user, loading } = useAuth()
   const { classes } = useStyles()
+  const theme = useMantineTheme()
+  const { sm } = useScreen()
   return (
     <UserMenu
       sx={{ width: "100%" }}
       control={
-        <UnstyledButton className={classes.user} {...props}>
+        <UnstyledButton
+          className={classes.user}
+          {...props}
+          sx={{ padding: sm ? theme.spacing.md : 5 }}
+        >
           <LoadingOverlay visible={loading} />
           {user && (
-            <Group>
+            <Group noWrap>
               <Avatar src={user.avatar} radius="xl" />
 
-              <div style={{ flex: 1 }}>
-                <Text size="sm" weight={500}>
-                  {user.username}
-                </Text>
+              <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
+                <div style={{ flex: 1 }}>
+                  <Text size="sm" weight={500}>
+                    {user.username}
+                  </Text>
 
-                <Text color="dimmed" size="xs">
-                  {user.email}
-                </Text>
-              </div>
-
-              {icon || <ChevronRight size={14} />}
+                  <Text color="dimmed" size="xs">
+                    {user.email}
+                  </Text>
+                </div>
+              </MediaQuery>
+              <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
+                {icon || <ChevronRight size={14} />}
+              </MediaQuery>
             </Group>
           )}
         </UnstyledButton>
