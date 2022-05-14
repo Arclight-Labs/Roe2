@@ -22,6 +22,7 @@ import { useTournament } from "utils/hooks"
 import { useWsAction } from "utils/socket"
 import { useRoom } from "../../context/room/Room.hooks"
 import { usePermission } from "../../hooks/usePermission.hook"
+import Confirm from "../popups/Confirm.ui"
 
 type TournamentCardProps = Omit<CardProps<"div">, "children"> &
   ShallowTournament
@@ -66,38 +67,23 @@ const TournamentCard = ({ id, logo, name, org }: TournamentCardProps) => {
       <Stack>
         <Group position="apart" p={0} align="start">
           <Image src={logo} height={50} width={50} radius="md" />
-          <Popover
-            opened={opened}
-            onClose={close}
+
+          <Confirm
             title="Warning"
-            disabled={!isAllowed}
-            position="bottom"
-            withArrow
-            target={
-              <ActionIcon onClick={() => toggle()}>
-                {loading ? (
-                  <Loader size={14} />
-                ) : isSelected ? (
-                  <Check />
-                ) : (
-                  <Select color={theme.colors.gray[5]} />
-                )}
-              </ActionIcon>
-            }
+            message="Selecting tournaments will discard all your updated settings for
+            this room"
+            onConfirm={selectTournament}
           >
-            <Stack sx={{ maxWidth: 300 }}>
-              <Text>
-                Selecting tournaments will discard all your updated settings for
-                this room
-              </Text>
-              <Group position="apart">
-                <Button onClick={close} variant="subtle">
-                  Cancel
-                </Button>
-                <Button onClick={selectTournament}>Confirm</Button>
-              </Group>
-            </Stack>
-          </Popover>
+            <ActionIcon>
+              {loading ? (
+                <Loader size={14} />
+              ) : isSelected ? (
+                <Check />
+              ) : (
+                <Select color={theme.colors.gray[5]} />
+              )}
+            </ActionIcon>
+          </Confirm>
         </Group>
         <Stack spacing={0}>
           <Text>{name}</Text>

@@ -15,6 +15,7 @@ import { DropzoneContent } from "../DropzoneContent.ui"
 import { playerSchema, PlayerSchema } from "utils/schema/player.schema"
 import { DeviceFloppy, Trash } from "tabler-icons-react"
 import { useBSave } from "../../context/bsave/bsave.hook"
+import Confirm from "../popups/Confirm.ui"
 
 export interface PlayerProps {
   uid?: string
@@ -47,6 +48,7 @@ const PlayerForm = ({
     },
     resolver: zodResolver(playerSchema),
   })
+  const isEdit = !!player.uid
   const playerId = player.uid || nanoid()
 
   const saveFn = handleSubmit((data) => {
@@ -61,6 +63,7 @@ const PlayerForm = ({
           _username: data.username.toLowerCase(),
         },
       },
+      playerIds: [...new Set([...participants[teamId].playerIds, playerId])],
     }
     setParticipant(teamId, participantData)
     bSave({ [`participants.${teamId}`]: participantData })
@@ -88,7 +91,16 @@ const PlayerForm = ({
     setPhoto(new FilePreview(file))
   }
 
-  const onDelete = () => {}
+  const onDelete = () => {
+    const participantData = { ...participants[teamId] }
+    const playerIds = participantData.playerIds
+    const { [playerId]: deletedPlayer, ...players } = participantData.players
+    participantData.players = players
+    participantData.playerIds = playerIds.filter((id) => id !== playerId)
+    setParticipant(teamId, participantData)
+    bSave({ [`participants.${teamId}`]: participantData })
+    afterSubmit?.()
+  }
 
   return (
     <form onSubmit={uploadAndSet}>
@@ -107,14 +119,22 @@ const PlayerForm = ({
         </Dropzone>
 
         <Group position="apart" style={{ marginTop: 15 }}>
-          <Button
-            variant="subtle"
-            size="xs"
-            color="red"
-            leftIcon={<Trash size={18} />}
-          >
-            Delete
-          </Button>
+          {isEdit ? (
+            <Confirm onConfirm={onDelete}>
+              <Button
+                variant="subtle"
+                size="xs"
+                color="red"
+                leftIcon={<Trash size={18} />}
+              >
+                Delete
+              </Button>
+            </Confirm>
+          ) : (
+            <Button variant="subtle" size="xs" onClick={onCancel}>
+              Cancel
+            </Button>
+          )}
 
           <Button type="submit" size="xs" leftIcon={<DeviceFloppy size={18} />}>
             Save
