@@ -12,7 +12,6 @@ const Logo = () => {
   const { chalTeams } = useParticipants()
   const { activeMatch } = useMatches()
   const isInversed = useInverse()
-  const live = useLive()
   const teamSide = isInversed(params.team === "a" ? "teamA" : "teamB")
   const teamId = activeMatch?.[teamSide].id || ""
   const team = chalTeams[teamId]
