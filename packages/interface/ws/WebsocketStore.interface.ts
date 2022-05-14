@@ -1,5 +1,6 @@
+import { Live } from "./Live.interface"
 import { Waypoint } from ".."
-import { Room, User } from "../db"
+import { Room } from "../db"
 import { SanitizedParticipantMap, SanitizedSeriesMap } from "../waypoint"
 
 export interface WebsocketStore {
@@ -15,14 +16,3 @@ interface Listeners {
   listeners: Record<string, string>
 }
 export type WebsocketRoom = Room & Listeners & Broadcast
-
-// {[matchId]: Date}
-export type Schedule = { matchId: string; date: Date }
-export interface Live {
-  activeMatch: string
-  prevMatches: string[]
-  nextMatch: string
-  schedule: Schedule[]
-  invert: boolean
-  talents: Record<string, User>
-}

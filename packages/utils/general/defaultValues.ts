@@ -1,6 +1,6 @@
 import { User } from "interface"
 import { SanitizedParticipant, SanitizedSeries } from "interface/waypoint"
-import { Broadcast, Live } from "interface/ws"
+import { Broadcast, Live, Lowerthird } from "interface/ws"
 
 export const defaultSeries: SanitizedSeries = {
   attachmentCount: 0,
@@ -61,6 +61,8 @@ export const defaultBroadcast: Broadcast = {
   roomId: "",
 }
 
+export const defaultLowerthird: Lowerthird = {}
+
 export const defaultLive: Live = {
   activeMatch: "",
   invert: false,
@@ -68,6 +70,7 @@ export const defaultLive: Live = {
   prevMatches: [],
   schedule: [],
   talents: {},
+  lt: {},
 }
 
 export const defaultUser: User = {
