@@ -5,6 +5,7 @@ import {
   Text,
   Group,
   Button,
+  ButtonProps,
 } from "@mantine/core"
 import { useToggle } from "@mantine/hooks"
 import { FC, useState } from "react"
@@ -12,11 +13,13 @@ import { FC, useState } from "react"
 interface ConfirmProps extends Omit<PopoverProps, "target" | "opened"> {
   onConfirm: VoidFunction
   message?: string
+  ButtonProps?: ButtonProps<"button">
 }
 const Confirm: FC<ConfirmProps> = ({
   children,
   onConfirm,
   message,
+  ButtonProps,
   ...props
 }) => {
   const [opened, toggle] = useToggle(false, [false, true])
@@ -42,7 +45,9 @@ const Confirm: FC<ConfirmProps> = ({
       <Stack sx={{ maxWidth: 300 }}>
         <Text size="sm">{message || "Are you sure?"}</Text>
         <Group position="apart">
-          <Button onClick={confirm}>Confirm</Button>
+          <Button {...ButtonProps} onClick={confirm}>
+            Confirm
+          </Button>
         </Group>
       </Stack>
     </Popover>
