@@ -9,7 +9,8 @@ import {
 } from "@mantine/core"
 import { User } from "interface"
 import { FC, useState } from "react"
-import { Pencil } from "tabler-icons-react"
+import { Pencil, Trash } from "tabler-icons-react"
+import Confirm from "../popups/Confirm.ui"
 import TalentModal from "./TalentModal.ui"
 
 interface TalentCardProps extends Omit<CardProps<"div">, "children"> {
@@ -19,6 +20,8 @@ const TalentCard: FC<TalentCardProps> = ({ data, ...props }) => {
   const [opened, setOpened] = useState(false)
   const open = () => setOpened(true)
   const close = () => setOpened(false)
+
+  const onDelete = () => {}
   return (
     <Card shadow="sm" {...props} sx={{ height: "100%", ...props.sx }}>
       <Menu
@@ -26,7 +29,6 @@ const TalentCard: FC<TalentCardProps> = ({ data, ...props }) => {
         position="bottom"
         placement="end"
         transition="pop-top-right"
-        closeOnItemClick
       >
         <Menu.Item onClick={open} icon={<Pencil size={18} />}>
           Edit
@@ -41,7 +43,6 @@ const TalentCard: FC<TalentCardProps> = ({ data, ...props }) => {
           </Text>
         </Stack>
       </Group>
-
       <TalentModal data={data} opened={opened} onClose={close} />
     </Card>
   )

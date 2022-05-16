@@ -8,6 +8,7 @@ import AuthGuard from "../ui/guards/AuthGuard"
 import RoomGuard from "../ui/guards/RoomGuard"
 import LiveDrawer from "../ui/live/LiveDrawer.ui"
 import StatePage from "../pages/state/State.page"
+import BSaveProvider from "../context/bsave/bsave.provider"
 
 const Login = Loadable(lazy(() => import("../pages/Login.page")))
 const SignUp = Loadable(lazy(() => import("../pages/SignUp.page")))
@@ -48,10 +49,12 @@ const Routes = () => {
       element: (
         <AuthGuard>
           <RoomGuard>
-            <AppShellWrapper>
-              <Outlet />
-              <LiveDrawer />
-            </AppShellWrapper>
+            <BSaveProvider>
+              <AppShellWrapper>
+                <Outlet />
+                <LiveDrawer />
+              </AppShellWrapper>
+            </BSaveProvider>
           </RoomGuard>
         </AuthGuard>
       ),

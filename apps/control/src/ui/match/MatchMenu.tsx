@@ -10,7 +10,7 @@ import {
 } from "tabler-icons-react"
 import { useLive, useMatches } from "utils/hooks"
 import { setLive } from "utils/socket/events"
-import { useRoom } from "../../context/room/Room.hooks"
+import { useBSave } from "../../context/bsave/bsave.hook"
 import { usePermission } from "../../hooks/usePermission.hook"
 
 interface MatchMenuProps extends Omit<MenuProps, "children"> {
@@ -20,8 +20,10 @@ interface MatchMenuProps extends Omit<MenuProps, "children"> {
 const MatchMenu = ({ match, open, ...props }: MatchMenuProps) => {
   const [opened, setOpened] = useState(false)
   const isAllowed = usePermission()
-  const room = useRoom()
+
   const { live } = useLive()
+  const bSave = useBSave()
+
   const { isActive, isNext, inSchedule } = useMatches()
 
   const matchId = `${match.id}`
@@ -37,13 +39,13 @@ const MatchMenu = ({ match, open, ...props }: MatchMenuProps) => {
   const setAs = (key: "activeMatch" | "nextMatch") => () => {
     const data: Partial<Live> = { [key]: matchId }
     setLive(data)
-    room?.save(data)
+    bSave(data)
   }
 
   const clearAs = (key: "activeMatch" | "nextMatch") => () => {
     const data: Partial<Live> = { [key]: "" }
     setLive(data)
-    room?.save(data)
+    bSave(data)
   }
 
   const addToSchedule = () => {
@@ -52,14 +54,14 @@ const MatchMenu = ({ match, open, ...props }: MatchMenuProps) => {
     const schedule = [...live.schedule, item]
     const data: Partial<Live> = { schedule }
     setLive(data)
-    room?.save(data)
+    bSave(data)
   }
 
   const removeFromSchedule = () => {
     const schedule = live.schedule.filter((s) => s.matchId !== matchId)
     const data: Partial<Live> = { schedule }
     setLive(data)
-    room?.save(data)
+    bSave(data)
   }
 
   return (

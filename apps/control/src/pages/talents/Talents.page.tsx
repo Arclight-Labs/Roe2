@@ -18,7 +18,7 @@ const TalentsPage = () => {
   const open = () => setOpened(true)
   const close = () => setOpened(false)
   const { live } = useLive()
-  const talentsArray = Object.values(live.talents)
+  const talentsArray = Object.entries(live.talents)
   return (
     <Container size="xl" sx={{ width: "100%" }}>
       <Stack>
@@ -37,8 +37,8 @@ const TalentsPage = () => {
             { maxWidth: "xs", cols: 1, spacing: "sm" },
           ]}
         >
-          {talentsArray.map((talent) => (
-            <TalentCard key={talent.uid} data={talent} />
+          {talentsArray.map(([uid, talent]) => (
+            <TalentCard key={uid} data={{ ...talent, uid }} />
           ))}
         </SimpleGrid>
       </Stack>

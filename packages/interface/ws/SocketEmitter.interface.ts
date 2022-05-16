@@ -7,7 +7,8 @@ import {
   SanitizedSeries,
   SanitizedSeriesMap,
 } from "../waypoint"
-import { Live, WebsocketRoom } from "./WebsocketStore.interface"
+import { Live } from "./Live.interface"
+import { WebsocketRoom } from "./WebsocketStore.interface"
 export type SocketEmitterFn = (...args: any[]) => any
 export type SocketEmitterRecord = Record<SocketEvent, SocketEmitterFn>
 export type SocketEmitterType = Omit<SocketEmitterRecord, "log">

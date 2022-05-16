@@ -1,7 +1,13 @@
 import { useState } from "react"
-import { createStyles, Navbar, Group, Code } from "@mantine/core"
+import {
+  createStyles,
+  Navbar,
+  Group,
+  Code,
+  MediaQuery,
+  Stack,
+} from "@mantine/core"
 import routes from "./NavRoutes"
-import { useAuth } from "../context/auth/Auth.hooks"
 import UserButton from "./user/UserButton.ui"
 import RoomButton from "./room/RoomButton.ui"
 import { Link } from "react-router-dom"
@@ -90,7 +96,6 @@ interface Props {
   version: string
 }
 export function NavbarSimple({ version }: Props) {
-  const { user } = useAuth()
   const { classes, cx } = useStyles()
   const [active, setActive] = useState("Billing")
 
@@ -105,19 +110,28 @@ export function NavbarSimple({ version }: Props) {
         setActive(item.label)
       }}
     >
-      <item.icon className={classes.linkIcon} />
-      <span>{item.label}</span>
+      <MediaQuery smallerThan="sm" styles={{ marginRight: 0 }}>
+        <item.icon className={classes.linkIcon} />
+      </MediaQuery>
+      <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
+        <span>{item.label}</span>
+      </MediaQuery>
     </Link>
   ))
 
   return (
-    <Navbar height={700} width={{ sm: 300 }} p="md">
+    <Navbar
+      height="100vh"
+      width={{ base: 80, sm: 300 }}
+      p="md"
+      sx={{ overflow: "auto" }}
+    >
       <Navbar.Section grow>
         <Group className={classes.header} position="apart">
           {/* <MantineLogo /> */}
           <Code sx={{ fontWeight: 700 }}>{version}</Code>
         </Group>
-        {links}
+        <Stack spacing={0}>{links}</Stack>
       </Navbar.Section>
 
       <Navbar.Section className={classes.footer}>

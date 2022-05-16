@@ -20,7 +20,7 @@ import { defaultSeries, tbd } from "utils/general"
 import { useMatches, useParticipants } from "utils/hooks"
 import { MatchSchema, matchSchema } from "utils/schema/match.schema"
 import { setMatches } from "utils/socket/events"
-import { useRoom } from "../../context/room/Room.hooks"
+import { useBSave } from "../../context/bsave/bsave.hook"
 import MatchCardTeam from "./MatchCardTeam.ui"
 
 type Handler = ChangeEventHandler<HTMLInputElement>
@@ -39,7 +39,7 @@ const MatchForm = ({
 }: MatchFormProps) => {
   const { chalTeams } = useParticipants()
   const { getScore, getUpdatedMatches } = useMatches()
-  const room = useRoom()
+  const bSave = useBSave()
   const { handleSubmit, watch, setValue } = useForm<MatchSchema>({
     defaultValues: {
       scores: match.scores,
@@ -122,7 +122,7 @@ const MatchForm = ({
 
     const updatedMatches = getUpdatedMatches(newSeriesData)
     setMatches(updatedMatches)
-    room?.save({ matches: updatedMatches })
+    bSave({ matches: updatedMatches })
     afterSubmit?.()
   })
 

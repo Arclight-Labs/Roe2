@@ -4,18 +4,18 @@ import { FilePreview } from "interface"
 import { useState, FC, FormEventHandler } from "react"
 import { useForm } from "react-hook-form"
 import { storage } from "utils/firebase"
-import { getUserByUsername } from "utils/firebase/user.queries"
 import { UserUpdate, userUpdateSchema } from "utils/schema/user.schema"
 import { User } from "interface"
 import { nanoid } from "@reduxjs/toolkit"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { TextInput, Group, Text, Button, Stack } from "@mantine/core"
-import { At } from "tabler-icons-react"
+import { At, Trash } from "tabler-icons-react"
 import { DropzoneContent } from "../DropzoneContent.ui"
 import { setLive } from "utils/socket/events"
 import { useLive } from "utils/hooks"
-import { useRoom } from "../../context/room/Room.hooks"
 import { Live } from "interface/ws"
+import { useBSave } from "../../context/bsave/bsave.hook"
+import Confirm from "../popups/Confirm.ui"
 
 interface TalentModalProps {
   data: User
@@ -23,8 +23,9 @@ interface TalentModalProps {
   afterSubmit?: VoidFunction
 }
 const TalentForm: FC<TalentModalProps> = ({ data, onCancel, afterSubmit }) => {
-  const room = useRoom()
   const { live } = useLive()
+  const bSave = useBSave()
+
   const { register, handleSubmit, setValue, getFieldState, setError } =
     useForm<UserUpdate>({
       defaultValues: {
@@ -36,24 +37,25 @@ const TalentForm: FC<TalentModalProps> = ({ data, onCancel, afterSubmit }) => {
       resolver: zodResolver(userUpdateSchema),
     })
 
-  const [loading, setLoading] = useState(false)
   const [uploading, setUploading] = useState(false)
   const [avatarPreview, setAvatarPreview] = useState<FilePreview>(
     new FilePreview()
   )
 
+  const isEdit = !!data.uid
   const uid = data.uid || nanoid()
 
   const save = handleSubmit(async (inputData) => {
     const newTalent: User = {
       ...data,
       ...inputData,
+      uid,
     }
     const saveData: Partial<Live> = {
       talents: { ...live.talents, [uid]: newTalent },
     }
     setLive(saveData)
-    room?.save(saveData)
+    bSave(saveData)
     afterSubmit?.()
   }, console.error)
 
@@ -74,6 +76,15 @@ const TalentForm: FC<TalentModalProps> = ({ data, onCancel, afterSubmit }) => {
     if (!file) return
     setAvatarPreview(new FilePreview(file))
   }
+
+  const onDelete = () => {
+    const { [uid]: removedTalent, ...talents } = live.talents
+    const saveData: Partial<Live> = { talents }
+    setLive(saveData)
+    bSave(saveData)
+    afterSubmit?.()
+  }
+
   return (
     <form onSubmit={uploadAndSet}>
       <Stack>
@@ -111,10 +122,23 @@ const TalentForm: FC<TalentModalProps> = ({ data, onCancel, afterSubmit }) => {
         </Stack>
 
         <Group position="apart">
-          <Button variant="light" onClick={onCancel}>
-            Cancel
-          </Button>
-          <Button type="submit" disabled={loading}>
+          {isEdit ? (
+            <Confirm onConfirm={onDelete} ButtonProps={{ color: "red" }}>
+              <Button
+                variant="light"
+                size="sm"
+                color="red"
+                leftIcon={<Trash size={18} />}
+              >
+                Delete
+              </Button>
+            </Confirm>
+          ) : (
+            <Button variant="light" onClick={onCancel} size="sm">
+              Cancel
+            </Button>
+          )}
+          <Button type="submit" disabled={uploading} size="sm">
             Save
           </Button>
         </Group>
