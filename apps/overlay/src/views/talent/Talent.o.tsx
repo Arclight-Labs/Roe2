@@ -31,29 +31,13 @@ const TeamName = () => {
   return (
     <Box sx={{ height: 600, width: 600 }}>
       {/* <Image src={team?.logo} height={600} width={600} fit="contain" /> */}
-      {/* <Image
-        src={talent[talentCode]?.avatar}
-        height={100}
-        width={100}
-        fit="contain"
-      />
+
+      <Image src={talent?.avatar} height={100} width={100} fit="contain" />
       <Text sx={{ fontFamily: "Industry", fontSize: 40 }}>
-        {talent[talentCode]?.username}
+        {talent?.username}
       </Text>
       <Text sx={{ fontFamily: "Roboto", fontSize: 20 }}>
-        @{talent[talentCode]?.socialHandle}
-      </Text> */}
-      <Image
-        src={talent[talentCode]?.avatar}
-        height={100}
-        width={100}
-        fit="contain"
-      />
-      <Text sx={{ fontFamily: "Industry", fontSize: 40 }}>
-        {talent[talentCode]?.username}
-      </Text>
-      <Text sx={{ fontFamily: "Roboto", fontSize: 20 }}>
-        @{talent[talentCode]?.socialHandle}
+        @{talent?.socialHandle}
       </Text>
     </Box>
   )
