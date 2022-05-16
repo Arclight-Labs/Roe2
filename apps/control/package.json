@@ -14,7 +14,7 @@
     "@mantine/form": "4.2.4",
     "@mantine/hooks": "4.2.4",
     "@mantine/modals": "4.2.4",
-    "@mantine/notifications": "4.2.4",
+    "@mantine/notifications": "4.2.5",
     "@reduxjs/toolkit": "1.8.1",
     "firebase": "9.8.1",
     "ip": "1.1.8",
