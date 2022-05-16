@@ -27,6 +27,7 @@ import { useAuth } from "../../context/auth/Auth.hooks"
 import { useRoom } from "../../context/room/Room.hooks"
 import { DropzoneContent } from "../DropzoneContent.ui"
 import { defaultParticipant } from "utils/general"
+import { useBSave } from "../../context/bsave/bsave.hook"
 
 type Props = keyof ParticipantSchema
 
@@ -44,6 +45,7 @@ const ParticipantForm = ({
   onCancel,
   afterSubmit,
 }: ParticipantFormProps) => {
+  const bSave = useBSave()
   const room = useRoom()
   const { auth } = useAuth()
   const { participants } = useParticipants()
@@ -70,7 +72,7 @@ const ParticipantForm = ({
       ...data,
     }
     setParticipant(teamId, participantData)
-    room?.save({ [`participants.${teamId}`]: participantData })
+    bSave({ [`participants.${teamId}`]: participantData })
     setLoading(false)
     afterSubmit?.()
   })
