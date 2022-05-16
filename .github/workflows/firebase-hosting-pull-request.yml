@@ -8,10 +8,10 @@ jobs:
     if: "${{ github.event.pull_request.head.repo.full_name == github.repository }}"
     runs-on: ubuntu-latest
     steps:
-      - if: github.refname.startsWith(renovate)
       - uses: actions/checkout@v3
       - run: yarn install && yarn workspace control build && yarn workspace overlay build
       - uses: FirebaseExtended/action-hosting-deploy@v0
+        if: github.refname.startsWith(renovate)
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_ROE2_PROD }}"

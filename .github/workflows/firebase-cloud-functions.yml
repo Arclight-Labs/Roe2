@@ -10,10 +10,10 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      - if: github.refname.startsWith(renovate)
       - uses: actions/checkout@v3
       - run: yarn install
       - name: Deploy to Cloud Functions
+        if: github.refname.startsWith(renovate)
         uses: w9jds/firebase-action@master
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
