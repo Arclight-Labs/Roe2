@@ -17,8 +17,8 @@ const TalentsPage = () => {
   const [opened, setOpened] = useState(false)
   const open = () => setOpened(true)
   const close = () => setOpened(false)
-  const { talents } = useLive()
-  const talentsArray = Object.values(talents)
+  const { live } = useLive()
+  const talentsArray = Object.values(live.talents)
   return (
     <Container size="xl" sx={{ width: "100%" }}>
       <Stack>

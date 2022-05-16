@@ -21,7 +21,7 @@ const MatchMenu = ({ match, open, ...props }: MatchMenuProps) => {
   const [opened, setOpened] = useState(false)
   const isAllowed = usePermission()
   const room = useRoom()
-  const live = useLive()
+  const { live } = useLive()
   const { isActive, isNext, inSchedule } = useMatches()
 
   const matchId = `${match.id}`

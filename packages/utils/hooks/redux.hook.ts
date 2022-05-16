@@ -1,3 +1,4 @@
+import { User } from "interface/db"
 import {
   SanitizedParticipant,
   SanitizedSeries,
@@ -42,6 +43,9 @@ type ScoreValue = { scores: number[]; final: number }
 type GetScoreReturn = Record<"a" | "b", ScoreValue>
 type GetScore = (match: SanitizedSeries) => GetScoreReturn
 
+type GetTalentReturn = Record<string, User>
+type GetTalent = (talent: User) => GetTalentReturn
+
 type AffectedMatch = {
   team: "teamA" | "teamB"
   prereqMatchId: number
@@ -58,7 +62,7 @@ type GetAffectedMatces = (
 
 export const useMatches = () => {
   const matches = useAppSelector((s) => s.matches)
-  const live = useLive()
+  const { live } = useLive()
 
   // ============ Split Playoffs and Groups
   const splitMatchesByType: SplitMatches = (matchMap) => {
@@ -292,5 +296,24 @@ export const useParticipants = () => {
 
 export const useLive = () => {
   const live = useAppSelector((s) => s.live)
-  return live
+
+  const getAllTalents: GetTalent = () => {
+    return live.talents
+  }
+
+  // type TalentMap = Record<string, User>
+  // const getTalentByUID: GetTalent = (talent) => {
+  //   const talentArr = Object.values(talent)
+  //   const talentUser = talentArr.reduce<TalentMap>((acc, talent) => {
+  //     const talentId = talent.uid
+  //     if (!talentId) return acc
+  //     return { ...acc, [talentId]: talent }
+  //   }, {})
+  //   return talentUser
+  // }
+
+  return {
+    live,
+    getAllTalents,
+  }
 }

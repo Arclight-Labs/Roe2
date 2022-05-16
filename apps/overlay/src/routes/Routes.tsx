@@ -13,12 +13,22 @@ function Loadable<T extends object = {}>(Component: FunctionComponent<T>) {
 
 const Logo = Loadable(lazy(() => import("../views/team/Logo.o")))
 const TeamName = Loadable(lazy(() => import("../views/team/TeamName.o")))
+const Talent = Loadable(lazy(() => import("../views/talent/Talent.o")))
 
 const Routes = () => {
   return useRoutes([
     {
       path: "/:roomId",
       children: [
+        {
+          path: "talent",
+          children: [
+            {
+              path: ":talent",
+              element: <Talent />,
+            },
+          ],
+        },
         {
           path: "team",
           children: [

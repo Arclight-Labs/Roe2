@@ -24,7 +24,7 @@ interface TalentModalProps {
 }
 const TalentForm: FC<TalentModalProps> = ({ data, onCancel, afterSubmit }) => {
   const room = useRoom()
-  const live = useLive()
+  const { live } = useLive()
   const { register, handleSubmit, setValue, getFieldState, setError } =
     useForm<UserUpdate>({
       defaultValues: {
