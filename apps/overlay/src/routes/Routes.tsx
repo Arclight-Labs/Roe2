@@ -24,7 +24,7 @@ const Routes = () => {
           path: "talent",
           children: [
             {
-              path: ":talent",
+              path: ":talentUID",
               element: <Talent />,
             },
           ],

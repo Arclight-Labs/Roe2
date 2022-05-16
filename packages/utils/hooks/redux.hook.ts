@@ -301,19 +301,20 @@ export const useLive = () => {
     return live.talents
   }
 
-  // type TalentMap = Record<string, User>
-  // const getTalentByUID: GetTalent = (talent) => {
-  //   const talentArr = Object.values(talent)
-  //   const talentUser = talentArr.reduce<TalentMap>((acc, talent) => {
-  //     const talentId = talent.uid
-  //     if (!talentId) return acc
-  //     return { ...acc, [talentId]: talent }
-  //   }, {})
-  //   return talentUser
-  // }
+  type TalentMap = Record<string, User>
+  const getTalentByUID = (talentUID: string) => {
+    const talentArr = Object.values(live.talents)
+    const talentUser = talentArr.reduce<TalentMap>((acc, talent) => {
+      const talentId = talent.uid
+      if (!(talentId === talentUID)) return acc
+      return { ...acc, talent }
+    }, {})
+    return talentUser
+  }
 
   return {
     live,
     getAllTalents,
+    getTalentByUID,
   }
 }
