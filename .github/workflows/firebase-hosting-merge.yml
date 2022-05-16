@@ -10,6 +10,7 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
+      - if: github.refname.startsWith(renovate)
       - uses: actions/checkout@v3
       - run: yarn install && yarn workspace control build && yarn workspace overlay build
       - uses: FirebaseExtended/action-hosting-deploy@v0
