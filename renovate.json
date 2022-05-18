@@ -1,5 +1,26 @@
 {
   "extends": [
-    "config:base"
+    "config:base",
+    "group:allNonMajor",
+    ":separateMultipleMajorReleases",
+    ":automergeMinor",
+    ":automergePr",
+    ":automergeRequireAllStatusChecks",
+    ":ignoreUnstable",
+    ":enableVulnerabilityAlertsWithLabel(security)",
+    ":rebaseStalePrs",
+    ":npm",
+    "npm:unpublishSafe"
+  ],
+  "packageRules": [
+    {
+      "matchDatasources": "npm",
+      "stabilityDays": 0,
+      "assignees": ["manokii"],
+      "assigneesSampleSize": 1,
+      "bumpVersion": "patch",
+      "commitMessagePrefix": "chore(deps)",
+      "labels": ["maintenance", "renovate"]
+    }
   ]
 }
