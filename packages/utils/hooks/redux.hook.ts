@@ -294,7 +294,7 @@ export const useParticipants = () => {
   const activeTeamA = getActiveTeam("teamA")
   const activeTeamB = getActiveTeam("teamB")
   const activeTeamAWithInvert = getActiveTeam(invert ? "teamB" : "teamA")
-  const activeTeamBWithInvert = getActiveTeam(invert ? "teamA" : "teamA")
+  const activeTeamBWithInvert = getActiveTeam(invert ? "teamA" : "teamB")
 
   return {
     participants,

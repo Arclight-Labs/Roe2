@@ -4,21 +4,30 @@ import useRoom from "../../hooks/useRoom.hook"
 import { Image, Box } from "@mantine/core"
 import { useInverse } from "../../hooks/useInverse.hook"
 
-type Params = Record<"player", string>
+type Params = Record<"team" | "player", string>
 const Player = () => {
   // add this to every overlay page
   useRoom()
   const params = useParams<Params>()
-  const { chalTeams } = useParticipants()
-  const { activeMatch } = useMatches()
-  const isInversed = useInverse()
-  const teamSide = isInversed(params.player === "a" ? "teamA" : "teamB")
-  const teamId = activeMatch?.[teamSide].id || ""
-  const team = chalTeams[teamId]
+  const { chalTeams, activeTeamAWithInvert, activeTeamBWithInvert } =
+    useParticipants()
 
+  const activePlayerA = Object.values(activeTeamAWithInvert.players).filter(
+    (player) => player.isActive
+  )
+  const activePlayerB = Object.values(activeTeamBWithInvert.players).filter(
+    (player) => player.isActive
+  )
+  const activePlayer = params.team === "a" ? activePlayerA : activePlayerB
+  const playerIndex = +(params.player ?? 0)
   return (
     <Box sx={{ height: 600, width: 600 }}>
-      <Image src={team?.logo} height={600} width={600} fit="contain" />
+      <Image
+        src={activePlayer[playerIndex]?.photoURL}
+        height={600}
+        width={600}
+        fit="contain"
+      />
     </Box>
   )
 }
