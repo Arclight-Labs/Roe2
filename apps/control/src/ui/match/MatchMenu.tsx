@@ -20,8 +20,10 @@ interface MatchMenuProps extends Omit<MenuProps, "children"> {
 const MatchMenu = ({ match, open, ...props }: MatchMenuProps) => {
   const [opened, setOpened] = useState(false)
   const isAllowed = usePermission()
+
+  const { live } = useLive()
   const bSave = useBSave()
-  const live = useLive()
+
   const { isActive, isNext, inSchedule } = useMatches()
 
   const matchId = `${match.id}`

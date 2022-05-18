@@ -1,5 +1,6 @@
 import { FunctionComponent, lazy, Suspense } from "react"
 import { Navigate, Outlet, useRoutes } from "react-router-dom"
+import Player from "../views/player/Player.o"
 
 function Loadable<T extends object = {}>(Component: FunctionComponent<T>) {
   return (props: T) => {
@@ -13,12 +14,22 @@ function Loadable<T extends object = {}>(Component: FunctionComponent<T>) {
 
 const Logo = Loadable(lazy(() => import("../views/team/Logo.o")))
 const TeamName = Loadable(lazy(() => import("../views/team/TeamName.o")))
+const Talent = Loadable(lazy(() => import("../views/talent/Talent.o")))
 
 const Routes = () => {
   return useRoutes([
     {
       path: "/:roomId",
       children: [
+        {
+          path: "talent",
+          children: [
+            {
+              path: ":talent",
+              element: <Talent />,
+            },
+          ],
+        },
         {
           path: "team",
           children: [
@@ -32,6 +43,15 @@ const Routes = () => {
                 {
                   path: ":name",
                   element: <TeamName />,
+                },
+                {
+                  path: "player",
+                  children: [
+                    {
+                      path: ":player",
+                      element: <Player />,
+                    },
+                  ],
                 },
               ],
             },

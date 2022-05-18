@@ -6,6 +6,7 @@ export interface Live {
   nextMatch: string
   schedule: Schedule[]
   invert: boolean
+  activeTalents: Record<string, User>
   talents: Record<string, User>
   lt: Lowerthird
 }

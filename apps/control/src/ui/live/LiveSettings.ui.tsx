@@ -5,7 +5,7 @@ import { useLive } from "utils/hooks"
 import { setLive } from "utils/socket/events"
 
 const LiveSettings = () => {
-  const live = useLive()
+  const { live } = useLive()
 
   const inverse = () => {
     setLive({ invert: !live.invert })

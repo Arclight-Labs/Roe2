@@ -66,6 +66,7 @@ export const defaultBroadcast: Broadcast = {
   tournament: null,
   matches: {},
   participants: {},
+  activeTalents: {},
   talents: {},
   roomId: "",
 }
@@ -115,6 +116,7 @@ export const defaultLive: Live = {
   nextMatch: "",
   prevMatches: [],
   schedule: [],
+  activeTalents: {},
   talents: {},
   lt: defaultLowerthird,
 }

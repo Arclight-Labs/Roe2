@@ -23,8 +23,9 @@ interface TalentModalProps {
   afterSubmit?: VoidFunction
 }
 const TalentForm: FC<TalentModalProps> = ({ data, onCancel, afterSubmit }) => {
+  const { live } = useLive()
   const bSave = useBSave()
-  const live = useLive()
+
   const { register, handleSubmit, setValue, getFieldState, setError } =
     useForm<UserUpdate>({
       defaultValues: {

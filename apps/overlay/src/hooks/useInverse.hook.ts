@@ -4,11 +4,11 @@ type TeamSide = "teamA" | "teamB"
 type UseInverse = () => (teamSide: TeamSide) => TeamSide
 
 export const useInverse: UseInverse = () => {
-  const { invert } = useLive()
+  const { live } = useLive()
   return (teamSide) => {
     const isTeamA = teamSide === "teamA"
 
-    if (invert) {
+    if (live.invert) {
       if (isTeamA) return "teamB"
       return "teamA"
     }
