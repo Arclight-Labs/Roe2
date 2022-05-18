@@ -11,5 +11,16 @@
     ":rebaseStalePrs",
     ":npm",
     "npm:unpublishSafe"
+  ],
+  "packageRules": [
+    {
+      "matchDatasources": "npm",
+      "stabilityDays": 0,
+      "assignees": ["manokii"],
+      "assigneesSampleSize": 1,
+      "bumpVersion": "patch",
+      "commitMessagePrefix": "chore(deps)",
+      "labels": ["maintenance", "renovate"]
+    }
   ]
 }
