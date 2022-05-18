@@ -15,6 +15,7 @@ const initialState: Waypoint.Tournament = {
   },
   id: "",
   visibility: "public",
+  extends: {},
 }
 
 export const tournamentSlice = createSlice({
