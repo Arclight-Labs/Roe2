@@ -4,7 +4,7 @@ import {
   SanitizedSeriesMap as SeriesMap,
 } from "interface/waypoint"
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux"
-import { tbd } from "../general"
+import { defaultSeries, tbd } from "../general"
 import {
   addMatch,
   setMatches,
@@ -273,6 +273,8 @@ export const useMatches = () => {
 type Team = SanitizedParticipant
 type TeamMap = Record<string, Team>
 export const useParticipants = () => {
+  const { activeMatch = defaultSeries } = useMatches()
+  const { invert } = useLive()
   const participants = useAppSelector((s) => s.participants)
   const participantArr = Object.values(participants)
   const participantsByChalId = participantArr.reduce<TeamMap>((acc, team) => {
@@ -281,12 +283,26 @@ export const useParticipants = () => {
     return { ...acc, [chalId]: team }
   }, {})
 
+  const getActiveTeam = (teamSide: "teamA" | "teamB") => {
+    return participantsByChalId[activeMatch[teamSide].id || ""] ?? tbd
+  }
+
+  const activeTeamA = getActiveTeam("teamA")
+  const activeTeamB = getActiveTeam("teamB")
+  const activeTeamAWithInvert = getActiveTeam(invert ? "teamB" : "teamA")
+  const activeTeamBWithInvert = getActiveTeam(invert ? "teamA" : "teamA")
+
   return {
     participants,
     chalTeams: participantsByChalId,
     setParticipants,
     updateParticipant,
     addParticipant,
+    getActiveTeam,
+    activeTeamA,
+    activeTeamB,
+    activeTeamAWithInvert,
+    activeTeamBWithInvert,
   }
 }
 
