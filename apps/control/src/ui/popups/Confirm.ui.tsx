@@ -6,6 +6,8 @@ import {
   Group,
   Button,
   ButtonProps,
+  BoxProps,
+  Box,
 } from "@mantine/core"
 import { useToggle } from "@mantine/hooks"
 import { FC, useState } from "react"
@@ -40,7 +42,7 @@ const Confirm: FC<ConfirmProps> = ({
       withArrow
       transition="pop"
       {...props}
-      target={<div onClick={clickToggle}>{children}</div>}
+      target={<Box onClick={clickToggle}>{children}</Box>}
     >
       <Stack sx={{ maxWidth: 300 }}>
         <Text size="sm">{message || "Are you sure?"}</Text>

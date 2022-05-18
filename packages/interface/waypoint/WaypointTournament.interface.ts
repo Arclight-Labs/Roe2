@@ -125,6 +125,7 @@ export type Tournament = {
   checkInStartedAt?: boolean
   allowContainedTeams?: boolean
   checkInProcessed?: boolean
+  extends?: Record<string, string>
 }
 
 export type ApiRes = Tournament & {
