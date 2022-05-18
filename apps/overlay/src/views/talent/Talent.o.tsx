@@ -8,31 +8,23 @@ import { defaultSeries } from "utils/general"
 import { defaultTalent } from "utils/general/defaultValues"
 import { User } from "interface/db"
 
-type TeamCode =
-  | "shortcode"
-  | "name"
-  | "shortname"
-  | "schoolShortcode"
-  | "school"
+type Params = Record<"talent", string>
 
-// type Params = Record<"team" | "name", string>
-type Params = Record<"talentUID", string>
-
-const TeamName = () => {
+const Talent = () => {
   // add this to every overlay page
   useRoom()
   const params = useParams<Params>()
 
-  const { getAllTalents, getTalentByUID } = useLive()
-  const talentCode = params.talentUID ?? defaultTalent.uid
-  const talent = getTalentByUID(talentCode)
+  const { getActiveTalent } = useLive()
+  const talentIndex = +(params.talent ?? 0)
+  const talent = getActiveTalent(talentIndex)
   //   const talentRaw = getAllTalents(defaultTalent)
   //   const talent = Object.values(talentRaw)
   return (
     <Box sx={{ height: 600, width: 600 }}>
       {/* <Image src={team?.logo} height={600} width={600} fit="contain" /> */}
 
-      <Image src={talent?.avatar} height={100} width={100} fit="contain" />
+      {/* <Image src={talent?.avatar} height={100} width={100} fit="contain" /> */}
       <Text sx={{ fontFamily: "Industry", fontSize: 40 }}>
         {talent?.username}
       </Text>
@@ -42,4 +34,4 @@ const TeamName = () => {
     </Box>
   )
 }
-export default TeamName
+export default Talent

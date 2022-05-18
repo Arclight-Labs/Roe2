@@ -1,5 +1,6 @@
 import { FunctionComponent, lazy, Suspense } from "react"
 import { Navigate, Outlet, useRoutes } from "react-router-dom"
+import Player from "../views/player/Player.o"
 
 function Loadable<T extends object = {}>(Component: FunctionComponent<T>) {
   return (props: T) => {
@@ -24,7 +25,7 @@ const Routes = () => {
           path: "talent",
           children: [
             {
-              path: ":talentUID",
+              path: ":talent",
               element: <Talent />,
             },
           ],
@@ -42,6 +43,15 @@ const Routes = () => {
                 {
                   path: ":name",
                   element: <TeamName />,
+                },
+                {
+                  path: "player",
+                  children: [
+                    {
+                      path: ":player",
+                      element: <Player />,
+                    },
+                  ],
                 },
               ],
             },

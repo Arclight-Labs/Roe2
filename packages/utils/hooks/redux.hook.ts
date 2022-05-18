@@ -6,7 +6,7 @@ import {
 } from "interface/waypoint"
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux"
 import { tbd } from "../general"
-import { defaultUser } from "../general/defaultValues"
+import { defaultTalent, defaultUser } from "../general/defaultValues"
 import {
   addMatch,
   setMatches,
@@ -301,25 +301,30 @@ export const useLive = () => {
   const getAllTalents: GetTalent = () => {
     return live.talents
   }
-
-  // const getTalentByUID = (talentUID: string) => {
-  //   const talentArr = Object.values(live.talents)
-  //   const talentUser = talentArr.reduce<User>((acc: User, talent: User) => {
-  //     const talentID = talent.uid
-  //     if (!(talentUID === talentID)) return acc
-  //     return { ...acc, [talentID]: talent }
-  //   }, defaultUser)
-  //   return talentUser
-  // }
-
   const getTalentByUID = (talentUID: string) => {
     const talents = live.talents
     return talents[talentUID]
+  }
+
+  const getAllActiveTalents: GetTalent = () => {
+    return live.activeTalents
+  }
+
+  const getActiveTalent = (index: number) => {
+    const activeTalent = Object.values(live.activeTalents)
+    return activeTalent[index]
+  }
+
+  const isActiveTalent = (talent: string) => {
+    return live.activeTalents[talent]?.uid === talent
   }
 
   return {
     live,
     getAllTalents,
     getTalentByUID,
+    getAllActiveTalents,
+    getActiveTalent,
+    isActiveTalent,
   }
 }
