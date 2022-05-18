@@ -41,10 +41,6 @@ const Routes = () => {
                   element: <Logo />,
                 },
                 {
-                  path: ":name",
-                  element: <TeamName />,
-                },
-                {
                   path: "player",
                   children: [
                     {
@@ -52,6 +48,10 @@ const Routes = () => {
                       element: <Player />,
                     },
                   ],
+                },
+                {
+                  path: ":name",
+                  element: <TeamName />,
                 },
               ],
             },
