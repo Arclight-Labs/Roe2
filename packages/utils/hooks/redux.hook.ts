@@ -313,6 +313,8 @@ export const useParticipants = () => {
 export const useLive = () => {
   const live = useAppSelector((s) => s.live)
 
+  const { invert } = live
+
   const getAllTalents: GetTalent = () => {
     return live.talents
   }
@@ -341,5 +343,6 @@ export const useLive = () => {
     getAllActiveTalents,
     getActiveTalent,
     isActiveTalent,
+    invert,
   }
 }
