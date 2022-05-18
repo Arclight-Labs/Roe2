@@ -25,7 +25,7 @@ const PlayerSelect: FC<PlayerSelectProps> = ({ team }) => {
       return (
         <Tooltip
           key={uid}
-          label={`${player.username}${type === "subs" && " (sub)"}`}
+          label={`${player.username}`}
           sx={{ opacity: isActive ? 1 : 0.5 }}
         >
           <Avatar
