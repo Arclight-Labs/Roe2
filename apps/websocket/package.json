@@ -1,6 +1,6 @@
 {
   "name": "websocket",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Websocket server used to communicate between the control and overlay",
   "main": "dist/index.js",
   "license": "MIT",
@@ -18,7 +18,7 @@
     "dotenv": "16.0.1",
     "interface": "*",
     "ip": "1.1.8",
-    "socket.io": "4.5.0"
+    "socket.io": "4.5.1"
   },
   "devDependencies": {
     "@types/ip": "1.1.0",
