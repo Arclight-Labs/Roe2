@@ -1,1 +1,1 @@
-export { default as default } from "./Lowerthirds.page"
+export { default as default } from "./Lowerthird.page"
