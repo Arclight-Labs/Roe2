@@ -32,6 +32,12 @@ export interface AdjText {
   text: string
 }
 
+export interface AdjImage {
+  URL: string
+  BASE64?: string
+  adj: AdjSize
+}
+
 export interface Schedule {
   matchId: string
   date: Date
@@ -62,7 +68,7 @@ export interface Ad {
   id: string
   headline: AdjText
   body: AdjText
-  adj: AdjSize
+  image: AdjImage
 }
 
 export interface AdWithPriority extends Ad {
