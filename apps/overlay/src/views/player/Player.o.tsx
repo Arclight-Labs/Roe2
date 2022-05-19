@@ -1,8 +1,7 @@
-import { useLive, useMatches, useParticipants } from "utils/hooks"
+import { useParticipants } from "utils/hooks"
 import { useParams } from "react-router-dom"
 import useRoom from "../../hooks/useRoom.hook"
 import { Image, Box } from "@mantine/core"
-import { useInverse } from "../../hooks/useInverse.hook"
 
 type Params = Record<"team" | "player", string>
 const Player = () => {
@@ -18,14 +17,14 @@ const Player = () => {
   const activePlayerB = Object.values(activeTeamBWithInvert.players).filter(
     (player) => player.isActive
   )
-  const activePlayer = params.team === "a" ? activePlayerA : activePlayerB
-  const playerIndex = +(params.player ?? 0)
+  const player = params.team === "a" ? activePlayerA : activePlayerB
+  const playerCode = +(params.player ?? 0)
   return (
-    <Box sx={{ height: 600, width: 600 }}>
+    <Box>
       <Image
-        src={activePlayer[playerIndex]?.photoURL}
-        height={600}
-        width={600}
+        src={player[playerCode]?.photoURL}
+        height={800}
+        width={800}
         fit="contain"
       />
     </Box>
