@@ -17,11 +17,13 @@ type AdjFormTextProps = Record<string, AdjText>
 interface AdjTextInputProps<T extends AdjFormTextProps = {}> {
   name: keyof T
   textInputProps?: TextInputProps
+  label?: string
   defaultSize?: number
 }
 const AdjTextInput = <T extends AdjFormTextProps>({
   name,
   textInputProps,
+  label,
   defaultSize = 32,
 }: AdjTextInputProps<T>) => {
   const [isDisabled, toggle] = useToggle(true, [false, true])
@@ -44,7 +46,11 @@ const AdjTextInput = <T extends AdjFormTextProps>({
 
   return (
     <Stack>
-      <TextInput {...textInputProps} {...register(`${name}.text`)} />
+      <TextInput
+        label={label}
+        {...textInputProps}
+        {...register(`${name}.text`)}
+      />
       <Group noWrap>
         <Switch
           checked={!isDisabled}

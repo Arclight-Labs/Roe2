@@ -33,11 +33,11 @@ const LowerthirdTickerForm = () => {
     <FormProvider {...formHandlers}>
       <form onSubmit={onSubmit}>
         <Stack spacing="xl">
-          <TextForm name="headline" textInputProps={{ label: "Headline" }} />
+          <TextForm name="headline" label="Headline" />
           <AdjTextarea
             name="scrollerText"
+            label="Ticker"
             textareaProps={{
-              label: "Ticker",
               minRows: 3,
               autosize: true,
               description: "Each line will be separated by '|' on stream",

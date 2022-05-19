@@ -16,11 +16,13 @@ type AdjFormTextProps = Record<string, AdjText>
 
 interface AdjTextareaProps<T extends AdjFormTextProps = {}> {
   name: keyof T
+  label?: string
   textareaProps?: TextareaProps
   defaultSize?: number
 }
 const AdjTextarea = <T extends AdjFormTextProps>({
   name,
+  label,
   textareaProps,
   defaultSize = 16,
 }: AdjTextareaProps<T>) => {
@@ -44,7 +46,11 @@ const AdjTextarea = <T extends AdjFormTextProps>({
 
   return (
     <Stack>
-      <Textarea {...textareaProps} {...register(`${name}.text`)} />
+      <Textarea
+        label={label}
+        {...textareaProps}
+        {...register(`${name}.text`)}
+      />
       <Group noWrap>
         <Switch
           checked={!isDisabled}
