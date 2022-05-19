@@ -1,6 +1,6 @@
 import { FunctionComponent, lazy, Suspense } from "react"
 import { Navigate, Outlet, useRoutes } from "react-router-dom"
-import Player from "../views/player/Player.o"
+import Schedules from "../views/schedule/Schedules.o"
 
 function Loadable<T extends object = {}>(Component: FunctionComponent<T>) {
   return (props: T) => {
@@ -12,9 +12,12 @@ function Loadable<T extends object = {}>(Component: FunctionComponent<T>) {
   }
 }
 
+const UpNext = Loadable(lazy(() => import("../views/upnext/UpNext.o")))
 const Logo = Loadable(lazy(() => import("../views/team/Logo.o")))
 const TeamName = Loadable(lazy(() => import("../views/team/TeamName.o")))
 const Talent = Loadable(lazy(() => import("../views/talent/Talent.o")))
+const Player = Loadable(lazy(() => import("../views/player/Player.o")))
+const Versus = Loadable(lazy(() => import("../views/versus/Versus.o")))
 
 const Routes = () => {
   return useRoutes([
@@ -29,6 +32,14 @@ const Routes = () => {
               element: <Talent />,
             },
           ],
+        },
+        {
+          path: "upnext",
+          element: <UpNext />,
+        },
+        {
+          path: "schedules",
+          element: <Schedules />,
         },
         {
           path: "team",
@@ -46,6 +57,15 @@ const Routes = () => {
                     {
                       path: ":player",
                       element: <Player />,
+                    },
+                  ],
+                },
+                {
+                  path: "versus",
+                  children: [
+                    {
+                      path: ":versus",
+                      element: <Versus />,
                     },
                   ],
                 },

@@ -8,6 +8,9 @@ import { MantineProvider } from "ui"
 import { BrowserRouter } from "react-router-dom"
 import { GreycliffCF } from "./fonts/GreyCliffCF/GreyCliffCF.font"
 import { Industry } from "./fonts/Industry/Industry.font"
+import { Avalanche } from "./fonts/Avalanche/Avalanche.font"
+import { DrukWide } from "./fonts/DrukWide/DrukWide.font"
+import { Roboto } from "./fonts/Roboto/Roboto.font"
 
 function App() {
   return (
@@ -22,6 +25,9 @@ function App() {
             >
               <Routes />
               {/* Add Fonts Here */}
+              <Roboto />
+              <DrukWide />
+              <Avalanche />
               <GreycliffCF />
               <Industry />
             </MantineProvider>
