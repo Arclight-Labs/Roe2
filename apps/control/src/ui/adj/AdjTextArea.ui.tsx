@@ -26,7 +26,7 @@ const AdjTextarea = <T extends AdjFormTextProps>({
   textareaProps,
   defaultSize = 16,
 }: AdjTextareaProps<T>) => {
-  const [isDisabled, toggle] = useToggle(true, [false, true])
+  const [isDisabled, toggle] = useToggle(false, [false, true])
   const { register, setValue, watch } = useFormContext<AdjFormTextProps>()
   const onChange: SliderProps["onChange"] = (value) => {
     setValue(`${name}.size`, value)

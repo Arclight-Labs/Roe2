@@ -76,7 +76,7 @@ export interface AdWithPriority extends Ad {
 }
 
 export interface AdPool {
-  ads: AdWithPriority[]
+  ads: Record<string, AdWithPriority>
   transitionDuration: number
   duration: number
 }

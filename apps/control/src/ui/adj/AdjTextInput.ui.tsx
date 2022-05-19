@@ -26,7 +26,7 @@ const AdjTextInput = <T extends AdjFormTextProps>({
   label,
   defaultSize = 32,
 }: AdjTextInputProps<T>) => {
-  const [isDisabled, toggle] = useToggle(true, [false, true])
+  const [isDisabled, toggle] = useToggle(false, [false, true])
   const { register, setValue, watch } = useFormContext<AdjFormTextProps>()
   const onChange: SliderProps["onChange"] = (value) => {
     setValue(`${name}.size`, value)
