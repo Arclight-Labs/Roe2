@@ -6,7 +6,6 @@ import { useInverse } from "../../hooks/useInverse.hook"
 
 type Params = Record<"team", string>
 const Logo = () => {
-  // add this to every overlay page
   useRoom()
   const params = useParams<Params>()
   const { chalTeams } = useParticipants()

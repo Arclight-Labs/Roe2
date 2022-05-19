@@ -1,5 +1,6 @@
 import { FunctionComponent, lazy, Suspense } from "react"
 import { Navigate, Outlet, useRoutes } from "react-router-dom"
+import Schedules from "../views/schedule/Schedules.o"
 
 function Loadable<T extends object = {}>(Component: FunctionComponent<T>) {
   return (props: T) => {
@@ -34,6 +35,10 @@ const Routes = () => {
         {
           path: "upnext",
           element: <UpNext />,
+        },
+        {
+          path: "schedules",
+          element: <Schedules />,
         },
         {
           path: "team",

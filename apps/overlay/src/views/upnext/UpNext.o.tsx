@@ -11,12 +11,9 @@ import {
   Center,
   Container,
 } from "@mantine/core"
-type Params = Record<"talent", string>
 
 const UpNext = () => {
-  // add this to every overlay page
   useRoom()
-  const params = useParams<Params>()
   const { chalTeams } = useParticipants()
   const { nextMatch } = useMatches()
   const teamA = nextMatch?.["teamA"].id || ""
@@ -27,9 +24,6 @@ const UpNext = () => {
   return (
     <Group sx={{ marginLeft: "5rem" }}>
       <Box sx={{ height: 700, width: 700 }}>
-        {/* <Image src={team?.logo} height={600} width={600} fit="contain" /> */}
-
-        {/* <Image src={talent?.avatar} height={100} width={100} fit="contain" /> */}
         <Grid>
           <Grid.Col span={4}>
             <Center>
