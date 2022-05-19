@@ -5,10 +5,9 @@ import { Image, Box, Text } from "@mantine/core"
 
 type Params = Record<"talent", string>
 
-const Talent = () => {
+const Schedule = () => {
   useRoom()
   const params = useParams<Params>()
-
   const { getActiveTalent } = useLive()
   const talentIndex = +(params.talent ?? 0)
   const talent = getActiveTalent(talentIndex)
@@ -24,4 +23,4 @@ const Talent = () => {
     </Box>
   )
 }
-export default Talent
+export default Schedule

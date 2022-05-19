@@ -1,14 +1,14 @@
 import { Global } from "@mantine/core"
-import medium from "./Roboto-Medium.woff"
+import bold from "./Druk-Wide-Bold.ttf"
 
-export function Roboto() {
+export function DrukWide() {
   return (
     <Global
       styles={[
         {
           "@font-face": {
-            fontFamily: "Roboto",
-            src: `url('${medium}') format("ttf")`,
+            fontFamily: "DrukWide",
+            src: `url('${bold}') format("ttf")`,
           },
         },
       ]}
