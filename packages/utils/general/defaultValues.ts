@@ -76,6 +76,7 @@ export const defaultAdjText: AdjText = { size: 0, text: "" }
 export const defaultAdjSize: AdjSize = { h: 0, w: 0, scale: 0, x: 0, y: 0 }
 
 export const defaultAd: Ad = {
+  id: "",
   body: defaultAdjText,
   adj: defaultAdjSize,
   headline: defaultAdjText,
@@ -101,7 +102,7 @@ export const defaultTicker: Ticker = {
 
 export const defaultLowerthird: Lowerthird = {
   data: {
-    ad: defaultAd,
+    ad: "",
     adPool: defaultAdPool,
     matchPoll: defaultMatchPoll,
     ticker: defaultTicker,

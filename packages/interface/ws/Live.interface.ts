@@ -46,7 +46,7 @@ export interface Lowerthird {
 
 export interface LowerthirdData {
   ticker: Ticker
-  ad: Ad
+  ad: string
   adPool: AdPool
   matchPoll: MatchPoll
 }
@@ -59,6 +59,7 @@ export interface Ticker {
 }
 
 export interface Ad {
+  id: string
   headline: AdjText
   body: AdjText
   adj: AdjSize
