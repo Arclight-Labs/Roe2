@@ -3,6 +3,7 @@ import { SanitizedParticipant, SanitizedSeries } from "interface/waypoint"
 import { Broadcast, Live, Lowerthird } from "interface/ws"
 import {
   Ad,
+  AdjImage,
   AdjSize,
   AdjText,
   AdPool,
@@ -72,12 +73,12 @@ export const defaultBroadcast: Broadcast = {
 }
 
 export const defaultAdjText: AdjText = { size: 0, text: "" }
-
 export const defaultAdjSize: AdjSize = { h: 0, w: 0, scale: 0, x: 0, y: 0 }
-
+export const defaultAdjImage: AdjImage = { URL: "", adj: defaultAdjSize }
 export const defaultAd: Ad = {
+  id: "",
   body: defaultAdjText,
-  adj: defaultAdjSize,
+  image: defaultAdjImage,
   headline: defaultAdjText,
 }
 
@@ -101,7 +102,7 @@ export const defaultTicker: Ticker = {
 
 export const defaultLowerthird: Lowerthird = {
   data: {
-    ad: defaultAd,
+    ad: "",
     adPool: defaultAdPool,
     matchPoll: defaultMatchPoll,
     ticker: defaultTicker,

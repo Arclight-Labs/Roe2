@@ -16,6 +16,20 @@ export type {
   Broadcast,
 } from "./WebsocketStore.interface"
 
-export type { Live, Lowerthird, Schedule } from "./Live.interface"
+export type {
+  Live,
+  Lowerthird,
+  Schedule,
+  Ad,
+  AdPool,
+  AdjImage,
+  AdjSize,
+  AdjText,
+  LowerthirdData,
+  MatchPoll,
+  MatchPollItem,
+  Shoutout,
+  Ticker,
+} from "./Live.interface"
 
 export * as Payload from "./Payload.interface"

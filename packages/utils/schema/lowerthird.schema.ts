@@ -13,6 +13,12 @@ export const adjSizeSchema = z.object({
   scale: z.number().default(0),
 })
 
+export const adjImageSchema = z.object({
+  URL: z.string(),
+  BASE64: z.string().optional(),
+  adj: adjSizeSchema,
+})
+
 // --------
 
 export const tickerSchema = z.object({
@@ -23,7 +29,7 @@ export const tickerSchema = z.object({
 export const adSchema = z.object({
   headline: adjTextSchema,
   body: adjTextSchema,
-  adj: adjSizeSchema,
+  image: adjImageSchema,
   priority: z.number().optional(),
 })
 

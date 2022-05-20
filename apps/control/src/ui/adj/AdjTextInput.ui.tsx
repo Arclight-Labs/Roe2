@@ -14,16 +14,20 @@ import { useFormContext } from "react-hook-form"
 
 type AdjFormTextProps = Record<string, AdjText>
 
-interface AdjTextFormProps<T extends AdjFormTextProps = {}> {
+interface AdjTextInputProps<T extends AdjFormTextProps = {}> {
   name: keyof T
   textInputProps?: TextInputProps
+  label?: string
+  defaultSize?: number
 }
-const AdjTextForm = <T extends AdjFormTextProps>({
+const AdjTextInput = <T extends AdjFormTextProps>({
   name,
   textInputProps,
-}: AdjTextFormProps<T>) => {
-  const [disabled, toggle] = useToggle(false, [false, true])
-  const { register, setValue } = useFormContext<AdjFormTextProps>()
+  label,
+  defaultSize = 32,
+}: AdjTextInputProps<T>) => {
+  const [isDisabled, toggle] = useToggle(false, [false, true])
+  const { register, setValue, watch } = useFormContext<AdjFormTextProps>()
   const onChange: SliderProps["onChange"] = (value) => {
     setValue(`${name}.size`, value)
   }
@@ -32,23 +36,33 @@ const AdjTextForm = <T extends AdjFormTextProps>({
     target: { checked },
   }) => {
     if (checked) {
-      toggle(true)
-      setValue(`${name}.size`, 32)
+      setValue(`${name}.size`, defaultSize)
+      toggle(false)
       return
     }
-    toggle(false)
     setValue(`${name}.size`, 0)
+    toggle(true)
   }
 
   return (
     <Stack>
-      <TextInput {...textInputProps} {...register(`${name}.text`)}>
-        AdjTextForm
-      </TextInput>
+      <TextInput
+        label={label}
+        {...textInputProps}
+        {...register(`${name}.text`)}
+      />
       <Group noWrap>
-        <Switch onChange={onToggle} />
+        <Switch
+          checked={!isDisabled}
+          onChange={onToggle}
+          label="Custom font size?"
+        />
         <Slider
-          disabled={disabled}
+          sx={{ flex: 1 }}
+          min={8}
+          max={200}
+          value={watch(`${name}.size`)}
+          disabled={isDisabled}
           onChange={onChange}
           label={(value) => `${value}px`}
         />
@@ -57,4 +71,4 @@ const AdjTextForm = <T extends AdjFormTextProps>({
   )
 }
 
-export default AdjTextForm
+export default AdjTextInput

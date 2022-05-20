@@ -346,3 +346,21 @@ export const useLive = () => {
     invert,
   }
 }
+
+export const useLt = () => {
+  const {
+    live: { lt },
+  } = useLive()
+  const { mode, show, data } = lt
+  const { ticker, ad, adPool, matchPoll } = data
+
+  return {
+    lt,
+    mode,
+    show,
+    ticker,
+    ad,
+    adPool,
+    matchPoll,
+  }
+}
