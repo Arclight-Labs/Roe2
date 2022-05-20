@@ -26,9 +26,9 @@ const Versus = () => {
         <Text
           sx={{
             fontFamily: "Avalanche",
-            fontSize: 80,
+            fontSize: 70,
             color: "#ffd200",
-            marginTop: "26rem",
+            marginTop: "26.8rem",
           }}
         >
           {player[playerCode]?.username}
