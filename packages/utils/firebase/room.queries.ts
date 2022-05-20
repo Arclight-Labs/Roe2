@@ -19,7 +19,6 @@ import { RoomRequestAccess } from "interface/db/Room.interface"
 import { Broadcast as Broadcast } from "interface/ws"
 import { RoomModel } from "../models/Room.model"
 import { db } from "./firebase.instance"
-import { getUserRef } from "./user.queries"
 
 export type RoomUpdateData = PartialWithFieldValue<Room>
 
@@ -32,13 +31,22 @@ export const roomFC: FirestoreDataConverter<RoomModel> = {
   },
 }
 
+export const broadcastFC: FirestoreDataConverter<Broadcast> = {
+  fromFirestore(snap: QueryDocumentSnapshot<Broadcast>, options) {
+    return snap.data(options)
+  },
+  toFirestore(data: PartialWithFieldValue<Broadcast>) {
+    return data
+  },
+}
+
 export const getRoomRef = (roomId: string) => {
   return doc(db, "rooms", roomId).withConverter(roomFC)
 }
 
 export const getBroadcastRef = (roomId: string) => {
   const path = `rooms/${roomId}/live/broadcast`
-  return doc(db, path) as DocumentReference<Broadcast>
+  return doc(db, path).withConverter(broadcastFC)
 }
 
 export const getBroadcastData = async (roomId: string) => {

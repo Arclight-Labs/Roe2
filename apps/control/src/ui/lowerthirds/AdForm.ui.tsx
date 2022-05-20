@@ -3,13 +3,19 @@ import { Button, Divider, Group, LoadingOverlay, Stack } from "@mantine/core"
 import { nanoid } from "@reduxjs/toolkit"
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
 import { FilePreview } from "interface"
-import { Ad } from "interface/ws/Live.interface"
+import {
+  Ad,
+  AdPool,
+  Live,
+  Lowerthird,
+  LowerthirdData,
+} from "interface/ws/Live.interface"
 import { FC, FormEventHandler, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import { storage } from "utils/firebase"
 import { useLt } from "utils/hooks"
 import { RoomModel } from "utils/models/Room.model"
-import { adSchema } from "utils/schema/lowerthird.schema"
+import { AdSchema, adSchema } from "utils/schema/lowerthird.schema"
 import { setLive } from "utils/socket/events"
 import { useAuth } from "../../context/auth/Auth.hooks"
 import { useBSave } from "../../context/bsave/bsave.hook"
@@ -31,23 +37,27 @@ const AdForm: FC<AdFormProps> = ({ ad: { id, ...ad }, afterSubmit }) => {
   const bSave = useBSave()
   const [uploading, setUploading] = useState(false)
   const [preview, setPreview] = useState<FilePreview>(new FilePreview())
-  const handlers = useForm({
+  const handlers = useForm<AdSchema>({
     defaultValues: ad,
     resolver: zodResolver(adSchema),
   })
+  const isEdit = !!id
   const adId = id || nanoid(6)
   const { handleSubmit, setValue } = handlers
 
   const save = (saveData?: boolean) =>
     handleSubmit((data) => {
-      const newAdPoolAds = {
-        ...lt.data.adPool.ads,
-        [adId]: { ...data, id: adId },
-      }
-      const newAdPool = { ...lt.data.adPool, ads: newAdPoolAds }
-      const newLtData = { ...lt.data, adPool: newAdPool }
-      const newLt = { ...lt, data: newLtData }
-      const newData = { lt: newLt }
+      const currentAds = lt.data.adPool.ads
+      const newAdPoolAds = !isEdit
+        ? [...currentAds]
+        : currentAds.map((adItem) => {
+            return id === adItem.id ? { ...adItem, ...data } : adItem
+          })
+
+      const newAdPool: AdPool = { ...lt.data.adPool, ads: newAdPoolAds }
+      const newLtData: LowerthirdData = { ...lt.data, adPool: newAdPool }
+      const newLt: Lowerthird = { ...lt, data: newLtData }
+      const newData: Partial<Live> = { lt: newLt }
       setLive(newData)
       if (saveData) {
         bSave(newData)
@@ -75,8 +85,10 @@ const AdForm: FC<AdFormProps> = ({ ad: { id, ...ad }, afterSubmit }) => {
     }
 
   const onDelete = () => {
-    const { [id]: omitted, ...newAdPoolAds } = lt.data.adPool.ads
-    const newAdPool = { ...lt.data.adPool, ads: newAdPoolAds }
+    const newAdPoolAds = lt.data.adPool.ads.filter(
+      (adItem) => adItem.id !== adId
+    )
+    const newAdPool = { ...lt.data.adPool, adMap: newAdPoolAds }
     const newLtData = { ...lt.data, adPool: newAdPool }
     const newLt = { ...lt, data: newLtData }
     const newData = { lt: newLt }
@@ -100,7 +112,7 @@ const AdForm: FC<AdFormProps> = ({ ad: { id, ...ad }, afterSubmit }) => {
           <AdjTextInput name="headline" label="Headline" />
           <AdjTextarea name="body" label="Body" />
           <Group noWrap position="right">
-            {id && (
+            {isEdit && (
               <Confirm onConfirm={onDelete}>
                 <Button size="xs" color="red">
                   Delete

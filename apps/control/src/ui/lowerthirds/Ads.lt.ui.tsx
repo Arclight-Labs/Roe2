@@ -11,7 +11,6 @@ const LowerthirdAds = () => {
   const [create, toggler] = useToggle(false, [false, true])
   const close = () => toggler(false)
   const toggle = () => toggler()
-  const adPoolEntries = Object.entries(adPool.ads)
 
   return (
     <Stack mt="lg">
@@ -22,8 +21,8 @@ const LowerthirdAds = () => {
         </ActionIcon>
       </Group>
       <Stack>
-        {adPoolEntries.map(([id, ad]) => (
-          <AdCard key={id} ad={ad} />
+        {adPool.ads.map((ad) => (
+          <AdCard key={ad.id} ad={ad} />
         ))}
       </Stack>
       <AdModal opened={create} onClose={close} ad={defaultAd} />

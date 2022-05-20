@@ -83,7 +83,7 @@ export const defaultAd: Ad = {
 }
 
 export const defaultAdPool: AdPool = {
-  ads: {},
+  ads: [],
   duration: 5000,
   transitionDuration: 300,
 }
