@@ -6,14 +6,18 @@ import {
   Menu,
   Stack,
   Text,
+  ThemeIcon,
   Title,
   Tooltip,
 } from "@mantine/core"
 import { useToggle } from "@mantine/hooks"
 import { Ad } from "interface/ws/Live.interface"
 import { FC } from "react"
-import { Eye, EyeOff, Pencil } from "tabler-icons-react"
+import { Check, Eye, EyeOff, Pencil } from "tabler-icons-react"
 import { adjImageStyles, defaultAdjImage } from "utils/general"
+import { useLt } from "utils/hooks"
+import { setLive } from "utils/socket/events"
+import { useBSave } from "../../context/bsave/bsave.hook"
 import AdModal from "./AdModal.ui"
 
 interface AdCardProps {
@@ -24,9 +28,26 @@ const AdCard: FC<AdCardProps> = ({ ad }) => {
   const [open, toggler] = useToggle(false, [false, true])
   const toggle = () => toggler()
   const close = () => toggler(false)
+  const { ad: ltAd, lt } = useLt()
+  const bSave = useBSave()
+
+  const isActive = ltAd === ad.id
+
+  const setAd = (value: string) => () => {
+    const newLtData = { ...lt.data, ad: value }
+    const newLt = { ...lt, data: newLtData }
+    const saveData = { lt: newLt }
+    setLive(saveData)
+    bSave?.(saveData)
+  }
   return (
     <Card sx={{ overflow: "visible" }}>
       <Group spacing={5} sx={{ position: "absolute", top: 10, right: 10 }}>
+        {isActive && (
+          <ThemeIcon variant="light">
+            <Check size={18} />
+          </ThemeIcon>
+        )}
         <Tooltip label="Preview" withArrow>
           <ActionIcon onClick={() => togglePreview()}>
             {preview ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -36,6 +57,19 @@ const AdCard: FC<AdCardProps> = ({ ad }) => {
           <Menu.Item onClick={toggle} icon={<Pencil size={18} />}>
             Edit
           </Menu.Item>
+          {!isActive ? (
+            <Menu.Item onClick={setAd(ad.id)} icon={<Pencil size={18} />}>
+              Set as active
+            </Menu.Item>
+          ) : (
+            <Menu.Item
+              onClick={setAd("")}
+              icon={<Pencil size={18} />}
+              color="red"
+            >
+              Unset as active
+            </Menu.Item>
+          )}
         </Menu>
       </Group>
       <Group noWrap align="center">
