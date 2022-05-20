@@ -1,39 +1,5 @@
 import { Err, functions, twitterAxios } from "../admin"
-
-export interface Result {
-  data: Tweet[]
-  includes: Includes
-  meta: Meta
-}
-
-export interface Tweet {
-  text: string
-  created_at: string
-  id: string
-  author_id: string
-  attachments?: Attachments
-}
-
-export interface Attachments {
-  media_keys: string[]
-}
-
-export interface Includes {
-  users: User[]
-}
-
-export interface User {
-  id: string
-  name: string
-  username: string
-}
-
-export interface Meta {
-  newest_id: string
-  oldest_id: string
-  result_count: number
-}
-
+import { TweetSearchResults } from "interface/utils/Twitter.interface"
 interface Props {
   search: string
 }
@@ -46,13 +12,50 @@ export const twitterAPI = functions
 
     const api = await twitterAxios()
     const path = "/tweets/search/recent"
-    const query = encodeURI(`${props.search} -is:retweet`)
-    const fields = "attachments,id,text,created_at,author_id"
+    const query = `${encodeURI(props.search)} -is:retweet`
+    const tweetFields = "attachments,id,text,created_at,author_id"
+    const userFields = "id,name,username,profile_image_url"
+    const mediaFields = "type,url"
     const max_results = 100
-    const expands = "author_id"
+    const expansions = "author_id,attachments.media_keys"
     const config = {
-      params: { twitter: { fields, query }, max_results, expands },
+      params: {
+        "tweet.fields": tweetFields,
+        "user.fields": userFields,
+        "media.fields": mediaFields,
+        query,
+        max_results,
+        expansions,
+      },
     }
-    const { data } = await api.get<Result>(path, config)
-    return data
+    try {
+      const { data } = await api.get<TweetSearchResults>(path, config)
+
+      const entries = data.data.map((tweet) => {
+        const users = data.includes.users
+        const user = users.find((user) => user.id === tweet.author_id) || null
+        if (user) {
+          user.profile_image_url = user.profile_image_url.replace("_normal", "")
+        }
+        const mediaList = data.includes.media
+        const mediaKeys = tweet.attachments?.media_keys ?? []
+        const text = tweet.text.replace(/https:\/\/t\.co\/.*/, "").trim()
+        // reduce to array of photo urls
+        const images = mediaKeys?.reduce<string[]>((acc, key) => {
+          const media = mediaList.find((m) => m.media_key === key)
+          if (media?.type === "photo") {
+            return [...acc, media.url]
+          }
+          return acc
+        }, [])
+        const newTweet = { ...tweet, user, images, text }
+        return [tweet.id, newTweet]
+      })
+      return Object.fromEntries(entries)
+    } catch (e) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const err = (e as any)?.response?.data?.errors
+      console.error(err)
+      throw new Err("internal", "Internal Server Error", err)
+    }
   })
