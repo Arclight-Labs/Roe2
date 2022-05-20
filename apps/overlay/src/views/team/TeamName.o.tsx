@@ -34,11 +34,11 @@ const TeamName = () => {
 
   const font = QueryFont[query.get("font") ?? "industry"]
   const fontColor = QueryColor[query.get("color") ?? "black"]
-
+  const fontSize = +(query.get("size") ?? 120)
   return (
-    <Box sx={{ height: 600, width: 600 }}>
+    <Box sx={{ height: 600, width: 2000 }}>
       {/* <Image src={team?.logo} height={600} width={600} fit="contain" /> */}
-      <Text sx={{ fontFamily: font, fontSize: 120, color: fontColor }}>
+      <Text sx={{ fontFamily: font, fontSize: fontSize, color: fontColor }}>
         {team?.[teamCode]}
       </Text>
     </Box>
