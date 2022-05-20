@@ -19,14 +19,16 @@ import {
   Dots,
   Minus,
   Select,
+  UserPlus,
 } from "tabler-icons-react"
+import { getMatches, getParticipants } from "utils/axios"
 import {
   getTournament,
   ShallowTournament,
 } from "utils/axios/tournament.queries"
 import { useMatches, useParticipants, useTournament } from "utils/hooks"
 import { useWsAction } from "utils/socket"
-import { tournament } from "utils/socket/events"
+import { useBSave } from "../../context/bsave/bsave.hook"
 import { useRoom } from "../../context/room/Room.hooks"
 import { usePermission } from "../../hooks/usePermission.hook"
 import Confirm from "../popups/Confirm.ui"
@@ -46,6 +48,7 @@ const TournamentCard = ({ id, logo, name, org }: TournamentCardProps) => {
     matches: setMatches,
   } = useWsAction()
   const theme = useMantineTheme()
+  const bSave = useBSave()
 
   const selectTournament = async () => {
     close()
@@ -112,6 +115,32 @@ const TournamentCard = ({ id, logo, name, org }: TournamentCardProps) => {
     setLoading(false)
   }
 
+  const addParticipants = async () => {
+    setLoading(true)
+    const res = await getParticipants(id)
+    const resEntries = Object.entries(res)
+    const addedParticipants = resEntries.reduce<SanitizedParticipantMap>(
+      (acc, [teamId, team]) => {
+        if (currentParticipants[teamId]) return acc
+        return { ...acc, [teamId]: team }
+      },
+      {}
+    )
+    const newParticipants = { ...currentParticipants, ...addedParticipants }
+    setParticipants(newParticipants)
+    bSave({ participants: newParticipants })
+    setLoading(false)
+  }
+
+  const addMatches = async () => {
+    setLoading(true)
+    const res = await getMatches(id)
+    const newMatches = { ...currentMatches, ...res }
+    setMatches(newMatches)
+    bSave({ matches: newMatches })
+    setLoading(false)
+  }
+
   const isSelected = tournament.id === id
   const isExtension = !!(tournament.extends ?? {})[id]
   const shadow = isSelected ? "lg" : "md"
@@ -165,6 +194,8 @@ const TournamentCard = ({ id, logo, name, org }: TournamentCardProps) => {
                 <Confirm
                   sx={{ width: "100%" }}
                   onConfirm={addToMultiTournament}
+                  title="⚠️ Warning"
+                  message="This will replace all participant and matches"
                 >
                   <Menu.Item
                     sx={{ width: "100%" }}
@@ -174,6 +205,12 @@ const TournamentCard = ({ id, logo, name, org }: TournamentCardProps) => {
                   </Menu.Item>
                 </Confirm>
               ))}
+            <Menu.Item onClick={addParticipants} icon={<UserPlus size={18} />}>
+              Add Participants
+            </Menu.Item>
+            <Menu.Item onClick={addMatches} icon={<CirclePlus size={18} />}>
+              Add Mathces
+            </Menu.Item>
           </Menu>
         </Group>
         <Stack spacing={0}>

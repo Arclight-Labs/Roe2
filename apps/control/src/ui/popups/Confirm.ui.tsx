@@ -47,7 +47,7 @@ const Confirm: FC<ConfirmProps> = ({
       <Stack sx={{ maxWidth: 300 }}>
         <Text size="sm">{message || "Are you sure?"}</Text>
         <Group position="apart">
-          <Button {...ButtonProps} onClick={confirm}>
+          <Button size="xs" {...ButtonProps} onClick={confirm}>
             Confirm
           </Button>
         </Group>

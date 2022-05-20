@@ -1,19 +1,32 @@
 import {
+  ActionIcon,
   Card,
   CardProps,
   Group,
+  Loader,
   Stack,
   Text,
   ThemeIcon,
   Title,
   Tooltip,
 } from "@mantine/core"
+import { PartialWithFieldValue } from "firebase/firestore"
 import { SanitizedSeries } from "interface/waypoint"
-import { useState } from "react"
-import { ListDetails, PlayerTrackNext, Select } from "tabler-icons-react"
+import { Broadcast } from "interface/ws"
+import { MouseEventHandler, useState } from "react"
+import {
+  ListDetails,
+  PlayerTrackNext,
+  Refresh,
+  Select,
+} from "tabler-icons-react"
+import { getMatch } from "utils/axios"
 import { tbd } from "utils/general"
-import { useMatches, useParticipants } from "utils/hooks"
+import { useMatches, useParticipants, useTournament } from "utils/hooks"
+import { setMatch } from "utils/socket/events"
+import { useBSave } from "../../context/bsave/bsave.hook"
 import { usePermission } from "../../hooks/usePermission.hook"
+import Confirm from "../popups/Confirm.ui"
 import MatchBadges from "./MatchBadges.ui"
 import MatchCardTeam from "./MatchCardTeam.ui"
 import MatchMenu from "./MatchMenu"
@@ -32,6 +45,9 @@ const MatchCard = ({ match, small, ...props }: MatchCardProps) => {
   const [opened, setOpened] = useState(false)
   const open = () => setOpened(true)
   const close = () => setOpened(false)
+  const { id: tournamentId } = useTournament()
+  const [loading, setLoading] = useState(false)
+  const bSave = useBSave()
 
   const aChalId = teamA.id
   const bChalId = teamB.id
@@ -42,6 +58,20 @@ const MatchCard = ({ match, small, ...props }: MatchCardProps) => {
   const aLoser = aChalId !== winnerId
 
   const scores = getFinalScore(match)
+
+  const refreshMatch: MouseEventHandler<HTMLButtonElement> = async (e) => {
+    e.stopPropagation()
+    setLoading(true)
+    const matchId = `${match.id}`
+    const res = await getMatch(tournamentId, `${match.id}`)
+    const newMatch = { ...match, scores: res.scores }
+    const newData: PartialWithFieldValue<Broadcast> = {
+      [`matches.${match.id}`]: newMatch,
+    }
+    setMatch(matchId, res)
+    bSave(newData)
+    setLoading(false)
+  }
 
   return (
     <>
@@ -57,6 +87,11 @@ const MatchCard = ({ match, small, ...props }: MatchCardProps) => {
           sx={{ top: 2, right: 2, position: "absolute" }}
         >
           <MatchBadges matchId={match.id} />
+          <Tooltip label="Refresh scores">
+            <ActionIcon onClick={refreshMatch} disabled={loading}>
+              {loading ? <Loader size={18} /> : <Refresh size={18} />}
+            </ActionIcon>
+          </Tooltip>
           <MatchMenu match={match} open={open} />
         </Group>
 
