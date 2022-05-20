@@ -15,10 +15,10 @@ const Talent = () => {
 
   return (
     <Box sx={{ height: 600, width: 600 }}>
-      <Text sx={{ fontFamily: "Industry", fontSize: 40 }}>
+      <Text sx={{ fontFamily: "Industry", fontSize: 120 }}>
         {talent?.username}
       </Text>
-      <Text sx={{ fontFamily: "Roboto", fontSize: 20 }}>
+      <Text sx={{ fontFamily: "Roboto", fontSize: 70 }}>
         @{talent?.socialHandle}
       </Text>
     </Box>

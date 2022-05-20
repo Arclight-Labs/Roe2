@@ -38,7 +38,7 @@ const TeamName = () => {
   return (
     <Box sx={{ height: 600, width: 600 }}>
       {/* <Image src={team?.logo} height={600} width={600} fit="contain" /> */}
-      <Text sx={{ fontFamily: font, fontSize: 40, color: fontColor }}>
+      <Text sx={{ fontFamily: font, fontSize: 120, color: fontColor }}>
         {team?.[teamCode]}
       </Text>
     </Box>
