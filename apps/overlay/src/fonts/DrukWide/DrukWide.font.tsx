@@ -1,5 +1,5 @@
 import { Global } from "@mantine/core"
-import bold from "./Druk-Wide-Bold.ttf"
+import bold from "./Druk-Wide-Bold.woff"
 
 export function DrukWide() {
   return (
@@ -8,7 +8,7 @@ export function DrukWide() {
         {
           "@font-face": {
             fontFamily: "DrukWide",
-            src: `url('${bold}') format("ttf")`,
+            src: `url('${bold}') format("woff")`,
           },
         },
       ]}
