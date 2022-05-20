@@ -7,16 +7,9 @@ import { defaultSeries } from "utils/general"
 import { QueryColor, QueryFont } from "../../utils/queryParams"
 import { useQuery } from "../../utils/useQuery"
 
-type TeamCode =
-  | "shortcode"
-  | "name"
-  | "shortname"
-  | "schoolShortcode"
-  | "school"
+type Params = Record<"team" | "score", string>
 
-type Params = Record<"team" | "name", string>
-
-const TeamName = () => {
+const Score = () => {
   // add this to every overlay page
   useRoom()
   const params = useParams<Params>()
@@ -26,12 +19,9 @@ const TeamName = () => {
   const isInversed = useInverse()
   const teamSide = isInversed(params.team === "a" ? "teamA" : "teamB")
   const teamSideLetter = teamSide === "teamA" ? "a" : "b"
-  const teamCode = params.name as TeamCode
   const teamId = activeMatch?.[teamSide].id || ""
-  const team = chalTeams[teamId]
   const teamScore = getScore(activeMatch ?? defaultSeries)?.[teamSideLetter]
     .scores
-
   const font = QueryFont[query.get("font") ?? "industry"]
   const fontColor = QueryColor[query.get("color") ?? "black"]
 
@@ -39,9 +29,9 @@ const TeamName = () => {
     <Box sx={{ height: 600, width: 600 }}>
       {/* <Image src={team?.logo} height={600} width={600} fit="contain" /> */}
       <Text sx={{ fontFamily: font, fontSize: 40, color: fontColor }}>
-        {team?.[teamCode]}
+        {teamScore}
       </Text>
     </Box>
   )
 }
-export default TeamName
+export default Score
