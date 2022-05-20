@@ -15,6 +15,7 @@ type TeamCode =
   | "school"
 
 type Params = Record<"team" | "name", string>
+type alignType = "left" | "center" | "right" | undefined
 
 const TeamName = () => {
   // add this to every overlay page
@@ -31,14 +32,18 @@ const TeamName = () => {
   const team = chalTeams[teamId]
   const teamScore = getScore(activeMatch ?? defaultSeries)?.[teamSideLetter]
     .scores
-
   const font = QueryFont[query.get("font") ?? "industry"]
   const fontColor = QueryColor[query.get("color") ?? "black"]
+  const fontSize = +(query.get("size") ?? 100)
+  const align = query.get("align") ?? "left"
 
   return (
-    <Box sx={{ height: 600, width: 600 }}>
+    <Box sx={{ height: 600, width: 1500 }}>
       {/* <Image src={team?.logo} height={600} width={600} fit="contain" /> */}
-      <Text sx={{ fontFamily: font, fontSize: 120, color: fontColor }}>
+      <Text
+        sx={{ fontFamily: font, fontSize: fontSize, color: fontColor }}
+        align={align as alignType}
+      >
         {team?.[teamCode]}
       </Text>
     </Box>
