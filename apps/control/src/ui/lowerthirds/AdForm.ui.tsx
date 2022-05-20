@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Button, Divider, LoadingOverlay, Stack } from "@mantine/core"
+import { Button, Divider, Group, LoadingOverlay, Stack } from "@mantine/core"
 import { nanoid } from "@reduxjs/toolkit"
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
 import { FilePreview } from "interface"
@@ -17,6 +17,7 @@ import { useRoom } from "../../context/room/Room.hooks"
 import AdjImageDropzone from "../adj/AdjImageDropzone.ui"
 import AdjTextarea from "../adj/AdjTextArea.ui"
 import AdjTextInput from "../adj/AdjTextInput.ui"
+import Confirm from "../popups/Confirm.ui"
 
 interface AdFormProps {
   ad: Ad
@@ -37,40 +38,56 @@ const AdForm: FC<AdFormProps> = ({ ad: { id, ...ad }, afterSubmit }) => {
   const adId = id || nanoid(6)
   const { handleSubmit, setValue } = handlers
 
-  const save = handleSubmit((data) => {
-    const newAdPoolAds = {
-      ...lt.data.adPool.ads,
-      [adId]: { ...data, id: adId },
+  const save = (saveData?: boolean) =>
+    handleSubmit((data) => {
+      const newAdPoolAds = {
+        ...lt.data.adPool.ads,
+        [adId]: { ...data, id: adId },
+      }
+      const newAdPool = { ...lt.data.adPool, ads: newAdPoolAds }
+      const newLtData = { ...lt.data, adPool: newAdPool }
+      const newLt = { ...lt, data: newLtData }
+      const newData = { lt: newLt }
+      setLive(newData)
+      if (saveData) {
+        bSave(newData)
+        afterSubmit?.()
+      }
+    }, console.error)
+
+  const uploadAndSubmit =
+    (saveData?: boolean): FormEventHandler =>
+    async (e) => {
+      e.preventDefault()
+      if (!auth) return
+
+      const roomRef = room ? room.ref() : RoomModel.create()
+      if (!preview.file) return save(saveData)(e)
+
+      setUploading(true)
+      const uploadPath = `public/user/${auth.uid}/room/${roomRef.id}/avatar`
+      const uploadRef = ref(storage, uploadPath)
+      const snap = await uploadBytes(uploadRef, preview.file)
+      const downloadUrl = await getDownloadURL(snap.ref)
+      setValue("image.URL", downloadUrl)
+      setUploading(false)
+      save(saveData)(e)
     }
+
+  const onDelete = () => {
+    const { [id]: omitted, ...newAdPoolAds } = lt.data.adPool.ads
     const newAdPool = { ...lt.data.adPool, ads: newAdPoolAds }
     const newLtData = { ...lt.data, adPool: newAdPool }
     const newLt = { ...lt, data: newLtData }
-    const saveData = { lt: newLt }
-    setLive(saveData)
-    bSave(saveData)
+    const newData = { lt: newLt }
+    setLive(newData)
+    bSave(newData)
     afterSubmit?.()
-  }, console.error)
-
-  const uploadAndSubmit: FormEventHandler = async (e) => {
-    e.preventDefault()
-    if (!auth) return
-
-    const roomRef = room ? room.ref() : RoomModel.create()
-    if (!preview.file) return save(e)
-
-    setUploading(true)
-    const uploadPath = `public/user/${auth.uid}/room/${roomRef.id}/avatar`
-    const uploadRef = ref(storage, uploadPath)
-    const snap = await uploadBytes(uploadRef, preview.file)
-    const downloadUrl = await getDownloadURL(snap.ref)
-    setValue("image.URL", downloadUrl)
-    setUploading(false)
-    save(e)
   }
 
   return (
     <FormProvider {...handlers}>
-      <form onSubmit={uploadAndSubmit}>
+      <form onSubmit={uploadAndSubmit(true)}>
         <LoadingOverlay visible={uploading} />
         <Stack spacing="lg">
           <AdjImageDropzone
@@ -82,9 +99,21 @@ const AdForm: FC<AdFormProps> = ({ ad: { id, ...ad }, afterSubmit }) => {
           <Divider />
           <AdjTextInput name="headline" label="Headline" />
           <AdjTextarea name="body" label="Body" />
-          <Button size="xs" type="submit">
-            Save
-          </Button>
+          <Group noWrap position="right">
+            {id && (
+              <Confirm onConfirm={onDelete}>
+                <Button size="xs" color="red">
+                  Delete
+                </Button>
+              </Confirm>
+            )}
+            <Button size="xs" variant="light" onClick={uploadAndSubmit()}>
+              Apply
+            </Button>
+            <Button size="xs" type="submit">
+              Save
+            </Button>
+          </Group>
         </Stack>
       </form>
     </FormProvider>
