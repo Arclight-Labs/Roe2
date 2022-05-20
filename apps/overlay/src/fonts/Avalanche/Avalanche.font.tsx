@@ -1,5 +1,5 @@
 import { Global } from "@mantine/core"
-import regular from "./Avalanche-Regular.ttf"
+import regular from "./Avalanche-Regular.woff"
 
 export function Avalanche() {
   return (
@@ -8,7 +8,7 @@ export function Avalanche() {
         {
           "@font-face": {
             fontFamily: "Avalanche",
-            src: `url('${regular}') format("ttf")`,
+            src: `url('${regular}') format("woff")`,
           },
         },
       ]}
