@@ -1,12 +1,19 @@
 import { useParticipants } from "utils/hooks"
 import { useParams } from "react-router-dom"
 import useRoom from "../../hooks/useRoom.hook"
-import { Image, Box } from "@mantine/core"
+import { Image, Box, Text } from "@mantine/core"
+import { QueryColor, QueryFont } from "../../utils/queryParams"
+import { useQuery } from "../../utils/useQuery"
 
-type Params = Record<"team" | "player", string>
+type PlayerCode = "photoURL" | "username" | "school"
+
+type Params = Record<"team" | "player" | "code", string>
+type alignType = "left" | "center" | "right" | undefined
+
 const Player = () => {
   // add this to every overlay page
   useRoom()
+  const query = useQuery()
   const params = useParams<Params>()
   const { chalTeams, activeTeamAWithInvert, activeTeamBWithInvert } =
     useParticipants()
@@ -18,15 +25,36 @@ const Player = () => {
     (player) => player.isActive
   )
   const player = params.team === "a" ? activePlayerA : activePlayerB
-  const playerCode = +(params.player ?? 0)
+  const playerIndex = +(params.player ?? 0)
+  const playerCode = (params.code as PlayerCode) ?? "photoURL"
+
+  const font = QueryFont[query.get("font") ?? "industry"]
+  const fontColor = QueryColor[query.get("color") ?? "black"]
+  const fontSize = +(query.get("size") ?? 100)
+  const align = query.get("align") ?? "left"
+
   return (
     <Box>
-      <Image
-        src={player[playerCode]?.photoURL}
-        height={800}
-        width={800}
-        fit="contain"
-      />
+      {playerCode === "photoURL" ? (
+        <Image
+          src={player[playerIndex]?.[playerCode]}
+          height={800}
+          width={800}
+          fit="contain"
+        />
+      ) : (
+        <Text
+          sx={{
+            marginLeft: "1rem",
+            fontFamily: font,
+            fontSize: fontSize,
+            color: fontColor,
+          }}
+          align={align as alignType}
+        >
+          {player[playerIndex]?.[playerCode]}
+        </Text>
+      )}
     </Box>
   )
 }

@@ -57,7 +57,12 @@ const Routes = () => {
                   children: [
                     {
                       path: ":player",
-                      element: <Player />,
+                      children: [
+                        {
+                          path: ":code",
+                          element: <Player />,
+                        },
+                      ],
                     },
                   ],
                 },
