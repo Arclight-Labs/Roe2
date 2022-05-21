@@ -89,7 +89,7 @@ service cloud.firestore {
           && room.name.size() > 1
           && room.avatar is string
           && room.owner is string
-          && room.owner == uid()
+          // && room.owner == uid()
           && exists(/databases/$(database)/documents/users/$(room.owner))
           && room.admins is list
 
@@ -101,6 +101,7 @@ service cloud.firestore {
       allow create: if isRoom(requestData(), roomId)
         && requestData().owner == uid()
         && fields(["id", "owner", "admins", "name", "avatar"], ["uniqueCode"])
+        && request.resource.data.owner == uid()
 
       allow update: if isRoom(requestData(), roomId)
         && (resource.data.owner == uid() && editFields(["owner", "admins", "name", "avatar", "uniqueCode"])
