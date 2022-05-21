@@ -9,6 +9,7 @@ import RoomGuard from "../ui/guards/RoomGuard"
 import LiveDrawer from "../ui/live/LiveDrawer.ui"
 import StatePage from "../pages/state/State.page"
 import BSaveProvider from "../context/bsave/bsave.provider"
+import Shoutouts from "../pages/shoutouts"
 
 const Login = Loadable(lazy(() => import("../pages/Login.page")))
 const SignUp = Loadable(lazy(() => import("../pages/SignUp.page")))
@@ -18,6 +19,7 @@ const MatchesPage = Loadable(lazy(() => import("../pages/matches")))
 const TalentsPage = Loadable(lazy(() => import("../pages/talents")))
 const LowerthirdsPage = Loadable(lazy(() => import("../pages/lowerthirds")))
 const IngamePage = Loadable(lazy(() => import("../pages/ingame")))
+const ShoutoutsPage = Loadable(lazy(() => import("../pages/shoutouts")))
 
 function Loadable<T extends object = {}>(Component: FunctionComponent<T>) {
   return (props: T) => {
@@ -68,6 +70,7 @@ const Routes = () => {
         { path: "lowerthirds", element: <LowerthirdsPage /> },
         { path: "ingame", element: <IngamePage /> },
         { path: "state", element: <StatePage /> },
+        { path: "shoutouts", element: <Shoutouts /> },
       ],
     },
   ])

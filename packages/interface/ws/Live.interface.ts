@@ -1,5 +1,5 @@
 import { User } from "../db"
-
+import { TwitterApiResultsItem } from "../utils"
 export interface Live {
   activeMatch: string
   prevMatches: string[]
@@ -9,6 +9,7 @@ export interface Live {
   activeTalents: Record<string, User>
   talents: Record<string, User>
   lt: Lowerthird
+  shoutouts: Record<string, TwitterApiResultsItem>
 }
 
 /**
@@ -96,4 +97,11 @@ export interface Shoutout {
   message: string
   image: string
   avatar: string
+}
+
+export interface Shoutout {
+  name: string
+  username: string
+  text: string
+  images: string[]
 }

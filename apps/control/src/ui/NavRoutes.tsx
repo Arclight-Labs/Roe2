@@ -7,6 +7,7 @@ import {
   Ad,
   DeviceGamepad,
   Settings,
+  Speakerphone,
 } from "tabler-icons-react"
 interface NavLink {
   link: string
@@ -22,6 +23,7 @@ const routes: NavLink[] = [
   { link: "/lowerthirds", label: "Lower Thirds", icon: Ad },
   { link: "/ingame", label: "Ingame", icon: DeviceGamepad },
   { link: "/state", label: "State", icon: Settings },
+  { link: "/shoutouts", label: "Shoutouts", icon: Speakerphone },
 ]
 
 export default routes

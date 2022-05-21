@@ -120,6 +120,7 @@ export const defaultLive: Live = {
   activeTalents: {},
   talents: {},
   lt: defaultLowerthird,
+  shoutouts: {},
 }
 
 export const defaultUser: User = {

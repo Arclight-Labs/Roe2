@@ -14,7 +14,16 @@ import { Roboto } from "./fonts/Roboto/Roboto.font"
 
 function App() {
   return (
-    <Box sx={{ height: 1080, width: 1920, overflow: "hidden" }}>
+    <Box
+      sx={{
+        height: 1080,
+        width: 1920,
+        overflow: "hidden",
+        "&::webkit-scrollbar": {
+          display: "none",
+        },
+      }}
+    >
       <BrowserRouter>
         <Provider store={store}>
           <SocketProvider>
