@@ -6,11 +6,14 @@ import {
   TextInput,
   Title,
   Text,
+  SimpleGrid,
 } from "@mantine/core"
 import { TwitterApiResults } from "interface/utils"
 import { FormEventHandler, useState } from "react"
 import { useHttpsCallable } from "react-firebase-hooks/functions"
+import { useScreen } from "ui/Screen.hook"
 import { fn } from "utils/firebase"
+import ShoutoutsCard from "../../ui/shoutouts/ShoutoutsCard.ui"
 
 const ShoutoutsPage = () => {
   const [callable, loading] = useHttpsCallable<
@@ -19,12 +22,14 @@ const ShoutoutsPage = () => {
   >(fn, "twitterAPI")
   const [search, setSearch] = useState("")
   const [results, setResults] = useState<TwitterApiResults>({})
+  const { md, xl, lg } = useScreen()
   const onSubmit: FormEventHandler = async (e) => {
     e.preventDefault()
     if (!search) return
     const res = await callable({ search })
     setResults(res?.data ?? {})
   }
+
   return (
     <Container size="xl" sx={{ width: "100%" }}>
       <Stack spacing="xl">
@@ -41,9 +46,13 @@ const ShoutoutsPage = () => {
           </Group>
         </form>
         <Stack>
-          {Object.values(results).map((t) => (
-            <Text>{t.text}</Text>
-          ))}
+          <SimpleGrid cols={xl ? 4 : lg ? 3 : md ? 2 : 1}>
+            {Object.values(results).map((t) => (
+              <div key={t.id}>
+                <ShoutoutsCard tweet={t} />
+              </div>
+            ))}
+          </SimpleGrid>
         </Stack>
       </Stack>
     </Container>

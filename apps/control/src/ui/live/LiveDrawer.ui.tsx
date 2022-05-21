@@ -12,6 +12,7 @@ import { useHotkeys, useToggle } from "@mantine/hooks"
 import { useState } from "react"
 import LiveMatches from "./LiveMatches.ui"
 import LiveSettings from "./LiveSettings.ui"
+import LiveShoutouts from "./LiveShoutouts.ui"
 
 const LiveDrawer = () => {
   const [tab, setTab] = useState(0)
@@ -75,6 +76,9 @@ const DrawerContent = ({ tab, onTabChange }: DrawerContentProps) => {
       </Tabs.Tab>
       <Tabs.Tab label="Matches">
         <LiveMatches />
+      </Tabs.Tab>
+      <Tabs.Tab label="Shoutouts">
+        <LiveShoutouts />
       </Tabs.Tab>
     </Tabs>
   )

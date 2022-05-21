@@ -19,12 +19,19 @@ const Talent = Loadable(lazy(() => import("../views/talent/Talent.o")))
 const Player = Loadable(lazy(() => import("../views/player/Player.o")))
 const Versus = Loadable(lazy(() => import("../views/versus/Versus.o")))
 const Score = Loadable(lazy(() => import("../views/team/Score.o")))
+const ShoutoutsSlide = Loadable(
+  lazy(() => import("../views/shoutouts/Shoutouts.slides.o"))
+)
 
 const Routes = () => {
   return useRoutes([
     {
       path: "/:roomId",
       children: [
+        {
+          path: "shoutouts",
+          element: <ShoutoutsSlide />,
+        },
         {
           path: "talent",
           children: [
