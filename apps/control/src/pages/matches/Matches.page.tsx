@@ -6,26 +6,34 @@ import {
   Stack,
   Title,
 } from "@mantine/core"
+import { useToggle } from "@mantine/hooks"
 import { SanitizedSeriesMap } from "interface/waypoint"
 import { useState } from "react"
-import { Refresh } from "tabler-icons-react"
+import { Plus, Refresh } from "tabler-icons-react"
 import { getMatches } from "utils/axios"
+import { defaultSeries } from "utils/general"
 import { useMatches, useTournament } from "utils/hooks"
 import { setMatches } from "utils/socket/events/Match.emit"
 import { useBSave } from "../../context/bsave/bsave.hook"
 import MatchCard from "../../ui/match/MatchCard.ui"
+import MatchModal from "../../ui/match/MatchModal.ui"
 import Confirm from "../../ui/popups/Confirm.ui"
 
 const MatchesPage = () => {
+  const [create, toggler] = useToggle(false, [false, true])
   const [loading, setLoading] = useState(false)
   const { id, extends: tournamentsAdded = {} } = useTournament()
   const {
     brackets: { upper, lower },
+    matches,
   } = useMatches()
   const bSave = useBSave()
 
   const ub = Object.entries(upper)
   const lb = Object.entries(lower)
+
+  const toggle = () => toggler()
+  const close = () => toggler(false)
 
   const refreshAllMatches = async () => {
     setLoading(true)
@@ -44,20 +52,26 @@ const MatchesPage = () => {
     setLoading(false)
   }
 
+  const customMatches = Object.values(matches).filter((match) => match.custom)
+
   return (
     <Container sx={{ width: "100%" }} size="xl">
+      <Group align="center" noWrap>
+        <Title order={3}>All Matches</Title>
+        <Confirm
+          onConfirm={refreshAllMatches}
+          message="This will refresh all the matches"
+        >
+          <ActionIcon disabled={loading} variant="light">
+            {loading ? <Loader size={18} /> : <Refresh size={18} />}
+          </ActionIcon>
+        </Confirm>
+        <ActionIcon onClick={toggle}>
+          <Plus size={14} />
+        </ActionIcon>
+      </Group>
       <Stack>
-        <Group align="center" noWrap>
-          <Title order={3}>Playoffs Matches</Title>
-          <Confirm
-            onConfirm={refreshAllMatches}
-            message="This will refresh all the matches"
-          >
-            <ActionIcon disabled={loading} variant="light">
-              {loading ? <Loader size={18} /> : <Refresh size={18} />}
-            </ActionIcon>
-          </Confirm>
-        </Group>
+        <Title order={5}>Playoffs Matches</Title>
         <Stack>
           <Group noWrap spacing="xl">
             {ub.map(([round, seriesMap]) => (
@@ -85,6 +99,21 @@ const MatchesPage = () => {
           </Group>
         </Stack>
       </Stack>
+      {!!customMatches.length && (
+        <Stack mt="xl">
+          <Title order={5}>Custom Matches</Title>
+          <Stack align="flex-start">
+            {customMatches.map((series) => (
+              <MatchCard match={series} key={series.id} />
+            ))}
+          </Stack>
+        </Stack>
+      )}
+      <MatchModal
+        opened={create}
+        onClose={close}
+        match={{ ...defaultSeries, custom: true }}
+      />
     </Container>
   )
 }
