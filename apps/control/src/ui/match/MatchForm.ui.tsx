@@ -22,6 +22,7 @@ import { MatchSchema, matchSchema } from "utils/schema/match.schema"
 import { setMatches } from "utils/socket/events"
 import { useBSave } from "../../context/bsave/bsave.hook"
 import MatchCardTeam from "./MatchCardTeam.ui"
+import MatchFormTeamSelect from "./MatchFormTeamSelect.ui"
 
 type Handler = ChangeEventHandler<HTMLInputElement>
 type ChangeWinner = (chalId?: number | null | undefined) => () => void
@@ -38,7 +39,7 @@ const MatchForm = ({
   afterSubmit,
 }: MatchFormProps) => {
   const { chalTeams } = useParticipants()
-  const { getScore, getUpdatedMatches } = useMatches()
+  const { getScore, getUpdatedMatches, matches: liveMatches } = useMatches()
   const bSave = useBSave()
   const { handleSubmit, watch, setValue } = useForm<MatchSchema>({
     defaultValues: {
@@ -57,11 +58,11 @@ const MatchForm = ({
   const b = chalTeams[bChalId || ""] ?? tbd
   const aName = a.shortcode || a.shortname || a.name
   const bName = b.shortcode || b.shortname || b.name
+  const isCustom = !!match.custom
 
-  // TODO: allow changing team if custom series
-  // const setTeam = (chalId: number) => (team: "teamA" | "teamB") => {
-  //   setValue(team, chalId)
-  // }
+  const setTeam = (team: "teamA" | "teamB") => (chalId: number | null) => {
+    setValue(team, chalId)
+  }
 
   const matchWithNewScore = { ...match, scores: scoresInput }
   const scores = getScore(matchWithNewScore)
@@ -100,7 +101,8 @@ const MatchForm = ({
   }
 
   const save = handleSubmit((data) => {
-    const matchId = match.id || nanoid(6) // used when creating custom match
+    const matchId =
+      match.id || Math.floor(Math.random() * 599999999999) + 300000000 // used when creating custom match
     const newSeriesData: SanitizedSeries = {
       ...match,
       teamA: {
@@ -118,20 +120,42 @@ const MatchForm = ({
           : data.teamB
         : null,
       scores: data.scores,
+      id: matchId,
     }
 
     const updatedMatches = getUpdatedMatches(newSeriesData)
     setMatches(updatedMatches)
     bSave({ matches: updatedMatches })
+
     afterSubmit?.()
   })
+
+  const onDelete = () => {
+    if (!match.custom) return
+    const { [match.id]: omitted, ...newMatches } = liveMatches
+    setMatches(newMatches)
+    bSave({ matches: newMatches })
+    afterSubmit?.()
+  }
 
   return (
     <form onSubmit={save}>
       <Stack align="center">
         <Group spacing="xl" sx={{ width: 400 }} noWrap>
-          <MatchCardTeam team={a} dir="rtl" />
-          <MatchCardTeam team={b} />
+          <MatchFormTeamSelect
+            disabled={!isCustom}
+            sx={{ flex: 1 }}
+            onSelectTeam={setTeam("teamA")}
+          >
+            <MatchCardTeam team={a} dir="rtl" />
+          </MatchFormTeamSelect>
+          <MatchFormTeamSelect
+            disabled={!isCustom}
+            sx={{ flex: 1 }}
+            onSelectTeam={setTeam("teamB")}
+          >
+            <MatchCardTeam team={b} />
+          </MatchFormTeamSelect>
         </Group>
         <Title order={5}>
           {scores.a.final} - {scores.b.final}
@@ -159,8 +183,9 @@ const MatchForm = ({
                 <td style={{ minWidth: 200 }}>
                   <Group noWrap>
                     <Checkbox
-                      checked={winnerId === aChalId}
+                      checked={!!winnerId && winnerId === aChalId}
                       onChange={changeWinner(aChalId)}
+                      disabled={!aChalId}
                     />
                     <Text>{aName}</Text>
                   </Group>
@@ -181,9 +206,9 @@ const MatchForm = ({
                 <td style={{ minWidth: 200 }}>
                   <Group noWrap>
                     <Checkbox
-                      checked={winnerId === bChalId}
+                      checked={!!winnerId && winnerId === bChalId}
                       onChange={changeWinner(bChalId)}
-                      disabled={!aChalId}
+                      disabled={!bChalId}
                     />
                     <Text>{bName}</Text>
                   </Group>
@@ -217,9 +242,15 @@ const MatchForm = ({
           </Table>
         </Group>
         <Group position="apart" sx={{ width: "100%" }}>
-          <Button variant="subtle" onClick={onCancel}>
-            Cancel
-          </Button>
+          {isCustom ? (
+            <Button variant="subtle" onClick={onDelete} color="red">
+              Delete
+            </Button>
+          ) : (
+            <Button variant="subtle" onClick={onCancel}>
+              Cancel
+            </Button>
+          )}
           <Button type="submit" leftIcon={<DeviceFloppy size={16} />}>
             Save
           </Button>
