@@ -1,6 +1,6 @@
 {
   "name": "websocket",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Websocket server used to communicate between the control and overlay",
   "main": "dist/index.js",
   "license": "MIT",
@@ -27,7 +27,7 @@
     "cross-env": "7.0.3",
     "esbuild": "0.14.39",
     "esbuild-register": "3.3.2",
-    "eslint": "8.15.0",
+    "eslint": "8.16.0",
     "nodemon": "2.0.16",
     "tsconfig": "*",
     "typescript": "4.6.4"
