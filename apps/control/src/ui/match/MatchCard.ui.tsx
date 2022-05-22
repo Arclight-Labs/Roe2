@@ -14,12 +14,7 @@ import { PartialWithFieldValue } from "firebase/firestore"
 import { SanitizedSeries } from "interface/waypoint"
 import { Broadcast } from "interface/ws"
 import { MouseEventHandler, useState } from "react"
-import {
-  ListDetails,
-  PlayerTrackNext,
-  Refresh,
-  Select,
-} from "tabler-icons-react"
+import { Refresh } from "tabler-icons-react"
 import { getMatch } from "utils/axios"
 import { tbd } from "utils/general"
 import { useMatches, useParticipants, useTournament } from "utils/hooks"
@@ -87,11 +82,13 @@ const MatchCard = ({ match, small, ...props }: MatchCardProps) => {
           sx={{ top: 2, right: 2, position: "absolute" }}
         >
           <MatchBadges matchId={match.id} />
-          <Tooltip label="Refresh scores">
-            <ActionIcon onClick={refreshMatch} disabled={loading}>
-              {loading ? <Loader size={18} /> : <Refresh size={18} />}
-            </ActionIcon>
-          </Tooltip>
+          {!match.custom && (
+            <Tooltip label="Refresh scores">
+              <ActionIcon onClick={refreshMatch} disabled={loading}>
+                {loading ? <Loader size={18} /> : <Refresh size={18} />}
+              </ActionIcon>
+            </Tooltip>
+          )}
           <MatchMenu match={match} open={open} />
         </Group>
 
