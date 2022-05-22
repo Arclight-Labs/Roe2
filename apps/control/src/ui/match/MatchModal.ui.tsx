@@ -11,7 +11,7 @@ const MatchModal: FC<MatchModalProps> = ({ match, ...props }) => {
     <Modal
       size="xl"
       {...props}
-      title={match ? "Edit Series" : "Add Custom Series"}
+      title={match?.id ? "Edit Series" : "Add Custom Series"}
     >
       <MatchForm
         match={match}
