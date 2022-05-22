@@ -20,8 +20,10 @@ const Score = () => {
   const teamSide = isInversed(params.team === "a" ? "teamA" : "teamB")
   const teamSideLetter = teamSide === "teamA" ? "a" : "b"
   const teamId = activeMatch?.[teamSide].id || ""
+  const team = chalTeams[teamId]
   const teamScore = getScore(activeMatch ?? defaultSeries)?.[teamSideLetter]
-    .scores
+    .final
+
   const font = QueryFont[query.get("font") ?? "industry"]
   const fontColor = QueryColor[query.get("color") ?? "black"]
 
