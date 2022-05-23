@@ -1,6 +1,6 @@
 {
   "name": "utils",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "index.ts",
   "files": [
     "hooks/**/*.ts",
@@ -17,7 +17,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "@mantine/notifications": "4.2.5",
+    "@mantine/notifications": "4.2.6",
     "@reduxjs/toolkit": "1.8.1",
     "axios": "0.27.2",
     "dotenv": "16.0.1",
@@ -26,10 +26,10 @@
     "lodash-es": "4.17.21",
     "nanoid": "3.3.4",
     "react": "18.1.0",
-    "react-redux": "8.0.1",
+    "react-redux": "8.0.2",
     "redux": "4.2.0",
     "socket.io-client": "4.5.1",
-    "zod": "3.16.1"
+    "zod": "3.17.2"
   },
   "devDependencies": {
     "@types/ip": "1.1.0",
