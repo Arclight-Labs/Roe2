@@ -15,7 +15,7 @@
   "packageRules": [
     {
       "matchDatasources": "npm",
-      "stabilityDays": 0,
+      "stabilityDays": 3,
       "assignees": ["manokii"],
       "assigneesSampleSize": 1,
       "bumpVersion": "patch",
