@@ -1,8 +1,9 @@
 import { Box, Container } from "@mantine/core"
+import { LowerthirdData } from "interface/ws"
 import { useLt } from "utils/hooks"
 import LowerTicker from "./LowerTicker.o"
 
-const switchLT = (mode: string) => {
+const switchLT = (mode: any) => {
   switch (mode) {
     case "ad":
       return <></>
@@ -11,18 +12,13 @@ const switchLT = (mode: string) => {
     case "matchPoll":
       return <></>
     case "ticker":
-      return <LowerTicker></LowerTicker>
+      return <LowerTicker />
   }
 }
 
 const LowerThirds = () => {
   const { mode, show } = useLt()
-  return (
-    <Container>
-      {/* <LowerTicker></LowerTicker> */}
-      {show ? switchLT(mode) : <></>}
-    </Container>
-  )
+  return <Container>{show ? switchLT(mode) : <></>}</Container>
 }
 
 export default LowerThirds
