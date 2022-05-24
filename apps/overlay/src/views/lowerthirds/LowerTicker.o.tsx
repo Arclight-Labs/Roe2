@@ -7,7 +7,7 @@ const LowerTicker = () => {
   const { ticker } = useLt()
   return (
     <Box>
-      <Text>HELLO</Text>
+      <Text>HELLO PLS HELP</Text>
       <Text>{ticker.headline.text}</Text>
       <Text>{ticker.scrollerText.text}</Text>
       {/* <Ticker>
