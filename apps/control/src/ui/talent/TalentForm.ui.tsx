@@ -44,6 +44,7 @@ const TalentForm: FC<TalentModalProps> = ({ data, onCancel, afterSubmit }) => {
 
   const isEdit = !!data.uid
   const uid = data.uid || nanoid()
+  const { [uid]: addedActiveTalent, ...activeTalents } = live.activeTalents
 
   const save = handleSubmit(async (inputData) => {
     const newTalent: User = {
@@ -51,12 +52,22 @@ const TalentForm: FC<TalentModalProps> = ({ data, onCancel, afterSubmit }) => {
       ...inputData,
       uid,
     }
+
     const saveData: Partial<Live> = {
       talents: { ...live.talents, [uid]: newTalent },
     }
+
+    const saveActiveData: Partial<Live> = {
+      activeTalents: { ...activeTalents, [uid]: newTalent },
+    }
+
     setLive(saveData)
     bSave(saveData)
     afterSubmit?.()
+    if (uid === addedActiveTalent.uid) {
+      setLive(saveActiveData)
+      bSave(saveActiveData)
+    }
   }, console.error)
 
   const uploadAndSet: FormEventHandler = async (e) => {
@@ -77,9 +88,17 @@ const TalentForm: FC<TalentModalProps> = ({ data, onCancel, afterSubmit }) => {
     setAvatarPreview(new FilePreview(file))
   }
 
+  const onRemoveActiveCaster = () => {
+    const { [uid]: removeActiveTalent, ...activeTalents } = live.activeTalents
+    const saveData: Partial<Live> = { activeTalents }
+    setLive(saveData)
+    bSave(saveData)
+  }
+
   const onDelete = () => {
     const { [uid]: removedTalent, ...talents } = live.talents
     const saveData: Partial<Live> = { talents }
+    onRemoveActiveCaster()
     setLive(saveData)
     bSave(saveData)
     afterSubmit?.()

@@ -42,22 +42,24 @@ const TalentCard: FC<TalentCardProps> = ({ data, ...props }) => {
   const onCasterDelete = () => {
     const { [uid]: removedTalent, ...talents } = live.talents
     const saveData: Partial<Live> = { talents }
+    onRemoveActiveCaster()
     setLive(saveData)
     bSave(saveData)
   }
 
   const onAddActiveCaster = () => {
     const { [uid]: addedActiveTalent, ...activeTalents } = live.activeTalents
-    const newTalent: User = {
+    const newActiveTalent: User = {
       ...data,
       uid,
     }
     const saveData: Partial<Live> = {
-      activeTalents: { ...activeTalents, [uid]: newTalent },
+      activeTalents: { ...activeTalents, [uid]: newActiveTalent },
     }
     setLive(saveData)
     bSave(saveData)
   }
+
   const onRemoveActiveCaster = () => {
     const { [uid]: removeActiveTalent, ...activeTalents } = live.activeTalents
     const saveData: Partial<Live> = { activeTalents }
