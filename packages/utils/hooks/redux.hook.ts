@@ -355,6 +355,7 @@ export const useLt = () => {
   const { ticker, ad, adPool, matchPoll } = data
 
   return {
+    data,
     lt,
     mode,
     show,

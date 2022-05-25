@@ -22,6 +22,14 @@ const Score = Loadable(lazy(() => import("../views/team/Score.o")))
 const ShoutoutsSlide = Loadable(
   lazy(() => import("../views/shoutouts/Shoutouts.slides.o"))
 )
+const Shoutout = Loadable(lazy(() => import("../views/shoutouts/Shoutout.o")))
+
+const LowerThirds = Loadable(
+  lazy(() => import("../views/lowerthirds/LowerThirds.o"))
+)
+const Ticker = Loadable(
+  lazy(() => import("../views/lowerthirds/LowerTicker.o"))
+)
 
 const Routes = () => {
   return useRoutes([
@@ -31,6 +39,18 @@ const Routes = () => {
         {
           path: "shoutouts",
           element: <ShoutoutsSlide />,
+        },
+        {
+          path: "shoutout",
+          element: <Shoutout />,
+        },
+        {
+          path: "lowerthirds",
+          element: <LowerThirds />,
+        },
+        {
+          path: "ticker",
+          element: <Ticker />,
         },
         {
           path: "talent",
