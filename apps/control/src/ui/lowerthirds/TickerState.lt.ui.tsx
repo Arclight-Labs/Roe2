@@ -50,7 +50,7 @@ const TickerState = () => {
         placeholder="Pick a mode"
         data={modeMap}
         value={mode}
-        onChange={(mode) => onModeSelect(mode)}
+        onChange={(mode) => onModeSelect(mode as keyof LowerthirdData | null)}
       />
 
       <Text>{mode}</Text>
