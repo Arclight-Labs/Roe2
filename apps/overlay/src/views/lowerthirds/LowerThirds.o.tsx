@@ -18,7 +18,7 @@ const switchLT = (mode: any) => {
 
 const LowerThirds = () => {
   const { mode, show } = useLt()
-  return <Container>{show ? switchLT(mode) : <></>}</Container>
+  return <Container>{show && switchLT(mode)}</Container>
 }
 
 export default LowerThirds
