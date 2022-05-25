@@ -18,9 +18,9 @@ const TickerState = () => {
     bSave(toggleLT)
   }
 
-  const onModeSelect = (modeValue: any) => {
+  const onModeSelect = (modeValue: keyof LowerthirdData | null) => {
     const changeMode: Partial<Live> = {
-      lt: { mode: modeValue, data, show },
+      lt: { mode: modeValue || "ticker", data, show },
     }
     setLive(changeMode)
     bSave(changeMode)
