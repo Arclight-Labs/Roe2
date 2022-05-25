@@ -22,6 +22,7 @@ const Score = Loadable(lazy(() => import("../views/team/Score.o")))
 const ShoutoutsSlide = Loadable(
   lazy(() => import("../views/shoutouts/Shoutouts.slides.o"))
 )
+const Shoutout = Loadable(lazy(() => import("../views/shoutouts/Shoutout.o")))
 
 const LowerThirds = Loadable(
   lazy(() => import("../views/lowerthirds/LowerThirds.o"))
@@ -38,6 +39,10 @@ const Routes = () => {
         {
           path: "shoutouts",
           element: <ShoutoutsSlide />,
+        },
+        {
+          path: "shoutout",
+          element: <Shoutout />,
         },
         {
           path: "lowerthirds",
