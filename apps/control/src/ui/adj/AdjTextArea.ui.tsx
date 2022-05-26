@@ -12,7 +12,7 @@ import { AdjText } from "interface/ws/Live.interface"
 import { ChangeEventHandler } from "react"
 import { useFormContext } from "react-hook-form"
 
-type AdjFormTextProps = Record<string, AdjText>
+type AdjFormTextProps = { [key: string]: AdjText }
 
 interface AdjTextareaProps<T extends AdjFormTextProps = {}> {
   name: keyof T
@@ -28,19 +28,20 @@ const AdjTextarea = <T extends AdjFormTextProps>({
 }: AdjTextareaProps<T>) => {
   const [isDisabled, toggle] = useToggle(false, [false, true])
   const { register, setValue, watch } = useFormContext<AdjFormTextProps>()
+  const keyName = String(name)
   const onChange: SliderProps["onChange"] = (value) => {
-    setValue(`${name}.size`, value)
+    setValue(`${keyName}.size`, value)
   }
 
   const onToggle: ChangeEventHandler<HTMLInputElement> = ({
     target: { checked },
   }) => {
     if (checked) {
-      setValue(`${name}.size`, defaultSize)
+      setValue(`${keyName}.size`, defaultSize)
       toggle(false)
       return
     }
-    setValue(`${name}.size`, 0)
+    setValue(`${keyName}.size`, 0)
     toggle(true)
   }
 
@@ -49,7 +50,7 @@ const AdjTextarea = <T extends AdjFormTextProps>({
       <Textarea
         label={label}
         {...textareaProps}
-        {...register(`${name}.text`)}
+        {...register(`${keyName}.text`)}
       />
       <Group noWrap>
         <Switch
@@ -61,7 +62,7 @@ const AdjTextarea = <T extends AdjFormTextProps>({
           sx={{ flex: 1 }}
           min={8}
           max={200}
-          value={watch(`${name}.size`)}
+          value={watch(`${keyName}.size`)}
           disabled={isDisabled}
           onChange={onChange}
           label={(value) => `${value}px`}
