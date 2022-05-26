@@ -1,6 +1,6 @@
 {
   "name": "alliance-games",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "private": true,
   "workspaces": [
     "apps/*",
@@ -23,7 +23,7 @@
     "husky": "8.0.1",
     "prettier": "2.6.2",
     "turbo": "1.2.14",
-    "typescript": "^4.7.2"
+    "typescript": "4.7.2"
   },
   "engines": {
     "npm": "^8.6.0",
