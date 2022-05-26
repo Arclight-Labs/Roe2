@@ -1,6 +1,6 @@
 {
   "name": "alliance-games",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "private": true,
   "workspaces": [
     "apps/*",
@@ -15,14 +15,14 @@
     "commit": "cz"
   },
   "devDependencies": {
-    "@commitlint/cli": "17.0.0",
+    "@commitlint/cli": "17.0.1",
     "@commitlint/config-conventional": "17.0.0",
     "@ryansonshine/commitizen": "4.2.8",
     "@ryansonshine/cz-conventional-changelog": "3.3.4",
     "eslint": "8.16.0",
     "husky": "8.0.1",
     "prettier": "2.6.2",
-    "turbo": "1.2.11",
+    "turbo": "1.2.14",
     "typescript": "^4.7.2"
   },
   "engines": {
