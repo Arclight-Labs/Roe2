@@ -26,9 +26,10 @@ const AdjTextarea = <T extends AdjFormTextProps>({
   textareaProps,
   defaultSize = 16,
 }: AdjTextareaProps<T>) => {
-  const [isDisabled, toggle] = useToggle(false, [false, true])
   const { register, setValue, watch } = useFormContext<AdjFormTextProps>()
   const keyName = String(name)
+  const size = watch(`${keyName}.size`)
+  const [isDisabled, toggle] = useToggle(!size, [false, true])
   const onChange: SliderProps["onChange"] = (value) => {
     setValue(`${keyName}.size`, value)
   }
@@ -62,7 +63,7 @@ const AdjTextarea = <T extends AdjFormTextProps>({
           sx={{ flex: 1 }}
           min={8}
           max={200}
-          value={watch(`${keyName}.size`)}
+          value={size}
           disabled={isDisabled}
           onChange={onChange}
           label={(value) => `${value}px`}

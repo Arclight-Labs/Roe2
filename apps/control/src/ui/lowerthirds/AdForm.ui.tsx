@@ -6,6 +6,7 @@ import { FilePreview } from "interface"
 import {
   Ad,
   AdPool,
+  AdWithPriority,
   Live,
   Lowerthird,
   LowerthirdData,
@@ -47,9 +48,13 @@ const AdForm: FC<AdFormProps> = ({ ad: { id, ...ad }, afterSubmit }) => {
 
   const save = (saveData?: boolean) =>
     handleSubmit((data) => {
+      const newAd: AdWithPriority = {
+        ...data,
+        id: adId,
+      }
       const currentAds = lt.data.adPool.ads
       const newAdPoolAds = !isEdit
-        ? [...currentAds]
+        ? [...currentAds, newAd]
         : currentAds.map((adItem) => {
             return id === adItem.id ? { ...adItem, ...data } : adItem
           })
@@ -88,7 +93,7 @@ const AdForm: FC<AdFormProps> = ({ ad: { id, ...ad }, afterSubmit }) => {
     const newAdPoolAds = lt.data.adPool.ads.filter(
       (adItem) => adItem.id !== adId
     )
-    const newAdPool = { ...lt.data.adPool, adMap: newAdPoolAds }
+    const newAdPool = { ...lt.data.adPool, ads: newAdPoolAds }
     const newLtData = { ...lt.data, adPool: newAdPool }
     const newLt = { ...lt, data: newLtData }
     const newData = { lt: newLt }

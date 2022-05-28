@@ -10,16 +10,15 @@ export const joinRoomEvent: EventFn<JoinRoom> = (socket, io) => {
     if (!room) {
       const loadedRoom = await loadRoom(roomId)
       if (!loadedRoom) {
-        socket.emit(SocketEvent.Notify, {
-          message: "Room not found",
-        })
+        const message = "Room not found"
+        socket.emit(SocketEvent.Notify, { message })
         return
       }
       setRoom(loadedRoom.roomId, loadedRoom)
       room = loadedRoom
     }
 
-    socket.join(roomId)
+    socket.join(room.roomId)
     roomDataEmit(socket, room)
 
     // Logging

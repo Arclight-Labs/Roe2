@@ -1,7 +1,7 @@
 import { Container, Stack, Tabs, Title } from "@mantine/core"
 import LowerthirdAds from "../../ui/lowerthirds/Ads.lt.ui"
 import LowerthirdTickerForm from "../../ui/lowerthirds/Ticker.lt.ui"
-import TickerState from "../../ui/lowerthirds/TickerState.lt.ui"
+import LowerthirdGeneral from "../../ui/lowerthirds/General.lt.ui"
 
 const LowerthirdsPage = () => {
   return (
@@ -10,7 +10,7 @@ const LowerthirdsPage = () => {
         <Title order={3}>Lower Thirds</Title>
         <Tabs>
           <Tabs.Tab label="LT State">
-            <TickerState />
+            <LowerthirdGeneral />
           </Tabs.Tab>
           <Tabs.Tab label="Ticker">
             <LowerthirdTickerForm />

@@ -40,7 +40,7 @@ const LiveDrawer = () => {
         title={
           <Group noWrap spacing="xs">
             <Text>Live Settings</Text>
-            <Kbd>CTRL</Kbd>+<Kbd>L</Kbd>
+            <Kbd>CTRL + L</Kbd>
           </Group>
         }
       >

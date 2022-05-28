@@ -1,8 +1,9 @@
 import { Group, Kbd, Stack, Switch, Title } from "@mantine/core"
 import { useHotkeys } from "@mantine/hooks"
 import { PropsWithChildren } from "react"
-import { useLive } from "utils/hooks"
+import { useLive, useLt } from "utils/hooks"
 import { setLive } from "utils/socket/events"
+import LowerthirdGeneral from "../lowerthirds/General.lt.ui"
 
 const LiveSettings = () => {
   const { live } = useLive()
@@ -22,8 +23,12 @@ const LiveSettings = () => {
             onChange={inverse}
             label="Swap team side?"
           />
-          <Kbd>CTRL</Kbd>+<Kbd>I</Kbd>
+          <Kbd>CTRL + I</Kbd>
         </Group>
+      </Section>
+
+      <Section title="Lowerthird">
+        <LowerthirdGeneral />
       </Section>
     </Stack>
   )
