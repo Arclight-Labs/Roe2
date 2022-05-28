@@ -93,7 +93,7 @@ const AdForm: FC<AdFormProps> = ({ ad: { id, ...ad }, afterSubmit }) => {
     const newAdPoolAds = lt.data.adPool.ads.filter(
       (adItem) => adItem.id !== adId
     )
-    const newAdPool = { ...lt.data.adPool, adMap: newAdPoolAds }
+    const newAdPool = { ...lt.data.adPool, ads: newAdPoolAds }
     const newLtData = { ...lt.data, adPool: newAdPool }
     const newLt = { ...lt, data: newLtData }
     const newData = { lt: newLt }
