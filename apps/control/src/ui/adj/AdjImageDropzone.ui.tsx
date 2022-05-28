@@ -29,20 +29,19 @@ const AdjImageDropzone: FC<AdjImageDropzoneProps> = ({
   setFile,
   name,
 }) => {
-  const [isDisabled, toggle] = useToggle(false, [false, true])
   const { setValue, watch } = useFormContext<AdjImageProps>()
   const onDrop: DropzoneProps["onDrop"] = (files) => {
     const file = files[0]
     if (!file) return
     setFile(new FilePreview(file))
   }
+  const path = (prop: string) => `${name}.adj.${prop}`
+
+  const scale = watch(path("scale"))
+  const [isDisabled, toggle] = useToggle(!scale, [false, true])
 
   const onSlide: SliderProps["onChange"] = (value) => {
     setValue(path("scale"), parseFloat(value.toFixed(2)))
-  }
-
-  const path = (prop: string) => {
-    return `${name}.adj.${prop}`
   }
 
   const onToggle: ChangeEventHandler<HTMLInputElement> = ({
@@ -112,9 +111,9 @@ const AdjImageDropzone: FC<AdjImageDropzoneProps> = ({
             disabled={isDisabled}
             value={watch(path("scale")) as number}
             onChange={onSlide}
-            min={0}
+            min={-1}
             max={5}
-            label={(val) => `x${val + 1}`}
+            label={(val) => `x${(val + 1).toFixed(2)}`}
             step={0.05}
             sx={{ flex: 1 }}
           />
