@@ -12,7 +12,6 @@ type Params = Record<"team" | "player" | "code", string>
 type alignType = "left" | "center" | "right" | undefined
 
 const Player = () => {
-  // add this to every overlay page
   useRoom()
   const query = useQuery()
   const params = useParams<Params>()

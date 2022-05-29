@@ -11,7 +11,6 @@ import {
   Tooltip,
   Button,
 } from "@mantine/core"
-import { nanoid } from "@reduxjs/toolkit"
 import { SanitizedSeries } from "interface/waypoint"
 import { ChangeEventHandler } from "react"
 import { useForm } from "react-hook-form"

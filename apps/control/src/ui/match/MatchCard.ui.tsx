@@ -6,7 +6,6 @@ import {
   Loader,
   Stack,
   Text,
-  ThemeIcon,
   Title,
   Tooltip,
 } from "@mantine/core"
@@ -21,7 +20,6 @@ import { useMatches, useParticipants, useTournament } from "utils/hooks"
 import { setMatch } from "utils/socket/events"
 import { useBSave } from "../../context/bsave/bsave.hook"
 import { usePermission } from "../../hooks/usePermission.hook"
-import Confirm from "../popups/Confirm.ui"
 import MatchBadges from "./MatchBadges.ui"
 import MatchCardTeam from "./MatchCardTeam.ui"
 import MatchMenu from "./MatchMenu"

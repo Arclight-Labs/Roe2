@@ -1,4 +1,4 @@
-import { Card, Group, Image, Kbd, Radio, Text } from "@mantine/core"
+import { Card, Group, Kbd, Radio, Text } from "@mantine/core"
 import { Live, LowerthirdData } from "interface/ws"
 import { FC, ReactNode } from "react"
 import { useLt } from "utils/hooks"
