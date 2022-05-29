@@ -104,7 +104,6 @@ export type Tournament = {
   endDate?: Date
   schoolsAllowed?: string[]
   admins?: string[]
-  orgData?: any
   id: string
   game?: string
   description?: string
@@ -114,7 +113,6 @@ export type Tournament = {
   enableCustomFields?: boolean
   customFields: CustomFieldMap
   typeformId?: string
-  seo?: any
   leagueId: string
   leagueTitle: string
   _leagueTitle: string

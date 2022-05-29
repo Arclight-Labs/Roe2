@@ -7,7 +7,7 @@ import { useAuth } from "../../context/auth/Auth.hooks"
 import RoomModal from "../../overlays/Room.modal"
 import { RoomModel } from "utils/models/Room.model"
 
-interface RoomMenuProps extends Omit<MenuProps, "children"> {}
+type RoomMenuProps = Omit<MenuProps, "children">
 export function RoomMenu(props: RoomMenuProps) {
   const [activeRoom, setActiveRoom] = useActiveRoom()
   const { auth } = useAuth()
