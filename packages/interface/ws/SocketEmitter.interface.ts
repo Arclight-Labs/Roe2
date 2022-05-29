@@ -9,20 +9,20 @@ import {
 } from "../waypoint"
 import { Live } from "./Live.interface"
 import { WebsocketRoom } from "./WebsocketStore.interface"
-export type SocketEmitterFn = (...args: any[]) => any
+export type SocketEmitterFn = Function
 export type SocketEmitterRecord = Record<SocketEvent, SocketEmitterFn>
 export type SocketEmitterType = Omit<SocketEmitterRecord, "log">
 
-export type Ping = (date: number) => any
-export type SetMatches = (payload: SanitizedSeriesMap) => any
-export type SetMatch = (matchId: string, data: Partial<SanitizedSeries>) => any
-export type SetParticipants = (payload: SanitizedParticipantMap) => any
+export type Ping = (date: number) => void
+export type SetMatches = (payload: SanitizedSeriesMap) => void
+export type SetMatch = (matchId: string, data: Partial<SanitizedSeries>) => void
+export type SetParticipants = (payload: SanitizedParticipantMap) => void
 export type SetPariticipant = (
   teamId: string,
   payload: Partial<SanitizedParticipant>
-) => any
-export type SetTournament = (payload: Partial<Waypoint.Tournament>) => any
-export type SetLive = (payload: Partial<Live>) => any
+) => void
+export type SetTournament = (payload: Partial<Waypoint.Tournament>) => void
+export type SetLive = (payload: Partial<Live>) => void
 
 export type JoinRoomProps = {
   roomId: string
@@ -30,10 +30,10 @@ export type JoinRoomProps = {
   username: string
 }
 export type LeaveRoomProps = JoinRoomProps
-export type LeaveRoom = (props: LeaveRoomProps) => any
-export type JoinRoom = (props: JoinRoomProps) => any
-export type Notif = (props: NotificationProps) => any
-export type SetRoom = (room: Partial<WebsocketRoom> & { id: string }) => any
+export type LeaveRoom = (props: LeaveRoomProps) => void
+export type JoinRoom = (props: JoinRoomProps) => void
+export type Notif = (props: NotificationProps) => void
+export type SetRoom = (room: Partial<WebsocketRoom> & { id: string }) => void
 
 export interface SocketEmitters extends SocketEmitterType {
   joinRoom: JoinRoom
