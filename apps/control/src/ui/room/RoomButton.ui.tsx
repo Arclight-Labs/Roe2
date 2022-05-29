@@ -31,7 +31,7 @@ const useStyles = createStyles((theme) => ({
   },
 }))
 
-interface RoomButtonProps extends UnstyledButtonProps<"button"> {}
+type RoomButtonProps = UnstyledButtonProps<"button">
 const RoomButton = (props: RoomButtonProps) => {
   const activeRoom = useRoom()
 
