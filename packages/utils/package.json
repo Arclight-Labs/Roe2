@@ -1,6 +1,6 @@
 {
   "name": "utils",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "main": "index.ts",
   "files": [
     "hooks/**/*.ts",
@@ -17,7 +17,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "@mantine/notifications": "4.2.6",
+    "@mantine/notifications": "4.2.7",
     "@reduxjs/toolkit": "1.8.2",
     "axios": "0.27.2",
     "dotenv": "16.0.1",
