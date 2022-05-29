@@ -10,6 +10,7 @@ import LiveDrawer from "../ui/live/LiveDrawer.ui"
 import StatePage from "../pages/state/State.page"
 import BSaveProvider from "../context/bsave/bsave.provider"
 import Shoutouts from "../pages/shoutouts"
+import RoomProvider from "../context/room/Room.provider"
 
 const Login = Loadable(lazy(() => import("../pages/Login.page")))
 const SignUp = Loadable(lazy(() => import("../pages/SignUp.page")))
@@ -20,6 +21,9 @@ const TalentsPage = Loadable(lazy(() => import("../pages/talents")))
 const LowerthirdsPage = Loadable(lazy(() => import("../pages/lowerthirds")))
 const IngamePage = Loadable(lazy(() => import("../pages/ingame")))
 const ShoutoutsPage = Loadable(lazy(() => import("../pages/shoutouts")))
+const QuickSettingsPage = Loadable(
+  lazy(() => import("../pages/quick_settings"))
+)
 
 function Loadable<T extends object = {}>(Component: FunctionComponent<T>) {
   return (props: T) => {
@@ -45,6 +49,18 @@ const Routes = () => {
           element: <SignUp />,
         },
       ],
+    },
+    {
+      path: "quick-settings",
+      element: (
+        <AuthGuard>
+          <RoomProvider hideSidebar>
+            <BSaveProvider>
+              <QuickSettingsPage />
+            </BSaveProvider>
+          </RoomProvider>
+        </AuthGuard>
+      ),
     },
     {
       path: "/",

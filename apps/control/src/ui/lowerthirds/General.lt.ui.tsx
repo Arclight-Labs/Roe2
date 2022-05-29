@@ -6,6 +6,7 @@ import { setLive } from "utils/socket/events"
 import LowerthirdModeCard from "./ModeCard.lt.ui"
 import { FC } from "react"
 import { HotkeyItem, useHotkeys } from "@mantine/hooks"
+import { Ad, Ad2, ChartBar, ClearFormatting } from "tabler-icons-react"
 
 interface Props extends StackProps {
   groupProps?: GroupProps
@@ -53,10 +54,30 @@ const LowerthirdGeneral: FC<Props> = ({ groupProps, ...props }) => {
       />
 
       <Group {...groupProps}>
-        <LowerthirdModeCard value={"ticker"} label="Ticker" />
-        <LowerthirdModeCard value={"ad"} label="Solo Ad" />
-        <LowerthirdModeCard value={"adPool"} label="Ad Pool" />
-        <LowerthirdModeCard value={"matchPoll"} label="Match Poll" />
+        <LowerthirdModeCard
+          value={"ticker"}
+          label="Ticker"
+          icon={<ClearFormatting />}
+          hotkey="ctrl + 1"
+        />
+        <LowerthirdModeCard
+          value={"ad"}
+          label="Solo Ad"
+          icon={<Ad />}
+          hotkey="ctrl + 2"
+        />
+        <LowerthirdModeCard
+          value={"adPool"}
+          label="Ad Pool"
+          icon={<Ad2 />}
+          hotkey="ctrl + 3"
+        />
+        <LowerthirdModeCard
+          value={"matchPoll"}
+          label="Match Poll"
+          icon={<ChartBar />}
+          hotkey="ctrl + 4"
+        />
       </Group>
     </Stack>
   )

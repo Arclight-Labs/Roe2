@@ -1,4 +1,4 @@
-import { Card, Group, Image, Radio, Text } from "@mantine/core"
+import { Card, Group, Image, Kbd, Radio, Text } from "@mantine/core"
 import { Live, LowerthirdData } from "interface/ws"
 import { FC, ReactNode } from "react"
 import { useLt } from "utils/hooks"
@@ -8,10 +8,10 @@ import { useBSave } from "../../context/bsave/bsave.hook"
 interface Props {
   value: keyof LowerthirdData
   label: string
-  description?: string
+  hotkey?: string
   icon?: ReactNode
 }
-const LowerthirdModeCard: FC<Props> = ({ value, label, description, icon }) => {
+const LowerthirdModeCard: FC<Props> = ({ value, label, hotkey, icon }) => {
   const { mode, data, show } = useLt()
   const bSave = useBSave()
   const onClick = () => {
@@ -29,7 +29,7 @@ const LowerthirdModeCard: FC<Props> = ({ value, label, description, icon }) => {
         <div>
           <Text size="sm">{label}</Text>
           <Text size="xs" color="dimmed">
-            {description}
+            <Kbd>{hotkey}</Kbd>
           </Text>
         </div>
       </Group>

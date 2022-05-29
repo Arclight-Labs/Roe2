@@ -92,7 +92,7 @@ const MatchCard = ({ match, small, ...props }: MatchCardProps) => {
           <MatchMenu match={match} open={open} />
         </Group>
 
-        <Group sx={{ width: 400 }} noWrap>
+        <Group noWrap>
           <MatchCardTeam
             small={small}
             team={a}
@@ -111,7 +111,7 @@ const MatchCard = ({ match, small, ...props }: MatchCardProps) => {
                 </Stack>
               }
             >
-              <Title order={5} align="center">
+              <Title order={5} align="center" sx={{ whiteSpace: "nowrap" }}>
                 {scores.a.final} - {scores.b.final}
               </Title>
             </Tooltip>

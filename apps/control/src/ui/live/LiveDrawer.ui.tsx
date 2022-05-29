@@ -1,28 +1,10 @@
-import {
-  Affix,
-  Burger,
-  Drawer,
-  Text,
-  TabsProps,
-  Tabs,
-  Group,
-  Kbd,
-} from "@mantine/core"
+import { Affix, Burger, Drawer, Text, Group, Kbd } from "@mantine/core"
 import { useHotkeys, useToggle } from "@mantine/hooks"
-import { useState } from "react"
-import LiveMatches from "./LiveMatches.ui"
-import LiveSettings from "./LiveSettings.ui"
-import LiveShoutouts from "./LiveShoutouts.ui"
+import LiveDrawerContent from "./LiveDrawer.content.ui"
 
 const LiveDrawer = () => {
-  const [tab, setTab] = useState(0)
-
   const [opened, toggle] = useToggle(false, [true, false])
   const close = () => toggle(false)
-
-  const onTabChange: TabsProps["onTabChange"] = (index) => {
-    setTab(index)
-  }
 
   useHotkeys([["mod+L", () => toggle()]])
   return (
@@ -44,43 +26,10 @@ const LiveDrawer = () => {
           </Group>
         }
       >
-        <DrawerContent {...{ tab, onTabChange }} />
+        <LiveDrawerContent />
       </Drawer>
     </>
   )
 }
 
-interface DrawerContentProps {
-  tab: number
-  onTabChange: TabsProps["onTabChange"]
-}
-const DrawerContent = ({ tab, onTabChange }: DrawerContentProps) => {
-  return (
-    <Tabs
-      active={tab}
-      onTabChange={onTabChange}
-      styles={{
-        root: {
-          display: "flex",
-          flexDirection: "column",
-          maxHeight: "calc(100% - 50px)",
-        },
-        body: {
-          padding: "20px 0 50px 0",
-          overflowY: "scroll",
-        },
-      }}
-    >
-      <Tabs.Tab label="Live">
-        <LiveSettings />
-      </Tabs.Tab>
-      <Tabs.Tab label="Matches">
-        <LiveMatches />
-      </Tabs.Tab>
-      <Tabs.Tab label="Shoutouts">
-        <LiveShoutouts />
-      </Tabs.Tab>
-    </Tabs>
-  )
-}
 export default LiveDrawer

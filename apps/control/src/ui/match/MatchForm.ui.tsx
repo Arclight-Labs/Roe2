@@ -141,7 +141,7 @@ const MatchForm = ({
   return (
     <form onSubmit={save}>
       <Stack align="center">
-        <Group spacing="xl" sx={{ width: 400 }} noWrap>
+        <Group spacing="xl" noWrap>
           <MatchFormTeamSelect
             disabled={!isCustom}
             sx={{ flex: 1 }}
