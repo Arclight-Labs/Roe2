@@ -1,10 +1,7 @@
 import { AdjImage, AdjSize } from "interface/ws/Live.interface"
 import { Sx } from "@mantine/styles"
 
-type AdjImageStyles = (
-  image: AdjImage,
-  defaultStyles?: AdjSize
-) => { style: Partial<Sx> }
+type AdjImageStyles = (image: AdjImage, defaultStyles?: AdjSize) => Partial<Sx>
 
 export const adjImageStyles: AdjImageStyles = (
   img,
@@ -30,5 +27,5 @@ export const adjImageStyles: AdjImageStyles = (
   if (!h) delete style.height
   if (!w) delete style.width
 
-  return { style }
+  return style
 }

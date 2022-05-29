@@ -41,7 +41,7 @@ const Player = () => {
             ...adjImageStyles({
               adj: { ...player[playerIndex]?.photoAdj, h: 800, w: 800 },
               URL: player[playerIndex]?.photoURL || "",
-            }).style,
+            }),
           }}
         />
       ) : (

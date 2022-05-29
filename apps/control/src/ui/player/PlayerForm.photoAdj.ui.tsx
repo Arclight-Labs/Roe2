@@ -65,7 +65,7 @@ const PlayerFormPhotoAdj: FC<Props> = ({ control, setValue }) => {
                   ...adjImageStyles({
                     adj: photoAdj,
                     URL: photoURL,
-                  }).style,
+                  }),
                 }}
               />
             </Card>
