@@ -8,11 +8,7 @@ interface MatchModalProps extends ModalProps {
 }
 const MatchModal: FC<MatchModalProps> = ({ match, ...props }) => {
   return (
-    <Modal
-      size="xl"
-      {...props}
-      title={match?.id ? "Edit Series" : "Add Custom Series"}
-    >
+    <Modal {...props} title={match?.id ? "Edit Series" : "Add Custom Series"}>
       <MatchForm
         match={match}
         onCancel={props.onClose}

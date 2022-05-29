@@ -6,15 +6,22 @@ import AppShellWrapper from "../../ui/AppShellWrapper.ui"
 import RoomDataProvider from "./Room.provider.data"
 import RoomNullProvider from "./Room.provider.null"
 
-const RoomProvider = ({ children }: PropsWithChildren<{}>) => {
-  const [activeRoom, setActiveRoom] = useActiveRoom()
+const RoomProvider = ({
+  children,
+  hideSidebar,
+}: PropsWithChildren<{ hideSidebar?: boolean }>) => {
+  const [activeRoom] = useActiveRoom()
 
   if (!activeRoom) {
     return (
       <RoomNullProvider>
-        <AppShellWrapper>
+        {hideSidebar ? (
           <RoomSelect />
-        </AppShellWrapper>
+        ) : (
+          <AppShellWrapper>
+            <RoomSelect />
+          </AppShellWrapper>
+        )}
       </RoomNullProvider>
     )
   }

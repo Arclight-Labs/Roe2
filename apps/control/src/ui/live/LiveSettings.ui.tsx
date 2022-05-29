@@ -1,7 +1,7 @@
 import { Group, Kbd, Stack, Switch, Title } from "@mantine/core"
 import { useHotkeys } from "@mantine/hooks"
 import { PropsWithChildren } from "react"
-import { useLive, useLt } from "utils/hooks"
+import { useLive } from "utils/hooks"
 import { setLive } from "utils/socket/events"
 import LowerthirdGeneral from "../lowerthirds/General.lt.ui"
 

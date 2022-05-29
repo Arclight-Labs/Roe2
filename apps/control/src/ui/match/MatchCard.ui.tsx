@@ -6,7 +6,6 @@ import {
   Loader,
   Stack,
   Text,
-  ThemeIcon,
   Title,
   Tooltip,
 } from "@mantine/core"
@@ -21,7 +20,6 @@ import { useMatches, useParticipants, useTournament } from "utils/hooks"
 import { setMatch } from "utils/socket/events"
 import { useBSave } from "../../context/bsave/bsave.hook"
 import { usePermission } from "../../hooks/usePermission.hook"
-import Confirm from "../popups/Confirm.ui"
 import MatchBadges from "./MatchBadges.ui"
 import MatchCardTeam from "./MatchCardTeam.ui"
 import MatchMenu from "./MatchMenu"
@@ -73,7 +71,7 @@ const MatchCard = ({ match, small, ...props }: MatchCardProps) => {
       <Card
         shadow="xs"
         {...props}
-        sx={{ cursor: "pointer", ...props.sx }}
+        sx={{ cursor: "pointer", maxWidth: 400, ...props.sx }}
         onClick={isAllowed ? open : undefined}
       >
         <Group
@@ -92,7 +90,7 @@ const MatchCard = ({ match, small, ...props }: MatchCardProps) => {
           <MatchMenu match={match} open={open} />
         </Group>
 
-        <Group sx={{ width: 400 }} noWrap>
+        <Group noWrap>
           <MatchCardTeam
             small={small}
             team={a}
@@ -111,7 +109,7 @@ const MatchCard = ({ match, small, ...props }: MatchCardProps) => {
                 </Stack>
               }
             >
-              <Title order={5} align="center">
+              <Title order={5} align="center" sx={{ whiteSpace: "nowrap" }}>
                 {scores.a.final} - {scores.b.final}
               </Title>
             </Tooltip>
