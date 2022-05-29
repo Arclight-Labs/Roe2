@@ -18,5 +18,3 @@ export const defaultRoe2AuthContext = {
 }
 
 export const authContext = createContext<Roe2Auth>(defaultRoe2AuthContext)
-
-export type EmailAndPassFn = (email: string, password: string) => Promise<any>

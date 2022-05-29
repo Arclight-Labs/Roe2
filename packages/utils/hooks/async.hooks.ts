@@ -1,4 +1,4 @@
-export async function runAsync<T = any, E = any>(
+export async function runAsync<T = unknown, E = unknown>(
   promise: Promise<T>
 ): Promise<[T | undefined, E | undefined]> {
   try {

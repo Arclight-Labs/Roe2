@@ -17,7 +17,7 @@ import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { showNotification } from "@mantine/notifications"
 import { useAuth } from "../context/auth/Auth.hooks"
-import { createUserWithEmailAndPassword } from "firebase/auth"
+import { AuthError, createUserWithEmailAndPassword } from "firebase/auth"
 import { auth as FirebaseAuth } from "utils/firebase"
 import { runAsync } from "utils/hooks"
 
@@ -48,7 +48,7 @@ const Login = () => {
     if (err) {
       showNotification({
         color: "error",
-        message: err.message,
+        message: (err as AuthError)?.message || "An error occurred",
       })
       return setLoading(false)
     }
