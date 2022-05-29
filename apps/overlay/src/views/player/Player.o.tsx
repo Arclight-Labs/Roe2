@@ -1,7 +1,7 @@
 import { useParticipants } from "utils/hooks"
 import { useParams } from "react-router-dom"
 import useRoom from "../../hooks/useRoom.hook"
-import { Image, Box, Text, BackgroundImage, Center } from "@mantine/core"
+import { Box, Text } from "@mantine/core"
 import { QueryColor, QueryFont } from "../../utils/queryParams"
 import { useQuery } from "../../utils/useQuery"
 import { adjImageStyles } from "utils/general"
@@ -16,8 +16,7 @@ const Player = () => {
   useRoom()
   const query = useQuery()
   const params = useParams<Params>()
-  const { chalTeams, activeTeamAWithInvert, activeTeamBWithInvert } =
-    useParticipants()
+  const { activeTeamAWithInvert, activeTeamBWithInvert } = useParticipants()
 
   const activePlayerA = Object.values(activeTeamAWithInvert.players).filter(
     (player) => player.isActive

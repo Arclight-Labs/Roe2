@@ -1,12 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod"
-import {
-  ActionIcon,
-  Button,
-  Group,
-  LoadingOverlay,
-  Stack,
-  TextInput,
-} from "@mantine/core"
+import { Button, Group, LoadingOverlay, Stack, TextInput } from "@mantine/core"
 import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from "@mantine/dropzone"
 import { nanoid } from "@reduxjs/toolkit"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage"

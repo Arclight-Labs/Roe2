@@ -1,6 +1,5 @@
 import { Popover, PopoverProps } from "@mantine/core"
 import { PropsWithChildren } from "react"
-import { defaultAdjSize } from "utils/general"
 import PlayerForm, { PlayerProps } from "./PlayerForm.ui"
 
 interface PlayerAvatarProps extends Omit<PopoverProps, "target"> {
@@ -17,7 +16,7 @@ const PlayerFormPopover = ({
     <Popover
       position="bottom"
       placement="center"
-      // withArrow
+      withArrow
       shadow="xl"
       withCloseButton
       closeOnClickOutside={false}
