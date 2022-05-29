@@ -1,9 +1,10 @@
 import { useParticipants } from "utils/hooks"
 import { useParams } from "react-router-dom"
 import useRoom from "../../hooks/useRoom.hook"
-import { Image, Box, Text } from "@mantine/core"
+import { Image, Box, Text, BackgroundImage, Center } from "@mantine/core"
 import { QueryColor, QueryFont } from "../../utils/queryParams"
 import { useQuery } from "../../utils/useQuery"
+import { adjImageStyles } from "utils/general"
 
 type PlayerCode = "photoURL" | "username" | "school"
 
@@ -36,11 +37,13 @@ const Player = () => {
   return (
     <Box>
       {playerCode === "photoURL" ? (
-        <Image
-          src={player[playerIndex]?.[playerCode]}
-          height={800}
-          width={800}
-          fit="contain"
+        <Box
+          sx={{
+            ...adjImageStyles({
+              adj: { ...player[playerIndex]?.photoAdj, h: 800, w: 800 },
+              URL: player[playerIndex]?.photoURL || "",
+            }).style,
+          }}
         />
       ) : (
         <Text

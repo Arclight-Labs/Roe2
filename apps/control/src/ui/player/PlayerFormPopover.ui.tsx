@@ -1,5 +1,6 @@
 import { Popover, PopoverProps } from "@mantine/core"
 import { PropsWithChildren } from "react"
+import { defaultAdjSize } from "utils/general"
 import PlayerForm, { PlayerProps } from "./PlayerForm.ui"
 
 interface PlayerAvatarProps extends Omit<PopoverProps, "target"> {
@@ -33,6 +34,7 @@ const PlayerFormPopover = ({
           uid: player.uid,
           username: player.username,
           stats: player.stats ?? {},
+          photoAdj: player.photoAdj,
         }}
         onCancel={props.onClose}
         afterSubmit={props.onClose}

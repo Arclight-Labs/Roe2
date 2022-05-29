@@ -11,7 +11,7 @@ import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from "@mantine/dropzone"
 import { nanoid } from "@reduxjs/toolkit"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
 import { FilePreview } from "interface"
-import { FormEvent, FormEventHandler, useRef, useState } from "react"
+import { FormEventHandler, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
 import { storage } from "utils/firebase"
 import { useParticipants } from "utils/hooks"
@@ -20,18 +20,21 @@ import { useAuth } from "../../context/auth/Auth.hooks"
 import { useRoom } from "../../context/room/Room.hooks"
 import { DropzoneContent } from "../DropzoneContent.ui"
 import { playerSchema, PlayerSchema } from "utils/schema/player.schema"
-import { DeviceFloppy, Resize, Trash } from "tabler-icons-react"
+import { DeviceFloppy, Trash } from "tabler-icons-react"
 import { useBSave } from "../../context/bsave/bsave.hook"
 import Confirm from "../popups/Confirm.ui"
 import { Stat } from "interface/waypoint/SanitizedUser.interface"
 import { defaultAdjSize, fn } from "utils/general"
 import PlayerFormStat from "./PlayerForm.stat.ui"
+import PlayerFormPhotoAdj from "./PlayerForm.photoAdj.ui"
+import { AdjSize } from "interface/ws/Live.interface"
 
 export interface PlayerProps {
   uid?: string
   username: string
   photoURL: string
   stats?: Record<string, Stat>
+  photoAdj?: AdjSize
 }
 interface PlayerFormProps {
   teamId: string
@@ -58,7 +61,7 @@ const PlayerForm = ({
       username: player?.username ?? "",
       photoURL: player?.photoURL ?? "",
       stats: Object.values(player?.stats ?? {}),
-      photoAdj: defaultAdjSize,
+      photoAdj: { ...defaultAdjSize, ...player.photoAdj },
     },
     resolver: zodResolver(playerSchema),
   })
@@ -135,9 +138,7 @@ const PlayerForm = ({
           )}
         </Dropzone>
         <Group spacing="sm">
-          <ActionIcon size="xl">
-            <Resize />
-          </ActionIcon>
+          <PlayerFormPhotoAdj control={control} setValue={setValue} />
           <PlayerFormStat control={control} />
         </Group>
 

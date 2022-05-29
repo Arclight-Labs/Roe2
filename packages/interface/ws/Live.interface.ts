@@ -36,7 +36,7 @@ export interface AdjText {
 export interface AdjImage {
   URL: string
   BASE64?: string
-  adj: AdjSize
+  adj: Partial<AdjSize>
 }
 
 export interface Schedule {
