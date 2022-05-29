@@ -12,7 +12,7 @@ export type SanitizedUserProps =
   | "school"
 
 export type Stat = {
-  identifier: string
+  id: string
   name: string
 } & ({ value: string; isNum: false } | { value: number; isNum: true })
 
