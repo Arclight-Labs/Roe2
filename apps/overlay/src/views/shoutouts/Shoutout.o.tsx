@@ -16,6 +16,7 @@ import { Carousel } from "react-responsive-carousel"
 import "react-responsive-carousel/lib/styles/carousel.min.css" // requires a loader
 import { QueryColor } from "../../utils/queryParams"
 import { Container } from "@mantine/core"
+import { decodeEntities } from "utils/general"
 
 const width = 750
 const maxHeight = 300
@@ -92,7 +93,7 @@ const ShoutoutItem: FC<ShoutoutItemProps> = ({ tweet }) => {
                 color: QueryColor["white"],
               }}
             >
-              {tweet.text}
+              {decodeEntities(tweet.text)}
             </Text>
           </Group>
         </Group>

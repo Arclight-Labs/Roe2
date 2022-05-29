@@ -10,6 +10,7 @@ import {
 } from "@mantine/core"
 import { TwitterApiResultsItem } from "interface/utils"
 import { FC } from "react"
+import { decodeEntities } from "utils/general"
 import { useLive } from "utils/hooks"
 import { setLive } from "utils/socket/events"
 import { useBSave } from "../../context/bsave/bsave.hook"
@@ -49,7 +50,9 @@ const ShoutoutsCard: FC<ShoutoutsCardProps> = ({ tweet, ...props }) => {
             </Text>
           </Stack>
         </Group>
-        <Text sx={{ wordBreak: "break-word" }}>{tweet.text}</Text>
+        <Text sx={{ wordBreak: "break-word" }}>
+          {decodeEntities(tweet.text)}
+        </Text>
       </Stack>
 
       {img && (
