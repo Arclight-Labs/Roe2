@@ -71,7 +71,7 @@ const MatchCard = ({ match, small, ...props }: MatchCardProps) => {
       <Card
         shadow="xs"
         {...props}
-        sx={{ cursor: "pointer", ...props.sx }}
+        sx={{ cursor: "pointer", maxWidth: 400, ...props.sx }}
         onClick={isAllowed ? open : undefined}
       >
         <Group

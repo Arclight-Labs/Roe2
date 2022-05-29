@@ -27,12 +27,12 @@ const MatchCardTeam = ({ team, loser, small, ...props }: TeamProps) => {
       sx={{ flex: 1, opacity: loser ? 0.5 : 1, ...props.sx }}
       noWrap={small}
     >
-      <Tooltip label={!xs ? TextDetails : ""}>
+      <Tooltip label={TextDetails} disabled={xs && !small}>
         <Avatar src={team.logo} radius="md" size={small ? 35 : 50}>
           {team.name === "TBD" ? "TBD" : ""}
         </Avatar>
       </Tooltip>
-      {xs && TextDetails}
+      {xs && !small && TextDetails}
     </Group>
   )
 }
