@@ -4,6 +4,10 @@
 <p align="center">
   Roe2
 </p>
+<p align="center">
+  <a href="https://www.codefactor.io/repository/github/acadarena/roe2"><img src="https://www.codefactor.io/repository/github/acadarena/roe2/badge" alt="CodeFactor" /></a>
+  <img src="https://img.shields.io/badge/renovate-enabled-brightgreen.svg" alt="CodeFactor" />
+</p>
 
 # Remote Overlay Environment 2
 
