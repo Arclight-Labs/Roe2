@@ -7,6 +7,8 @@
 
 # Remote Overlay Environment 2
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/0fd75996d6534141b2abdb7c2a645c6b)](https://app.codacy.com/gh/AcadArena/Roe2?utm_source=github.com&utm_medium=referral&utm_content=AcadArena/Roe2&utm_campaign=Badge_Grade_Settings)
+
 An overlay tool for tournaments hosted in [AcadArena](https://app.acadarena.com/) platform.
 
 ## What's inside?
