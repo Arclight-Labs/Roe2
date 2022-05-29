@@ -16,7 +16,7 @@ const io = new Server(server, {
 io.on("connection", async (socket) => {
   console.log(`New Connection: ${socket.id}`)
 
-  socket.onAny((eventName: string, ...args: any[]) => {
+  socket.onAny((eventName: string, ...args: unknown[]) => {
     console.log(`[${socket.id}]: emitted ${eventName} with ${args}`)
   })
 

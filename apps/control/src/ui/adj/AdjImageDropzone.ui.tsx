@@ -16,7 +16,6 @@ import { ChangeEventHandler, FC } from "react"
 import { useFormContext } from "react-hook-form"
 import { DropzoneContent } from "../DropzoneContent.ui"
 
-type AdjImageProps = Record<string, AdjImage | any>
 interface AdjImageDropzoneProps {
   preview?: string
   file: FilePreview
@@ -29,7 +28,7 @@ const AdjImageDropzone: FC<AdjImageDropzoneProps> = ({
   setFile,
   name,
 }) => {
-  const { setValue, watch } = useFormContext<AdjImageProps>()
+  const { setValue, watch } = useFormContext()
   const onDrop: DropzoneProps["onDrop"] = (files) => {
     const file = files[0]
     if (!file) return
