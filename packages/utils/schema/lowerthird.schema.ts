@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { adjImageSchema, adjSizeSchema, adjTextSchema } from "./adj.schema"
+import { adjImageSchema, adjTextSchema } from "./adj.schema"
 // --------
 
 export const tickerSchema = z.object({

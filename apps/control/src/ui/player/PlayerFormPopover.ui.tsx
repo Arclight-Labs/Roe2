@@ -1,6 +1,5 @@
 import { Popover, PopoverProps } from "@mantine/core"
-import { SanitizedUser } from "interface/waypoint"
-import { PropsWithChildren, ReactNode } from "react"
+import { PropsWithChildren } from "react"
 import PlayerForm, { PlayerProps } from "./PlayerForm.ui"
 
 interface PlayerAvatarProps extends Omit<PopoverProps, "target"> {
@@ -20,7 +19,7 @@ const PlayerFormPopover = ({
       // withArrow
       shadow="xl"
       withCloseButton
-      closeOnClickOutside
+      closeOnClickOutside={false}
       title={player.uid ? "Edit Player" : "Add Player"}
       transition="pop"
       width={260}
@@ -33,6 +32,7 @@ const PlayerFormPopover = ({
           photoURL: player.photoURL,
           uid: player.uid,
           username: player.username,
+          stats: player.stats ?? {},
         }}
         onCancel={props.onClose}
         afterSubmit={props.onClose}

@@ -1,4 +1,4 @@
-import { AdjImage } from "../ws"
+import { AdjSize } from "../ws"
 import { Path } from "./Path.type"
 import { WaypointUser } from "./WaypointTournament.interface"
 
@@ -14,11 +14,12 @@ export type SanitizedUserProps =
 export type Stat = {
   id: string
   name: string
-} & ({ value: string; isNum: false } | { value: number; isNum: true })
+  value: string
+}
 
 type OptionalFields = Partial<{
   isActive: boolean
-  photoAdj: AdjImage
+  photoAdj: AdjSize
   stats: Record<string, Stat>
 }>
 

@@ -1,26 +1,19 @@
 import { z } from "zod"
-import { adjImageSchema } from "./adj.schema"
+import { adjSizeSchema } from "./adj.schema"
+
+export const statSchema = z.object({
+  name: z.string(),
+  id: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
+  value: z.string(),
+})
+
+export type StatSchema = z.infer<typeof statSchema>
 
 export const playerSchema = z.object({
   username: z.string().min(1),
   photoURL: z.string(),
-  photoAdj: adjImageSchema.optional(),
+  photoAdj: adjSizeSchema.optional(),
+  stats: z.array(statSchema).optional(),
 })
 
 export type PlayerSchema = z.infer<typeof playerSchema>
-
-export const Stat = z
-  .object({
-    name: z.string(),
-    id: z.string(),
-    value: z.string().or(z.number()),
-    isNum: z.boolean(),
-  })
-  .refine((data) => {
-    const isNumber = typeof data.value === "number" && !!data.isNum
-    const isString = typeof data.value === "string" && !data.isNum
-    if (isNumber || isString) return true
-    return false
-  }, "Value should be the string if isNum is false, and value should be a number if isNum is true")
-
-export type StatSchema = z.infer<typeof playerSchema>
