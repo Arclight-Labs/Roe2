@@ -13,9 +13,11 @@ import { FormEventHandler, useState } from "react"
 import { useHttpsCallable } from "react-firebase-hooks/functions"
 import { useScreen } from "ui/Screen.hook"
 import { fn } from "utils/firebase"
+import { usePermission } from "../../hooks/usePermission.hook"
 import ShoutoutsCard from "../../ui/shoutouts/ShoutoutsCard.ui"
 
 const ShoutoutsPage = () => {
+  const isAllowed = usePermission()
   const [callable, loading] = useHttpsCallable<
     { search: string },
     TwitterApiResults
@@ -37,6 +39,7 @@ const ShoutoutsPage = () => {
         <form onSubmit={onSubmit}>
           <Group sx={{ alignItems: "center" }}>
             <TextInput
+              disabled={!isAllowed}
               value={search}
               placeholder="#AllG"
               onChange={({ target: { value } }) => setSearch(value)}

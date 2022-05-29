@@ -20,3 +20,4 @@ export {
   fn,
 } from "./defaultValues"
 export { adjImageStyles } from "./adjStyle"
+export { decodeEntities } from "./decodeEntities"

@@ -1,9 +1,10 @@
 import { useParticipants } from "utils/hooks"
 import { useParams } from "react-router-dom"
 import useRoom from "../../hooks/useRoom.hook"
-import { Image, Box, Text } from "@mantine/core"
+import { Box, Text } from "@mantine/core"
 import { QueryColor, QueryFont } from "../../utils/queryParams"
 import { useQuery } from "../../utils/useQuery"
+import { adjImageStyles } from "utils/general"
 
 type PlayerCode = "photoURL" | "username" | "school"
 
@@ -15,8 +16,7 @@ const Player = () => {
   useRoom()
   const query = useQuery()
   const params = useParams<Params>()
-  const { chalTeams, activeTeamAWithInvert, activeTeamBWithInvert } =
-    useParticipants()
+  const { activeTeamAWithInvert, activeTeamBWithInvert } = useParticipants()
 
   const activePlayerA = Object.values(activeTeamAWithInvert.players).filter(
     (player) => player.isActive
@@ -36,11 +36,13 @@ const Player = () => {
   return (
     <Box>
       {playerCode === "photoURL" ? (
-        <Image
-          src={player[playerIndex]?.[playerCode]}
-          height={800}
-          width={800}
-          fit="contain"
+        <Box
+          sx={{
+            ...adjImageStyles({
+              adj: { ...player[playerIndex]?.photoAdj, h: 800, w: 800 },
+              URL: player[playerIndex]?.photoURL || "",
+            }),
+          }}
         />
       ) : (
         <Text

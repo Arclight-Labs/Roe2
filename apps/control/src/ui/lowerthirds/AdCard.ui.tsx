@@ -74,15 +74,17 @@ const AdCard: FC<AdCardProps> = ({ ad }) => {
       </Group>
       <Group noWrap align="center">
         <Box
-          {...adjImageStyles(
-            preview
-              ? ad.image
-              : {
-                  ...defaultAdjImage,
-                  URL: ad.image.URL,
-                  BASE64: ad.image.BASE64,
-                }
-          )}
+          sx={{
+            ...adjImageStyles(
+              preview
+                ? ad.image
+                : {
+                    ...defaultAdjImage,
+                    URL: ad.image.URL,
+                    BASE64: ad.image.BASE64,
+                  }
+            ),
+          }}
         />
         <Stack spacing={4}>
           <Title

@@ -111,10 +111,10 @@ const AdjImageDropzone: FC<AdjImageDropzoneProps> = ({
             disabled={isDisabled}
             value={watch(path("scale")) as number}
             onChange={onSlide}
-            min={-1}
+            min={-0.9}
             max={5}
-            label={(val) => `x${(val + 1).toFixed(2)}`}
             step={0.05}
+            label={(val) => `x${(val + 1).toFixed(2)}`}
             sx={{ flex: 1 }}
           />
         </Group>
