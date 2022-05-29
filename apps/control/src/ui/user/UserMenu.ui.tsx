@@ -6,7 +6,7 @@ import UserModal from "../../overlays/User.modal"
 import { useAuth } from "../../context/auth/Auth.hooks"
 import { signOut } from "firebase/auth"
 
-interface Props extends Omit<MenuProps, "children"> {}
+type Props = Omit<MenuProps, "children">
 export function UserMenu(props: Props) {
   const { user, auth } = useAuth()
   const [opened, isOpened] = useState(false)
