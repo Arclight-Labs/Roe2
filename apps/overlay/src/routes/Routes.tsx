@@ -30,6 +30,7 @@ const LowerThirds = Loadable(
 const Ticker = Loadable(
   lazy(() => import("../views/lowerthirds/LowerTicker.o"))
 )
+const Ad = Loadable(lazy(() => import("../views/lowerthirds/Ad.o")))
 
 const Routes = () => {
   return useRoutes([
@@ -51,6 +52,10 @@ const Routes = () => {
         {
           path: "ticker",
           element: <Ticker />,
+        },
+        {
+          path: "ad",
+          element: <Ad />,
         },
         {
           path: "talent",
