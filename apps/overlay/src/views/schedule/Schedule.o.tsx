@@ -12,23 +12,32 @@ import {
   Stack,
 } from "@mantine/core"
 import { SanitizedSeries, Series } from "interface/waypoint"
-import { tbd } from "utils/general"
+import { defaultSeries, tbd } from "utils/general"
 
 interface ScheduleProps {
-  match: Series
+  match: SanitizedSeries
 }
 
 const Schedule = ({ match }: ScheduleProps) => {
   useRoom()
   const { chalTeams } = useParticipants()
+  const { getScore } = useMatches()
   const { teamA, teamB } = match
   const aChalId = teamA.id
   const bChalId = teamB.id
   const a = chalTeams[aChalId || ""] ?? tbd
   const b = chalTeams[bChalId || ""] ?? tbd
 
+  const aLoser = aChalId === match?.loserId
+  const bLoser = bChalId === match?.loserId
+  const aWinner = aChalId === match?.winnerId
+  const bWinner = bChalId === match?.winnerId
+
+  const teamAScore = getScore(match ?? defaultSeries)?.["a"].final
+  const teamBScore = getScore(match ?? defaultSeries)?.["b"].final
+
   return (
-    <Group sx={{ marginLeft: "5rem", marginBottom: "-25rem" }}>
+    <Group sx={{ marginLeft: "5rem", marginBottom: "-22rem" }}>
       <Box sx={{ height: 700, width: 700 }}>
         <Grid>
           <Grid.Col span={4}>
@@ -39,23 +48,43 @@ const Schedule = ({ match }: ScheduleProps) => {
                   height={200}
                   width={200}
                   fit="contain"
-                  sx={{ marginBottom: "-4rem" }}
+                  sx={{
+                    marginBottom: "-2rem",
+                    opacity: aLoser ? "35%" : "100%",
+                  }}
                 />
                 <Text
-                  sx={{ fontFamily: "Industry", fontSize: 100, color: "white" }}
+                  sx={{
+                    fontFamily: "Industry",
+                    fontSize: 100,
+                    color: aWinner ? "#ffd200" : "white",
+                    opacity: aLoser ? "35%" : "100%",
+                  }}
                 >
                   {a?.shortcode}
                 </Text>
               </Stack>
             </Center>
           </Grid.Col>
-          <Grid.Col span={4}>
-            <Image
-              src={"/src/public/VS.png"}
-              height={200}
-              width={200}
-              fit="contain"
-            />
+          <Grid.Col span={5}>
+            <Stack align="center">
+              <Image
+                src={"/src/public/VS.png"}
+                height={200}
+                width={200}
+                fit="contain"
+              />
+              <Text
+                sx={{
+                  fontFamily: "Industry",
+                  fontSize: 60,
+                  color: "#ffd200",
+                  marginTop: " 5px",
+                }}
+              >
+                {teamAScore} - {teamBScore}
+              </Text>
+            </Stack>
           </Grid.Col>
           <Grid.Col span={3}>
             <Stack align="center">
@@ -64,10 +93,15 @@ const Schedule = ({ match }: ScheduleProps) => {
                 height={200}
                 width={200}
                 fit="contain"
-                sx={{ marginBottom: "-4rem" }}
+                sx={{ marginBottom: "-2rem", opacity: bLoser ? "35%" : "100%" }}
               />
               <Text
-                sx={{ fontFamily: "Industry", fontSize: 100, color: "white" }}
+                sx={{
+                  fontFamily: "Industry",
+                  fontSize: 100,
+                  color: bWinner ? "#ffd200" : "white",
+                  opacity: bLoser ? "35%" : "100%",
+                }}
               >
                 {b?.shortcode}
               </Text>
