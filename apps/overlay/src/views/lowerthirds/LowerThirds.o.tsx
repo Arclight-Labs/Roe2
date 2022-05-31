@@ -29,7 +29,13 @@ const LT: SwitchLT = (mode) => {
       {switchLT(mode)}
       <Image
         src={"/src/public/LTBanner.png"}
-        sx={{ position: "absolute", top: -10, left: -20, zIndex: -1 }}
+        sx={{
+          position: "fixed",
+          top: -10,
+          left: -20,
+          zIndex: -1,
+          minWidth: "1585px",
+        }}
       />
     </div>
   )
