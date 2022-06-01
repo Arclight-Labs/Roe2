@@ -7,7 +7,10 @@
 <p align="center">
   <a href="https://www.codefactor.io/repository/github/acadarena/roe2"><img src="https://www.codefactor.io/repository/github/acadarena/roe2/badge" alt="CodeFactor" /></a>
   <img src="https://img.shields.io/badge/renovate-enabled-brightgreen.svg" alt="CodeFactor" />
+  <a href="https://www.codacy.com/gh/AcadArena/Roe2/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AcadArena/Roe2&amp;utm_campaign=Badge_Grade"><img src="https://app.codacy.com/project/badge/Grade/3b2f3c26e71d4949aced6e64ce9e3608"/></a>
 </p>
+
+
 
 # Remote Overlay Environment 2
 
