@@ -4,6 +4,8 @@ import useRoom from "../../hooks/useRoom.hook"
 import { AdItem } from "./AdSingle.o"
 import { Carousel } from "react-responsive-carousel"
 import "react-responsive-carousel/lib/styles/carousel.min.css" // requires a loader
+import CustomCarousel from "./CustomCarousel.o"
+import { useEffect, useState } from "react"
 
 const AdPool = () => {
   useRoom()
@@ -24,7 +26,9 @@ const AdPool = () => {
         key={adPool.ads.length}
       >
         {adPool.ads.map((ad) => (
-          <AdItem ad={ad} key={ad.id}></AdItem>
+          <CustomCarousel adKey={ad.id}>
+            <AdItem ad={ad} key={ad.id}></AdItem>
+          </CustomCarousel>
         ))}
       </Carousel>
     </div>
