@@ -47,41 +47,43 @@ const LT = ({ mode, ad }: SwitchAdProps) => {
   return (
     <div>
       <AnimatePresence>
-        <motion.div
-          layout
-          initial="initial"
-          animate="animate"
-          exit="exit"
-          variants={list}
-        >
+        <LayoutGroup>
           <motion.div
-            key={mode}
+            layout
             initial="initial"
             animate="animate"
             exit="exit"
-            variants={item}
+            variants={list}
           >
             <motion.div
-              key={ad}
+              key={mode}
               initial="initial"
               animate="animate"
               exit="exit"
               variants={item}
             >
-              {switchLT(mode)}
+              <motion.div
+                key={ad}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+                variants={item}
+              >
+                {switchLT(mode)}
+              </motion.div>
             </motion.div>
+            <Image
+              src={"/src/public/LTBanner.png"}
+              sx={{
+                position: "fixed",
+                marginTop: -200,
+                marginLeft: -110,
+                zIndex: -10,
+                minWidth: "1585px",
+              }}
+            />
           </motion.div>
-          <Image
-            src={"/src/public/LTBanner.png"}
-            sx={{
-              position: "fixed",
-              marginTop: -200,
-              marginLeft: -110,
-              zIndex: -10,
-              minWidth: "1585px",
-            }}
-          />
-        </motion.div>
+        </LayoutGroup>
       </AnimatePresence>
     </div>
   )

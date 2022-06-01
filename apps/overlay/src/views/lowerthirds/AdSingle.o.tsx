@@ -10,7 +10,7 @@ interface AdItemProps {
 
 export const AdItem: FC<AdItemProps> = ({ ad }) => {
   return (
-    <Group id={ad.id} align={"flex-start"}>
+    <Group id={ad.id} align={"center"}>
       <Image
         fit="contain"
         src={ad.image.URL}
