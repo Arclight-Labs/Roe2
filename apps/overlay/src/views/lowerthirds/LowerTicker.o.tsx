@@ -7,11 +7,12 @@ const LowerTicker = () => {
   useRoom()
   const { ticker } = useLt()
   return (
-    <Stack justify={"left"} spacing={"xs"} align={"flex-start"}>
+    <Stack justify={"center"} spacing={"xs"} align={"flex-start"}>
       <Text
         sx={{
           fontFamily: "Industry",
           fontSize: ticker.headline.size || 60,
+          color: "#001c5a",
           lineHeight: 1,
         }}
       >
@@ -21,6 +22,7 @@ const LowerTicker = () => {
         sx={{
           fontFamily: "Roboto",
           fontSize: ticker.scrollerText.size || 40,
+          color: "#001c5a",
           lineHeight: 1,
         }}
       >

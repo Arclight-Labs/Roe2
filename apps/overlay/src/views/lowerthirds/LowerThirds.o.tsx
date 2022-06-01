@@ -3,17 +3,19 @@ import { LowerthirdData } from "interface/ws"
 import { useLt } from "utils/hooks"
 import LowerTicker from "./LowerTicker.o"
 import { ReactNode } from "react"
-import Ad from "./Ad.o"
+
 import useRoom from "../../hooks/useRoom.hook"
+import AdSingle from "./AdSingle.o"
+import AdPool from "./AdPool.o"
 
 type SwitchLT = (mode: keyof LowerthirdData) => ReactNode
 
 const switchLT: SwitchLT = (mode) => {
   switch (mode) {
     case "ad":
-      return <Ad />
+      return <AdSingle />
     case "adPool":
-      return <></>
+      return <AdPool />
     case "matchPoll":
       return <></>
     case "ticker":
@@ -33,7 +35,7 @@ const LT: SwitchLT = (mode) => {
           position: "fixed",
           top: -10,
           left: -20,
-          zIndex: -1,
+          zIndex: -10,
           minWidth: "1585px",
         }}
       />
