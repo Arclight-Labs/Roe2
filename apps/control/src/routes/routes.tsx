@@ -21,6 +21,8 @@ const TalentsPage = Loadable(lazy(() => import("../pages/talents")))
 const LowerthirdsPage = Loadable(lazy(() => import("../pages/lowerthirds")))
 const IngamePage = Loadable(lazy(() => import("../pages/ingame")))
 const ShoutoutsPage = Loadable(lazy(() => import("../pages/shoutouts")))
+const OverlaysPage = Loadable(lazy(() => import("../pages/overlays")))
+
 const QuickSettingsPage = Loadable(
   lazy(() => import("../pages/quick_settings"))
 )
@@ -87,6 +89,7 @@ const Routes = () => {
         { path: "ingame", element: <IngamePage /> },
         { path: "state", element: <StatePage /> },
         { path: "shoutouts", element: <Shoutouts /> },
+        { path: "overlays", element: <OverlaysPage /> },
       ],
     },
   ])
