@@ -44,7 +44,7 @@ const PlayerStats = () => {
         }}
         align={align as alignType}
       >
-        {player[playerIndex]?.stats![playerStatID]?.[playerStatCode]}
+        {(player[playerIndex]?.stats ?? {}).[playerStatID]?.[playerStatCode]}
       </Text>
     </Box>
   )
