@@ -1,17 +1,7 @@
-import { useLive, useMatches, useParticipants } from "utils/hooks"
-import { useParams } from "react-router-dom"
+import { useMatches, useParticipants } from "utils/hooks"
 import useRoom from "../../hooks/useRoom.hook"
-import {
-  Image,
-  Box,
-  Text,
-  Group,
-  Stack,
-  Grid,
-  Center,
-  Container,
-} from "@mantine/core"
-import { defaultSeries, defaultParticipant } from "utils/general/defaultValues"
+import { Image, Box, Text, Group, Stack, Grid, Center } from "@mantine/core"
+import { defaultSeries } from "utils/general/defaultValues"
 
 const UpNext = () => {
   useRoom()

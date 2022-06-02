@@ -5,6 +5,7 @@ import { Image, Box } from "@mantine/core"
 import { useInverse } from "../../hooks/useInverse.hook"
 
 type Params = Record<"team", string>
+
 const Logo = () => {
   useRoom()
   const params = useParams<Params>()

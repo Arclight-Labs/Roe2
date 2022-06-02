@@ -3,7 +3,6 @@ import { Text, Image, Group, Stack } from "@mantine/core"
 import useRoom from "../../hooks/useRoom.hook"
 import { FC } from "react"
 import { Ad } from "interface/ws"
-
 interface AdItemProps {
   ad: Ad
 }

@@ -2,19 +2,16 @@ import { useParticipants } from "utils/hooks"
 import { useParams } from "react-router-dom"
 import useRoom from "../../hooks/useRoom.hook"
 import { Box, Text } from "@mantine/core"
-import { QueryColor, QueryFont } from "../../utils/queryParams"
-import { useQuery } from "../../utils/useQuery"
 import { adjImageStyles } from "utils/general"
+import { useAdjQuery } from "../../utils/useAdjQuery"
 
 type PlayerCode = "photoURL" | "username" | "school"
-
 type Params = Record<"team" | "player" | "code", string>
-type alignType = "left" | "center" | "right" | undefined
 
 const Player = () => {
   useRoom()
-  const query = useQuery()
   const params = useParams<Params>()
+  const { font, fontColor, fontSize, align } = useAdjQuery()
   const { activeTeamAWithInvert, activeTeamBWithInvert } = useParticipants()
 
   const activePlayerA = Object.values(activeTeamAWithInvert.players).filter(
@@ -26,11 +23,6 @@ const Player = () => {
   const player = params.team === "a" ? activePlayerA : activePlayerB
   const playerIndex = +(params.player ?? 0)
   const playerCode = (params.code as PlayerCode) ?? "photoURL"
-
-  const font = QueryFont[query.get("font") ?? "industry"]
-  const fontColor = QueryColor[query.get("color") ?? "black"]
-  const fontSize = +(query.get("size") ?? 100)
-  const align = query.get("align") ?? "left"
 
   return (
     <Box>
@@ -51,7 +43,7 @@ const Player = () => {
             fontSize: fontSize,
             color: fontColor,
           }}
-          align={align as alignType}
+          align={align}
         >
           {player[playerIndex]?.[playerCode]}
         </Text>

@@ -2,19 +2,17 @@ import { useLive } from "utils/hooks"
 import { useParams } from "react-router-dom"
 import useRoom from "../../hooks/useRoom.hook"
 import { Box, Text } from "@mantine/core"
-import { useQuery } from "../../utils/useQuery"
+import { useAdjQuery } from "../../utils/useAdjQuery"
 
 type Params = Record<"talent", string>
-type alignType = "left" | "center" | "right" | undefined
 
 const Talent = () => {
   useRoom()
   const params = useParams<Params>()
-  const query = useQuery()
+  const { align } = useAdjQuery()
   const { getActiveTalent } = useLive()
   const talentIndex = +(params.talent ?? 0)
   const talent = getActiveTalent(talentIndex)
-  const align = query.get("align") ?? "left"
 
   return (
     <Box
@@ -23,16 +21,10 @@ const Talent = () => {
         width: 1000,
       }}
     >
-      <Text
-        sx={{ fontFamily: "Industry", fontSize: 120 }}
-        align={align as alignType}
-      >
+      <Text sx={{ fontFamily: "Industry", fontSize: 120 }} align={align}>
         {talent?.username}
       </Text>
-      <Text
-        sx={{ fontFamily: "Roboto", fontSize: 70 }}
-        align={align as alignType}
-      >
+      <Text sx={{ fontFamily: "Roboto", fontSize: 70 }} align={align}>
         @{talent?.socialHandle}
       </Text>
     </Box>

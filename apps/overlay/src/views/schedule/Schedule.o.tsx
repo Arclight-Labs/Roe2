@@ -3,7 +3,6 @@ import useRoom from "../../hooks/useRoom.hook"
 import { Image, Box, Text, Group, Grid, Center, Stack } from "@mantine/core"
 import { SanitizedSeries } from "interface/waypoint"
 import { defaultSeries, tbd } from "utils/general"
-
 interface ScheduleProps {
   match: SanitizedSeries
 }
