@@ -15,7 +15,7 @@ export interface OverlayLink {
   link: string
   label: string
   icon: Icon
-  adjust: boolean
+  adjust?: Partial<OverlayLink>
   team?: "a" | "b"
   teamCode?: "shortcode" | "name" | "shortname" | "schoolShortcode" | "school"
   playerCode?: "photoURL" | "username" | "school"
@@ -35,61 +35,57 @@ const OverlayRoutes = ({
       link: "/shoutout",
       label: "Shoutout",
       icon: Tournament,
-      adjust: false,
     },
     UpNext: {
       link: "/upnext",
       label: "Up Next",
       icon: Tournament,
-      adjust: false,
     },
     Schedules: {
       link: "/schedules",
       label: "Schedules",
       icon: Tournament,
-      adjust: false,
     },
     LT: {
       link: "/lowerthirds",
       label: "Lower Thirds",
       icon: Tournament,
-      adjust: false,
     },
     Talent: {
       link: `/talent/${index}`,
       label: "Talents",
       icon: Tournament,
-      adjust: false,
+      adjust: { index: index },
     },
     TeamLogo: {
       link: `/team/${team}/logo`,
       label: "Team Logo",
       icon: Tournament,
-      adjust: false,
+      adjust: { team: team },
     },
     TeamName: {
       link: `/team/${team}/${teamCode}`,
       label: "Team Names",
       icon: Tournament,
-      adjust: true,
+      adjust: { team: team, teamCode: teamCode },
     },
     TeamScore: {
       link: `/team/${team}/score`,
       label: "Team Score",
       icon: Tournament,
-      adjust: true,
+      adjust: { team: team },
     },
     Player: {
       link: `/team/${team}/player/${index}/${playerCode}`,
       label: "Player",
       icon: Tournament,
-      adjust: true,
+      adjust: { team: team, index: index, playerCode: playerCode },
     },
     PlayerStats: {
       link: `/team/${team}/player/${index}/stats/${statIndex}`,
       label: "Player Stats",
       icon: Tournament,
-      adjust: true,
+      adjust: { team: team, index: index, statIndex: statIndex },
     },
   }
 
