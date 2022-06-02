@@ -20,7 +20,6 @@ const Player = Loadable(lazy(() => import("../views/player/Player.o")))
 const PlayerStats = Loadable(
   lazy(() => import("../views/player/PlayerStats.o"))
 )
-const Versus = Loadable(lazy(() => import("../views/versus/Versus.o")))
 const Score = Loadable(lazy(() => import("../views/team/Score.o")))
 const ShoutoutsSlide = Loadable(
   lazy(() => import("../views/shoutouts/Shoutouts.slides.o"))
@@ -112,15 +111,6 @@ const Routes = () => {
                           ],
                         },
                       ],
-                    },
-                  ],
-                },
-                {
-                  path: "versus",
-                  children: [
-                    {
-                      path: ":versus",
-                      element: <Versus />,
                     },
                   ],
                 },
