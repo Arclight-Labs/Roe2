@@ -1,15 +1,35 @@
-import React from "react"
 import { useLt } from "utils/hooks"
-import { Box, Text } from "@mantine/core"
+import { Group, Stack, Text } from "@mantine/core"
+import useRoom from "../../hooks/useRoom.hook"
 
 const LowerTicker = () => {
+  useRoom()
   const { ticker } = useLt()
   return (
-    <Box>
-      <Text>HELLO PLS HELP</Text>
-      <Text>{ticker.headline.text}</Text>
-      <Text>{ticker.scrollerText.text}</Text>
-    </Box>
+    <Group align="center">
+      <Stack justify="center" spacing="xs" align="center">
+        <Text
+          sx={{
+            fontFamily: "Industry",
+            fontSize: ticker.headline.size || 60,
+            color: "#001c5a",
+            lineHeight: 1,
+          }}
+        >
+          {ticker.headline.text}
+        </Text>
+        <Text
+          sx={{
+            fontFamily: "Roboto",
+            fontSize: ticker.scrollerText.size || 40,
+            color: "#001c5a",
+            lineHeight: 1,
+          }}
+        >
+          {ticker.scrollerText.text}
+        </Text>
+      </Stack>
+    </Group>
   )
 }
 

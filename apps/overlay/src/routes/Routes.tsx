@@ -17,7 +17,9 @@ const Logo = Loadable(lazy(() => import("../views/team/Logo.o")))
 const TeamName = Loadable(lazy(() => import("../views/team/TeamName.o")))
 const Talent = Loadable(lazy(() => import("../views/talent/Talent.o")))
 const Player = Loadable(lazy(() => import("../views/player/Player.o")))
-const Versus = Loadable(lazy(() => import("../views/versus/Versus.o")))
+const PlayerStats = Loadable(
+  lazy(() => import("../views/player/PlayerStats.o"))
+)
 const Score = Loadable(lazy(() => import("../views/team/Score.o")))
 const ShoutoutsSlide = Loadable(
   lazy(() => import("../views/shoutouts/Shoutouts.slides.o"))
@@ -30,6 +32,8 @@ const LowerThirds = Loadable(
 const Ticker = Loadable(
   lazy(() => import("../views/lowerthirds/LowerTicker.o"))
 )
+const AdSingle = Loadable(lazy(() => import("../views/lowerthirds/AdSingle.o")))
+const AdPool = Loadable(lazy(() => import("../views/lowerthirds/AdPool.o")))
 
 const Routes = () => {
   return useRoutes([
@@ -51,6 +55,14 @@ const Routes = () => {
         {
           path: "ticker",
           element: <Ticker />,
+        },
+        {
+          path: "adsingle",
+          element: <AdSingle />,
+        },
+        {
+          path: "adpool",
+          element: <AdPool />,
         },
         {
           path: "talent",
@@ -89,16 +101,16 @@ const Routes = () => {
                           path: ":code",
                           element: <Player />,
                         },
+                        {
+                          path: "stats",
+                          children: [
+                            {
+                              path: ":stats",
+                              element: <PlayerStats />,
+                            },
+                          ],
+                        },
                       ],
-                    },
-                  ],
-                },
-                {
-                  path: "versus",
-                  children: [
-                    {
-                      path: ":versus",
-                      element: <Versus />,
                     },
                   ],
                 },

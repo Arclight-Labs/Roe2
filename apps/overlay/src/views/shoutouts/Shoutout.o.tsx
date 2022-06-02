@@ -1,18 +1,8 @@
-import {
-  Avatar,
-  Group,
-  Stack,
-  Text,
-  Image,
-  Card,
-  Grid,
-  Box,
-} from "@mantine/core"
+import { Avatar, Group, Stack, Text } from "@mantine/core"
 import { TwitterApiResultsItem } from "interface/utils"
 import { FC } from "react"
 import { useLive } from "utils/hooks"
 import useRoom from "../../hooks/useRoom.hook"
-import { Carousel } from "react-responsive-carousel"
 import "react-responsive-carousel/lib/styles/carousel.min.css" // requires a loader
 import { QueryColor } from "../../utils/queryParams"
 import { Container } from "@mantine/core"
@@ -50,8 +40,6 @@ interface ShoutoutItemProps {
   tweet: TwitterApiResultsItem
 }
 const ShoutoutItem: FC<ShoutoutItemProps> = ({ tweet }) => {
-  const img = tweet.images?.[0] || ""
-
   return (
     <Container>
       <Group>
@@ -98,11 +86,6 @@ const ShoutoutItem: FC<ShoutoutItemProps> = ({ tweet }) => {
           </Group>
         </Group>
       </Group>
-      {/* {img && (
-          <Card.Section sx={{ height: 100, width: 150 }}>
-            <Image fit="cover" height="100px" width="150px" src={img} />
-          </Card.Section>
-        )} */}
     </Container>
   )
 }

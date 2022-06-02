@@ -1,10 +1,11 @@
-import { useLive, useMatches, useParticipants } from "utils/hooks"
+import { useMatches, useParticipants } from "utils/hooks"
 import { useParams } from "react-router-dom"
 import useRoom from "../../hooks/useRoom.hook"
 import { Image, Box } from "@mantine/core"
 import { useInverse } from "../../hooks/useInverse.hook"
 
 type Params = Record<"team", string>
+
 const Logo = () => {
   useRoom()
   const params = useParams<Params>()
