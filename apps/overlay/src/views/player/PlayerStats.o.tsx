@@ -6,7 +6,6 @@ import { QueryColor, QueryFont } from "../../utils/queryParams"
 import { useQuery } from "../../utils/useQuery"
 
 type PlayerStatCode = "id" | "name" | "value"
-
 type Params = Record<"team" | "player" | "code" | "stats", string>
 type alignType = "left" | "center" | "right" | undefined
 
