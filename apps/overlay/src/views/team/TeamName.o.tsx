@@ -18,7 +18,6 @@ type Params = Record<"team" | "name", string>
 type alignType = "left" | "center" | "right" | undefined
 
 const TeamName = () => {
-  // add this to every overlay page
   useRoom()
   const params = useParams<Params>()
   const query = useQuery()
@@ -26,12 +25,9 @@ const TeamName = () => {
   const { activeMatch, getScore } = useMatches()
   const isInversed = useInverse()
   const teamSide = isInversed(params.team === "a" ? "teamA" : "teamB")
-  const teamSideLetter = teamSide === "teamA" ? "a" : "b"
   const teamCode = params.name as TeamCode
   const teamId = activeMatch?.[teamSide].id || ""
   const team = chalTeams[teamId]
-  const teamScore = getScore(activeMatch ?? defaultSeries)?.[teamSideLetter]
-    .scores
   const font = QueryFont[query.get("font") ?? "industry"]
   const fontColor = QueryColor[query.get("color") ?? "black"]
   const fontSize = +(query.get("size") ?? 100)

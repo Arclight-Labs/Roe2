@@ -14,13 +14,12 @@ const Score = () => {
   useRoom()
   const params = useParams<Params>()
   const query = useQuery()
-  const { chalTeams } = useParticipants()
+
   const { activeMatch, getScore } = useMatches()
   const isInversed = useInverse()
   const teamSide = isInversed(params.team === "a" ? "teamA" : "teamB")
   const teamSideLetter = teamSide === "teamA" ? "a" : "b"
-  const teamId = activeMatch?.[teamSide].id || ""
-  const team = chalTeams[teamId]
+
   const teamScore = getScore(activeMatch ?? defaultSeries)?.[teamSideLetter]
     .final
 

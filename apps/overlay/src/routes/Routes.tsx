@@ -17,6 +17,9 @@ const Logo = Loadable(lazy(() => import("../views/team/Logo.o")))
 const TeamName = Loadable(lazy(() => import("../views/team/TeamName.o")))
 const Talent = Loadable(lazy(() => import("../views/talent/Talent.o")))
 const Player = Loadable(lazy(() => import("../views/player/Player.o")))
+const PlayerStats = Loadable(
+  lazy(() => import("../views/player/PlayerStats.o"))
+)
 const Versus = Loadable(lazy(() => import("../views/versus/Versus.o")))
 const Score = Loadable(lazy(() => import("../views/team/Score.o")))
 const ShoutoutsSlide = Loadable(
@@ -98,6 +101,15 @@ const Routes = () => {
                         {
                           path: ":code",
                           element: <Player />,
+                        },
+                        {
+                          path: "stats",
+                          children: [
+                            {
+                              path: ":stats",
+                              element: <PlayerStats />,
+                            },
+                          ],
                         },
                       ],
                     },
