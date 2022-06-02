@@ -11,8 +11,7 @@ import {
   Center,
   Container,
 } from "@mantine/core"
-import { defaultSeries } from "utils/general/defaultValues"
-import { defaultParticipant } from "../../../../../packages/utils/general/defaultValues"
+import { defaultSeries, defaultParticipant } from "utils/general/defaultValues"
 
 const UpNext = () => {
   useRoom()
