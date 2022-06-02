@@ -1,7 +1,7 @@
 {
   "name": "overlay",
   "private": true,
-  "version": "0.0.6",
+  "version": "0.0.7",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -10,7 +10,7 @@
   "dependencies": {
     "@mantine/core": "4.2.7",
     "@mantine/hooks": "4.2.7",
-    "framer-motion": "^6.3.6",
+    "framer-motion": "6.3.6",
     "interface": "*",
     "react": "18.1.0",
     "react-dom": "18.1.0",
