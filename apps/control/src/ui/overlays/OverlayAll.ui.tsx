@@ -1,4 +1,5 @@
-import { Card, CardProps, CardSection, Text } from "@mantine/core"
+import { Card, CardProps, CardSection, Grid, Stack, Text } from "@mantine/core"
+import { useState } from "react"
 import OverlayCard from "./OverlayCard.ui"
 import OverlayRoutes from "./OverlayRoutes"
 
@@ -17,12 +18,14 @@ const OverlayCards = Object.entries(
 )
 
 const OverlayAll = ({ CardProps }: OverlayCardProps) => {
+  const [overlayValues, setOverlayValues] = useState(OverlayCards)
+
   return (
-    <div>
-      {OverlayCards.map((o) => (
-        <OverlayCard overlay={o} />
+    <Stack>
+      {overlayValues.map((o) => (
+        <OverlayCard key={o[0]} overlay={o} />
       ))}
-    </div>
+    </Stack>
   )
 }
 export default OverlayAll
