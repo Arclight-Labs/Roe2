@@ -6,8 +6,8 @@ const LowerTicker = () => {
   useRoom()
   const { ticker } = useLt()
   return (
-    <Group align={"center"}>
-      <Stack justify={"center"} spacing={"xs"} align={"center"}>
+    <Group align="center">
+      <Stack justify="center" spacing="xs" align="center">
         <Text
           sx={{
             fontFamily: "Industry",
