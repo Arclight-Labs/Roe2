@@ -1,5 +1,5 @@
-import { useLive, useLt } from "utils/hooks"
-import { Box, Text, Image, Group, Stack } from "@mantine/core"
+import { useLt } from "utils/hooks"
+import { Text, Image, Group, Stack } from "@mantine/core"
 import useRoom from "../../hooks/useRoom.hook"
 import { FC } from "react"
 import { Ad } from "interface/ws"

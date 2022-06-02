@@ -1,17 +1,7 @@
-import { useLive, useMatches, useParticipants } from "utils/hooks"
-import { useParams } from "react-router-dom"
+import { useMatches, useParticipants } from "utils/hooks"
 import useRoom from "../../hooks/useRoom.hook"
-import {
-  Image,
-  Box,
-  Text,
-  CardProps,
-  Group,
-  Grid,
-  Center,
-  Stack,
-} from "@mantine/core"
-import { SanitizedSeries, Series } from "interface/waypoint"
+import { Image, Box, Text, Group, Grid, Center, Stack } from "@mantine/core"
+import { SanitizedSeries } from "interface/waypoint"
 import { defaultSeries, tbd } from "utils/general"
 
 interface ScheduleProps {

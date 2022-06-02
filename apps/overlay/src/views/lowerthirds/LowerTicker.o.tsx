@@ -1,6 +1,5 @@
-import React from "react"
 import { useLt } from "utils/hooks"
-import { Box, Group, Stack, Text } from "@mantine/core"
+import { Group, Stack, Text } from "@mantine/core"
 import useRoom from "../../hooks/useRoom.hook"
 
 const LowerTicker = () => {

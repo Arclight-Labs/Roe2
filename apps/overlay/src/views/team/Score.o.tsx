@@ -1,7 +1,7 @@
-import { useMatches, useParticipants } from "utils/hooks"
+import { useMatches } from "utils/hooks"
 import { useParams } from "react-router-dom"
 import useRoom from "../../hooks/useRoom.hook"
-import { Image, Box, Text } from "@mantine/core"
+import { Box, Text } from "@mantine/core"
 import { useInverse } from "../../hooks/useInverse.hook"
 import { defaultSeries } from "utils/general"
 import { QueryColor, QueryFont } from "../../utils/queryParams"
@@ -10,7 +10,6 @@ import { useQuery } from "../../utils/useQuery"
 type Params = Record<"team" | "score", string>
 
 const Score = () => {
-  // add this to every overlay page
   useRoom()
   const params = useParams<Params>()
   const query = useQuery()
@@ -28,7 +27,6 @@ const Score = () => {
 
   return (
     <Box sx={{ height: 600, width: 600 }}>
-      {/* <Image src={team?.logo} height={600} width={600} fit="contain" /> */}
       <Text sx={{ fontFamily: font, fontSize: 120, color: fontColor }}>
         {teamScore}
       </Text>

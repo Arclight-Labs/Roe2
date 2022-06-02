@@ -1,4 +1,4 @@
-import { useLive, useMatches, useParticipants } from "utils/hooks"
+import { useMatches, useParticipants } from "utils/hooks"
 import { useParams } from "react-router-dom"
 import useRoom from "../../hooks/useRoom.hook"
 import { Image, Box } from "@mantine/core"

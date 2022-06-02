@@ -1,7 +1,5 @@
-import { useLive, useMatches, useParticipants } from "utils/hooks"
-import { useParams } from "react-router-dom"
+import { useMatches } from "utils/hooks"
 import useRoom from "../../hooks/useRoom.hook"
-import { Image, Box, Text } from "@mantine/core"
 import Schedule from "./Schedule.o"
 
 const Schedules = () => {

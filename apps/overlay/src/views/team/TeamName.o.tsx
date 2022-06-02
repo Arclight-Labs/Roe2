@@ -1,9 +1,8 @@
 import { useMatches, useParticipants } from "utils/hooks"
 import { useParams } from "react-router-dom"
 import useRoom from "../../hooks/useRoom.hook"
-import { Image, Box, Text } from "@mantine/core"
+import { Box, Text } from "@mantine/core"
 import { useInverse } from "../../hooks/useInverse.hook"
-import { defaultSeries } from "utils/general"
 import { QueryColor, QueryFont } from "../../utils/queryParams"
 import { useQuery } from "../../utils/useQuery"
 
@@ -35,7 +34,6 @@ const TeamName = () => {
 
   return (
     <Box sx={{ height: 600, width: 1500 }}>
-      {/* <Image src={team?.logo} height={600} width={600} fit="contain" /> */}
       <Text
         sx={{ fontFamily: font, fontSize: fontSize, color: fontColor }}
         align={align as alignType}

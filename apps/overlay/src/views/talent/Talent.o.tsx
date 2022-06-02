@@ -1,7 +1,7 @@
-import { useLive, useMatches, useParticipants } from "utils/hooks"
+import { useLive } from "utils/hooks"
 import { useParams } from "react-router-dom"
 import useRoom from "../../hooks/useRoom.hook"
-import { Image, Box, Text } from "@mantine/core"
+import { Box, Text } from "@mantine/core"
 import { useQuery } from "../../utils/useQuery"
 
 type Params = Record<"talent", string>
