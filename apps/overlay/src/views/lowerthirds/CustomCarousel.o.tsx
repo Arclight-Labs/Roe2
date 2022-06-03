@@ -1,16 +1,13 @@
-import { FC } from "react"
+import { FC, PropsWithChildren } from "react"
 import { motion } from "framer-motion"
 
-interface CarouselProps {
-  children?: React.ReactNode
-}
 const item = {
   initial: { opacity: 0, y: -100 },
   animate: { opacity: 1, y: 0 },
   exit: { opacity: 0, y: 200 },
 }
 
-const CustomCarousel: FC<CarouselProps> = ({ children }) => {
+const CustomCarousel: FC<PropsWithChildren<{}>> = ({ children }) => {
   return (
     <motion.div
       layout

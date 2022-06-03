@@ -31,7 +31,7 @@ const switchLT: SwitchLT = (mode) => {
 const list: Variants = {
   initial: { opacity: 0, y: height },
   animate: { opacity: 1, y: 0 },
-  exit: { opacity: 0, y: height },
+  exit: { opacity: 0, y: 0 },
 }
 
 const item: Variants = {
