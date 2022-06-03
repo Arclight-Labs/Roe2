@@ -80,7 +80,9 @@ const AdForm: FC<AdFormProps> = ({ ad: { id, ...ad }, afterSubmit }) => {
       if (!preview.file) return save(saveData)(e)
 
       setUploading(true)
-      const uploadPath = `public/user/${auth.uid}/room/${roomRef.id}/avatar`
+      const uploadPath = `public/user/${auth.uid}/room/${
+        roomRef.id
+      }/ad/${nanoid()}`
       const uploadRef = ref(storage, uploadPath)
       const snap = await uploadBytes(uploadRef, preview.file)
       const downloadUrl = await getDownloadURL(snap.ref)
