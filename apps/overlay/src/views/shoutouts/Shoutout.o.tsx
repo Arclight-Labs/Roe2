@@ -50,33 +50,35 @@ const ShoutoutItem: FC<ShoutoutItemProps> = ({ tweet }) => {
             backgroundRepeat: "no-repeat",
           }}
         ></Box>
-        <Group sx={{ width: 750 }}>
-          <Avatar size="lg" src={tweet.user.profile_image_url} />
-          <Stack spacing={0}>
-            <Text
-              align="left"
-              sx={{
-                fontSize: 30,
-                lineHeight: 1,
-                fontFamily: fontHeader,
-                color: QueryColor["yellow"],
-              }}
-            >
-              {tweet.user.name}
-            </Text>
+        <Stack sx={{ width: 750 }}>
+          <Group>
+            <Avatar size="lg" src={tweet.user.profile_image_url} />
+            <Stack spacing={0}>
+              <Text
+                align="left"
+                sx={{
+                  fontSize: 30,
+                  lineHeight: 1,
+                  fontFamily: fontHeader,
+                  color: QueryColor["yellow"],
+                }}
+              >
+                {tweet.user.name}
+              </Text>
 
-            <Text
-              align="left"
-              color="dimmed"
-              sx={{
-                lineHeight: 1,
-                fontFamily: fontHeader,
-                color: "#dddddd",
-              }}
-            >
-              @{tweet.user.username}
-            </Text>
-          </Stack>
+              <Text
+                align="left"
+                color="dimmed"
+                sx={{
+                  lineHeight: 1,
+                  fontFamily: fontHeader,
+                  color: "#dddddd",
+                }}
+              >
+                @{tweet.user.username}
+              </Text>
+            </Stack>
+          </Group>
           <Text
             align="left"
             sx={{
@@ -90,7 +92,7 @@ const ShoutoutItem: FC<ShoutoutItemProps> = ({ tweet }) => {
           >
             {decodeEntities(tweet.text)}
           </Text>
-        </Group>
+        </Stack>
       </Group>
     </Group>
   )
