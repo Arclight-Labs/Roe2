@@ -3,6 +3,7 @@ import useRoom from "../../hooks/useRoom.hook"
 import { Image, Box, Text, Group, Grid, Center, Stack } from "@mantine/core"
 import { SanitizedSeries } from "interface/waypoint"
 import { defaultSeries, tbd } from "utils/general"
+import VS from "../../public/VS.png"
 interface ScheduleProps {
   match: SanitizedSeries
 }
@@ -57,12 +58,7 @@ const Schedule = ({ match }: ScheduleProps) => {
           </Grid.Col>
           <Grid.Col span={5}>
             <Stack align="center">
-              <Image
-                src={"/src/public/VS.png"}
-                height={200}
-                width={200}
-                fit="contain"
-              />
+              <Image src={VS} height={200} width={200} fit="contain" />
               <Text
                 sx={{
                   fontFamily: "Industry",

@@ -2,6 +2,7 @@ import { useMatches, useParticipants } from "utils/hooks"
 import useRoom from "../../hooks/useRoom.hook"
 import { Image, Box, Text, Group, Stack, Grid, Center } from "@mantine/core"
 import { defaultSeries } from "utils/general/defaultValues"
+import VS from "../../public/VS.png"
 
 const UpNext = () => {
   useRoom()
@@ -52,12 +53,7 @@ const UpNext = () => {
           </Grid.Col>
           <Grid.Col span={5}>
             <Stack align="center">
-              <Image
-                src={"/src/public/VS.png"}
-                height={200}
-                width={200}
-                fit="contain"
-              />
+              <Image src={VS} height={200} width={200} fit="contain" />
               <Text
                 sx={{
                   fontFamily: "Industry",
