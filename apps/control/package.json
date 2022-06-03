@@ -1,14 +1,14 @@
 {
   "name": "control",
   "private": true,
-  "version": "0.0.9",
+  "version": "0.0.10",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@hookform/resolvers": "2.8.10",
+    "@hookform/resolvers": "2.9.0",
     "@mantine/core": "4.2.7",
     "@mantine/dropzone": "4.2.7",
     "@mantine/form": "4.2.7",
