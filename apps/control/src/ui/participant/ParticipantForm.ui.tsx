@@ -69,6 +69,9 @@ const ParticipantForm = ({
     const participantData: SanitizedParticipant = {
       ...(participants[teamId] ?? defaultParticipant),
       teamId,
+      chalId:
+        participants[teamId].chalId ||
+        Math.floor(Math.random() * 599999999999) + 300000000,
       ...data,
     }
     setParticipant(teamId, participantData)
