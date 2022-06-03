@@ -11,7 +11,7 @@ const ParticipantsPage = () => {
   const [opened, setOpened] = useState(false)
   const open = () => setOpened(true)
   const close = () => setOpened(false)
-  const { participants } = useParticipants()
+  const { participants = {} } = useParticipants()
   const sorted = Object.entries(participants).sort(([, a], [, b]) =>
     a.name > b.name ? 1 : -1
   )

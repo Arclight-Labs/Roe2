@@ -14,9 +14,9 @@ const config = {
 export const socket = io(SOCKET_URL, {
   ...config,
   reconnection: true,
-  extraHeaders: {
-    cookie: "testasdad",
-  },
+  // extraHeaders: {
+  //   cookie: "testasdad",
+  // },
 })
 
 listenToSocketEvents(socket)
