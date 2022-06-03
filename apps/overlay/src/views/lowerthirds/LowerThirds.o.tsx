@@ -8,6 +8,7 @@ import AdSingle from "./AdSingle.o"
 import AdPool from "./AdPool.o"
 import { motion, AnimatePresence } from "framer-motion"
 import { LayoutGroup } from "framer-motion"
+import BG from "../../public/LTBanner.png"
 
 type SwitchLT = (mode: keyof LowerthirdData) => ReactNode
 
@@ -73,7 +74,7 @@ const LT = ({ mode, ad }: SwitchAdProps) => {
               </motion.div>
             </motion.div>
             <Image
-              src={"/src/public/LTBanner.png"}
+              src={BG}
               sx={{
                 position: "fixed",
                 marginTop: -200,
