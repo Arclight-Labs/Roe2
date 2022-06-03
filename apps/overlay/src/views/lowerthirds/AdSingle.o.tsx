@@ -9,7 +9,7 @@ interface AdItemProps {
 
 export const AdItem: FC<AdItemProps> = ({ ad }) => {
   return (
-    <Group id={ad.id} align={"center"}>
+    <Group id={ad.id} align={"center"} sx={{ padding: 20, zIndex: 99999 }}>
       <Image
         fit="contain"
         src={ad.image.URL}
@@ -20,9 +20,10 @@ export const AdItem: FC<AdItemProps> = ({ ad }) => {
           marginLeft: ad.image.adj.x,
           marginTop: ad.image.adj.y,
           scale: ad.image.adj.scale || 1,
+          flexShrink: 0,
         }}
       />
-      <Stack spacing={"xs"} align={"center"}>
+      <Stack spacing={"xs"} sx={{ flex: 1 }}>
         <Text
           sx={{
             fontFamily: "Industry",
@@ -30,6 +31,7 @@ export const AdItem: FC<AdItemProps> = ({ ad }) => {
             color: "#001c5a",
             lineHeight: 1,
           }}
+          align="left"
         >
           {ad.headline.text}
         </Text>
@@ -40,6 +42,7 @@ export const AdItem: FC<AdItemProps> = ({ ad }) => {
             color: "#001c5a",
             lineHeight: 1,
           }}
+          align="left"
         >
           {ad.body.text}
         </Text>

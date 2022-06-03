@@ -2,7 +2,6 @@ import { FC } from "react"
 import { motion } from "framer-motion"
 
 interface CarouselProps {
-  adKey: string
   children?: React.ReactNode
 }
 const item = {
@@ -11,10 +10,9 @@ const item = {
   exit: { opacity: 0, y: 200 },
 }
 
-const CustomCarousel: FC<CarouselProps> = ({ children, adKey }) => {
+const CustomCarousel: FC<CarouselProps> = ({ children }) => {
   return (
     <motion.div
-      key={adKey}
       layout
       initial="initial"
       animate="animate"
