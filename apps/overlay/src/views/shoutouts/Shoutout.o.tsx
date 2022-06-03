@@ -44,12 +44,30 @@ const ShoutoutItem: FC<ShoutoutItemProps> = ({ tweet }) => {
             height: 190,
             width: 210,
             borderRadius: 5,
-            backgroundImage: `url("${tweet.images[0]}")`,
+            backgroundImage: `url("${
+              !tweet.images[0]?.includes(".mp4") && tweet.images[0]
+            }")`,
             backgroundPosition: "center",
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
+            overflow: "hidden",
           }}
-        ></Box>
+        >
+          {tweet.images[0]?.includes(".mp4") && (
+            <video
+              style={{
+                position: "absolute",
+                height: "100%",
+                width: "100%",
+                objectFit: "cover",
+              }}
+              autoPlay
+              loop
+              muted
+              src={tweet.images[0]}
+            />
+          )}
+        </Box>
         <Stack sx={{ width: 750 }}>
           <Group>
             <Avatar size="lg" src={tweet.user.profile_image_url} />
