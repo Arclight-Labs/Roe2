@@ -57,7 +57,11 @@ const ShoutoutsCard: FC<ShoutoutsCardProps> = ({ tweet, ...props }) => {
 
       {img && (
         <Card.Section>
-          <Image width="100%" src={img} />
+          {img.includes(".mp4") ? (
+            <video width="100%" height="auto" src={img} autoPlay loop muted />
+          ) : (
+            <Image width="100%" src={img} />
+          )}
         </Card.Section>
       )}
       <Group mt="md">

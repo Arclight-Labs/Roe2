@@ -15,7 +15,7 @@ export const twitterAPI = functions
     const query = `${encodeURI(props.search)} -is:retweet`
     const tweetFields = "attachments,id,text,created_at,author_id"
     const userFields = "id,name,username,profile_image_url"
-    const mediaFields = "type,url"
+    const mediaFields = "type,url,preview_image_url"
     const max_results = 100
     const expansions = "author_id,attachments.media_keys"
     const config = {
@@ -45,6 +45,13 @@ export const twitterAPI = functions
           const media = mediaList.find((m) => m.media_key === key)
           if (media?.type === "photo") {
             return [...acc, media.url]
+          }
+          if (media?.type === "animated_gif") {
+            const re = /.*tweet_video_thumb\/(.*)\.jpg/
+            const id = re.exec(media.preview_image_url)?.[1] || ""
+            const newUrl = `https://video.twimg.com/tweet_video/${id}.mp4`
+            if (!id) return acc
+            return [...acc, newUrl]
           }
           return acc
         }, [])
