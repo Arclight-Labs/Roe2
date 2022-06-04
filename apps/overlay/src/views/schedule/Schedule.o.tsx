@@ -13,8 +13,8 @@ const Schedule = ({ match }: ScheduleProps) => {
   const { chalTeams } = useParticipants()
   const { getScore } = useMatches()
   const { teamA, teamB } = match
-  const aChalId = teamA.id
-  const bChalId = teamB.id
+  const aChalId = teamA?.id
+  const bChalId = teamB?.id
   const a = chalTeams[aChalId || ""] ?? tbd
   const b = chalTeams[bChalId || ""] ?? tbd
 
@@ -23,8 +23,8 @@ const Schedule = ({ match }: ScheduleProps) => {
   const aWinner = aChalId === match?.winnerId
   const bWinner = bChalId === match?.winnerId
 
-  const teamAScore = getScore(match ?? defaultSeries)?.["a"].final
-  const teamBScore = getScore(match ?? defaultSeries)?.["b"].final
+  const teamAScore = getScore(match ?? defaultSeries)?.["a"]?.final
+  const teamBScore = getScore(match ?? defaultSeries)?.["b"]?.final
 
   return (
     <Group sx={{ marginLeft: "5rem", marginBottom: "-22rem" }}>
