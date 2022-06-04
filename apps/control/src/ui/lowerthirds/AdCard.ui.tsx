@@ -4,6 +4,7 @@ import {
   Card,
   Group,
   Menu,
+  Radio,
   Stack,
   Text,
   ThemeIcon,
@@ -40,14 +41,10 @@ const AdCard: FC<AdCardProps> = ({ ad }) => {
     setLive(saveData)
     bSave?.(saveData)
   }
+
   return (
     <Card sx={{ overflow: "visible" }}>
       <Group spacing={5} sx={{ position: "absolute", top: 10, right: 10 }}>
-        {isActive && (
-          <ThemeIcon variant="light">
-            <Check size={18} />
-          </ThemeIcon>
-        )}
         <Tooltip label="Preview" withArrow>
           <ActionIcon onClick={() => togglePreview()}>
             {preview ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -73,6 +70,12 @@ const AdCard: FC<AdCardProps> = ({ ad }) => {
         </Menu>
       </Group>
       <Group noWrap align="center">
+        <Radio
+          size="xl"
+          value=""
+          checked={ad.id === ltAd}
+          onClick={setAd(ad.id)}
+        />
         <Box
           sx={{
             ...adjImageStyles(
@@ -82,6 +85,10 @@ const AdCard: FC<AdCardProps> = ({ ad }) => {
                     ...defaultAdjImage,
                     URL: ad.image.URL,
                     BASE64: ad.image.BASE64,
+                    adj: {
+                      h: 80,
+                      w: 120,
+                    },
                   }
             ),
           }}
