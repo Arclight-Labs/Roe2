@@ -142,7 +142,7 @@ export const useMatches = () => {
 
   // ========= Get Score
   const getScore: GetScore = (match) => {
-    const scores = match.scores as Score[]
+    const scores = (match.scores ?? ["0-0"]) as Score[]
     let a: ScoreValue = { final: 0, scores: [] }
     let b: ScoreValue = { final: 0, scores: [] }
     for (const score of scores) {
