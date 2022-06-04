@@ -9,7 +9,7 @@ import {
   Title,
 } from "@mantine/core"
 import { showNotification } from "@mantine/notifications"
-import { useState } from "react"
+import { FC, useState } from "react"
 import { useCollectionData } from "react-firebase-hooks/firestore"
 import { useLocation, useNavigate } from "react-router-dom"
 import { Messages, Photo, Plus } from "tabler-icons-react"
@@ -20,7 +20,10 @@ import { useAuth } from "../../context/auth/Auth.hooks"
 import { useActiveRoom } from "../../hooks/useActiveRoom.hook"
 import RoomModal from "../../overlays/Room.modal"
 
-const RoomDirectory = () => {
+interface Props {
+  small?: boolean
+}
+const RoomDirectory: FC<Props> = ({ small }) => {
   const [createState, setCreateState] = useState(false)
   const [activeRoom, setActiveRoom] = useActiveRoom()
   const location = useLocation()
@@ -77,7 +80,12 @@ const RoomDirectory = () => {
 
       <Grid>
         {rooms.map((room) => (
-          <Grid.Col key={room.id} xs={6} md={4} xl={3}>
+          <Grid.Col
+            key={room.id}
+            xs={small ? 12 : 6}
+            md={small ? 12 : 4}
+            xl={small ? 12 : 3}
+          >
             <Card
               shadow={activeRoom?.id === room.id ? "lg" : "xs"}
               sx={{ cursor: "pointer" }}
