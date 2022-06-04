@@ -62,7 +62,6 @@ const LowerThirds = () => {
               backgroundSize: "100% 100%",
               width: 1585,
               height: 300,
-              border: "2px solid red",
               padding: "55px 50px",
             }}
           >
