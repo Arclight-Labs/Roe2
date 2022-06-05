@@ -7,7 +7,6 @@ import "react-responsive-carousel/lib/styles/carousel.min.css" // requires a loa
 import { QueryColor } from "../../utils/queryParams"
 import { decodeEntities } from "utils/general"
 
-const width = 750
 const maxHeight = 300
 const fontHeader = "Industry"
 const fontContent = "Roboto"
@@ -18,14 +17,14 @@ const Shoutout = () => {
     live: { shoutouts = {} },
   } = useLive()
 
-  const liveEntries = Object.entries(shoutouts)
+  const [shoutout] = Object.entries(shoutouts)
+  if (!shoutout) return null
+  const [id, tweet] = shoutout
   return (
     <Stack>
-      {liveEntries.map(([id, tweet]) => (
-        <Stack style={{ height: maxHeight }} justify="center">
-          <ShoutoutItem tweet={tweet} key={id} />
-        </Stack>
-      ))}
+      <Stack style={{ height: maxHeight }} justify="center">
+        <ShoutoutItem tweet={tweet} key={id} />
+      </Stack>
     </Stack>
   )
 }
@@ -87,6 +86,7 @@ const ShoutoutItem: FC<ShoutoutItemProps> = ({ tweet }) => {
               <Text
                 align="left"
                 color="dimmed"
+                size="lg"
                 sx={{
                   lineHeight: 1,
                   fontFamily: fontHeader,
@@ -101,7 +101,7 @@ const ShoutoutItem: FC<ShoutoutItemProps> = ({ tweet }) => {
             align="left"
             sx={{
               lineHeight: 1.1,
-              fontSize: 25,
+              fontSize: 30,
               wordBreak: "break-word",
               fontFamily: fontContent,
               color: QueryColor["white"],

@@ -7,10 +7,12 @@ import {
   Title,
   Text,
   SimpleGrid,
+  ActionIcon,
 } from "@mantine/core"
 import { TwitterApiResults } from "interface/utils"
 import { FormEventHandler, useState } from "react"
 import { useHttpsCallable } from "react-firebase-hooks/functions"
+import { Search } from "tabler-icons-react"
 import { useScreen } from "ui/Screen.hook"
 import { fn } from "utils/firebase"
 import { usePermission } from "../../hooks/usePermission.hook"
@@ -46,6 +48,9 @@ const ShoutoutsPage = () => {
               label="Search"
               rightSection={loading ? <Loader size={14} /> : undefined}
             />
+            <ActionIcon variant="light" type="submit" size="lg" mt={28}>
+              <Search size={16} />
+            </ActionIcon>
           </Group>
         </form>
         <Stack>

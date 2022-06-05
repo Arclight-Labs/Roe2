@@ -1,6 +1,7 @@
 import { TabsProps, Tabs } from "@mantine/core"
 import { useState } from "react"
 import LowerthirdAds from "../lowerthirds/Ads.lt.ui"
+import RoomSelect from "../RoomSelect.ui"
 import LiveMatches from "./LiveMatches.ui"
 import LiveSettings from "./LiveSettings.ui"
 import LiveShoutouts from "./LiveShoutouts.ui"
@@ -39,6 +40,9 @@ const LiveDrawerContent = () => {
       </Tabs.Tab>
       <Tabs.Tab label="Ads">
         <LowerthirdAds />
+      </Tabs.Tab>
+      <Tabs.Tab label="Rooms">
+        <RoomSelect small />
       </Tabs.Tab>
     </Tabs>
   )
