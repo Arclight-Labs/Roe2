@@ -1,7 +1,7 @@
 {
   "name": "overlay",
   "private": true,
-  "version": "0.0.9",
+  "version": "0.0.10",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -27,7 +27,7 @@
     "@vitejs/plugin-react": "1.3.2",
     "tsconfig": "*",
     "typescript": "4.7.3",
-    "vite": "2.9.9",
+    "vite": "2.9.10",
     "vite-plugin-svgr": "2.1.0"
   }
 }
