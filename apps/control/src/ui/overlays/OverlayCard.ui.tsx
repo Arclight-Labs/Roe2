@@ -59,7 +59,7 @@ const OverlayCard: FC<OverlayProps> = ({ overlay }) => {
 
         <CardSection>
           <Group>
-            <Marquee gradient={false}>
+            <Marquee gradient={false} speed={40}>
               <Group sx={{ marginRight: 20 }}>
                 <Text sx={{ opacity: "40%" }}>🚀</Text>
                 <Text sx={{ opacity: "40%" }}>{linkValue} </Text>

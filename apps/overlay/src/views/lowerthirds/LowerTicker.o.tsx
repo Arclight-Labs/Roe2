@@ -19,7 +19,7 @@ const LowerTicker = () => {
         >
           {ticker.headline.text}
         </Text>
-        <Marquee gradient={false} style={{ overflow: "hidden" }}>
+        <Marquee gradient={false} style={{ overflow: "hidden" }} speed={40}>
           <Text
             sx={{
               fontFamily: "Roboto",
