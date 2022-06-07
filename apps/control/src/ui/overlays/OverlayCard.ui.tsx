@@ -15,6 +15,7 @@ import {
   ThemeIcon,
   Stack,
   Box,
+  CardProps,
 } from "@mantine/core"
 import { FC, useState } from "react"
 import { OverlayLink } from "./OverlayRoutes"
@@ -44,7 +45,7 @@ const OverlayCard: FC<OverlayProps> = ({ overlay }) => {
       <Stack>
         <Group sx={{ justifyContent: "space-between" }}>
           <Title order={4}>{overlay[0]}</Title>
-          <Group>
+          <Group noWrap spacing={2}>
             <ActionIcon
               color={clipboard.copied ? "teal" : "gray"}
               onClick={() => clipboard.copy(linkValue)}
@@ -80,6 +81,7 @@ const OverlayCard: FC<OverlayProps> = ({ overlay }) => {
         )}
         {JSON.stringify(overlay[1].adjust?.index) && (
           <CardSection>
+            <Text sx={{ fontSize: 14 }}>🧒 Index # </Text>
             <Slider
               defaultValue={0}
               min={0}
@@ -91,7 +93,12 @@ const OverlayCard: FC<OverlayProps> = ({ overlay }) => {
         )}
         {overlay[1].adjust?.teamCode && (
           <CardSection>
-            <RadioGroup orientation="vertical" defaultValue="name">
+            <RadioGroup
+              label="Team Code"
+              size="sm"
+              orientation="vertical"
+              defaultValue="name"
+            >
               <Radio value="name" label="Team Name" />
               <Radio value="shortcode" label="Team Short Code" />
               <Radio value="shortname" label="Team Short Name" />
@@ -113,6 +120,7 @@ const OverlayCard: FC<OverlayProps> = ({ overlay }) => {
 
         {JSON.stringify(overlay[1].adjust?.statIndex) && (
           <CardSection>
+            <Text sx={{ fontSize: 14 }}>🔢 Stats # </Text>
             <Slider
               defaultValue={0}
               min={0}
