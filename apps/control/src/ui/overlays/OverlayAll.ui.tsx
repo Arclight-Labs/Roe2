@@ -21,11 +21,11 @@ const OverlayAll = ({ CardProps }: OverlayCardProps) => {
   const [overlayValues, setOverlayValues] = useState(OverlayCards)
 
   return (
-    <Stack>
+    <Grid gutter="md" justify="start" align="center">
       {overlayValues.map((o) => (
         <OverlayCard key={o[0]} overlay={o} />
       ))}
-    </Stack>
+    </Grid>
   )
 }
 export default OverlayAll
