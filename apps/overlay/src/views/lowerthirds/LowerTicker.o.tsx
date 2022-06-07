@@ -1,6 +1,7 @@
 import { useLt } from "utils/hooks"
 import { Group, Stack, Text } from "@mantine/core"
 import useRoom from "../../hooks/useRoom.hook"
+import Marquee from "react-fast-marquee"
 
 const LowerTicker = () => {
   useRoom()
@@ -18,16 +19,18 @@ const LowerTicker = () => {
         >
           {ticker.headline.text}
         </Text>
-        <Text
-          sx={{
-            fontFamily: "Roboto",
-            fontSize: ticker.scrollerText.size || 40,
-            color: "#001c5a",
-            lineHeight: 1,
-          }}
-        >
-          {ticker.scrollerText.text}
-        </Text>
+        <Marquee gradient={false} style={{ overflow: "hidden" }}>
+          <Text
+            sx={{
+              fontFamily: "Roboto",
+              fontSize: ticker.scrollerText.size || 40,
+              color: "#001c5a",
+              lineHeight: 1.2,
+            }}
+          >
+            {ticker.scrollerText.text}
+          </Text>
+        </Marquee>
       </Stack>
     </Group>
   )
