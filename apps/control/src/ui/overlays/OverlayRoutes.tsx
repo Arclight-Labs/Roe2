@@ -1,21 +1,14 @@
-import {
-  Tournament,
-  Icon,
-  Users,
-  GitFork,
-  Headset,
-  Ad,
-  DeviceGamepad,
-  Settings,
-  Speakerphone,
-  Polaroid,
-} from "tabler-icons-react"
+import { Tournament, Icon } from "tabler-icons-react"
 
+interface OverlayAdjustables {
+  adjText: boolean
+  record: boolean
+}
 export interface OverlayLink {
   link: string
   label: string
-  icon: Icon
-  adjust?: Partial<OverlayLink>
+  icon: string
+  adjust?: Partial<OverlayLink> & Partial<OverlayAdjustables>
   team?: "a" | "b"
   teamCode?: "shortcode" | "name" | "shortname" | "schoolShortcode" | "school"
   playerCode?: "photoURL" | "username" | "school"
@@ -34,58 +27,73 @@ const OverlayRoutes = ({
     Shoutout: {
       link: "/shoutout",
       label: "Shoutout",
-      icon: Tournament,
+      icon: "🔊",
     },
     UpNext: {
       link: "/upnext",
       label: "Up Next",
-      icon: Tournament,
+      icon: "⏭",
     },
     Schedules: {
       link: "/schedules",
       label: "Schedules",
-      icon: Tournament,
+      icon: "📆",
     },
     LT: {
       link: "/lowerthirds",
       label: "Lower Thirds",
-      icon: Tournament,
+      icon: "📪",
     },
     Talent: {
       link: `/talent/${index}`,
       label: "Talents",
-      icon: Tournament,
+      icon: "🙋‍♂️",
       adjust: { index: index },
     },
     TeamLogo: {
       link: `/team/${team}/logo`,
       label: "Team Logo",
-      icon: Tournament,
+      icon: "🛂",
       adjust: { team: team },
     },
     TeamName: {
       link: `/team/${team}/${teamCode}`,
       label: "Team Names",
-      icon: Tournament,
-      adjust: { team: team, teamCode: teamCode },
+      icon: "🔠",
+      adjust: {
+        team: team,
+        teamCode: teamCode,
+        adjText: true,
+      },
     },
     TeamScore: {
       link: `/team/${team}/score`,
       label: "Team Score",
-      icon: Tournament,
-      adjust: { team: team },
+      icon: "🔢",
+      adjust: { team: team, adjText: true },
     },
     Player: {
       link: `/team/${team}/player/${index}/${playerCode}`,
       label: "Player",
-      icon: Tournament,
-      adjust: { team: team, index: index, playerCode: playerCode },
+      icon: "🦸‍♂️",
+      adjust: {
+        team: team,
+        index: index,
+        playerCode: playerCode,
+        adjText: true,
+      },
     },
     PlayerStats: {
       link: `/team/${team}/player/${index}/stats/${statIndex}`,
       label: "Player Stats",
-      icon: Tournament,
-      adjust: { team: team, index: index, statIndex: statIndex },
+      icon: "👨‍💻",
+      adjust: {
+        team: team,
+        index: index,
+        statIndex: statIndex,
+        adjText: true,
+        record: true,
+      },
     },
   }
 

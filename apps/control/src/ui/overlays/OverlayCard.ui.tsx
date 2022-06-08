@@ -16,6 +16,8 @@ import {
   Stack,
   Box,
   CardProps,
+  Accordion,
+  AccordionItem,
 } from "@mantine/core"
 import { FC, useState } from "react"
 import { OverlayLink } from "./OverlayRoutes"
@@ -27,9 +29,10 @@ import {
   ClipboardCheck,
 } from "tabler-icons-react"
 import Marquee from "react-fast-marquee"
-interface OverlayProps {
-  overlay: [string, OverlayLink]
-}
+import OverlayOptions, {
+  AdjTextOptions,
+  OverlayProps,
+} from "./OverlayOptions.ui"
 
 const OverlayCard: FC<OverlayProps> = ({ overlay }) => {
   const roomID = useRoom()?.id
@@ -57,9 +60,9 @@ const OverlayCard: FC<OverlayProps> = ({ overlay }) => {
             </ActionIcon>
           </Group>
         </Group>
-
         <CardSection>
-          <Group>
+          <Group noWrap>
+            {overlay[1].icon}
             <Marquee gradient={false} speed={40}>
               <Group sx={{ marginRight: 20 }}>
                 <Text sx={{ opacity: "40%" }}>🚀</Text>
@@ -68,68 +71,7 @@ const OverlayCard: FC<OverlayProps> = ({ overlay }) => {
             </Marquee>
           </Group>
         </CardSection>
-
-        {overlay[1].adjust?.team && (
-          <CardSection>
-            <SegmentedControl
-              data={[
-                { label: "Team A", value: "a" },
-                { label: "Team B", value: "b" },
-              ]}
-            />
-          </CardSection>
-        )}
-        {JSON.stringify(overlay[1].adjust?.index) && (
-          <CardSection>
-            <Text sx={{ fontSize: 14 }}>🧒 Index # </Text>
-            <Slider
-              defaultValue={0}
-              min={0}
-              max={10}
-              label={(value) => value.toFixed(1)}
-              step={1}
-            />
-          </CardSection>
-        )}
-        {overlay[1].adjust?.teamCode && (
-          <CardSection>
-            <RadioGroup
-              label="Team Code"
-              size="sm"
-              orientation="vertical"
-              defaultValue="name"
-            >
-              <Radio value="name" label="Team Name" />
-              <Radio value="shortcode" label="Team Short Code" />
-              <Radio value="shortname" label="Team Short Name" />
-              <Radio value="school" label="School Name" />
-              <Radio value="schoolShortcode" label="School Short Code" />
-            </RadioGroup>
-          </CardSection>
-        )}
-
-        {overlay[1].adjust?.playerCode && (
-          <CardSection>
-            <RadioGroup orientation="vertical" defaultValue="username">
-              <Radio value="username" label="Username" />
-              <Radio value="school" label="School" />
-              <Radio value="photoURL" label="Photo" />
-            </RadioGroup>
-          </CardSection>
-        )}
-
-        {JSON.stringify(overlay[1].adjust?.statIndex) && (
-          <CardSection>
-            <Text sx={{ fontSize: 14 }}>🔢 Stats # </Text>
-            <Slider
-              defaultValue={0}
-              min={0}
-              max={10}
-              label={(value) => value.toFixed(1)}
-              step={1}
-            />
-          </CardSection>
-        )}
+        <OverlayOptions overlay={overlay} />
       </Stack>
     </Card>
   )
