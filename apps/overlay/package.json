@@ -1,7 +1,7 @@
 {
   "name": "overlay",
   "private": true,
-  "version": "0.0.10",
+  "version": "0.0.11",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -14,7 +14,7 @@
     "interface": "*",
     "react": "18.1.0",
     "react-dom": "18.1.0",
-    "react-fast-marquee": "^1.3.2",
+    "react-fast-marquee": "1.3.2",
     "react-redux": "8.0.2",
     "react-responsive-carousel": "3.2.23",
     "react-router-dom": "6.3.0",
