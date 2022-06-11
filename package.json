@@ -1,6 +1,6 @@
 {
   "name": "alliance-games",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "private": true,
   "workspaces": [
     "apps/*",
@@ -29,7 +29,7 @@
     "npm": "^8.6.0",
     "node": "^16.14.0"
   },
-  "packageManager": "yarn@1.22.18",
+  "packageManager": "yarn@1.22.19",
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown",
     "*.js": "eslint --cache --fix",
