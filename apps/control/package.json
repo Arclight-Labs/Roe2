@@ -1,7 +1,7 @@
 {
   "name": "control",
   "private": true,
-  "version": "0.0.14",
+  "version": "0.0.15",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -9,12 +9,12 @@
   },
   "dependencies": {
     "@hookform/resolvers": "2.9.1",
-    "@mantine/core": "4.2.8",
-    "@mantine/dropzone": "4.2.8",
-    "@mantine/form": "4.2.8",
-    "@mantine/hooks": "4.2.8",
-    "@mantine/modals": "4.2.8",
-    "@mantine/notifications": "4.2.8",
+    "@mantine/core": "4.2.9",
+    "@mantine/dropzone": "4.2.9",
+    "@mantine/form": "4.2.9",
+    "@mantine/hooks": "4.2.9",
+    "@mantine/modals": "4.2.9",
+    "@mantine/notifications": "4.2.9",
     "@reduxjs/toolkit": "1.8.2",
     "firebase": "9.8.3",
     "ip": "1.1.8",
