@@ -10,8 +10,6 @@ import { motion, AnimatePresence, Variants } from "framer-motion"
 import { LayoutGroup } from "framer-motion"
 import BG from "../../public/LTBanner.png"
 import { useLTQuery } from "../../utils/useAdjQuery"
-
-type SwitchLT = (mode: keyof LowerthirdData) => ReactNode
 export interface LTProps {
   mode: keyof LowerthirdData
   isWS: boolean

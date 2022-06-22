@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren } from "react"
 import { motion, Transition, Variant } from "framer-motion"
-interface CustomCarouselProps extends PropsWithChildren<{}> {
+interface CustomCarouselProps extends PropsWithChildren {
   animation?: AnimationProps
   transition?: Transition
 }
