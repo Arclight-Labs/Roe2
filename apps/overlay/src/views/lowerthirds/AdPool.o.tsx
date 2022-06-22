@@ -23,7 +23,7 @@ const AdPool = () => {
   return (
     <div>
       {ads.map((ad, i) => (
-        <AnimatePresence>
+        <AnimatePresence key={ad.id}>
           {i === index && (
             <Box
               key={ad.id}

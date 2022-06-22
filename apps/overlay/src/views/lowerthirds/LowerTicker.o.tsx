@@ -27,14 +27,16 @@ const LowerTicker = () => {
     <Group align="center">
       <Stack justify="center" spacing="xs" align="center">
         {verticalTexts.map((text, i) => (
-          <AnimatePresence>
+          <AnimatePresence key={i}>
             {i === index && (
               <Box
                 key={i}
                 sx={{
-                  height: "100%",
+                  height: "50%",
                   width: "100%",
                   position: "absolute",
+                  overflow: "hidden",
+                  zIndex: 99,
                   left: 100,
                   top: 20,
                 }}
