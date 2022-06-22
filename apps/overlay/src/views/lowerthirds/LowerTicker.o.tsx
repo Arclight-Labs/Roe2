@@ -11,11 +11,13 @@ const LowerTicker = () => {
 
   const { ticker } = useLt()
   const [index, setIndex] = useState(0)
+  const horizontalTexts = `| ${ticker.scrollerText.text
+    .split("\n")
+    .join(" | ")}`
   const verticalTexts = ticker.verticalText.text.split("\n")
   const handleNext = () => {
     setIndex(index + 1 === verticalTexts.length ? 0 : index + 1)
   }
-
   useEffect(() => {
     const timer = setInterval(() => handleNext(), 4000)
     return () => clearInterval(timer)
@@ -71,7 +73,7 @@ const LowerTicker = () => {
                 lineHeight: 1.2,
               }}
             >
-              {ticker.scrollerText.text}
+              {horizontalTexts}
             </Text>
           </Marquee>
         </Box>
