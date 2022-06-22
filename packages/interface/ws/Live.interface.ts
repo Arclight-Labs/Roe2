@@ -62,6 +62,7 @@ type LowerthirdMode = keyof LowerthirdData
 
 export interface Ticker {
   headline: AdjText
+  verticalText: AdjText
   scrollerText: AdjText
 }
 

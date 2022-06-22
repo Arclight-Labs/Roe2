@@ -4,11 +4,15 @@ import useRoom from "../../hooks/useRoom.hook"
 import { FC } from "react"
 import { Ad } from "interface/ws"
 import { AnimatePresence, motion } from "framer-motion"
+import { LTProps } from "./LowerThirds.o"
 interface AdItemProps {
   ad: Ad
+  isWS: boolean | undefined
 }
 
-export const AdItem: FC<AdItemProps> = ({ ad }) => {
+export const AdItem: FC<AdItemProps> = ({ ad, isWS }) => {
+  const fontColor = isWS ? "#ffffff" : "#001c5a"
+
   return (
     <Group id={ad.id} align={"center"} sx={{ padding: 20, zIndex: 99999 }}>
       <Image
@@ -29,7 +33,7 @@ export const AdItem: FC<AdItemProps> = ({ ad }) => {
           sx={{
             fontFamily: "Industry",
             fontSize: ad.headline.size || 55,
-            color: "#001c5a",
+            color: fontColor,
             lineHeight: 1,
           }}
           align="left"
@@ -40,7 +44,7 @@ export const AdItem: FC<AdItemProps> = ({ ad }) => {
           sx={{
             fontFamily: "Roboto",
             fontSize: ad.body.size || 35,
-            color: "#001c5a",
+            color: fontColor,
             lineHeight: 1,
           }}
           align="left"
@@ -52,7 +56,7 @@ export const AdItem: FC<AdItemProps> = ({ ad }) => {
   )
 }
 
-const AdSingle = () => {
+const AdSingle = ({ isWS }: Partial<LTProps>) => {
   useRoom()
   const { ad, adPool } = useLt()
   const [activeAd] = adPool.ads.filter((currentAd) => {
@@ -77,7 +81,7 @@ const AdSingle = () => {
             left: 0,
           }}
         >
-          <AdItem ad={activeAd} />
+          <AdItem ad={activeAd} isWS={isWS} />
         </motion.div>
       )}
     </AnimatePresence>

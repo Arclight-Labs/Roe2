@@ -97,6 +97,7 @@ export const defaultMatchPoll: MatchPoll = {
 
 export const defaultTicker: Ticker = {
   headline: defaultAdjText,
+  verticalText: defaultAdjText,
   scrollerText: defaultAdjText,
 }
 

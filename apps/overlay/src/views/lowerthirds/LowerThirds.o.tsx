@@ -9,20 +9,24 @@ import AdPool from "./AdPool.o"
 import { motion, AnimatePresence, Variants } from "framer-motion"
 import { LayoutGroup } from "framer-motion"
 import BG from "../../public/LTBanner.png"
+import { useLTQuery } from "../../utils/useAdjQuery"
+export interface LTProps {
+  mode: keyof LowerthirdData
+  isWS: boolean
+}
 
-type SwitchLT = (mode: keyof LowerthirdData) => ReactNode
 const height = 160
 
-const switchLT: SwitchLT = (mode) => {
+const switchLT = ({ mode, isWS }: LTProps): ReactNode => {
   switch (mode) {
     case "ad":
-      return <AdSingle />
+      return <AdSingle isWS={isWS} />
     case "adPool":
-      return <AdPool />
+      return <AdPool isWS={isWS} />
     case "matchPoll":
       return <></>
     case "ticker":
-      return <LowerTicker />
+      return <LowerTicker isWS={isWS} />
     default:
       return null
   }
@@ -47,6 +51,10 @@ const LowerThirds = () => {
       lt: { mode, show },
     },
   } = useLive()
+
+  const { isWS } = useLTQuery()
+  const bgImage = isWS ? "" : `url("${BG}")`
+
   return (
     <AnimatePresence>
       {show && (
@@ -58,7 +66,7 @@ const LowerThirds = () => {
             exit="exit"
             variants={list}
             style={{
-              backgroundImage: `url("${BG}")`,
+              backgroundImage: bgImage,
               backgroundSize: "100% 100%",
               width: 1585,
               height: 300,
@@ -92,7 +100,7 @@ const LowerThirds = () => {
                   }}
                   transition={{ duration: 0.5 }}
                 >
-                  {switchLT(mode)}
+                  {switchLT({ mode, isWS })}
                 </motion.div>
               </AnimatePresence>
             </Box>

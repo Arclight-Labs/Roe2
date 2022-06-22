@@ -4,6 +4,7 @@ import { adjImageSchema, adjTextSchema } from "./adj.schema"
 
 export const tickerSchema = z.object({
   headline: adjTextSchema,
+  verticalText: adjTextSchema,
   scrollerText: adjTextSchema,
 })
 
