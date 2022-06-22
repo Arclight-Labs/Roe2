@@ -40,7 +40,7 @@ const LowerTicker = ({ isWS }: Partial<LTProps>) => {
                   overflow: "hidden",
                   zIndex: 99,
                   left: 0,
-                  top: 20,
+                  top: 15,
                 }}
               >
                 <CustomCarousel key={i}>
@@ -63,10 +63,10 @@ const LowerTicker = ({ isWS }: Partial<LTProps>) => {
         <Box
           sx={{
             height: "100%",
-            width: "100%",
+            width: "90%",
             position: "absolute",
-            left: 0,
-            top: 100,
+            left: 70,
+            top: 95,
           }}
         >
           <Marquee gradient={false} style={{ overflow: "hidden" }} speed={40}>
@@ -77,6 +77,7 @@ const LowerTicker = ({ isWS }: Partial<LTProps>) => {
                 color: fontColor,
                 lineHeight: 1.2,
               }}
+              align="center"
             >
               {horizontalTexts}
             </Text>

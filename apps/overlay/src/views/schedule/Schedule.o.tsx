@@ -28,7 +28,7 @@ const Schedule = ({ match }: ScheduleProps) => {
 
   return (
     <Group sx={{ marginLeft: "5rem", marginBottom: "-22rem" }}>
-      <Box sx={{ height: 700, width: 700 }}>
+      <Box sx={{ height: 800, width: 800 }}>
         <Grid>
           <Grid.Col span={4}>
             <Center>
