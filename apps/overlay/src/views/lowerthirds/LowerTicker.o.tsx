@@ -37,7 +37,7 @@ const LowerTicker = () => {
                   position: "absolute",
                   overflow: "hidden",
                   zIndex: 99,
-                  left: 100,
+                  left: 0,
                   top: 20,
                 }}
               >
@@ -49,6 +49,7 @@ const LowerTicker = () => {
                       color: "#001c5a",
                       lineHeight: 1.2,
                     }}
+                    align="center"
                   >
                     {text}
                   </Text>
