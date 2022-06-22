@@ -40,7 +40,7 @@ const LowerthirdTickerForm = () => {
             textareaProps={{
               minRows: 3,
               autosize: true,
-              description: "Each line will be separated by '|' on stream",
+              description: "Each line is the next line",
             }}
           />
           <AdjTextarea
