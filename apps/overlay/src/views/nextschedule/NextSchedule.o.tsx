@@ -1,4 +1,4 @@
-import { Box, Stack, Text } from "@mantine/core"
+import { Box, Center, Stack, Text } from "@mantine/core"
 import { AnimatePresence } from "framer-motion"
 import { useEffect, useState } from "react"
 import { useMatches } from "utils/hooks"
@@ -21,13 +21,19 @@ const NextSchedule = () => {
   }
 
   const animation = {
-    initial: { opacity: 0, x: -50 },
+    initial: { opacity: 0, x: 350 },
     animate: { opacity: 1, x: 0 },
-    exit: { opacity: 0, x: 50 },
+    exit: { opacity: 0, x: -350 },
+  }
+
+  const transition = {
+    type: "spring",
+    damping: 30,
+    stiffness: 150,
   }
 
   useEffect(() => {
-    const timer = setInterval(() => handleNext(), 4000)
+    const timer = setInterval(() => handleNext(), 5000)
     return () => clearInterval(timer)
   }, [handleNext])
   return (
@@ -48,27 +54,33 @@ const NextSchedule = () => {
                     top: 15,
                   }}
                 >
-                  <CustomCarousel key={match.id} animation={animation}>
-                    <Stack
-                      sx={{
-                        overflow: "hidden",
-                      }}
-                    >
-                      <Text
+                  <CustomCarousel
+                    key={match.id}
+                    animation={animation}
+                    transition={transition}
+                  >
+                    <Center>
+                      <Stack
                         sx={{
-                          fontFamily: "Industry",
-                          fontSize: 50,
-                          color: "#ffffff",
-                          lineHeight: 1,
+                          overflow: "hidden",
                         }}
-                        align="center"
                       >
-                        {isNextMatch(match ?? "", nextMatch ?? "")
-                          ? `UP NEXT`
-                          : `TODAY'S MATCHES`}
-                      </Text>
-                      <Schedule key={match.id} match={match} />
-                    </Stack>
+                        <Text
+                          sx={{
+                            fontFamily: "Industry",
+                            fontSize: 50,
+                            color: "#ffffff",
+                            lineHeight: 1,
+                          }}
+                          align="center"
+                        >
+                          {isNextMatch(match ?? "", nextMatch ?? "")
+                            ? `UP NEXT`
+                            : `TODAY'S MATCHES`}
+                        </Text>
+                        <Schedule key={match.id} match={match} />
+                      </Stack>
+                    </Center>
                   </CustomCarousel>
                 </Box>
               )}

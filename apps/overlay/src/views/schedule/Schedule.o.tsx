@@ -27,8 +27,8 @@ const Schedule = ({ match }: ScheduleProps) => {
   const teamBScore = getScore(match ?? defaultSeries)?.["b"]?.final
 
   return (
-    <Group sx={{ marginLeft: "5rem", marginBottom: "-22rem" }}>
-      <Box sx={{ height: 800, width: 800 }}>
+    <Group sx={{ marginBottom: "-22rem" }}>
+      <Box sx={{ height: 1000, width: 1000 }}>
         <Grid>
           <Grid.Col span={4}>
             <Center>
@@ -56,7 +56,7 @@ const Schedule = ({ match }: ScheduleProps) => {
               </Stack>
             </Center>
           </Grid.Col>
-          <Grid.Col span={5}>
+          <Grid.Col span={4}>
             <Stack align="center">
               <Image src={VS} height={200} width={200} fit="contain" />
               <Text
@@ -71,7 +71,7 @@ const Schedule = ({ match }: ScheduleProps) => {
               </Text>
             </Stack>
           </Grid.Col>
-          <Grid.Col span={3}>
+          <Grid.Col span={4}>
             <Stack align="center">
               <Image
                 src={b?.logo}
