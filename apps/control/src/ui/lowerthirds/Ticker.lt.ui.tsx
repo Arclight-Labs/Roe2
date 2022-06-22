@@ -35,6 +35,15 @@ const LowerthirdTickerForm = () => {
         <Stack spacing="xl">
           <TextForm name="headline" label="Headline" />
           <AdjTextarea
+            name="verticalText"
+            label="Vertical Text"
+            textareaProps={{
+              minRows: 3,
+              autosize: true,
+              description: "Each line will be separated by '|' on stream",
+            }}
+          />
+          <AdjTextarea
             name="scrollerText"
             label="Ticker"
             textareaProps={{

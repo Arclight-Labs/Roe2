@@ -23,6 +23,18 @@ const LowerTicker = () => {
           <Text
             sx={{
               fontFamily: "Roboto",
+              fontSize: ticker.verticalText.size || 40,
+              color: "#001c5a",
+              lineHeight: 1.2,
+            }}
+          >
+            {ticker.verticalText.text}
+          </Text>
+        </Marquee>
+        <Marquee gradient={false} style={{ overflow: "hidden" }} speed={40}>
+          <Text
+            sx={{
+              fontFamily: "Roboto",
               fontSize: ticker.scrollerText.size || 40,
               color: "#001c5a",
               lineHeight: 1.2,
