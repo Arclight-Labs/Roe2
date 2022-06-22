@@ -12,9 +12,12 @@ interface Adjustables {
   record: PlayerStatCode
 }
 
+interface WaitScreen {
+  isWS: boolean
+}
+
 export function useAdjQuery(): Adjustables {
   const { search } = useLocation()
-
   const query = React.useMemo(() => new URLSearchParams(search), [search])
   const font = QueryFont[query.get("font") ?? "industry"]
   const fontColor = QueryColor[query.get("color") ?? "black"]
@@ -28,5 +31,14 @@ export function useAdjQuery(): Adjustables {
     fontSize,
     align,
     record,
+  }
+}
+
+export function useLTQuery(): WaitScreen {
+  const { search } = useLocation()
+  const query = React.useMemo(() => new URLSearchParams(search), [search])
+  const isWS = JSON.parse(query.get("ws") ?? "false")
+  return {
+    isWS,
   }
 }

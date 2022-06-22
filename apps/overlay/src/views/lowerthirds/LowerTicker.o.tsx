@@ -5,8 +5,9 @@ import Marquee from "react-fast-marquee"
 import { useEffect, useState } from "react"
 import { AnimatePresence } from "framer-motion"
 import CustomCarousel from "./CustomCarousel.o"
+import { LTProps } from "./LowerThirds.o"
 
-const LowerTicker = () => {
+const LowerTicker = ({ isWS }: Partial<LTProps>) => {
   useRoom()
 
   const { ticker } = useLt()
@@ -23,6 +24,7 @@ const LowerTicker = () => {
     return () => clearInterval(timer)
   }, [handleNext])
 
+  const fontColor = isWS ? "#ffffff" : "#001c5a"
   return (
     <Group align="center">
       <Stack justify="center" spacing="xs" align="center">
@@ -46,7 +48,7 @@ const LowerTicker = () => {
                     sx={{
                       fontFamily: "Industry",
                       fontSize: ticker.verticalText.size || 60,
-                      color: "#001c5a",
+                      color: fontColor,
                       lineHeight: 1.2,
                     }}
                     align="center"
@@ -72,7 +74,7 @@ const LowerTicker = () => {
               sx={{
                 fontFamily: "Roboto",
                 fontSize: ticker.scrollerText.size || 40,
-                color: "#001c5a",
+                color: fontColor,
                 lineHeight: 1.2,
               }}
             >

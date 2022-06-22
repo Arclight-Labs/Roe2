@@ -6,8 +6,9 @@ import CustomCarousel from "./CustomCarousel.o"
 import { AnimatePresence } from "framer-motion"
 import React from "react"
 import { Box } from "@mantine/core"
+import { LTProps } from "./LowerThirds.o"
 
-const AdPool = () => {
+const AdPool = ({ isWS }: Partial<LTProps>) => {
   useRoom()
   const { adPool } = useLt()
   const [index, setIndex] = React.useState(0)
@@ -36,7 +37,7 @@ const AdPool = () => {
               }}
             >
               <CustomCarousel key={i}>
-                <AdItem ad={ad}></AdItem>
+                <AdItem ad={ad} isWS={isWS}></AdItem>
               </CustomCarousel>
             </Box>
           )}
