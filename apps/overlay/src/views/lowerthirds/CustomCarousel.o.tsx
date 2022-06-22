@@ -1,20 +1,27 @@
 import { FC, PropsWithChildren } from "react"
-import { motion } from "framer-motion"
+import { motion, Variant } from "framer-motion"
+interface CustomCarouselProps extends PropsWithChildren<{}> {
+  animation?: AnimationProps
+}
 
-const item = {
+type AnimationProps = {
+  [key: string]: Variant
+}
+
+const animationDefault: AnimationProps = {
   initial: { opacity: 0, y: -100 },
   animate: { opacity: 1, y: 0 },
   exit: { opacity: 0, y: 100 },
 }
 
-const CustomCarousel: FC<PropsWithChildren<{}>> = ({ children }) => {
+const CustomCarousel: FC<CustomCarouselProps> = ({ children, animation }) => {
   return (
     <motion.div
       layout
       initial="initial"
       animate="animate"
       exit="exit"
-      variants={item}
+      variants={animation ?? animationDefault}
     >
       {children}
     </motion.div>

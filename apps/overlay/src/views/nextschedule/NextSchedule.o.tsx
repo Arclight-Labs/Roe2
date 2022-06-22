@@ -20,6 +20,12 @@ const NextSchedule = () => {
     return match.id === nextMatch.id
   }
 
+  const animation = {
+    initial: { opacity: 0, x: -50 },
+    animate: { opacity: 1, x: 0 },
+    exit: { opacity: 0, x: 50 },
+  }
+
   useEffect(() => {
     const timer = setInterval(() => handleNext(), 4000)
     return () => clearInterval(timer)
@@ -33,7 +39,7 @@ const NextSchedule = () => {
                 <Box
                   key={match.id}
                   sx={{
-                    height: "50%",
+                    height: "100%",
                     width: "100%",
                     position: "absolute",
                     overflow: "hidden",
@@ -42,7 +48,7 @@ const NextSchedule = () => {
                     top: 15,
                   }}
                 >
-                  <CustomCarousel key={match.id}>
+                  <CustomCarousel key={match.id} animation={animation}>
                     <Stack
                       sx={{
                         overflow: "hidden",
