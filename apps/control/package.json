@@ -1,7 +1,7 @@
 {
   "name": "control",
   "private": true,
-  "version": "0.0.20",
+  "version": "0.0.21",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -42,7 +42,7 @@
     "config": "*",
     "tsconfig": "*",
     "typescript": "4.7.4",
-    "vite": "2.9.14",
+    "vite": "3.0.1",
     "vite-plugin-svgr": "2.2.0"
   }
 }
