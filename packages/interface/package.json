@@ -1,6 +1,6 @@
 {
   "name": "interface",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "main": "index.ts",
   "types": "index.ts",
   "author": "AcadArena",
@@ -11,6 +11,6 @@
     "typescript": "4.7.4"
   },
   "dependencies": {
-    "@mantine/notifications": "4.2.11"
+    "@mantine/notifications": "4.2.12"
   }
 }
