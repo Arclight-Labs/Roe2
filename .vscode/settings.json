@@ -15,5 +15,6 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "color-highlight.markRuler": false,
   "color-highlight.markerType": "dot-before",
-  "color-highlight.matchWords": true
+  "color-highlight.matchWords": true,
+  "git.branchProtection": ["main"]
 }
