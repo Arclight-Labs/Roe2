@@ -17,8 +17,8 @@
   "devDependencies": {
     "@commitlint/cli": "17.0.3",
     "@commitlint/config-conventional": "17.0.3",
-    "@ryansonshine/commitizen": "4.2.8",
-    "@ryansonshine/cz-conventional-changelog": "3.3.4",
+    "commitizen": "4.2.5",
+    "cz-conventional-changelog": "3.3.0",
     "eslint": "8.21.0",
     "husky": "8.0.1",
     "prettier": "2.7.1",
@@ -34,11 +34,6 @@
     "**/*": "prettier --write --ignore-unknown",
     "*.js": "eslint --cache --fix",
     "*.{ts,tsx,md}": "prettier --write"
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/@ryansonshine/cz-conventional-changelog"
-    }
   },
   "husky": {
     "hooks": {
