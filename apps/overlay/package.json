@@ -1,14 +1,14 @@
 {
   "name": "overlay",
   "private": true,
-  "version": "0.0.21",
+  "version": "0.0.22",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@mantine/core": "4.2.12",
+    "@mantine/core": "5.3.0",
     "@mantine/hooks": "4.2.12",
     "framer-motion": "6.5.1",
     "interface": "*",
