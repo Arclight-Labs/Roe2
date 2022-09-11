@@ -1204,10 +1204,12 @@
   resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-4.2.12.tgz#8dfbd23763959b721f5c5c784b3c412bb7c9823a"
   integrity sha512-/2GOsgv1tAUFBXOUV0YBZdDZHj3pHN82Sv1oI/hJMjfIT3ZkGeeiJO8Cw9cBcn76t6caP6Czi3hcuKhjz71O+A==
 
-"@mantine/modals@4.2.12":
-  version "4.2.12"
-  resolved "https://registry.yarnpkg.com/@mantine/modals/-/modals-4.2.12.tgz#591ec0c3034ec0c3de312bec256797b574e1b9e0"
-  integrity sha512-UEcz2kZIt5fQELTuV0YKtqNzNVs+lyP8aqoNJAUgl3u4EKg4YS0WTTqCOJ6ACtAdmCc10lemgQ3zV/HnNh15Ng==
+"@mantine/modals@5.3.0":
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/@mantine/modals/-/modals-5.3.0.tgz#e8ae1d24dafb019b07dd0b45291de17ac631b57a"
+  integrity sha512-ZSxCAnF0mB1pvr7AHQHFTMgcsIvbeBWLF/Hwm+8i7TYMRXZ+VT54EemZeP/4jFPrE42ymiq+7f6iRpB5K7apRw==
+  dependencies:
+    "@mantine/utils" "5.3.0"
 
 "@mantine/notifications@4.2.12":
   version "4.2.12"
@@ -1227,6 +1229,11 @@
     "@emotion/utils" "1.0.0"
     clsx "^1.1.1"
     csstype "3.0.9"
+
+"@mantine/utils@5.3.0":
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/@mantine/utils/-/utils-5.3.0.tgz#cb57643500819354ede198151a2a072375e9e122"
+  integrity sha512-On89C5CRTghwaaEwGXqjY5FZ/VYNoBllbBoDl2hb7l4pxLakpY9eAQeuOOJdPb3bBiBoD/e29tCkG+UcVYfr4w==
 
 "@motionone/animation@^10.12.0":
   version "10.14.0"
