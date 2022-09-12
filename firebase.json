@@ -30,7 +30,7 @@
       ]
     },
     {
-      "target": "allg",
+      "target": "overlay",
       "public": "apps/overlay/dist",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [

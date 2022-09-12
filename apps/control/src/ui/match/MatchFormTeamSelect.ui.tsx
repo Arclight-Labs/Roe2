@@ -1,9 +1,10 @@
 import {
   Avatar,
   Box,
-  Group,
   Popover,
+  PopoverDropdownProps,
   PopoverProps,
+  PopoverTargetProps,
   SimpleGrid,
   Tooltip,
 } from "@mantine/core"
@@ -14,13 +15,19 @@ import { useParticipants } from "utils/hooks"
 interface MatchFormTeamSelectProps
   extends Omit<PopoverProps, "target" | "opened"> {
   onSelectTeam: (chalId: number | null) => void
+  disabled?: boolean
+  targetProps?: PopoverTargetProps
+  dropdownProps?: PopoverDropdownProps
 }
 const MatchFormTeamSelect: FC<MatchFormTeamSelectProps> = ({
   children,
   onSelectTeam,
+  disabled,
+  dropdownProps,
+  targetProps,
   ...props
 }) => {
-  const [opened, toggle] = useToggle(false, [false, true])
+  const [opened, toggle] = useToggle([false, true])
   const close = () => toggle(false)
   const clickToggle = () => toggle()
   const { participants } = useParticipants()
@@ -35,29 +42,31 @@ const MatchFormTeamSelect: FC<MatchFormTeamSelectProps> = ({
       onClose={close}
       position="top"
       withArrow
-      withCloseButton
-      title="Select Team"
       {...props}
-      target={<Box onClick={clickToggle}>{children}</Box>}
     >
-      <SimpleGrid cols={4}>
-        <Tooltip label="TBD">
-          <Avatar onClick={onClick(null)} sx={{ cursor: "pointer" }}>
-            TBD
-          </Avatar>
-        </Tooltip>
-
-        {Object.entries(participants).map(([id, team]) => (
-          <Tooltip label={team.name}>
-            <Avatar
-              src={team.logo}
-              key={id}
-              onClick={onClick(team.chalId || null)}
-              sx={{ cursor: "pointer" }}
-            />
+      <Popover.Target {...targetProps}>
+        <Box onClick={!disabled ? clickToggle : undefined}>{children}</Box>
+      </Popover.Target>
+      <Popover.Dropdown {...dropdownProps}>
+        <SimpleGrid cols={4} spacing="xs">
+          <Tooltip label="TBD">
+            <Avatar onClick={onClick(null)} sx={{ cursor: "pointer" }}>
+              TBD
+            </Avatar>
           </Tooltip>
-        ))}
-      </SimpleGrid>
+
+          {Object.entries(participants).map(([id, team]) => (
+            <Tooltip label={team.name} key={id}>
+              <Avatar
+                src={team.logo}
+                key={id}
+                onClick={onClick(team.chalId || null)}
+                sx={{ cursor: "pointer" }}
+              />
+            </Tooltip>
+          ))}
+        </SimpleGrid>
+      </Popover.Dropdown>
     </Popover>
   )
 }

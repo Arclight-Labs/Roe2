@@ -26,7 +26,7 @@ import MatchMenu from "./MatchMenu"
 import MatchModal from "./MatchModal.ui"
 
 type Series = SanitizedSeries
-interface MatchCardProps extends Omit<CardProps<"div">, "children"> {
+interface MatchCardProps extends Omit<CardProps, "children"> {
   match: Series
   small?: boolean
 }

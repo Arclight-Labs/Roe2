@@ -2,18 +2,18 @@ import {
   Avatar,
   createStyles,
   Group,
+  MediaQuery,
+  Stack,
+  Text,
   UnstyledButton,
   UnstyledButtonProps,
-  Text,
   useMantineTheme,
-  Stack,
-  MediaQuery,
 } from "@mantine/core"
 import { useNavigate } from "react-router-dom"
 import { ChevronRight, Message } from "tabler-icons-react"
+import { useScreen } from "ui/Screen.hook"
 import { useRoom } from "../../context/room/Room.hooks"
 import { RoomMenu } from "./RoomMenu.ui"
-import { useScreen } from "ui/Screen.hook"
 
 const useStyles = createStyles((theme) => ({
   room: {
@@ -31,7 +31,7 @@ const useStyles = createStyles((theme) => ({
   },
 }))
 
-type RoomButtonProps = UnstyledButtonProps<"button">
+type RoomButtonProps = UnstyledButtonProps
 const RoomButton = (props: RoomButtonProps) => {
   const activeRoom = useRoom()
 
@@ -42,50 +42,47 @@ const RoomButton = (props: RoomButtonProps) => {
 
   const { sm } = useScreen()
   return activeRoom ? (
-    <RoomMenu
-      sx={{ width: "100%" }}
-      control={
-        <UnstyledButton
-          className={classes.room}
-          {...props}
-          sx={{ padding: sm ? theme.spacing.md : 5 }}
-        >
-          <Group>
-            {activeRoom.avatar ? (
-              <Avatar src={activeRoom.avatar} radius="xl" />
-            ) : (
-              <Stack
-                sx={(theme) => ({
-                  width: 38,
-                  height: 38,
-                  borderRadius: "100%",
-                  backgroundColor: theme.colors.gray[0],
-                })}
-                justify="center"
-                align="center"
-              >
-                <Message color={theme.colors.gray[6]} size={27} />
-              </Stack>
-            )}
+    <RoomMenu sx={{ width: "100%" }}>
+      <UnstyledButton
+        className={classes.room}
+        {...props}
+        sx={{ padding: sm ? theme.spacing.md : 5 }}
+      >
+        <Group>
+          {activeRoom.avatar ? (
+            <Avatar src={activeRoom.avatar} radius="xl" />
+          ) : (
+            <Stack
+              sx={(theme) => ({
+                width: 38,
+                height: 38,
+                borderRadius: "100%",
+                backgroundColor: theme.colors.gray[0],
+              })}
+              justify="center"
+              align="center"
+            >
+              <Message color={theme.colors.gray[6]} size={27} />
+            </Stack>
+          )}
 
-            <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
-              <div style={{ flex: 1 }}>
-                <Text size="sm" weight={500}>
-                  {activeRoom?.name}
-                </Text>
-                <Text size="xs" color="dimmed">
-                  Active Room
-                </Text>
-              </div>
-            </MediaQuery>
+          <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
+            <div style={{ flex: 1 }}>
+              <Text size="sm" weight={500}>
+                {activeRoom?.name}
+              </Text>
+              <Text size="xs" color="dimmed">
+                Active Room
+              </Text>
+            </div>
+          </MediaQuery>
 
-            <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
-              <ChevronRight size={14} />
-            </MediaQuery>
-          </Group>
-        </UnstyledButton>
-      }
-    />
+          <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
+            <ChevronRight size={14} />
+          </MediaQuery>
+        </Group>
+      </UnstyledButton>
+    </RoomMenu>
   ) : (
     <UnstyledButton
       className={classes.room}

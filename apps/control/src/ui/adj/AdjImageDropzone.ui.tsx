@@ -1,17 +1,17 @@
 import {
   Group,
+  NumberInput,
+  NumberInputProps,
   Slider,
   SliderProps,
   Stack,
   Switch,
   Text,
-  NumberInput,
-  NumberInputProps,
 } from "@mantine/core"
 import { Dropzone, DropzoneProps } from "@mantine/dropzone"
 import { useToggle } from "@mantine/hooks"
 import { FilePreview } from "interface"
-import { AdjImage, AdjSize } from "interface/ws/Live.interface"
+import { AdjSize } from "interface/ws/Live.interface"
 import { ChangeEventHandler, FC } from "react"
 import { useFormContext } from "react-hook-form"
 import { DropzoneContent } from "../DropzoneContent.ui"
@@ -37,7 +37,7 @@ const AdjImageDropzone: FC<AdjImageDropzoneProps> = ({
   const path = (prop: string) => `${name}.adj.${prop}`
 
   const scale = watch(path("scale"))
-  const [isDisabled, toggle] = useToggle(!scale, [false, true])
+  const [isDisabled, toggle] = useToggle([!scale, scale])
 
   const onSlide: SliderProps["onChange"] = (value) => {
     setValue(path("scale"), parseFloat(value.toFixed(2)))
@@ -66,9 +66,7 @@ const AdjImageDropzone: FC<AdjImageDropzoneProps> = ({
       <Stack>
         <Text size="sm">Image</Text>
         <Dropzone onDrop={onDrop}>
-          {(status) => (
-            <DropzoneContent status={status} preview={[file.path || preview]} />
-          )}
+          <DropzoneContent preview={[file.path || preview]} />
         </Dropzone>
       </Stack>
       <Stack spacing="xs">

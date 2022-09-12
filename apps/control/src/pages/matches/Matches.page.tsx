@@ -1,5 +1,6 @@
 import {
   ActionIcon,
+  Button,
   Container,
   Group,
   Loader,
@@ -20,7 +21,7 @@ import MatchModal from "../../ui/match/MatchModal.ui"
 import Confirm from "../../ui/popups/Confirm.ui"
 
 const MatchesPage = () => {
-  const [create, toggler] = useToggle(false, [false, true])
+  const [create, toggler] = useToggle([false, true])
   const [loading, setLoading] = useState(false)
   const { id, extends: tournamentsAdded = {} } = useTournament()
   const {
@@ -70,34 +71,46 @@ const MatchesPage = () => {
           <Plus size={14} />
         </ActionIcon>
       </Group>
-      <Stack>
-        <Title order={5}>Playoffs Matches</Title>
-        <Stack>
-          <Group noWrap spacing="xl">
-            {ub.map(([round, seriesMap]) => (
-              <Stack key={round} sx={{ alignSelf: "flex-start" }}>
-                <Title order={5}>UB Round {round}</Title>
-                <Stack justify="center">
-                  {Object.entries(seriesMap).map(([seriesId, series]) => (
-                    <MatchCard match={series} key={seriesId} />
-                  ))}
-                </Stack>
-              </Stack>
-            ))}
+      <Stack py="lg">
+        {!ub.length && !customMatches.length && (
+          <Group>
+            <Title order={5}>No Matches Yet</Title>
+            <Button onClick={toggle} size="xs" leftIcon={<Plus size={16} />}>
+              Create
+            </Button>
           </Group>
-          <Group noWrap spacing="xl">
-            {lb.map(([round, seriesMap]) => (
-              <Stack key={round} sx={{ alignSelf: "flex-start" }}>
-                <Title order={5}>LB Round {round}</Title>
-                <Stack justify="center">
-                  {Object.entries(seriesMap).map(([seriesId, series]) => (
-                    <MatchCard match={series} key={seriesId} />
-                  ))}
-                </Stack>
-              </Stack>
-            ))}
-          </Group>
-        </Stack>
+        )}
+        {!!ub.length && (
+          <>
+            <Title order={5}>Playoffs Matches</Title>
+            <Stack>
+              <Group noWrap spacing="xl">
+                {ub.map(([round, seriesMap]) => (
+                  <Stack key={round} sx={{ alignSelf: "flex-start" }}>
+                    <Title order={5}>UB Round {round}</Title>
+                    <Stack justify="center">
+                      {Object.entries(seriesMap).map(([seriesId, series]) => (
+                        <MatchCard match={series} key={seriesId} />
+                      ))}
+                    </Stack>
+                  </Stack>
+                ))}
+              </Group>
+              <Group noWrap spacing="xl">
+                {lb.map(([round, seriesMap]) => (
+                  <Stack key={round} sx={{ alignSelf: "flex-start" }}>
+                    <Title order={5}>LB Round {round}</Title>
+                    <Stack justify="center">
+                      {Object.entries(seriesMap).map(([seriesId, series]) => (
+                        <MatchCard match={series} key={seriesId} />
+                      ))}
+                    </Stack>
+                  </Stack>
+                ))}
+              </Group>
+            </Stack>
+          </>
+        )}
       </Stack>
       {!!customMatches.length && (
         <Stack mt="xl">

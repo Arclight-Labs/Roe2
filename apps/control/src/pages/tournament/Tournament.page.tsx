@@ -1,6 +1,3 @@
-import { useQuery } from "react-query"
-import { useAppSelector } from "utils/hooks"
-import { getAllTournaments } from "utils/axios"
 import {
   Alert,
   Container,
@@ -10,6 +7,8 @@ import {
   Stack,
   Title,
 } from "@mantine/core"
+import { useQuery } from "react-query"
+import { getAllTournaments } from "utils/axios"
 import TournamentCard from "../../ui/tournament/TournamentCard.ui"
 
 const TournamentPage = () => {
@@ -22,7 +21,7 @@ const TournamentPage = () => {
         <Group>
           {!data ? (
             error ? (
-              <Alert>{JSON.stringify(error)}</Alert>
+              <Alert color="red">{JSON.stringify(error)}</Alert>
             ) : (
               <Grid>
                 {Array(3)

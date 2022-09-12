@@ -2,32 +2,28 @@ import {
   Avatar,
   Card,
   CardProps,
+  Divider,
   Group,
+  Menu,
   Stack,
   Text,
-  Menu,
-  Divider,
 } from "@mantine/core"
+import { nanoid } from "@reduxjs/toolkit"
 import { User } from "interface"
+import { Live } from "interface/ws"
 import { FC, useState } from "react"
 import {
   ArrowDownRightCircle,
   ArrowUpRightCircle,
   Pencil,
-  Square1,
-  Square2,
   Trash,
 } from "tabler-icons-react"
-import { setLive } from "utils/socket/events"
 import { useLive } from "utils/hooks"
+import { setLive } from "utils/socket/events"
 import { useBSave } from "../../context/bsave/bsave.hook"
-import Confirm from "../popups/Confirm.ui"
-import TalentModal from "./TalentModal.ui"
-import { nanoid } from "@reduxjs/toolkit"
-import { Live } from "interface/ws"
 import TalentBadges from "./TalentBadges.ui"
-import { defaultTalent } from "utils/general/defaultValues"
-interface TalentCardProps extends Omit<CardProps<"div">, "children"> {
+import TalentModal from "./TalentModal.ui"
+interface TalentCardProps extends Omit<CardProps, "children"> {
   data: User
 }
 const TalentCard: FC<TalentCardProps> = ({ data, ...props }) => {
@@ -75,7 +71,7 @@ const TalentCard: FC<TalentCardProps> = ({ data, ...props }) => {
         sx={{ top: 2, right: 2, position: "absolute" }}
       >
         <TalentBadges talentId={data.uid} />
-        <Menu position="bottom" placement="end" transition="pop-top-right">
+        <Menu position="bottom-end" transition="pop-top-right">
           {live.activeTalents[uid] ? (
             <Menu.Item
               onClick={onRemoveActiveCaster}

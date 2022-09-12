@@ -15,29 +15,28 @@ const PlayerFormPopover = ({
   return (
     <Popover
       position="bottom"
-      placement="center"
       withArrow
       shadow="xl"
-      withCloseButton
       closeOnClickOutside={false}
-      title={player.uid ? "Edit Player" : "Add Player"}
       transition="pop"
       width={260}
       {...props}
-      target={children}
     >
-      <PlayerForm
-        teamId={teamId}
-        player={{
-          photoURL: player.photoURL,
-          uid: player.uid,
-          username: player.username,
-          stats: player.stats ?? {},
-          photoAdj: player.photoAdj,
-        }}
-        onCancel={props.onClose}
-        afterSubmit={props.onClose}
-      />
+      <Popover.Target>{children}</Popover.Target>
+      <Popover.Dropdown title={player.uid ? "Edit Player" : "Add Player"}>
+        <PlayerForm
+          teamId={teamId}
+          player={{
+            photoURL: player.photoURL,
+            uid: player.uid,
+            username: player.username,
+            stats: player.stats ?? {},
+            photoAdj: player.photoAdj,
+          }}
+          onCancel={props.onClose}
+          afterSubmit={props.onClose}
+        />
+      </Popover.Dropdown>
     </Popover>
   )
 }

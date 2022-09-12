@@ -1,20 +1,10 @@
-import {
-  Card,
-  CardProps,
-  CardSection,
-  Grid,
-  Group,
-  SimpleGrid,
-  Stack,
-  Text,
-  Title,
-} from "@mantine/core"
+import { CardProps, SimpleGrid, Stack, Title } from "@mantine/core"
 import { useState } from "react"
 import OverlayCard from "./OverlayCard.ui"
 import OverlayRoutes from "./OverlayRoutes"
 
 interface OverlayCardProps {
-  CardProps?: CardProps<"div">
+  CardProps?: CardProps
 }
 
 const OverlayCards = Object.entries(

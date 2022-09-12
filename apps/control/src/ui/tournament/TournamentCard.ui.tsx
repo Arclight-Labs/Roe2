@@ -1,14 +1,14 @@
 import {
-  Text,
+  ActionIcon,
   Card,
   CardProps,
-  Stack,
-  Image,
-  useMantineTheme,
   Group,
-  ActionIcon,
+  Image,
   Loader,
   Menu,
+  Stack,
+  Text,
+  useMantineTheme,
 } from "@mantine/core"
 import { SanitizedParticipantMap, SanitizedSeriesMap } from "interface/waypoint"
 import { useState } from "react"
@@ -33,8 +33,7 @@ import { useRoom } from "../../context/room/Room.hooks"
 import { usePermission } from "../../hooks/usePermission.hook"
 import Confirm from "../popups/Confirm.ui"
 
-type TournamentCardProps = Omit<CardProps<"div">, "children"> &
-  ShallowTournament
+type TournamentCardProps = Omit<CardProps, "children"> & ShallowTournament
 const TournamentCard = ({ id, logo, name, org }: TournamentCardProps) => {
   const isAllowed = usePermission()
   const room = useRoom()
@@ -151,9 +150,8 @@ const TournamentCard = ({ id, logo, name, org }: TournamentCardProps) => {
         <Group position="apart" p={0} align="start">
           <Image src={logo} height={50} width={50} radius="md" />
 
-          <Menu
-            closeOnItemClick={false}
-            control={
+          <Menu closeOnItemClick={false}>
+            <Menu.Target>
               <ActionIcon>
                 {loading ? (
                   <Loader size={18} />
@@ -165,52 +163,58 @@ const TournamentCard = ({ id, logo, name, org }: TournamentCardProps) => {
                   <Dots color={theme.colors.gray[5]} />
                 )}
               </ActionIcon>
-            }
-          >
-            <Confirm
-              message="Selecting tournament will reset all the matches and participants"
-              onConfirm={selectTournament}
-              sx={{ width: "100%" }}
-            >
-              <Menu.Item sx={{ width: "100%" }} icon={<Select size={18} />}>
-                Select
+            </Menu.Target>
+            <Menu.Dropdown>
+              <Confirm
+                message="Selecting tournament will reset all the matches and participants"
+                onConfirm={selectTournament}
+                dropdownProps={{ sx: { width: "100%" } }}
+              >
+                <Menu.Item sx={{ width: "100%" }} icon={<Select size={18} />}>
+                  Select
+                </Menu.Item>
+              </Confirm>
+              {!isSelected &&
+                (isExtension ? (
+                  <Confirm
+                    dropdownProps={{ sx: { width: "100%" } }}
+                    onConfirm={removeFromMultiTournament}
+                  >
+                    <Menu.Item
+                      sx={{ width: "100%" }}
+                      icon={<CircleMinus size={18}></CircleMinus>}
+                      color="red"
+                    >
+                      Remove matches &amp; participants
+                    </Menu.Item>
+                  </Confirm>
+                ) : (
+                  <Confirm
+                    dropdownProps={{
+                      sx: { width: "100%" },
+                      title: "⚠️ Warning",
+                    }}
+                    onConfirm={addToMultiTournament}
+                    message="This will replace all participant and matches"
+                  >
+                    <Menu.Item
+                      sx={{ width: "100%" }}
+                      icon={<CirclePlus size={18}></CirclePlus>}
+                    >
+                      Add matches &amp; participants
+                    </Menu.Item>
+                  </Confirm>
+                ))}
+              <Menu.Item
+                onClick={addParticipants}
+                icon={<UserPlus size={18} />}
+              >
+                Add Participants
               </Menu.Item>
-            </Confirm>
-            {!isSelected &&
-              (isExtension ? (
-                <Confirm
-                  sx={{ width: "100%" }}
-                  onConfirm={removeFromMultiTournament}
-                >
-                  <Menu.Item
-                    sx={{ width: "100%" }}
-                    icon={<CircleMinus size={18}></CircleMinus>}
-                    color="red"
-                  >
-                    Remove matches &amp; participants
-                  </Menu.Item>
-                </Confirm>
-              ) : (
-                <Confirm
-                  sx={{ width: "100%" }}
-                  onConfirm={addToMultiTournament}
-                  title="⚠️ Warning"
-                  message="This will replace all participant and matches"
-                >
-                  <Menu.Item
-                    sx={{ width: "100%" }}
-                    icon={<CirclePlus size={18}></CirclePlus>}
-                  >
-                    Add matches &amp; participants
-                  </Menu.Item>
-                </Confirm>
-              ))}
-            <Menu.Item onClick={addParticipants} icon={<UserPlus size={18} />}>
-              Add Participants
-            </Menu.Item>
-            <Menu.Item onClick={addMatches} icon={<CirclePlus size={18} />}>
-              Add Mathces
-            </Menu.Item>
+              <Menu.Item onClick={addMatches} icon={<CirclePlus size={18} />}>
+                Add Mathces
+              </Menu.Item>
+            </Menu.Dropdown>
           </Menu>
         </Group>
         <Stack spacing={0}>

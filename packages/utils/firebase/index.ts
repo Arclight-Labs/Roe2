@@ -1,8 +1,8 @@
 export {
   app,
   auth,
+  connectEmulators,
   db,
   fn,
   storage,
-  connectEmulators,
 } from "./firebase.instance"

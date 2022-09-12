@@ -7,8 +7,8 @@ import {
   ModalProps,
   Stack,
   Switch,
-  TextInput,
   Text,
+  TextInput,
 } from "@mantine/core"
 import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from "@mantine/dropzone"
 import { User as FireUser } from "firebase/auth"
@@ -18,7 +18,7 @@ import { MouseEventHandler, useState } from "react"
 import { useForm } from "react-hook-form"
 import { At } from "tabler-icons-react"
 import { storage } from "utils/firebase"
-import { setUser, getUserByUsername } from "utils/firebase/user.queries"
+import { getUserByUsername, setUser } from "utils/firebase/user.queries"
 import { UserModel } from "utils/models/User.model"
 import { UserUpdate, userUpdateSchema } from "utils/schema/user.schema"
 import { DropzoneContent } from "../ui/DropzoneContent.ui"
@@ -115,12 +115,9 @@ const UserModal = ({ user, data, ...props }: Props) => {
             accept={IMAGE_MIME_TYPE}
             loading={uploading}
           >
-            {(status) => (
-              <DropzoneContent
-                status={status}
-                preview={[avatarPreview.path || data?.avatar || ""]}
-              />
-            )}
+            <DropzoneContent
+              preview={[avatarPreview.path || data?.avatar || ""]}
+            />
           </Dropzone>
         </Stack>
         <Switch

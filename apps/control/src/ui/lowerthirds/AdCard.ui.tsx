@@ -7,14 +7,13 @@ import {
   Radio,
   Stack,
   Text,
-  ThemeIcon,
   Title,
   Tooltip,
 } from "@mantine/core"
 import { useToggle } from "@mantine/hooks"
 import { Ad } from "interface/ws/Live.interface"
 import { FC } from "react"
-import { Check, Eye, EyeOff, Pencil } from "tabler-icons-react"
+import { Eye, EyeOff, Pencil } from "tabler-icons-react"
 import { adjImageStyles, defaultAdjImage } from "utils/general"
 import { useLt } from "utils/hooks"
 import { setLive } from "utils/socket/events"
@@ -25,8 +24,8 @@ interface AdCardProps {
   ad: Ad
 }
 const AdCard: FC<AdCardProps> = ({ ad }) => {
-  const [preview, togglePreview] = useToggle(false, [false, true])
-  const [open, toggler] = useToggle(false, [false, true])
+  const [preview, togglePreview] = useToggle([false, true])
+  const [open, toggler] = useToggle([false, true])
   const toggle = () => toggler()
   const close = () => toggler(false)
   const { ad: ltAd, lt } = useLt()

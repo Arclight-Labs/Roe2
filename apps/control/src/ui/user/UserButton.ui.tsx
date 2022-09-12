@@ -1,19 +1,19 @@
-import { FC, ReactNode } from "react"
 import {
   Avatar,
   createStyles,
   Group,
-  UnstyledButton,
-  UnstyledButtonProps,
-  Text,
   LoadingOverlay,
   MediaQuery,
+  Text,
+  UnstyledButton,
+  UnstyledButtonProps,
   useMantineTheme,
 } from "@mantine/core"
+import { FC, ReactNode } from "react"
 import { ChevronRight } from "tabler-icons-react"
+import { useScreen } from "ui/Screen.hook"
 import { useAuth } from "../../context/auth/Auth.hooks"
 import { UserMenu } from "./UserMenu.ui"
-import { useScreen } from "ui/Screen.hook"
 
 const useStyles = createStyles((theme) => ({
   user: {
@@ -31,7 +31,7 @@ const useStyles = createStyles((theme) => ({
   },
 }))
 
-interface UserButtonProps extends UnstyledButtonProps<"button"> {
+interface UserButtonProps extends UnstyledButtonProps {
   icon?: ReactNode
 }
 const UserButton: FC<UserButtonProps> = ({ icon, ...props }) => {
@@ -40,38 +40,35 @@ const UserButton: FC<UserButtonProps> = ({ icon, ...props }) => {
   const theme = useMantineTheme()
   const { sm } = useScreen()
   return (
-    <UserMenu
-      sx={{ width: "100%" }}
-      control={
-        <UnstyledButton
-          className={classes.user}
-          {...props}
-          sx={{ padding: sm ? theme.spacing.md : 5 }}
-        >
-          <LoadingOverlay visible={loading} />
-          {user && (
-            <Group noWrap>
-              <Avatar src={user.avatar} radius="xl" />
+    <UserMenu dropdownProps={{ sx: { width: "100%" } }}>
+      <UnstyledButton
+        className={classes.user}
+        {...props}
+        sx={{ padding: sm ? theme.spacing.md : 5 }}
+      >
+        <LoadingOverlay visible={loading} />
+        {user && (
+          <Group noWrap>
+            <Avatar src={user.avatar} radius="xl" />
 
-              <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
-                <div style={{ flex: 1 }}>
-                  <Text size="sm" weight={500}>
-                    {user.username}
-                  </Text>
+            <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
+              <div style={{ flex: 1 }}>
+                <Text size="sm" weight={500}>
+                  {user.username}
+                </Text>
 
-                  <Text color="dimmed" size="xs">
-                    {user.email}
-                  </Text>
-                </div>
-              </MediaQuery>
-              <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
-                {icon || <ChevronRight size={14} />}
-              </MediaQuery>
-            </Group>
-          )}
-        </UnstyledButton>
-      }
-    />
+                <Text color="dimmed" size="xs">
+                  {user.email}
+                </Text>
+              </div>
+            </MediaQuery>
+            <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
+              {icon || <ChevronRight size={14} />}
+            </MediaQuery>
+          </Group>
+        )}
+      </UnstyledButton>
+    </UserMenu>
   )
 }
 export default UserButton

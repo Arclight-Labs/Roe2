@@ -1,24 +1,12 @@
-import {
-  ActionIcon,
-  Button,
-  Card,
-  CardProps,
-  Group,
-  Image,
-  Stack,
-  Text,
-} from "@mantine/core"
+import { Button, Card, CardProps, Image, Stack, Text } from "@mantine/core"
 import { SanitizedParticipant } from "interface/waypoint"
 import { useState } from "react"
-import { Plus } from "tabler-icons-react"
 import { usePermission } from "../../hooks/usePermission.hook"
-import PlayerAvatar from "../player/PlayerAvatar.ui"
-import PlayerFormPopover from "../player/PlayerFormPopover.ui"
 import ParticipantModal from "./ParticipantModal.ui"
 
 interface ParticipantCardProps {
   team: SanitizedParticipant
-  CardProps?: CardProps<"div">
+  CardProps?: CardProps
 }
 const ParticipantCard = ({ CardProps, team }: ParticipantCardProps) => {
   const isAllowed = usePermission()

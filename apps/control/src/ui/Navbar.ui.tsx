@@ -1,16 +1,16 @@
-import { useState } from "react"
 import {
-  createStyles,
-  Navbar,
-  Group,
   Code,
+  createStyles,
+  Group,
   MediaQuery,
+  Navbar,
   Stack,
 } from "@mantine/core"
-import routes from "./NavRoutes"
-import UserButton from "./user/UserButton.ui"
-import RoomButton from "./room/RoomButton.ui"
+import { useState } from "react"
 import { Link } from "react-router-dom"
+import routes from "./NavRoutes"
+import RoomButton from "./room/RoomButton.ui"
+import UserButton from "./user/UserButton.ui"
 
 const useStyles = createStyles((theme, _params, getRef) => {
   const icon = getRef("icon")

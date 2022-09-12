@@ -12,13 +12,13 @@ import {
   Stack,
   Text,
 } from "@mantine/core"
-import { Resize } from "tabler-icons-react"
+import { useToggle } from "@mantine/hooks"
+import { AdjSize } from "interface/ws"
 import { FC } from "react"
 import { Control, Path, UseFormSetValue, useWatch } from "react-hook-form"
-import { PlayerSchema } from "utils/schema/player.schema"
-import { useToggle } from "@mantine/hooks"
+import { Resize } from "tabler-icons-react"
 import { adjImageStyles } from "utils/general"
-import { AdjSize } from "interface/ws"
+import { PlayerSchema } from "utils/schema/player.schema"
 
 interface Props {
   control: Control<PlayerSchema>
@@ -26,7 +26,7 @@ interface Props {
 }
 const PlayerFormPhotoAdj: FC<Props> = ({ control, setValue }) => {
   const { photoAdj = {}, photoURL = "" } = useWatch({ control })
-  const [open, toggler] = useToggle(false, [false, true])
+  const [open, toggler] = useToggle([false, true])
   const toggle = () => toggler()
   const onClose = () => toggler(false)
   const sample = "https://ogs.gg/wp-content/uploads/2021/10/Misha3-1.png"
