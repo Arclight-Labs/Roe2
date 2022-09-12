@@ -1,6 +1,6 @@
 {
   "name": "utils",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "main": "index.ts",
   "files": [
     "hooks/**/*.ts",
@@ -30,7 +30,7 @@
     "react-redux": "8.0.2",
     "redux": "4.2.0",
     "socket.io-client": "4.5.2",
-    "zod": "3.19.0"
+    "zod": "3.19.1"
   },
   "devDependencies": {
     "@types/ip": "1.1.0",
