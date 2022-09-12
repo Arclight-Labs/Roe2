@@ -1,38 +1,22 @@
 import {
+  ActionIcon,
   Card,
   CardSection,
-  Text,
-  TextInput,
-  Button,
   Group,
-  ActionIcon,
-  Title,
-  Slider,
-  SegmentedControl,
-  RadioGroup,
-  Radio,
-  Space,
-  ThemeIcon,
   Stack,
-  Box,
-  CardProps,
-  Accordion,
-  AccordionItem,
+  Text,
+  Title,
 } from "@mantine/core"
-import { FC, useState } from "react"
-import { OverlayLink } from "./OverlayRoutes"
 import { useClipboard } from "@mantine/hooks"
-import { useRoom } from "../../context/room/Room.hooks"
+import { FC, useState } from "react"
+import Marquee from "react-fast-marquee"
 import {
   ArrowUpRightCircle,
   Clipboard,
   ClipboardCheck,
 } from "tabler-icons-react"
-import Marquee from "react-fast-marquee"
-import OverlayOptions, {
-  AdjTextOptions,
-  OverlayProps,
-} from "./OverlayOptions.ui"
+import { useRoom } from "../../context/room/Room.hooks"
+import OverlayOptions, { OverlayProps } from "./OverlayOptions.ui"
 
 const OverlayCard: FC<OverlayProps> = ({ overlay }) => {
   const roomID = useRoom()?.id

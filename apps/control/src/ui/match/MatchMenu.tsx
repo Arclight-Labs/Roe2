@@ -1,9 +1,10 @@
-import { Menu, MenuProps, useMantineTheme } from "@mantine/core"
+import { ActionIcon, Menu, MenuProps } from "@mantine/core"
 import { SanitizedSeries } from "interface/waypoint"
 import { Live } from "interface/ws"
 import { MouseEventHandler, useState } from "react"
 import {
   ListDetails,
+  Menu2,
   Pencil,
   PlayerTrackNext,
   Select,
@@ -31,24 +32,31 @@ const MatchMenu = ({ match, open, ...props }: MatchMenuProps) => {
   const next = isNext(matchId)
   const scheduled = inSchedule(matchId)
 
-  const onClick: MouseEventHandler<HTMLDivElement> = (e) => {
+  const onClick: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.stopPropagation()
     setOpened(!opened)
   }
   const close = () => setOpened(false)
-  const setAs = (key: "activeMatch" | "nextMatch") => () => {
-    const data: Partial<Live> = { [key]: matchId }
-    setLive(data)
-    bSave(data)
-  }
+  const setAs =
+    (key: "activeMatch" | "nextMatch"): MouseEventHandler<HTMLButtonElement> =>
+    (e) => {
+      e.stopPropagation()
+      const data: Partial<Live> = { [key]: matchId }
+      setLive(data)
+      bSave(data)
+    }
 
-  const clearAs = (key: "activeMatch" | "nextMatch") => () => {
-    const data: Partial<Live> = { [key]: "" }
-    setLive(data)
-    bSave(data)
-  }
+  const clearAs =
+    (key: "activeMatch" | "nextMatch"): MouseEventHandler<HTMLButtonElement> =>
+    (e) => {
+      e.stopPropagation()
+      const data: Partial<Live> = { [key]: "" }
+      setLive(data)
+      bSave(data)
+    }
 
-  const addToSchedule = () => {
+  const addToSchedule: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.stopPropagation()
     if (scheduled) return
     const item = { matchId: matchId, date: new Date() }
     const schedule = [...live.schedule, item]
@@ -57,7 +65,8 @@ const MatchMenu = ({ match, open, ...props }: MatchMenuProps) => {
     bSave(data)
   }
 
-  const removeFromSchedule = () => {
+  const removeFromSchedule: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.stopPropagation()
     const schedule = live.schedule.filter((s) => s.matchId !== matchId)
     const data: Partial<Live> = { schedule }
     setLive(data)
@@ -67,61 +76,66 @@ const MatchMenu = ({ match, open, ...props }: MatchMenuProps) => {
   return (
     <Menu
       {...props}
-      position="bottom"
-      placement="end"
+      position="bottom-end"
       opened={opened}
       onClose={close}
       transition="pop-top-right"
-      onClick={isAllowed ? onClick : undefined}
     >
-      <Menu.Item onClick={open} icon={<Pencil size={18} />}>
-        Edit
-      </Menu.Item>
+      <Menu.Target>
+        <ActionIcon size="xs" onClick={isAllowed ? onClick : undefined}>
+          <Menu2 size={12}></Menu2>
+        </ActionIcon>
+      </Menu.Target>
+      <Menu.Dropdown>
+        <Menu.Item onClick={open} icon={<Pencil size={18} />}>
+          Edit
+        </Menu.Item>
 
-      {!active ? (
-        <Menu.Item onClick={setAs("activeMatch")} icon={<Select size={18} />}>
-          Set as active match
-        </Menu.Item>
-      ) : (
-        <Menu.Item
-          onClick={clearAs("activeMatch")}
-          icon={<Select size={18} />}
-          color="red"
-        >
-          Unset as active match
-        </Menu.Item>
-      )}
+        {!active ? (
+          <Menu.Item onClick={setAs("activeMatch")} icon={<Select size={18} />}>
+            Set as active match
+          </Menu.Item>
+        ) : (
+          <Menu.Item
+            onClick={clearAs("activeMatch")}
+            icon={<Select size={18} />}
+            color="red"
+          >
+            Unset as active match
+          </Menu.Item>
+        )}
 
-      {!next ? (
-        <Menu.Item
-          onClick={setAs("nextMatch")}
-          icon={<PlayerTrackNext size={18} />}
-        >
-          Set as next match
-        </Menu.Item>
-      ) : (
-        <Menu.Item
-          onClick={clearAs("nextMatch")}
-          icon={<PlayerTrackNext size={18} />}
-          color="red"
-        >
-          Unset as next match
-        </Menu.Item>
-      )}
+        {!next ? (
+          <Menu.Item
+            onClick={setAs("nextMatch")}
+            icon={<PlayerTrackNext size={18} />}
+          >
+            Set as next match
+          </Menu.Item>
+        ) : (
+          <Menu.Item
+            onClick={clearAs("nextMatch")}
+            icon={<PlayerTrackNext size={18} />}
+            color="red"
+          >
+            Unset as next match
+          </Menu.Item>
+        )}
 
-      {!scheduled ? (
-        <Menu.Item onClick={addToSchedule} icon={<ListDetails size={18} />}>
-          Add to schedule
-        </Menu.Item>
-      ) : (
-        <Menu.Item
-          onClick={removeFromSchedule}
-          icon={<ListDetails size={18} />}
-          color="red"
-        >
-          Remove from schedule
-        </Menu.Item>
-      )}
+        {!scheduled ? (
+          <Menu.Item onClick={addToSchedule} icon={<ListDetails size={18} />}>
+            Add to schedule
+          </Menu.Item>
+        ) : (
+          <Menu.Item
+            onClick={removeFromSchedule}
+            icon={<ListDetails size={18} />}
+            color="red"
+          >
+            Remove from schedule
+          </Menu.Item>
+        )}
+      </Menu.Dropdown>
     </Menu>
   )
 }

@@ -1,20 +1,19 @@
-import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from "@mantine/dropzone"
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
-import { FilePreview } from "interface"
-import { useState, FC, FormEventHandler } from "react"
-import { useForm } from "react-hook-form"
-import { storage } from "utils/firebase"
-import { UserUpdate, userUpdateSchema } from "utils/schema/user.schema"
-import { User } from "interface"
-import { nanoid } from "@reduxjs/toolkit"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { TextInput, Group, Text, Button, Stack } from "@mantine/core"
-import { At, Trash } from "tabler-icons-react"
-import { DropzoneContent } from "../DropzoneContent.ui"
-import { setLive } from "utils/socket/events"
-import { useLive } from "utils/hooks"
+import { Button, Group, Stack, Text, TextInput } from "@mantine/core"
+import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from "@mantine/dropzone"
+import { nanoid } from "@reduxjs/toolkit"
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
+import { FilePreview, User } from "interface"
 import { Live } from "interface/ws"
+import { FC, FormEventHandler, useState } from "react"
+import { useForm } from "react-hook-form"
+import { At, Trash } from "tabler-icons-react"
+import { storage } from "utils/firebase"
+import { useLive } from "utils/hooks"
+import { UserUpdate, userUpdateSchema } from "utils/schema/user.schema"
+import { setLive } from "utils/socket/events"
 import { useBSave } from "../../context/bsave/bsave.hook"
+import { DropzoneContent } from "../DropzoneContent.ui"
 import Confirm from "../popups/Confirm.ui"
 
 interface TalentModalProps {
@@ -124,12 +123,9 @@ const TalentForm: FC<TalentModalProps> = ({ data, onCancel, afterSubmit }) => {
             accept={IMAGE_MIME_TYPE}
             loading={uploading}
           >
-            {(status) => (
-              <DropzoneContent
-                status={status}
-                preview={[avatarPreview.path || data?.avatar || ""]}
-              />
-            )}
+            <DropzoneContent
+              preview={[avatarPreview.path || data?.avatar || ""]}
+            />
           </Dropzone>
         </Stack>
 

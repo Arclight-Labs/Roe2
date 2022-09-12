@@ -1,25 +1,26 @@
 import {
-  MantineTheme,
   Group,
+  Image,
+  MantineTheme,
   Text,
   useMantineTheme,
-  Image,
 } from "@mantine/core"
-import { DropzoneStatus } from "@mantine/dropzone"
-import { Icon as TablerIcon, Photo, Upload, X } from "tabler-icons-react"
+import { Dropzone } from "@mantine/dropzone"
 import { ComponentProps } from "react"
+import { Icon as TablerIcon, Photo, Upload, X } from "tabler-icons-react"
 
+type Status = "accept" | "reject" | "idle"
+type ImageProps = (status: Status) => ComponentProps<TablerIcon>
 interface Props {
-  status: DropzoneStatus
   preview: string[]
   minHeight?: number
 }
-export const DropzoneContent = ({
-  status,
-  preview,
-  minHeight = 220,
-}: Props) => {
+export const DropzoneContent = ({ preview, minHeight = 220 }: Props) => {
   const theme = useMantineTheme()
+  const imageProps: ImageProps = (status) => ({
+    style: { color: getIconColor(status, theme) },
+    size: 80,
+  })
   return (
     <Group
       position="center"
@@ -39,11 +40,15 @@ export const DropzoneContent = ({
         ))
       ) : (
         <>
-          <ImageUploadIcon
-            status={status}
-            style={{ color: getIconColor(status, theme) }}
-            size={80}
-          />
+          <Dropzone.Accept>
+            <Upload {...imageProps("accept")} />
+          </Dropzone.Accept>
+          <Dropzone.Reject>
+            <X {...imageProps("reject")} />
+          </Dropzone.Reject>
+          <Dropzone.Idle>
+            <Photo {...imageProps("idle")} />
+          </Dropzone.Idle>
 
           <div>
             <Text size="xl" inline>
@@ -59,25 +64,10 @@ export const DropzoneContent = ({
   )
 }
 
-function ImageUploadIcon({
-  status,
-  ...props
-}: ComponentProps<TablerIcon> & { status: DropzoneStatus }) {
-  if (status.accepted) {
-    return <Upload {...props} />
-  }
-
-  if (status.rejected) {
-    return <X {...props} />
-  }
-
-  return <Photo {...props} />
-}
-
-function getIconColor(status: DropzoneStatus, theme: MantineTheme) {
-  return status.accepted
+function getIconColor(status: Status, theme: MantineTheme) {
+  return status === "accept"
     ? theme.colors[theme.primaryColor][theme.colorScheme === "dark" ? 4 : 6]
-    : status.rejected
+    : status === "reject"
     ? theme.colors.red[theme.colorScheme === "dark" ? 4 : 6]
     : theme.colorScheme === "dark"
     ? theme.colors.dark[0]

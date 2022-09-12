@@ -1,13 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
+  Button,
   Divider,
   Group,
   LoadingOverlay,
-  Stack,
-  TextInput,
-  Text,
   Space,
-  Button,
+  Stack,
+  Text,
+  TextInput,
 } from "@mantine/core"
 import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from "@mantine/dropzone"
 import { nanoid } from "@reduxjs/toolkit"
@@ -17,6 +17,7 @@ import { SanitizedParticipant } from "interface/waypoint"
 import { FormEventHandler, useState } from "react"
 import { useForm } from "react-hook-form"
 import { storage } from "utils/firebase"
+import { defaultParticipant } from "utils/general"
 import { useParticipants } from "utils/hooks"
 import {
   participantSchema,
@@ -24,10 +25,9 @@ import {
 } from "utils/schema/participant.schema"
 import { setParticipant } from "utils/socket/events"
 import { useAuth } from "../../context/auth/Auth.hooks"
+import { useBSave } from "../../context/bsave/bsave.hook"
 import { useRoom } from "../../context/room/Room.hooks"
 import { DropzoneContent } from "../DropzoneContent.ui"
-import { defaultParticipant } from "utils/general"
-import { useBSave } from "../../context/bsave/bsave.hook"
 
 type Props = keyof ParticipantSchema
 
@@ -135,12 +135,9 @@ const ParticipantForm = ({
         <Stack spacing="sm">
           <Text>Logo</Text>
           <Dropzone multiple={false} onDrop={onDrop} accept={IMAGE_MIME_TYPE}>
-            {(status) => (
-              <DropzoneContent
-                status={status}
-                preview={[photo.path || participant?.logo || ""]}
-              />
-            )}
+            <DropzoneContent
+              preview={[photo.path || participant?.logo || ""]}
+            />
           </Dropzone>
         </Stack>
         <Group position="apart">

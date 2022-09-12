@@ -20,7 +20,7 @@ interface Props {
   control: Control<PlayerSchema>
 }
 const PlayerFormStat: FC<Props> = ({ control }) => {
-  const [opened, toggler] = useToggle(false, [false, true])
+  const [opened, toggler] = useToggle([false, true])
   const toggle = () => toggler()
   const close = () => toggler(false)
   const { stats = [] } = useWatch({ control })
@@ -40,69 +40,70 @@ const PlayerFormStat: FC<Props> = ({ control }) => {
 
   return (
     <Popover
-      title="Stats"
       opened={opened}
       onClose={close}
-      position="right"
-      placement="end"
+      position="right-end"
       withArrow
       closeOnClickOutside={false}
-      withCloseButton
-      target={
+    >
+      <Popover.Target>
         <Tooltip label="Stats" withArrow>
           <ActionIcon size="xl" onClick={toggle}>
             <ReportAnalytics />
           </ActionIcon>
         </Tooltip>
-      }
-    >
-      <Stack>
-        <Stack sx={{ maxHeight: 400, overflowY: "auto" }}>
-          {fields.map((field, index) => (
-            <Card
-              p="xs"
-              key={field.id}
-              sx={{ border: "1px solid rgba(0,0,0,.1)", flexShrink: 0 }}
-              shadow="xs"
-            >
-              <Confirm
-                onConfirm={() => remove(index)}
-                sx={{ position: "absolute", top: 10, right: 10 }}
+      </Popover.Target>
+      <Popover.Dropdown title="Stats">
+        <Stack>
+          <Stack sx={{ maxHeight: 400, overflowY: "auto" }}>
+            {fields.map((field, index) => (
+              <Card
+                p="xs"
+                key={field.id}
+                sx={{ border: "1px solid rgba(0,0,0,.1)", flexShrink: 0 }}
+                shadow="xs"
               >
-                <CloseButton size="xs" />
-              </Confirm>
-              <Group noWrap align="center">
-                <TextInput
-                  {...control.register(`stats.${index}.id`)}
-                  size="xs"
-                  label="Stat ID"
-                />
-              </Group>
-              <Group noWrap>
-                <TextInput
-                  {...control.register(`stats.${index}.name`)}
-                  size="xs"
-                  label="Label"
-                />
+                <Confirm
+                  onConfirm={() => remove(index)}
+                  dropdownProps={{
+                    sx: { position: "absolute", top: 10, right: 10 },
+                  }}
+                >
+                  <CloseButton size="xs" />
+                </Confirm>
+                <Group noWrap align="center">
+                  <TextInput
+                    {...control.register(`stats.${index}.id`)}
+                    size="xs"
+                    label="Stat ID"
+                  />
+                </Group>
+                <Group noWrap>
+                  <TextInput
+                    {...control.register(`stats.${index}.name`)}
+                    size="xs"
+                    label="Label"
+                  />
 
-                <TextInput
-                  {...control.register(`stats.${index}.value`)}
-                  label="Value"
-                  size="xs"
-                />
-              </Group>
-            </Card>
-          ))}
+                  <TextInput
+                    {...control.register(`stats.${index}.value`)}
+                    label="Value"
+                    size="xs"
+                  />
+                </Group>
+              </Card>
+            ))}
+          </Stack>
+          <Group position="apart">
+            <Button leftIcon={<Plus size={16} />} size="xs" onClick={onAdd}>
+              Add
+            </Button>
+            <Button onClick={close} size="xs" variant="light">
+              Close
+            </Button>
+          </Group>
         </Stack>
-        <Group position="apart">
-          <Button leftIcon={<Plus size={16} />} size="xs" onClick={onAdd}>
-            Add
-          </Button>
-          <Button onClick={close} size="xs" variant="light">
-            Close
-          </Button>
-        </Group>
-      </Stack>
+      </Popover.Dropdown>
     </Popover>
   )
 }

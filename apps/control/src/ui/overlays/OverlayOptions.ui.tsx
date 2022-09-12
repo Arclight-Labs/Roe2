@@ -2,7 +2,6 @@ import {
   Accordion,
   CardSection,
   Radio,
-  RadioGroup,
   SegmentedControl,
   Slider,
   Stack,
@@ -19,14 +18,16 @@ export const AdjTextOptions: FC<OverlayProps> = ({ overlay }) => {
   return (
     <CardSection>
       <Accordion>
-        <Accordion.Item>
-          <Slider
-            defaultValue={100}
-            min={1}
-            max={300}
-            label={(value) => value.toFixed(1)}
-            step={1}
-          />
+        <Accordion.Item value="textOptions">
+          <Accordion.Panel>
+            <Slider
+              defaultValue={100}
+              min={1}
+              max={300}
+              label={(value) => value.toFixed(1)}
+              step={1}
+            />
+          </Accordion.Panel>
         </Accordion.Item>
       </Accordion>
     </CardSection>
@@ -60,7 +61,7 @@ const OverlayOptions: FC<OverlayProps> = ({ overlay }) => {
       )}
       {overlay[1].adjust?.teamCode && (
         <CardSection>
-          <RadioGroup
+          <Radio.Group
             label="Team Code"
             size="sm"
             orientation="vertical"
@@ -71,17 +72,17 @@ const OverlayOptions: FC<OverlayProps> = ({ overlay }) => {
             <Radio value="shortname" label="Team Short Name" />
             <Radio value="school" label="School Name" />
             <Radio value="schoolShortcode" label="School Short Code" />
-          </RadioGroup>
+          </Radio.Group>
         </CardSection>
       )}
 
       {overlay[1].adjust?.playerCode && (
         <CardSection>
-          <RadioGroup orientation="vertical" defaultValue="username">
+          <Radio.Group orientation="vertical" defaultValue="username">
             <Radio value="username" label="Username" />
             <Radio value="school" label="School" />
             <Radio value="photoURL" label="Photo" />
-          </RadioGroup>
+          </Radio.Group>
         </CardSection>
       )}
 

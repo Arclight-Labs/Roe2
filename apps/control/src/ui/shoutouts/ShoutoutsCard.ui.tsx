@@ -15,7 +15,7 @@ import { useLive } from "utils/hooks"
 import { setLive } from "utils/socket/events"
 import { useBSave } from "../../context/bsave/bsave.hook"
 
-interface ShoutoutsCardProps extends Omit<CardProps<"div">, "children"> {
+interface ShoutoutsCardProps extends Omit<CardProps, "children"> {
   tweet: TwitterApiResultsItem
 }
 const ShoutoutsCard: FC<ShoutoutsCardProps> = ({ tweet, ...props }) => {

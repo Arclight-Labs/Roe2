@@ -1,9 +1,9 @@
-import { Affix, Burger, Drawer, Text, Group, Kbd } from "@mantine/core"
+import { Affix, Burger, Drawer, Group, Kbd, Text } from "@mantine/core"
 import { useHotkeys, useToggle } from "@mantine/hooks"
 import LiveDrawerContent from "./LiveDrawer.content.ui"
 
 const LiveDrawer = () => {
-  const [opened, toggle] = useToggle(false, [true, false])
+  const [opened, toggle] = useToggle([false, true])
   const close = () => toggle(false)
 
   useHotkeys([["mod+L", () => toggle()]])

@@ -4,23 +4,23 @@ import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from "@mantine/dropzone"
 import { nanoid } from "@reduxjs/toolkit"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
 import { FilePreview } from "interface"
+import { Stat } from "interface/waypoint/SanitizedUser.interface"
+import { AdjSize } from "interface/ws/Live.interface"
 import { FormEventHandler, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
+import { DeviceFloppy, Trash } from "tabler-icons-react"
 import { storage } from "utils/firebase"
+import { defaultAdjSize } from "utils/general"
 import { useParticipants } from "utils/hooks"
+import { playerSchema, PlayerSchema } from "utils/schema/player.schema"
 import { useWsAction } from "utils/socket"
 import { useAuth } from "../../context/auth/Auth.hooks"
+import { useBSave } from "../../context/bsave/bsave.hook"
 import { useRoom } from "../../context/room/Room.hooks"
 import { DropzoneContent } from "../DropzoneContent.ui"
-import { playerSchema, PlayerSchema } from "utils/schema/player.schema"
-import { DeviceFloppy, Trash } from "tabler-icons-react"
-import { useBSave } from "../../context/bsave/bsave.hook"
 import Confirm from "../popups/Confirm.ui"
-import { Stat } from "interface/waypoint/SanitizedUser.interface"
-import { defaultAdjSize, fn } from "utils/general"
-import PlayerFormStat from "./PlayerForm.stat.ui"
 import PlayerFormPhotoAdj from "./PlayerForm.photoAdj.ui"
-import { AdjSize } from "interface/ws/Live.interface"
+import PlayerFormStat from "./PlayerForm.stat.ui"
 
 export interface PlayerProps {
   uid?: string
@@ -122,13 +122,10 @@ const PlayerForm = ({
         <TextInput label="Username" {...register("username")} data-autofocus />
 
         <Dropzone multiple={false} onDrop={onDrop} accept={IMAGE_MIME_TYPE}>
-          {(status) => (
-            <DropzoneContent
-              status={status}
-              minHeight={120}
-              preview={[photo.path || player?.photoURL || ""]}
-            />
-          )}
+          <DropzoneContent
+            minHeight={120}
+            preview={[photo.path || player?.photoURL || ""]}
+          />
         </Dropzone>
         <Group spacing="sm">
           <PlayerFormPhotoAdj control={control} setValue={setValue} />

@@ -8,7 +8,7 @@ import AdModal from "./AdModal.ui"
 
 const LowerthirdAds = () => {
   const { adPool } = useLt()
-  const [create, toggler] = useToggle(false, [false, true])
+  const [create, toggler] = useToggle([false, true])
   const close = () => toggler(false)
   const toggle = () => toggler()
 

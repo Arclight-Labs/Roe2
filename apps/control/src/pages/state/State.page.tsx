@@ -1,4 +1,4 @@
-import { Tabs, useMantineTheme } from "@mantine/core"
+import { Box, Tabs, useMantineTheme } from "@mantine/core"
 import StateActiveMatch from "./State.activeMatch"
 
 const StatePage = () => {
@@ -6,14 +6,17 @@ const StatePage = () => {
   return (
     <Tabs
       styles={{
-        body: {
-          padding: `${theme.spacing.md}px 0px`,
-        },
+        panel: { padding: `${theme.spacing.md}px 0px` },
       }}
     >
-      <Tabs.Tab label="Active Match">
-        <StateActiveMatch />
-      </Tabs.Tab>
+      <Tabs.List>
+        <Tabs.Tab value="activeMatch">Active Match</Tabs.Tab>
+      </Tabs.List>
+      <Box py="md">
+        <Tabs.Panel value="activeMatch">
+          <StateActiveMatch />
+        </Tabs.Panel>
+      </Box>
     </Tabs>
   )
 }

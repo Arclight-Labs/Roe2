@@ -1,15 +1,15 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
   ActionIcon,
+  Button,
+  Checkbox,
   Group,
   Stack,
   Table,
-  Title,
   Text,
-  Checkbox,
   TextInput,
+  Title,
   Tooltip,
-  Button,
 } from "@mantine/core"
 import { SanitizedSeries } from "interface/waypoint"
 import { ChangeEventHandler } from "react"
@@ -143,14 +143,12 @@ const MatchForm = ({
         <Group spacing="xl" noWrap>
           <MatchFormTeamSelect
             disabled={!isCustom}
-            sx={{ flex: 1 }}
             onSelectTeam={setTeam("teamA")}
           >
             <MatchCardTeam team={a} dir="rtl" />
           </MatchFormTeamSelect>
           <MatchFormTeamSelect
             disabled={!isCustom}
-            sx={{ flex: 1 }}
             onSelectTeam={setTeam("teamB")}
           >
             <MatchCardTeam team={b} />

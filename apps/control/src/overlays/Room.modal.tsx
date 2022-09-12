@@ -1,14 +1,14 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
   Button,
+  Code,
   Group,
+  LoadingOverlay,
   Modal,
   ModalProps,
   Stack,
-  TextInput,
   Text,
-  LoadingOverlay,
-  Code,
+  TextInput,
 } from "@mantine/core"
 import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from "@mantine/dropzone"
 import { useClipboard } from "@mantine/hooks"
@@ -168,12 +168,9 @@ const RoomModal = ({ data: room, ...props }: RoomCreateModalProps) => {
             accept={IMAGE_MIME_TYPE}
             loading={uploading}
           >
-            {(status) => (
-              <DropzoneContent
-                status={status}
-                preview={[avatarPreview.path || room?.avatar || ""]}
-              />
-            )}
+            <DropzoneContent
+              preview={[avatarPreview.path || room?.avatar || ""]}
+            />
           </Dropzone>
         </Stack>
 

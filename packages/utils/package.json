@@ -17,26 +17,27 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "@mantine/notifications": "4.2.12",
-    "@reduxjs/toolkit": "1.8.3",
+    "@mantine/notifications": "5.3.0",
+    "@reduxjs/toolkit": "1.8.5",
     "axios": "0.27.2",
-    "dotenv": "16.0.1",
-    "firebase": "9.9.1",
+    "dotenv": "16.0.2",
+    "firebase": "9.9.4",
+    "firebase-admin": "^11.0.1",
     "ip": "1.1.8",
     "lodash-es": "4.17.21",
     "nanoid": "4.0.0",
     "react": "18.2.0",
     "react-redux": "8.0.2",
     "redux": "4.2.0",
-    "socket.io-client": "4.5.1",
-    "zod": "3.17.10"
+    "socket.io-client": "4.5.2",
+    "zod": "3.19.0"
   },
   "devDependencies": {
     "@types/ip": "1.1.0",
-    "@types/react": "18.0.15",
+    "@types/react": "18.0.19",
     "@types/react-dom": "18.0.6",
     "interface": "*",
     "tsconfig": "*",
-    "typescript": "4.7.4"
+    "typescript": "4.8.3"
   }
 }

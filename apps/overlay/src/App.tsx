@@ -1,15 +1,15 @@
+import { Box } from "@mantine/core"
 import { Provider } from "react-redux"
+import { MantineProvider } from "ui"
 import { store } from "utils/redux"
 import { SocketProvider } from "utils/socket"
-import { Box } from "@mantine/core"
 import Routes from "./routes"
-import { MantineProvider } from "ui"
 
 import { BrowserRouter } from "react-router-dom"
-import { GreycliffCF } from "./fonts/GreyCliffCF/GreyCliffCF.font"
-import { Industry } from "./fonts/Industry/Industry.font"
 import { Avalanche } from "./fonts/Avalanche/Avalanche.font"
 import { DrukWide } from "./fonts/DrukWide/DrukWide.font"
+import { GreycliffCF } from "./fonts/GreyCliffCF/GreyCliffCF.font"
+import { Industry } from "./fonts/Industry/Industry.font"
 import { Roboto } from "./fonts/Roboto/Roboto.font"
 
 function App() {
@@ -28,8 +28,14 @@ function App() {
         <Provider store={store}>
           <SocketProvider>
             <MantineProvider
-              defaultProps={{
-                Image: { imageProps: { style: { borderImageWidth: 0 } } },
+              theme={{
+                components: {
+                  Image: {
+                    defaultProps: {
+                      imageProps: { style: { borderImageWidth: 0 } },
+                    },
+                  },
+                },
               }}
             >
               <Routes />
