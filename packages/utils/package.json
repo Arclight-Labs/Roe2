@@ -1,6 +1,6 @@
 {
   "name": "utils",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "main": "index.ts",
   "files": [
     "hooks/**/*.ts",
@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@types/ip": "1.1.0",
-    "@types/react": "18.0.19",
+    "@types/react": "18.0.20",
     "@types/react-dom": "18.0.6",
     "interface": "*",
     "tsconfig": "*",
