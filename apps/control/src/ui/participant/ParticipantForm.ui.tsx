@@ -47,7 +47,7 @@ const ParticipantForm = ({
 }: ParticipantFormProps) => {
   const bSave = useBSave()
   const room = useRoom()
-  const { auth } = useAuth()
+  const { auth, accessToken } = useAuth()
   const { participants } = useParticipants()
   const [photo, setPhoto] = useState<FilePreview>(new FilePreview())
   const [loading, setLoading] = useState(false)
@@ -74,7 +74,7 @@ const ParticipantForm = ({
         Math.floor(Math.random() * 599999999999) + 300000000,
       ...data,
     }
-    setParticipant(teamId, participantData)
+    setParticipant(accessToken)(teamId, participantData)
     bSave({ [`participants.${teamId}`]: participantData })
     setLoading(false)
     afterSubmit?.()

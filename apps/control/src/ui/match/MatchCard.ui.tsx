@@ -18,6 +18,7 @@ import { getMatch } from "utils/axios"
 import { tbd } from "utils/general"
 import { useMatches, useParticipants, useTournament } from "utils/hooks"
 import { setMatch } from "utils/socket/events"
+import { useAuth } from "../../context/auth/Auth.hooks"
 import { useBSave } from "../../context/bsave/bsave.hook"
 import { usePermission } from "../../hooks/usePermission.hook"
 import MatchBadges from "./MatchBadges.ui"
@@ -34,6 +35,7 @@ const MatchCard = ({ match, small, ...props }: MatchCardProps) => {
   const isAllowed = usePermission()
   const { chalTeams } = useParticipants()
   const { getScore: getFinalScore } = useMatches()
+  const { accessToken } = useAuth()
   const { teamA, teamB } = match
   const [opened, setOpened] = useState(false)
   const open = () => setOpened(true)
@@ -61,7 +63,7 @@ const MatchCard = ({ match, small, ...props }: MatchCardProps) => {
     const newData: PartialWithFieldValue<Broadcast> = {
       [`matches.${match.id}`]: newMatch,
     }
-    setMatch(matchId, res)
+    setMatch(accessToken)(matchId, res)
     bSave(newData)
     setLoading(false)
   }

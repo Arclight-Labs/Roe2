@@ -22,7 +22,6 @@ interface MatchMenuProps extends Omit<MenuProps, "children"> {
 const MatchMenu = ({ match, open, ...props }: MatchMenuProps) => {
   const [opened, setOpened] = useState(false)
   const isAllowed = usePermission()
-
   const { live } = useLive()
   const bSave = useBSave()
 
@@ -53,7 +52,7 @@ const MatchMenu = ({ match, open, ...props }: MatchMenuProps) => {
     (e) => {
       e.stopPropagation()
       const data: Partial<Live> = { [key]: "" }
-      setLive(data)
+      setLive(accessToken)(data)
       bSave(data)
     }
 
@@ -63,7 +62,7 @@ const MatchMenu = ({ match, open, ...props }: MatchMenuProps) => {
     const item = { matchId: matchId, date: new Date() }
     const schedule = [...live.schedule, item]
     const data: Partial<Live> = { schedule }
-    setLive(data)
+    setLive(accessToken)(data)
     bSave(data)
   }
 
@@ -71,7 +70,7 @@ const MatchMenu = ({ match, open, ...props }: MatchMenuProps) => {
     e.stopPropagation()
     const schedule = live.schedule.filter((s) => s.matchId !== matchId)
     const data: Partial<Live> = { schedule }
-    setLive(data)
+    setLive(accessToken)(data)
     bSave(data)
   }
 

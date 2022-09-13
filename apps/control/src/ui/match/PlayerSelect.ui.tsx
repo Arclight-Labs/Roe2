@@ -11,6 +11,7 @@ import {
 import { SanitizedParticipant, SanitizedUser } from "interface/waypoint"
 import { FC, ReactNode } from "react"
 import { setParticipant } from "utils/socket/events"
+import { useAuth } from "../../context/auth/Auth.hooks"
 import PlayerSelectFeaturedPlayerItem, {
   FeaturedPlayerItemProps,
 } from "./PlayerSelectFeaturedPlayerItem.ui"
@@ -23,6 +24,7 @@ interface PlayerSelectProps {
   team: SanitizedParticipant
 }
 const PlayerSelect: FC<PlayerSelectProps> = ({ team }) => {
+  const { accessToken } = useAuth()
   const playerEntries = Object.entries(team.players)
   const subEntries = Object.entries(team.subs)
 
@@ -30,7 +32,7 @@ const PlayerSelect: FC<PlayerSelectProps> = ({ team }) => {
     return ([uid, player]) => {
       const isActive = player.isActive
       const onClick = () => {
-        setParticipant(team.teamId, {
+        setParticipant(accessToken)(team.teamId, {
           [type]: { ...team[type], [uid]: { ...player, isActive: !isActive } },
         })
       }
@@ -47,7 +49,7 @@ const PlayerSelect: FC<PlayerSelectProps> = ({ team }) => {
   }
 
   const selectFeaturedPlayer = (id: string | null) => {
-    setParticipant(team.teamId, {
+    setParticipant(accessToken)(team.teamId, {
       featuredPlayer: id || "",
     })
   }

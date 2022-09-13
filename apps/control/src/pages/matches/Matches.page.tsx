@@ -15,6 +15,7 @@ import { getMatches } from "utils/axios"
 import { defaultSeries } from "utils/general"
 import { useMatches, useTournament } from "utils/hooks"
 import { setMatches } from "utils/socket/events/Match.emit"
+import { useAuth } from "../../context/auth/Auth.hooks"
 import { useBSave } from "../../context/bsave/bsave.hook"
 import MatchCard from "../../ui/match/MatchCard.ui"
 import MatchModal from "../../ui/match/MatchModal.ui"
@@ -28,6 +29,7 @@ const MatchesPage = () => {
     brackets: { upper, lower },
     matches,
   } = useMatches()
+  const { accessToken } = useAuth()
   const bSave = useBSave()
 
   const ub = Object.entries(upper)
@@ -48,7 +50,7 @@ const MatchesPage = () => {
     results.forEach((result) => {
       matches = { ...matches, ...result }
     })
-    setMatches(matches)
+    setMatches(accessToken)(matches)
     bSave({ matches })
     setLoading(false)
   }
