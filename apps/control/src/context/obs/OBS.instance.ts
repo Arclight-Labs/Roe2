@@ -5,7 +5,5 @@ const { url, password } = defaultObsCredential
 const obs = new OBSWebSocket()
 try {
   obs.connect(url, password)
-} catch (e) {
-  console.error(e)
-}
+} catch {}
 export default obs

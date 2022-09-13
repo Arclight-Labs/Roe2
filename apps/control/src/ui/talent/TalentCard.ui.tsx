@@ -22,6 +22,7 @@ import {
 } from "tabler-icons-react"
 import { useLive } from "utils/hooks"
 import { setLive } from "utils/socket/events"
+import { useAuth } from "../../context/auth/Auth.hooks"
 import { useBSave } from "../../context/bsave/bsave.hook"
 import TalentBadges from "./TalentBadges.ui"
 import TalentModal from "./TalentModal.ui"
@@ -33,6 +34,7 @@ const TalentCard: FC<TalentCardProps> = ({ data, ...props }) => {
   const open = () => setOpened(true)
   const close = () => setOpened(false)
 
+  const { accessToken } = useAuth()
   const { live } = useLive()
   const bSave = useBSave()
   const uid = data.uid || nanoid()
@@ -41,7 +43,7 @@ const TalentCard: FC<TalentCardProps> = ({ data, ...props }) => {
     const { [uid]: removedTalent, ...talents } = live.talents
     const { [uid]: removeActiveTalent, ...activeTalents } = live.activeTalents
     const saveData: Partial<Live> = { talents, activeTalents }
-    setLive(saveData)
+    setLive(accessToken)(saveData)
     bSave(saveData)
   }
 
@@ -54,14 +56,14 @@ const TalentCard: FC<TalentCardProps> = ({ data, ...props }) => {
     const saveData: Partial<Live> = {
       activeTalents: { ...activeTalents, [uid]: newActiveTalent },
     }
-    setLive(saveData)
+    setLive(accessToken)(saveData)
     bSave(saveData)
   }
 
   const onRemoveActiveCaster = () => {
     const { [uid]: removeActiveTalent, ...activeTalents } = live.activeTalents
     const saveData: Partial<Live> = { activeTalents }
-    setLive(saveData)
+    setLive(accessToken)(saveData)
     bSave(saveData)
   }
 

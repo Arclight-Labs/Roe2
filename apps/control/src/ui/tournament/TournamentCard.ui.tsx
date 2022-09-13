@@ -28,6 +28,7 @@ import {
 } from "utils/axios/tournament.queries"
 import { useMatches, useParticipants, useTournament } from "utils/hooks"
 import { useWsAction } from "utils/socket"
+import { useAuth } from "../../context/auth/Auth.hooks"
 import { useBSave } from "../../context/bsave/bsave.hook"
 import { useRoom } from "../../context/room/Room.hooks"
 import { usePermission } from "../../hooks/usePermission.hook"
@@ -36,6 +37,7 @@ import Confirm from "../popups/Confirm.ui"
 type TournamentCardProps = Omit<CardProps, "children"> & ShallowTournament
 const TournamentCard = ({ id, logo, name, org }: TournamentCardProps) => {
   const isAllowed = usePermission()
+  const { accessToken } = useAuth()
   const room = useRoom()
   const [loading, setLoading] = useState(false)
   const tournament = useTournament()
@@ -53,9 +55,9 @@ const TournamentCard = ({ id, logo, name, org }: TournamentCardProps) => {
     close()
     setLoading(true)
     const { matches, participants, ...tour } = await getTournament(id)
-    setTournament(tour)
-    setMatches(matches)
-    setParticipants(participants)
+    setTournament(accessToken)(tour)
+    setMatches(accessToken)(matches)
+    setParticipants(accessToken)(participants)
     await room?.save({
       tournament: tour,
       matches,
@@ -75,9 +77,9 @@ const TournamentCard = ({ id, logo, name, org }: TournamentCardProps) => {
       ...tournament,
       extends: { ...tournament.extends, [id]: tour.tournament.name },
     }
-    setTournament(newTournament)
-    setMatches({ ...currentMatches, ...matches })
-    setParticipants({ ...currentParticipants, ...participants })
+    setTournament(accessToken)(newTournament)
+    setMatches(accessToken)({ ...currentMatches, ...matches })
+    setParticipants(accessToken)({ ...currentParticipants, ...participants })
     await room?.save({
       tournament: newTournament,
       participants,
@@ -103,9 +105,9 @@ const TournamentCard = ({ id, logo, name, org }: TournamentCardProps) => {
       return { ...acc, [teamId]: team }
     }, {})
     const newTournament = { ...tournament, extends: rest }
-    setTournament(newTournament)
-    setMatches(newMatches)
-    setParticipants(newParticipants)
+    setTournament(accessToken)(newTournament)
+    setMatches(accessToken)(newMatches)
+    setParticipants(accessToken)(newParticipants)
     await room?.save({
       tournament: newTournament,
       participants,
@@ -126,7 +128,7 @@ const TournamentCard = ({ id, logo, name, org }: TournamentCardProps) => {
       {}
     )
     const newParticipants = { ...currentParticipants, ...addedParticipants }
-    setParticipants(newParticipants)
+    setParticipants(accessToken)(newParticipants)
     bSave({ participants: newParticipants })
     setLoading(false)
   }
@@ -135,7 +137,7 @@ const TournamentCard = ({ id, logo, name, org }: TournamentCardProps) => {
     setLoading(true)
     const res = await getMatches(id)
     const newMatches = { ...currentMatches, ...res }
-    setMatches(newMatches)
+    setMatches(accessToken)(newMatches)
     bSave({ matches: newMatches })
     setLoading(false)
   }

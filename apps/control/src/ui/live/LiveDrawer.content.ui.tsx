@@ -20,6 +20,7 @@ const LiveDrawerContent = () => {
           overflowY: "auto",
         },
       }}
+      defaultValue="live"
     >
       <Tabs.List>
         <Tabs.Tab value="live">Live</Tabs.Tab>

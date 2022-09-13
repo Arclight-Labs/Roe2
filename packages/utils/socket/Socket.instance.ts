@@ -11,6 +11,14 @@ const config = {
   host: SOCKET_URL,
   path: PATH,
 }
+
+export const initSocket = (token: string) =>
+  io(SOCKET_URL, {
+    ...config,
+    reconnection: true,
+    auth: { token },
+  })
+
 export const socket = io(SOCKET_URL, {
   ...config,
   reconnection: true,

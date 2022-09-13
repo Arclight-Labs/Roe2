@@ -11,6 +11,7 @@ import {
 } from "tabler-icons-react"
 import { useLive, useMatches } from "utils/hooks"
 import { setLive } from "utils/socket/events"
+import { useAuth } from "../../context/auth/Auth.hooks"
 import { useBSave } from "../../context/bsave/bsave.hook"
 import { usePermission } from "../../hooks/usePermission.hook"
 
@@ -31,6 +32,7 @@ const MatchMenu = ({ match, open, ...props }: MatchMenuProps) => {
   const active = isActive(matchId)
   const next = isNext(matchId)
   const scheduled = inSchedule(matchId)
+  const { accessToken } = useAuth()
 
   const onClick: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.stopPropagation()
@@ -42,7 +44,7 @@ const MatchMenu = ({ match, open, ...props }: MatchMenuProps) => {
     (e) => {
       e.stopPropagation()
       const data: Partial<Live> = { [key]: matchId }
-      setLive(data)
+      setLive(accessToken)(data)
       bSave(data)
     }
 

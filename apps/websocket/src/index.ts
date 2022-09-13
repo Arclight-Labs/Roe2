@@ -1,9 +1,9 @@
-import { tournamentEvents } from "./events/tournament.events"
-import { Server } from "socket.io"
-import roomEvents from "./events/room"
-import { createServer } from "http"
 import "dotenv/config"
+import { createServer } from "http"
+import { Server } from "socket.io"
 import liveEvents from "./events/live"
+import roomEvents from "./events/room"
+import { tournamentEvents } from "./events/tournament.events"
 
 const PORT = process.env.PORT || 1337
 
@@ -17,7 +17,9 @@ io.on("connection", async (socket) => {
   console.log(`New Connection: ${socket.id}`)
 
   socket.onAny((eventName: string, ...args: unknown[]) => {
-    console.log(`[${socket.id}]: emitted ${eventName} with ${args}`)
+    console.log(
+      `[${socket.id}]: emitted ${eventName} with ${JSON.stringify(args[0])}`
+    )
   })
 
   // Events to listen

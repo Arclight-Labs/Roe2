@@ -3,13 +3,15 @@ import { useHotkeys } from "@mantine/hooks"
 import { PropsWithChildren } from "react"
 import { useLive } from "utils/hooks"
 import { setLive } from "utils/socket/events"
+import { useAuth } from "../../context/auth/Auth.hooks"
 import LowerthirdGeneral from "../lowerthirds/General.lt.ui"
 
 const LiveSettings = () => {
   const { live } = useLive()
+  const { accessToken } = useAuth()
 
   const inverse = () => {
-    setLive({ invert: !live.invert })
+    setLive(accessToken)({ invert: !live.invert })
   }
 
   useHotkeys([["mod+I", inverse]])

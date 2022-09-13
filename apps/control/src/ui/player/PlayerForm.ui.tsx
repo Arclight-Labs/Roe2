@@ -48,7 +48,7 @@ const PlayerForm = ({
   const { setParticipant } = useWsAction()
   const { participants } = useParticipants()
   const room = useRoom()
-  const { auth } = useAuth()
+  const { auth, accessToken } = useAuth()
   const { handleSubmit, setValue, register, control } = useForm<PlayerSchema>({
     defaultValues: {
       username: player?.username ?? "",
@@ -78,7 +78,7 @@ const PlayerForm = ({
     const players = { ...teamPlayers, [playerId]: playerData }
     const participant = { ...team, players, playerIds }
 
-    setParticipant(teamId, participant)
+    setParticipant(accessToken)(teamId, participant)
     bSave({ [`participants.${teamId}`]: participant })
     setLoading(false)
     afterSubmit?.()
@@ -110,7 +110,7 @@ const PlayerForm = ({
     const { [playerId]: deletedPlayer, ...players } = participantData.players
     participantData.players = players
     participantData.playerIds = playerIds.filter((id) => id !== playerId)
-    setParticipant(teamId, participantData)
+    setParticipant(accessToken)(teamId, participantData)
     bSave({ [`participants.${teamId}`]: participantData })
     afterSubmit?.()
   }

@@ -8,6 +8,7 @@ export interface Roe2Auth {
   user: UserModel | null
   auth: User | null
   loading: boolean
+  accessToken: string
 }
 
 export const defaultRoe2AuthContext = {
@@ -15,6 +16,7 @@ export const defaultRoe2AuthContext = {
   loading: true,
   user: null,
   userDoc: null,
+  accessToken: "",
 }
 
 export const authContext = createContext<Roe2Auth>(defaultRoe2AuthContext)

@@ -3,6 +3,7 @@ import { Live, LowerthirdData } from "interface/ws"
 import { FC, ReactNode } from "react"
 import { useLt } from "utils/hooks"
 import { setLive } from "utils/socket/events"
+import { useAuth } from "../../context/auth/Auth.hooks"
 import { useBSave } from "../../context/bsave/bsave.hook"
 
 interface Props {
@@ -13,12 +14,13 @@ interface Props {
 }
 const LowerthirdModeCard: FC<Props> = ({ value, label, hotkey, icon }) => {
   const { mode, data, show } = useLt()
+  const { accessToken } = useAuth()
   const bSave = useBSave()
   const onClick = () => {
     const saveData: Partial<Live> = {
       lt: { mode: (value as keyof LowerthirdData) || "ticker", data, show },
     }
-    setLive(saveData)
+    setLive(accessToken)(saveData)
     bSave(saveData)
   }
   return (
