@@ -35,7 +35,7 @@ const useStyles = createStyles((theme) => ({
   },
 }))
 
-const OBSConnection = ({ variant = "button" }) => {
+const OBSConnection = ({ variant = "button" }: Props) => {
   const { classes } = useStyles()
   const { isConnected, obs } = useObs()
   const { url, password } = useObsConnection()

@@ -5,7 +5,7 @@ import { authenticate } from "../../utils/authenticate.util"
 import { getSocketRoom } from "../../utils/getSocketRoom.util"
 import { EventFn } from "../event.hoc"
 
-type SetRoom = (room: Partial<Live>, accessToken: string) => any
+type SetRoom = (room: Partial<Live>, accessToken: string) => Promise<void>
 
 export const setLive: EventFn<SetRoom> = (socket, io) => {
   return async (live, accessToken) => {

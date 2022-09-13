@@ -10,7 +10,7 @@ import {
 } from "./OBS.context"
 import obs from "./OBS.instance"
 
-const ObsProvider: FC<PropsWithChildren<{}>> = ({ children }) => {
+const ObsProvider: FC<PropsWithChildren> = ({ children }) => {
   const [credentials, setCredentials] =
     useState<OBSConnectPayload>(defaultObsCredential)
   const [isConnected, set] = useState(obs.identified)

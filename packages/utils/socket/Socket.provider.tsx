@@ -16,10 +16,7 @@ import {
 import { SocketContext, SocketContextDispatch } from "./Socket.context"
 import { socket } from "./Socket.instance"
 
-export const SocketProvider = ({
-  children,
-  accessToken,
-}: PropsWithChildren<{ accessToken: string }>) => {
+export const SocketProvider = ({ children }: PropsWithChildren) => {
   return (
     <SocketContextDispatch.Provider
       value={{

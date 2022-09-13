@@ -3,7 +3,6 @@ import { FunctionComponent, lazy, Suspense } from "react"
 import { Navigate, Outlet, useRoutes } from "react-router-dom"
 import BSaveProvider from "../context/bsave/bsave.provider"
 import RoomProvider from "../context/room/Room.provider"
-import Shoutouts from "../pages/shoutouts"
 import StatePage from "../pages/state/State.page"
 import AppShellWrapper from "../ui/AppShellWrapper.ui"
 import AuthGuard from "../ui/guards/AuthGuard"
@@ -20,7 +19,7 @@ const TalentsPage = Loadable(lazy(() => import("../pages/talents")))
 const LowerthirdsPage = Loadable(lazy(() => import("../pages/lowerthirds")))
 const IngamePage = Loadable(lazy(() => import("../pages/ingame")))
 const ShoutoutsPage = Loadable(lazy(() => import("../pages/shoutouts")))
-const OverlaysPage = Loadable(lazy(() => import("../pages/overlays")))
+// const OverlaysPage = Loadable(lazy(() => import("../pages/overlays")))
 const ObsPage = Loadable(lazy(() => import("../pages/obs")))
 
 const QuickSettingsPage = Loadable(
@@ -88,7 +87,7 @@ const Routes = () => {
         { path: "lowerthirds", element: <LowerthirdsPage /> },
         { path: "ingame", element: <IngamePage /> },
         { path: "state", element: <StatePage /> },
-        { path: "shoutouts", element: <Shoutouts /> },
+        { path: "shoutouts", element: <ShoutoutsPage /> },
         { path: "obs", element: <ObsPage /> },
         // { path: "overlays", element: <OverlaysPage /> },
       ],

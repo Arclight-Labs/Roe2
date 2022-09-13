@@ -1,13 +1,12 @@
 import { ColorScheme, ColorSchemeProvider } from "@mantine/core"
 import { useHotkeys, useLocalStorage } from "@mantine/hooks"
 import { NotificationsProvider } from "@mantine/notifications"
-import { useEffect, useState } from "react"
-import { useAuthState } from "react-firebase-hooks/auth"
+import { useEffect } from "react"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { Provider } from "react-redux"
 import { BrowserRouter } from "react-router-dom"
 import { MantineProvider } from "ui"
-import { auth, connectEmulators } from "utils/firebase"
+import { connectEmulators } from "utils/firebase"
 import { store } from "utils/redux"
 import { SocketProvider } from "utils/socket"
 import AuthProvider from "./context/auth/Auth.provider"
@@ -17,8 +16,6 @@ import Routes from "./routes"
 export const queryClient = new QueryClient()
 
 function App() {
-  const [user] = useAuthState(auth)
-  const [token, setToken] = useState("")
   const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
     key: "mantine-color-scheme",
     defaultValue: "light",
@@ -36,31 +33,13 @@ function App() {
     }
   }, [])
 
-  useEffect(() => {
-    if (!user) return
-    let mounted = true
-
-    ;(async () => {
-      try {
-        const token = await user.getIdToken(true)
-        if (mounted) setToken(token)
-      } catch (e) {
-        console.log(e)
-      }
-    })()
-
-    return () => {
-      mounted = false
-    }
-  }, [user])
-
   return (
     <AuthProvider>
       <BrowserRouter>
         <Provider store={store}>
           <QueryClientProvider client={queryClient}>
             <NotificationsProvider>
-              <SocketProvider accessToken={token}>
+              <SocketProvider>
                 <ColorSchemeProvider
                   colorScheme={colorScheme}
                   toggleColorScheme={toggleColorScheme}

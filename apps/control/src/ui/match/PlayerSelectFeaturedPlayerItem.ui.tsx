@@ -10,7 +10,7 @@ export interface FeaturedPlayerItemProps {
 const PlayerSelectFeaturedPlayerItem = forwardRef<
   HTMLDivElement,
   FeaturedPlayerItemProps
->(({ value, image, label, ...props }, ref) => {
+>(({ image, label, ...props }, ref) => {
   return (
     <Group noWrap {...props} ref={ref}>
       <Avatar src={image} />

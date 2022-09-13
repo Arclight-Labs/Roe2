@@ -6,7 +6,7 @@ import { EventFn } from "../event.hoc"
 type SetRoom = (
   room: Partial<WebsocketRoom> & { id: string },
   accessToken: string
-) => any
+) => Promise<void>
 
 export const setRoom: EventFn<SetRoom> = (socket, io) => {
   return async (room, accessToken) => {
