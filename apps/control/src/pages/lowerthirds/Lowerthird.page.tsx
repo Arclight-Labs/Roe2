@@ -8,19 +8,20 @@ const LowerthirdsPage = () => {
     <Container sx={{ width: "100%" }} size="xl" title="">
       <Stack>
         <Title order={3}>Lower Thirds</Title>
-        <Tabs>
+        <Tabs defaultValue="lt">
           <Tabs.List>
             <Tabs.Tab value="lt">LT State</Tabs.Tab>
             <Tabs.Tab value="ticker">Ticker</Tabs.Tab>
             <Tabs.Tab value="ad">Ad Pool</Tabs.Tab>
           </Tabs.List>
-          <Tabs.Panel value="lt">
+
+          <Tabs.Panel value="lt" py="sm">
             <LowerthirdGeneral />
           </Tabs.Panel>
-          <Tabs.Panel value="ticker">
+          <Tabs.Panel value="ticker" py="sm">
             <LowerthirdTickerForm />
           </Tabs.Panel>
-          <Tabs.Panel value="lt">
+          <Tabs.Panel value="lt" py="sm">
             <LowerthirdAds />
           </Tabs.Panel>
         </Tabs>

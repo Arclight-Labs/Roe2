@@ -5,6 +5,7 @@ const StatePage = () => {
   const theme = useMantineTheme()
   return (
     <Tabs
+      defaultValue="activeMatch"
       styles={{
         panel: { padding: `${theme.spacing.md}px 0px` },
       }}

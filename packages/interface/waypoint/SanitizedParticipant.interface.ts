@@ -10,6 +10,7 @@ export type SanitizedParticipant = Omit<Participant, OmitProps> & {
   shortname?: string
   shortcode?: string
   schoolShortcode?: string
+  featuredPlayer?: string
 } & Path
 
 export type SanitizedParticipantMap = Record<string, SanitizedParticipant>

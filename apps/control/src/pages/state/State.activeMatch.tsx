@@ -19,7 +19,7 @@ const StateActiveMatch = () => {
       <Stack>
         <Title order={4}>Players</Title>
       </Stack>
-      <Stack spacing="xl">
+      <Stack spacing="xl" align="flex-start">
         <PlayerSelect team={activeTeamA} />
         <PlayerSelect team={activeTeamB} />
       </Stack>

@@ -42,7 +42,7 @@ const RoomButton = (props: RoomButtonProps) => {
 
   const { sm } = useScreen()
   return activeRoom ? (
-    <RoomMenu sx={{ width: "100%" }}>
+    <RoomMenu width="target">
       <UnstyledButton
         className={classes.room}
         {...props}

@@ -40,7 +40,7 @@ const UserButton: FC<UserButtonProps> = ({ icon, ...props }) => {
   const theme = useMantineTheme()
   const { sm } = useScreen()
   return (
-    <UserMenu dropdownProps={{ sx: { width: "100%" } }}>
+    <UserMenu width="target">
       <UnstyledButton
         className={classes.user}
         {...props}

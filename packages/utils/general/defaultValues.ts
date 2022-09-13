@@ -1,7 +1,7 @@
-import { User } from "interface"
-import { SanitizedParticipant, SanitizedSeries } from "interface/waypoint"
-import { Broadcast, Live, Lowerthird } from "interface/ws"
-import {
+import type { User } from "interface"
+import type { SanitizedParticipant, SanitizedSeries } from "interface/waypoint"
+import type { Broadcast, Live, Lowerthird } from "interface/ws"
+import type {
   Ad,
   AdjImage,
   AdjSize,
@@ -140,3 +140,13 @@ export const defaultTalent: User = { ...defaultUser, isTalent: true }
 export const tbd = { ...defaultParticipant, name: "TBD" }
 export const fn = () => {}
 export const asyncFn = async () => {}
+
+export interface OBSConnectPayload {
+  url: string
+  password?: string
+}
+
+export const defaultObsCredential: OBSConnectPayload = {
+  url: "ws://127.0.0.1:4455",
+  password: "i4OhnRGfneaTIu3B",
+}

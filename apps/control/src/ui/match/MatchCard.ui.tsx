@@ -99,6 +99,7 @@ const MatchCard = ({ match, small, ...props }: MatchCardProps) => {
           />
           <Group position="center" sx={{ width: 70 }}>
             <Tooltip
+              withinPortal
               label={
                 <Stack spacing="xs">
                   {match.scores.map((score, index) => (
