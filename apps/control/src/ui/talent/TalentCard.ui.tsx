@@ -1,4 +1,5 @@
 import {
+  ActionIcon,
   Avatar,
   Card,
   CardProps,
@@ -15,11 +16,13 @@ import { FC, useState } from "react"
 import {
   ArrowDownRightCircle,
   ArrowUpRightCircle,
+  Menu2,
   Pencil,
   Trash,
 } from "tabler-icons-react"
 import { useLive } from "utils/hooks"
 import { setLive } from "utils/socket/events"
+import { useAuth } from "../../context/auth/Auth.hooks"
 import { useBSave } from "../../context/bsave/bsave.hook"
 import TalentBadges from "./TalentBadges.ui"
 import TalentModal from "./TalentModal.ui"
@@ -31,6 +34,7 @@ const TalentCard: FC<TalentCardProps> = ({ data, ...props }) => {
   const open = () => setOpened(true)
   const close = () => setOpened(false)
 
+  const { accessToken } = useAuth()
   const { live } = useLive()
   const bSave = useBSave()
   const uid = data.uid || nanoid()
@@ -39,7 +43,7 @@ const TalentCard: FC<TalentCardProps> = ({ data, ...props }) => {
     const { [uid]: removedTalent, ...talents } = live.talents
     const { [uid]: removeActiveTalent, ...activeTalents } = live.activeTalents
     const saveData: Partial<Live> = { talents, activeTalents }
-    setLive(saveData)
+    setLive(accessToken)(saveData)
     bSave(saveData)
   }
 
@@ -52,14 +56,14 @@ const TalentCard: FC<TalentCardProps> = ({ data, ...props }) => {
     const saveData: Partial<Live> = {
       activeTalents: { ...activeTalents, [uid]: newActiveTalent },
     }
-    setLive(saveData)
+    setLive(accessToken)(saveData)
     bSave(saveData)
   }
 
   const onRemoveActiveCaster = () => {
     const { [uid]: removeActiveTalent, ...activeTalents } = live.activeTalents
     const saveData: Partial<Live> = { activeTalents }
-    setLive(saveData)
+    setLive(accessToken)(saveData)
     bSave(saveData)
   }
 
@@ -72,33 +76,40 @@ const TalentCard: FC<TalentCardProps> = ({ data, ...props }) => {
       >
         <TalentBadges talentId={data.uid} />
         <Menu position="bottom-end" transition="pop-top-right">
-          {live.activeTalents[uid] ? (
+          <Menu.Target>
+            <ActionIcon variant="filled">
+              <Menu2 size={14} />
+            </ActionIcon>
+          </Menu.Target>
+          <Menu.Dropdown>
+            {live.activeTalents[uid] ? (
+              <Menu.Item
+                onClick={onRemoveActiveCaster}
+                icon={<ArrowDownRightCircle size={18} />}
+                color="red"
+              >
+                Remove from Active Casters
+              </Menu.Item>
+            ) : (
+              <Menu.Item
+                onClick={onAddActiveCaster}
+                icon={<ArrowUpRightCircle size={18} />}
+              >
+                Add As Active Caster
+              </Menu.Item>
+            )}
+            <Divider my="md" label="Actions" labelPosition="center" />
+            <Menu.Item onClick={open} icon={<Pencil size={18} />}>
+              Edit
+            </Menu.Item>
             <Menu.Item
-              onClick={onRemoveActiveCaster}
-              icon={<ArrowDownRightCircle size={18} />}
+              onClick={onCasterDelete}
               color="red"
+              icon={<Trash size={18} />}
             >
-              Remove As Active Caster
+              Delete
             </Menu.Item>
-          ) : (
-            <Menu.Item
-              onClick={onAddActiveCaster}
-              icon={<ArrowUpRightCircle size={18} />}
-            >
-              Add As Active Caster
-            </Menu.Item>
-          )}
-          <Divider my="md" label="Actions" labelPosition="center" />
-          <Menu.Item onClick={open} icon={<Pencil size={18} />}>
-            Edit
-          </Menu.Item>
-          <Menu.Item
-            onClick={onCasterDelete}
-            color="red"
-            icon={<Trash size={18} />}
-          >
-            Delete
-          </Menu.Item>
+          </Menu.Dropdown>
         </Menu>
       </Group>
 

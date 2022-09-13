@@ -1,6 +1,6 @@
 import { useEffect } from "react"
-import { useWsAction } from "utils/socket"
 import { useParams } from "react-router-dom"
+import { useWsAction } from "utils/socket"
 
 type Params = Record<"roomId", string>
 

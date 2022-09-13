@@ -1,18 +1,18 @@
-import { useEffect } from "react"
-import { MantineProvider } from "ui"
 import { ColorScheme, ColorSchemeProvider } from "@mantine/core"
+import { useHotkeys, useLocalStorage } from "@mantine/hooks"
+import { NotificationsProvider } from "@mantine/notifications"
+import { useEffect } from "react"
+import { QueryClient, QueryClientProvider } from "react-query"
 import { Provider } from "react-redux"
+import { BrowserRouter } from "react-router-dom"
+import { MantineProvider } from "ui"
+import { connectEmulators } from "utils/firebase"
 import { store } from "utils/redux"
 import { SocketProvider } from "utils/socket"
-import { NotificationsProvider } from "@mantine/notifications"
-import { QueryClient, QueryClientProvider } from "react-query"
-import { BrowserRouter } from "react-router-dom"
-import Routes from "./routes"
 import AuthProvider from "./context/auth/Auth.provider"
-import { connectEmulators } from "utils/firebase"
-import { useHotkeys, useLocalStorage } from "@mantine/hooks"
+import { ObsProvider } from "./context/obs"
 import { GreycliffCF } from "./fonts/GreyCliffCF/GreyCliffCF.font"
-
+import Routes from "./routes"
 export const queryClient = new QueryClient()
 
 function App() {
@@ -50,7 +50,9 @@ function App() {
                       headings: { fontFamily: "Greycliff CF, sans-serif" },
                     }}
                   >
-                    <Routes />
+                    <ObsProvider>
+                      <Routes />
+                    </ObsProvider>
                     <GreycliffCF />
                   </MantineProvider>
                 </ColorSchemeProvider>

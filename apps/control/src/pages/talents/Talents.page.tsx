@@ -13,7 +13,6 @@ import { defaultUser } from "utils/general/defaultValues"
 import { useLive } from "utils/hooks"
 import TalentCard from "../../ui/talent/TalentCard.ui"
 import TalentModal from "../../ui/talent/TalentModal.ui"
-import { Text } from "@mantine/core"
 
 const TalentsPage = () => {
   const [opened, setOpened] = useState(false)
@@ -55,7 +54,7 @@ const TalentsPage = () => {
           <ActionIcon>
             <Speakerphone />
           </ActionIcon>
-          <Title order={5}>Caster Pool</Title>
+          <Title order={5}>Talent Pool</Title>
         </Group>
         <SimpleGrid
           cols={4}

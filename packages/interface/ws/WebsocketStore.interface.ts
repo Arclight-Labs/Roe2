@@ -1,7 +1,7 @@
-import { Live } from "./Live.interface"
 import { Waypoint } from ".."
 import { Room } from "../db"
 import { SanitizedParticipantMap, SanitizedSeriesMap } from "../waypoint"
+import { Live } from "./Live.interface"
 
 export interface WebsocketStore {
   rooms: Record<string, WebsocketRoom>

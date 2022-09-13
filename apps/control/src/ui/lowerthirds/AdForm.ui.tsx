@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Button, Divider, Group, LoadingOverlay, Stack } from "@mantine/core"
 import { nanoid } from "@reduxjs/toolkit"
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage"
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
 import { FilePreview } from "interface"
 import {
   Ad,
@@ -32,7 +32,7 @@ interface AdFormProps {
   afterSubmit?: VoidFunction
 }
 const AdForm: FC<AdFormProps> = ({ ad: { id, ...ad }, afterSubmit }) => {
-  const { auth } = useAuth()
+  const { auth, accessToken } = useAuth()
   const room = useRoom()
   const { lt } = useLt()
   const bSave = useBSave()
@@ -63,7 +63,7 @@ const AdForm: FC<AdFormProps> = ({ ad: { id, ...ad }, afterSubmit }) => {
       const newLtData: LowerthirdData = { ...lt.data, adPool: newAdPool }
       const newLt: Lowerthird = { ...lt, data: newLtData }
       const newData: Partial<Live> = { lt: newLt }
-      setLive(newData)
+      setLive(accessToken)(newData)
       if (saveData) {
         bSave(newData)
         afterSubmit?.()
@@ -99,7 +99,7 @@ const AdForm: FC<AdFormProps> = ({ ad: { id, ...ad }, afterSubmit }) => {
     const newLtData = { ...lt.data, adPool: newAdPool }
     const newLt = { ...lt, data: newLtData }
     const newData = { lt: newLt }
-    setLive(newData)
+    setLive(accessToken)(newData)
     bSave(newData)
     afterSubmit?.()
   }

@@ -6,9 +6,9 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "cross-env GOOGLE_APPLICATION_CREDENTIALS=./service-account-file.json  NODE_ENV=development nodemon --exec \"node -r esbuild-register ./src/index.ts\" -e .ts",
-    "start": "cross-env GOOGLE_APPLICATION_CREDENTIALS=./service-account-file.json NODE_ENV=production node -r esbuild-register ./src/index.ts",
-    "build": "cross-env GOOGLE_APPLICATION_CREDENTIALS=./service-account-file.json tsc",
+    "dev": "cross-env GOOGLE_APPLICATION_CREDENTIALS=./.service-account-file.json  NODE_ENV=development nodemon --exec \"node -r esbuild-register ./src/index.ts\" -e .ts",
+    "start": "cross-env GOOGLE_APPLICATION_CREDENTIALS=./.service-account-file.json NODE_ENV=production node -r esbuild-register ./src/index.ts",
+    "build": "cross-env GOOGLE_APPLICATION_CREDENTIALS=./.service-account-file.json tsc",
     "lint": "tsc --noEmit && TIMING=1 eslint src --fix",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },

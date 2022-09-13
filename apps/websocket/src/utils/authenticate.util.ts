@@ -21,7 +21,7 @@ export async function authenticate(
   try {
     if (!accessToken) throw emitNotify(socket, notif)
     const roomId = getSocketRoom(socket)
-    if (!roomId) throw new Error(`Unable to find room ${roomId}`)
+    if (!roomId) throw new Error(`Unable to find room`)
     const room = getRoom(roomId)
     if (!room) throw new Error(`Unable to get room data for ${roomId}`)
 

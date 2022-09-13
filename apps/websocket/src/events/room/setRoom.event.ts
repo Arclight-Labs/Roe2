@@ -1,9 +1,17 @@
-import { SetRoom } from "interface/ws/SocketEmitter.interface"
+import { WebsocketRoom } from "interface/ws"
 import { setRoom as setRoomInStore } from "../../store"
+import { authenticate } from "../../utils/authenticate.util"
 import { EventFn } from "../event.hoc"
 
+type SetRoom = (
+  room: Partial<WebsocketRoom> & { id: string },
+  accessToken: string
+) => Promise<void>
+
 export const setRoom: EventFn<SetRoom> = (socket, io) => {
-  return (room) => {
+  return async (room, accessToken) => {
+    const auth = await authenticate(accessToken, socket)
+    if (!auth) return
     setRoomInStore(room.id, (r) => ({
       ...r,
       ...room,

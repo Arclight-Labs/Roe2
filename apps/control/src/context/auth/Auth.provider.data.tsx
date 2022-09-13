@@ -1,5 +1,5 @@
-import { PropsWithChildren } from "react"
 import { User } from "firebase/auth"
+import { PropsWithChildren, useEffect, useState } from "react"
 import { useDocument } from "react-firebase-hooks/firestore"
 import { getUserRef } from "utils/firebase/user.queries"
 import UserModal from "../../overlays/User.modal"
@@ -11,7 +11,21 @@ const AuthDataProvider = ({
   user,
 }: PropsWithChildren<{ user: User }>) => {
   const [q, loading] = useDocument(getUserRef(user.uid))
+  const [accessToken, setAccessToken] = useState("")
+  useEffect(() => {
+    let mounted = true
+    if (!user) return mounted && setAccessToken("")
+    ;(async () => {
+      try {
+        const token = await user.getIdToken()
+        if (mounted) setAccessToken(token)
+      } catch {}
+    })()
 
+    return () => {
+      mounted = false
+    }
+  }, [user])
   if (loading) return <AuthNullProvider loading>{children}</AuthNullProvider>
 
   return q?.exists() && q.data().username ? (
@@ -21,6 +35,7 @@ const AuthDataProvider = ({
         userDoc: q,
         user: q.data(),
         loading,
+        accessToken,
       }}
     >
       {children}
@@ -32,6 +47,7 @@ const AuthDataProvider = ({
         loading: false,
         user: null,
         userDoc: null,
+        accessToken,
       }}
     >
       {children}

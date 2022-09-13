@@ -16,7 +16,11 @@ const RoomDataProvider = ({
 
   useEffect(() => {
     if (!data || !user) return
-    joinRoom({ roomId: data.id, roomName: data.name, username: user.username })
+    joinRoom({
+      roomId: data.id,
+      roomName: data.name,
+      username: user.username,
+    })
   }, [data, user])
   if (!data) {
     return <RoomNullProvider>{children}</RoomNullProvider>

@@ -19,6 +19,7 @@ import { defaultSeries, tbd } from "utils/general"
 import { useMatches, useParticipants } from "utils/hooks"
 import { MatchSchema, matchSchema } from "utils/schema/match.schema"
 import { setMatches } from "utils/socket/events"
+import { useAuth } from "../../context/auth/Auth.hooks"
 import { useBSave } from "../../context/bsave/bsave.hook"
 import MatchCardTeam from "./MatchCardTeam.ui"
 import MatchFormTeamSelect from "./MatchFormTeamSelect.ui"
@@ -39,6 +40,7 @@ const MatchForm = ({
 }: MatchFormProps) => {
   const { chalTeams } = useParticipants()
   const { getScore, getUpdatedMatches, matches: liveMatches } = useMatches()
+  const { accessToken } = useAuth()
   const bSave = useBSave()
   const { handleSubmit, watch, setValue } = useForm<MatchSchema>({
     defaultValues: {
@@ -123,7 +125,7 @@ const MatchForm = ({
     }
 
     const updatedMatches = getUpdatedMatches(newSeriesData)
-    setMatches(updatedMatches)
+    setMatches(accessToken)(updatedMatches)
     bSave({ matches: updatedMatches })
 
     afterSubmit?.()
@@ -132,7 +134,7 @@ const MatchForm = ({
   const onDelete = () => {
     if (!match.custom) return
     const { [match.id]: omitted, ...newMatches } = liveMatches
-    setMatches(newMatches)
+    setMatches(accessToken)(newMatches)
     bSave({ matches: newMatches })
     afterSubmit?.()
   }

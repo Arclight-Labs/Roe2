@@ -6,8 +6,8 @@ export interface Live {
   nextMatch: string
   schedule: Schedule[]
   invert: boolean
-  activeTalents: Record<string, User>
-  talents: Record<string, User>
+  activeTalents: Record<string, User & { role?: string }>
+  talents: Record<string, User & { role?: string }>
   lt: Lowerthird
   shoutouts: Record<string, TwitterApiResultsItem>
 }

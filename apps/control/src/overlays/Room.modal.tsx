@@ -38,7 +38,7 @@ interface RoomCreateModalProps extends ModalProps {
 
 const RoomModal = ({ data: room, ...props }: RoomCreateModalProps) => {
   const { copy } = useClipboard()
-  const { auth } = useAuth()
+  const { auth, accessToken = "" } = useAuth()
   const { setRoom } = useWsAction()
   const [activeRoom, setActiveRoom] = useActiveRoom()
   const [loading, setLoading] = useState(false)
@@ -108,7 +108,7 @@ const RoomModal = ({ data: room, ...props }: RoomCreateModalProps) => {
 
       if (!data) {
         const liveData = broadcastData ?? defaultBroadcastData
-        setRoom({ ...newData, ...liveData, listeners: {} })
+        setRoom(accessToken)({ ...newData, ...liveData, listeners: {} })
       }
 
       if (activeRoom?.id === roomRef.id) {
