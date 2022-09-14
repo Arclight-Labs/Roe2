@@ -1562,7 +1562,7 @@
   resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-4.3.4.tgz#b93da17232fda91ec08ef14d2ca1d8326fc599f2"
   integrity sha512-NLAe3j5Vk1yYEtoPP5fPGPjRzkZPx67KUM3f14L3InziJZJ0wVecCh7uKfgYkbRKJSeq6PlbND7iuCGdTplN6Q==
 
-"@tanstack/react-query@^4.3.4":
+"@tanstack/react-query@4.3.4":
   version "4.3.4"
   resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-4.3.4.tgz#91a4232a967de04a0662d63d53b18ecc3e11c7e2"
   integrity sha512-IiAo+B8bxphEpO7xwLQaCptd2rY4Ef3pW1q9J3pT66G+J/st4QpGQ+cSm9iESp9ccRy1YNUk3klk/hQtWewl6g==
@@ -5155,7 +5155,7 @@ oblivious-set@1.0.0:
   resolved "https://registry.yarnpkg.com/oblivious-set/-/oblivious-set-1.0.0.tgz#c8316f2c2fb6ff7b11b6158db3234c49f733c566"
   integrity sha512-z+pI07qxo4c2CulUHCDf9lcqDlMSo72N/4rLUpRXf6fu+q8vjt8y0xS+Tlf8NTJDdTXHbdeO1n3MlbctwEoXZw==
 
-obs-websocket-js@^5.0.1:
+obs-websocket-js@5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/obs-websocket-js/-/obs-websocket-js-5.0.1.tgz#fd72e93a6bc110e308c5881871a7f06dd81dd41e"
   integrity sha512-3oWN1g/gA2A2g9OxubLPKAqBKhAoNGYnF3QIYp6fZ2kfE4Az1PqCnd5zwgRsh5j49uTWyfuX199HkRSsaJE3mw==
