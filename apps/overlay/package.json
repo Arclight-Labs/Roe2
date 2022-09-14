@@ -1,7 +1,7 @@
 {
   "name": "overlay",
   "private": true,
-  "version": "0.0.21",
+  "version": "0.0.22",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -10,20 +10,20 @@
   "dependencies": {
     "@mantine/core": "5.3.0",
     "@mantine/hooks": "5.3.0",
-    "framer-motion": "7.3.2",
+    "framer-motion": "7.3.4",
     "interface": "*",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-fast-marquee": "1.3.5",
     "react-redux": "8.0.2",
     "react-responsive-carousel": "3.2.23",
-    "react-router-dom": "6.3.0",
+    "react-router-dom": "6.4.0",
     "redux": "4.2.0",
     "ui": "*",
     "utils": "*"
   },
   "devDependencies": {
-    "@types/react": "18.0.19",
+    "@types/react": "18.0.20",
     "@types/react-dom": "18.0.6",
     "@vitejs/plugin-react": "2.1.0",
     "tsconfig": "*",
