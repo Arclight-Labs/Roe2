@@ -56,7 +56,7 @@ const OBSConnection = ({ variant = "button" }: Props) => {
       <Popover withArrow>
         <Popover.Target>
           {variant === "button" ? (
-            <UnstyledButton className={classes.room}>
+            <UnstyledButton className={classes.room} component="div">
               <Group>
                 <ActionIcon size="xl" variant="transparent">
                   <Aperture size={38} />
