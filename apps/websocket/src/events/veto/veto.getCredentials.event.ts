@@ -1,4 +1,5 @@
-import crypto from "crypto-js"
+import AES from "crypto-js/aes"
+import utf8 from "crypto-js/enc-utf8"
 import { SocketEvent } from "interface"
 import { emitNotify } from "../../emitters"
 import { getRoom } from "../../store/services/room.store.service"
@@ -29,9 +30,9 @@ export const vetoGetCredentials: EventFn<GetCredentials> = (socket, io) => {
     const { teamA, teamB, host } = veto.passwords
 
     const payload = {
-      teamA: crypto.AES.decrypt(teamA, secret).toString(crypto.enc.Utf8),
-      teamB: crypto.AES.decrypt(teamB, secret).toString(crypto.enc.Utf8),
-      host: crypto.AES.decrypt(host, secret).toString(crypto.enc.Utf8),
+      teamA: AES.decrypt(teamA, secret).toString(utf8),
+      teamB: AES.decrypt(teamB, secret).toString(utf8),
+      host: AES.decrypt(host, secret).toString(utf8),
     }
 
     io.to(room).emit(SocketEvent.VetoRequestCredentialsResponse, payload)
