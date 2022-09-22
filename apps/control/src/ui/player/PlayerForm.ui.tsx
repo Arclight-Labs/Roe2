@@ -15,7 +15,6 @@ import { useParticipants } from "utils/hooks"
 import { playerSchema, PlayerSchema } from "utils/schema/player.schema"
 import { useWsAction } from "utils/socket"
 import { useAuth } from "../../context/auth/Auth.hooks"
-import { useBSave } from "../../context/bsave/bsave.hook"
 import { useRoom } from "../../context/room/Room.hooks"
 import { DropzoneContent } from "../DropzoneContent.ui"
 import Confirm from "../popups/Confirm.ui"
@@ -41,7 +40,6 @@ const PlayerForm = ({
   onCancel,
   afterSubmit,
 }: PlayerFormProps) => {
-  const bSave = useBSave()
   const saveRef = useRef<HTMLButtonElement | null>(null)
   const [loading, setLoading] = useState(false)
   const [photo, setPhoto] = useState<FilePreview>(new FilePreview())
@@ -79,7 +77,6 @@ const PlayerForm = ({
     const participant = { ...team, players, playerIds }
 
     setParticipant(accessToken)(teamId, participant)
-    bSave({ [`participants.${teamId}`]: participant })
     setLoading(false)
     afterSubmit?.()
   }, console.error)
@@ -111,7 +108,6 @@ const PlayerForm = ({
     participantData.players = players
     participantData.playerIds = playerIds.filter((id) => id !== playerId)
     setParticipant(accessToken)(teamId, participantData)
-    bSave({ [`participants.${teamId}`]: participantData })
     afterSubmit?.()
   }
 

@@ -6,24 +6,28 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "cross-env GOOGLE_APPLICATION_CREDENTIALS=./.service-account-file.json  NODE_ENV=development nodemon --exec \"node -r esbuild-register ./src/index.ts\" -e .ts",
-    "start": "cross-env GOOGLE_APPLICATION_CREDENTIALS=./.service-account-file.json NODE_ENV=production node -r esbuild-register ./src/index.ts",
-    "build": "cross-env GOOGLE_APPLICATION_CREDENTIALS=./.service-account-file.json tsc",
+    "dev": "cross-env NODE_ENV=development nodemon --exec \"node -r esbuild-register ./src/index.ts\" -e .ts",
+    "start": "cross-env NODE_ENV=production node -r esbuild-register ./src/index.ts",
+    "build": "cross-env tsc",
     "lint": "tsc --noEmit && TIMING=1 eslint src --fix",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "dependencies": {
     "@fastify/cors": "8.1.0",
     "axios": "0.27.2",
+    "crypto-js": "4.1.1",
     "dotenv": "16.0.2",
-    "firebase-admin": "11.0.1",
+    "firebase-admin": "^11.0.1",
     "interface": "*",
     "ip": "1.1.8",
-    "socket.io": "4.5.2"
+    "socket.io": "4.5.2",
+    "uuid": "9.0.0"
   },
   "devDependencies": {
+    "@types/crypto-js": "4.1.1",
     "@types/ip": "1.1.0",
     "@types/node": "18.7.16",
+    "@types/uuid": "8.3.4",
     "config": "*",
     "cross-env": "7.0.3",
     "esbuild": "0.15.7",

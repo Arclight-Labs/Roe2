@@ -10,6 +10,6 @@
     "target": "es2017"
   },
   "compileOnSave": true,
-  "include": ["src"],
+  "include": ["src", "admin.ts"],
   "exclude": ["node_modules"]
 }

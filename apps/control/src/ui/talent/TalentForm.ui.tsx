@@ -13,7 +13,6 @@ import { useLive } from "utils/hooks"
 import { UserUpdate, userUpdateSchema } from "utils/schema/user.schema"
 import { setLive } from "utils/socket/events"
 import { useAuth } from "../../context/auth/Auth.hooks"
-import { useBSave } from "../../context/bsave/bsave.hook"
 import { DropzoneContent } from "../DropzoneContent.ui"
 import Confirm from "../popups/Confirm.ui"
 
@@ -24,7 +23,6 @@ interface TalentModalProps {
 }
 const TalentForm: FC<TalentModalProps> = ({ data, onCancel, afterSubmit }) => {
   const { live } = useLive()
-  const bSave = useBSave()
   const { accessToken } = useAuth()
   const { register, handleSubmit, setValue, getFieldState, setError } =
     useForm<UserUpdate>({
@@ -62,11 +60,9 @@ const TalentForm: FC<TalentModalProps> = ({ data, onCancel, afterSubmit }) => {
     }
 
     setLive(accessToken)(saveData)
-    bSave(saveData)
     afterSubmit?.()
     if (uid === addedActiveTalent.uid) {
       setLive(accessToken)(saveActiveData)
-      bSave(saveActiveData)
     }
   }, console.error)
 
@@ -93,7 +89,6 @@ const TalentForm: FC<TalentModalProps> = ({ data, onCancel, afterSubmit }) => {
     const { [uid]: removeActiveTalent, ...activeTalents } = live.activeTalents
     const saveData: Partial<Live> = { talents, activeTalents }
     setLive(accessToken)(saveData)
-    bSave(saveData)
     afterSubmit?.()
   }
 

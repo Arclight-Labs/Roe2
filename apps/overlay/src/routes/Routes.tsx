@@ -1,5 +1,7 @@
 import { FunctionComponent, lazy, Suspense } from "react"
-import { Navigate, Outlet, useRoutes } from "react-router-dom"
+import { Outlet, useRoutes } from "react-router-dom"
+import Scene from "ui/Scene"
+import { SubwayPropBerlin } from "../fonts/SubwayProBerlin/Subway.font"
 
 function Loadable<T extends object = {}>(Component: FunctionComponent<T>) {
   return (props: T) => {
@@ -37,12 +39,52 @@ const Ticker = Loadable(
 )
 const AdSingle = Loadable(lazy(() => import("../views/lowerthirds/AdSingle.o")))
 const AdPool = Loadable(lazy(() => import("../views/lowerthirds/AdPool.o")))
+const Playground = Loadable(lazy(() => import("../views/Playground")))
+
+// ------------- SCENES
+const ValorantIngameScene = Loadable(
+  lazy(() => import("../scenes/allg/ingame/val/Val.ingame.scene"))
+)
+const CodmIngameScene = Loadable(
+  lazy(() => import("../scenes/allg/ingame/codm/Codm.ingame.scene"))
+)
+const MlbbIngameScene = Loadable(
+  lazy(() => import("../scenes/allg/ingame/mlbb/Mlbb.ingame.scene"))
+)
 
 const Routes = () => {
   return useRoutes([
     {
       path: "/:roomId",
       children: [
+        {
+          path: "scenes",
+          children: [
+            {
+              path: "allg",
+              element: (
+                <Scene>
+                  <Outlet />
+                  <SubwayPropBerlin />
+                </Scene>
+              ),
+              children: [
+                {
+                  path: "ingame",
+                  children: [
+                    { path: "val", element: <ValorantIngameScene /> },
+                    { path: "codm", element: <CodmIngameScene /> },
+                    { path: "mlbb", element: <MlbbIngameScene /> },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          path: "playground",
+          element: <Playground />,
+        },
         {
           path: "shoutouts",
           element: <ShoutoutsSlide />,

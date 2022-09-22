@@ -11,6 +11,7 @@ import {
   setParticipant,
   setParticipants,
   setRoom,
+  setVetoSettings,
   tournament,
 } from "./events"
 import { SocketContext, SocketContextDispatch } from "./Socket.context"
@@ -32,6 +33,11 @@ export const SocketProvider = ({ children }: PropsWithChildren) => {
         setMatch,
         setParticipant,
         setLive,
+        vetoMapPick: () => {},
+        vetoRequestCredentials: () => {},
+        vetoRequestCredentialsResponse: () => {},
+        vetoSettings: setVetoSettings,
+        vetoSidePick: () => {},
       }}
     >
       <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>

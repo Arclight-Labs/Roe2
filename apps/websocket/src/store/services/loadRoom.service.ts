@@ -1,9 +1,9 @@
-import ip from "ip"
 import axios from "axios"
 import { WebsocketRoom } from "interface/ws"
+import { address } from "ip"
 
 const isDev = process.env.NODE_ENV === "development"
-const devUrl = `http://${ip.address()}:5001/roe2-prod/us-central1/api/api`
+const devUrl = `http://${address()}:5000/api`
 /**
  * Below can be an alternative `devUrl`
  * But it requires a build if any changes are made

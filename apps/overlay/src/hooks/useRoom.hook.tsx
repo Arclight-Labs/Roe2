@@ -4,13 +4,14 @@ import { useWsAction } from "utils/socket"
 
 type Params = Record<"roomId", string>
 
-const useRoom = () => {
+type UseRoomProps = string | undefined
+const useRoom = (customRoomId?: UseRoomProps) => {
   const { roomId = "allg" } = useParams<Params>()
   const { joinRoom } = useWsAction()
   useEffect(() => {
     if (!roomId) return
     joinRoom({
-      roomId,
+      roomId: customRoomId || roomId,
       roomName: "Alliance Games",
       username: "Overlay",
     })

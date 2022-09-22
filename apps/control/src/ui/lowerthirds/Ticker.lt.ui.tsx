@@ -7,7 +7,6 @@ import { useLt } from "utils/hooks"
 import { TickerSchema, tickerSchema } from "utils/schema/lowerthird.schema"
 import { setLive } from "utils/socket/events"
 import { useAuth } from "../../context/auth/Auth.hooks"
-import { useBSave } from "../../context/bsave/bsave.hook"
 import AdjTextarea from "../adj/AdjTextArea.ui"
 import TextForm from "../adj/AdjTextInput.ui"
 
@@ -17,13 +16,11 @@ const LowerthirdTickerForm = () => {
     resolver: zodResolver(tickerSchema),
   })
   const { accessToken } = useAuth()
-  const bSave = useBSave()
   const { lt: liveLt, ticker } = useLt()
   const onSubmit = formHandlers.handleSubmit((data) => {
     const lt = { ...liveLt, data: { ...liveLt.data, ticker: data } }
     const newData = { lt }
     setLive(accessToken)(newData)
-    bSave(newData)
   }, console.error)
 
   useEffect(() => {

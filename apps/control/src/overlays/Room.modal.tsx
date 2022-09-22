@@ -108,7 +108,7 @@ const RoomModal = ({ data: room, ...props }: RoomCreateModalProps) => {
 
       if (!data) {
         const liveData = broadcastData ?? defaultBroadcastData
-        setRoom(accessToken)({ ...newData, ...liveData, listeners: {} })
+        setRoom(accessToken)({ ...newData, ...liveData })
       }
 
       if (activeRoom?.id === roomRef.id) {

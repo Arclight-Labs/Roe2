@@ -23,11 +23,11 @@ import {
   participantSchema,
   ParticipantSchema,
 } from "utils/schema/participant.schema"
-import { setParticipant } from "utils/socket/events"
+import { setParticipant, setParticipants } from "utils/socket/events"
 import { useAuth } from "../../context/auth/Auth.hooks"
-import { useBSave } from "../../context/bsave/bsave.hook"
 import { useRoom } from "../../context/room/Room.hooks"
 import { DropzoneContent } from "../DropzoneContent.ui"
+import Confirm from "../popups/Confirm.ui"
 
 type Props = keyof ParticipantSchema
 
@@ -36,16 +36,13 @@ export type ParticipantProps = Pick<SanitizedParticipant, Props> & {
 }
 export interface ParticipantFormProps {
   participant?: ParticipantProps
-  onCancel?: VoidFunction
   afterSubmit?: VoidFunction
 }
 
 const ParticipantForm = ({
   participant,
-  onCancel,
   afterSubmit,
 }: ParticipantFormProps) => {
-  const bSave = useBSave()
   const room = useRoom()
   const { auth, accessToken } = useAuth()
   const { participants } = useParticipants()
@@ -75,7 +72,6 @@ const ParticipantForm = ({
       ...data,
     }
     setParticipant(accessToken)(teamId, participantData)
-    bSave({ [`participants.${teamId}`]: participantData })
     setLoading(false)
     afterSubmit?.()
   })
@@ -98,6 +94,13 @@ const ParticipantForm = ({
     const file = files[0]
     if (!file) return
     setPhoto(new FilePreview(file))
+  }
+
+  const removeParticipant = () => {
+    const { [teamId]: removedTeam, ...newParticipants } = participants
+    if (!removedTeam.custom) return
+    setParticipants(accessToken)(newParticipants)
+    afterSubmit?.()
   }
 
   return (
@@ -141,7 +144,11 @@ const ParticipantForm = ({
           </Dropzone>
         </Stack>
         <Group position="apart">
-          <Button size="xs" variant={"subtle"} onClick={onCancel}></Button>
+          <Confirm onConfirm={removeParticipant}>
+            <Button component="div" size="xs" color="red" variant={"subtle"}>
+              Delete
+            </Button>
+          </Confirm>
           <Button size="xs" type="submit">
             Save
           </Button>

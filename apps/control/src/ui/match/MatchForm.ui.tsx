@@ -4,6 +4,7 @@ import {
   Button,
   Checkbox,
   Group,
+  NumberInput,
   Stack,
   Table,
   Text,
@@ -20,13 +21,12 @@ import { useMatches, useParticipants } from "utils/hooks"
 import { MatchSchema, matchSchema } from "utils/schema/match.schema"
 import { setMatches } from "utils/socket/events"
 import { useAuth } from "../../context/auth/Auth.hooks"
-import { useBSave } from "../../context/bsave/bsave.hook"
 import MatchCardTeam from "./MatchCardTeam.ui"
 import MatchFormTeamSelect from "./MatchFormTeamSelect.ui"
 
 type Handler = ChangeEventHandler<HTMLInputElement>
 type ChangeWinner = (chalId?: number | null | undefined) => () => void
-type ChangeScore = (team: "a" | "b", matchIndex: number) => Handler
+type ChangeScore = (team: "teamA" | "teamB", matchIndex: number) => Handler
 
 interface MatchFormProps {
   match?: SanitizedSeries
@@ -41,18 +41,19 @@ const MatchForm = ({
   const { chalTeams } = useParticipants()
   const { getScore, getUpdatedMatches, matches: liveMatches } = useMatches()
   const { accessToken } = useAuth()
-  const bSave = useBSave()
   const { handleSubmit, watch, setValue } = useForm<MatchSchema>({
     defaultValues: {
       scores: match.scores,
       teamA: match.teamA.id,
       teamB: match.teamB.id,
       winnerId: match.winnerId,
+      bestOf: match.bestOf ?? 1,
     },
     resolver: zodResolver(matchSchema),
   })
   const aChalId = watch("teamA")
   const bChalId = watch("teamB")
+  const bestOf = watch("bestOf")
   const scoresInput = watch("scores")
   const winnerId = watch("winnerId")
   const a = chalTeams[aChalId || ""] ?? tbd
@@ -91,7 +92,7 @@ const MatchForm = ({
     let matchScore = newScores[matchIndex]
     const [aScore = 0, bScore = 0] = matchScore.split("-").map(Number)
 
-    if (team === "a") {
+    if (team === "teamA") {
       matchScore = `${value}-${bScore}`
     } else {
       matchScore = `${aScore}-${value}`
@@ -122,11 +123,11 @@ const MatchForm = ({
         : null,
       scores: data.scores,
       id: matchId,
+      bestOf: data.bestOf,
     }
 
     const updatedMatches = getUpdatedMatches(newSeriesData)
     setMatches(accessToken)(updatedMatches)
-    bSave({ matches: updatedMatches })
 
     afterSubmit?.()
   })
@@ -135,7 +136,6 @@ const MatchForm = ({
     if (!match.custom) return
     const { [match.id]: omitted, ...newMatches } = liveMatches
     setMatches(accessToken)(newMatches)
-    bSave({ matches: newMatches })
     afterSubmit?.()
   }
 
@@ -157,7 +157,7 @@ const MatchForm = ({
           </MatchFormTeamSelect>
         </Group>
         <Title order={5}>
-          {scores.a.final} - {scores.b.final}
+          {scores.teamA.final} - {scores.teamB.final}
         </Title>
 
         <Group sx={{ width: "100%", overflowX: "auto" }}>
@@ -189,13 +189,13 @@ const MatchForm = ({
                     <Text>{aName}</Text>
                   </Group>
                 </td>
-                {scores.a.scores.map((score, index) => (
+                {scores.teamA.scores.map((score, index) => (
                   <td key={index} style={{ maxWidth: 40 }}>
                     <TextInput
                       sx={{ maxWidth: 60 }}
                       type="number"
                       value={score}
-                      onChange={onChangeScore("a", index)}
+                      onChange={onChangeScore("teamA", index)}
                     />
                   </td>
                 ))}
@@ -212,13 +212,13 @@ const MatchForm = ({
                     <Text>{bName}</Text>
                   </Group>
                 </td>
-                {scores.b.scores.map((score, index) => (
+                {scores.teamB.scores.map((score, index) => (
                   <td key={index} style={{ maxWidth: 40 }}>
                     <TextInput
                       sx={{ maxWidth: 60 }}
                       value={score}
                       type="number"
-                      onChange={onChangeScore("b", index)}
+                      onChange={onChangeScore("teamB", index)}
                     />
                   </td>
                 ))}
@@ -240,6 +240,13 @@ const MatchForm = ({
             </tbody>
           </Table>
         </Group>
+        <NumberInput
+          label="Best of"
+          value={bestOf}
+          onChange={(value) => setValue("bestOf", value)}
+          step={2}
+          min={1}
+        />
         <Group position="apart" sx={{ width: "100%" }}>
           {isCustom ? (
             <Button variant="subtle" onClick={onDelete} color="red">

@@ -9,7 +9,7 @@ interface OverlayCardProps {
 
 const OverlayCards = Object.entries(
   OverlayRoutes({
-    team: "a",
+    team: "teamA",
     index: 0,
     statIndex: 0,
     teamCode: "name",

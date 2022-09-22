@@ -1,5 +1,3 @@
-import { Tournament, Icon } from "tabler-icons-react"
-
 interface OverlayAdjustables {
   adjText: boolean
   record: boolean
@@ -9,7 +7,7 @@ export interface OverlayLink {
   label: string
   icon: string
   adjust?: Partial<OverlayLink> & Partial<OverlayAdjustables>
-  team?: "a" | "b"
+  team?: "teamA" | "teamB"
   teamCode?: "shortcode" | "name" | "shortname" | "schoolShortcode" | "school"
   playerCode?: "photoURL" | "username" | "school"
   statIndex?: number

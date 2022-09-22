@@ -6,7 +6,6 @@ import { Ad, Ad2, ChartBar, ClearFormatting } from "tabler-icons-react"
 import { useLt } from "utils/hooks"
 import { setLive } from "utils/socket/events"
 import { useAuth } from "../../context/auth/Auth.hooks"
-import { useBSave } from "../../context/bsave/bsave.hook"
 import LowerthirdModeCard from "./ModeCard.lt.ui"
 
 interface Props extends StackProps {
@@ -14,14 +13,12 @@ interface Props extends StackProps {
 }
 const LowerthirdGeneral: FC<Props> = ({ groupProps, ...props }) => {
   const { mode, show, data } = useLt()
-  const bSave = useBSave()
   const { accessToken } = useAuth()
   const toggleLowerThirds = () => {
     const toggleLT: Partial<Live> = {
       lt: { show: !show, data, mode },
     }
     setLive(accessToken)(toggleLT)
-    bSave(toggleLT)
   }
 
   const modes = ["ticker", "ad", "adPool", "matchPoll"]
@@ -40,7 +37,6 @@ const LowerthirdGeneral: FC<Props> = ({ groupProps, ...props }) => {
             },
           }
           setLive(accessToken)(newData)
-          bSave(newData)
         },
       ]
     }),

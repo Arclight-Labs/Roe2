@@ -1,7 +1,6 @@
 import { LoadingOverlay } from "@mantine/core"
 import { FunctionComponent, lazy, Suspense } from "react"
 import { Navigate, Outlet, useRoutes } from "react-router-dom"
-import BSaveProvider from "../context/bsave/bsave.provider"
 import RoomProvider from "../context/room/Room.provider"
 import StatePage from "../pages/state/State.page"
 import AppShellWrapper from "../ui/AppShellWrapper.ui"
@@ -56,9 +55,7 @@ const Routes = () => {
       element: (
         <AuthGuard>
           <RoomProvider hideSidebar>
-            <BSaveProvider>
-              <QuickSettingsPage />
-            </BSaveProvider>
+            <QuickSettingsPage />
           </RoomProvider>
         </AuthGuard>
       ),
@@ -68,12 +65,10 @@ const Routes = () => {
       element: (
         <AuthGuard>
           <RoomGuard>
-            <BSaveProvider>
-              <AppShellWrapper>
-                <Outlet />
-                <LiveDrawer />
-              </AppShellWrapper>
-            </BSaveProvider>
+            <AppShellWrapper>
+              <Outlet />
+              <LiveDrawer />
+            </AppShellWrapper>
           </RoomGuard>
         </AuthGuard>
       ),

@@ -18,4 +18,9 @@ export const SocketContextDispatch = createContext<SocketEmitters>({
   setMatch: () => () => {},
   setParticipant: () => () => {},
   setLive: () => () => {},
+  vetoMapPick: () => () => {},
+  vetoRequestCredentials: () => () => {},
+  vetoRequestCredentialsResponse: () => () => {},
+  vetoSettings: () => () => {},
+  vetoSidePick: () => () => {},
 })

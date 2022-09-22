@@ -1,7 +1,7 @@
 import { DecodedIdToken } from "firebase-admin/auth"
 import { NotifProps } from "interface"
 import { Socket } from "socket.io"
-import { adminAuth } from "utils/firebase/firebase-admin.instance"
+import { getAuth } from "utils/firebase/firebase-admin.instance"
 import { emitNotify } from "../emitters"
 import { getRoom } from "../store"
 import { getSocketRoom } from "./getSocketRoom.util"
@@ -10,7 +10,7 @@ export async function authenticate(
   accessToken: string = "",
   socket: Socket
 ): Promise<DecodedIdToken | void> {
-  const auth = adminAuth()
+  const auth = getAuth()
 
   const notif: NotifProps = {
     message: "You don't have access",
@@ -33,6 +33,10 @@ export async function authenticate(
     return user
   } catch (e) {
     console.log(`[${socket.id}] error`, e)
+    emitNotify(socket, {
+      message: "Unable to authenticate your action",
+      color: "red",
+    })
     return
   }
 }

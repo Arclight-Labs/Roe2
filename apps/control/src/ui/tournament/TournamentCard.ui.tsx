@@ -29,7 +29,6 @@ import {
 import { useMatches, useParticipants, useTournament } from "utils/hooks"
 import { useWsAction } from "utils/socket"
 import { useAuth } from "../../context/auth/Auth.hooks"
-import { useBSave } from "../../context/bsave/bsave.hook"
 import { useRoom } from "../../context/room/Room.hooks"
 import { usePermission } from "../../hooks/usePermission.hook"
 import Confirm from "../popups/Confirm.ui"
@@ -49,7 +48,6 @@ const TournamentCard = ({ id, logo, name, org }: TournamentCardProps) => {
     matches: setMatches,
   } = useWsAction()
   const theme = useMantineTheme()
-  const bSave = useBSave()
 
   const selectTournament = async () => {
     close()
@@ -129,7 +127,6 @@ const TournamentCard = ({ id, logo, name, org }: TournamentCardProps) => {
     )
     const newParticipants = { ...currentParticipants, ...addedParticipants }
     setParticipants(accessToken)(newParticipants)
-    bSave({ participants: newParticipants })
     setLoading(false)
   }
 
@@ -138,7 +135,6 @@ const TournamentCard = ({ id, logo, name, org }: TournamentCardProps) => {
     const res = await getMatches(id)
     const newMatches = { ...currentMatches, ...res }
     setMatches(accessToken)(newMatches)
-    bSave({ matches: newMatches })
     setLoading(false)
   }
 

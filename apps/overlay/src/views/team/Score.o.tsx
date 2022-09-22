@@ -1,9 +1,9 @@
-import { useMatches } from "utils/hooks"
-import { useParams } from "react-router-dom"
-import useRoom from "../../hooks/useRoom.hook"
 import { Box, Text } from "@mantine/core"
-import { useInverse } from "../../hooks/useInverse.hook"
+import { useParams } from "react-router-dom"
 import { defaultSeries } from "utils/general"
+import { useMatches } from "utils/hooks"
+import { useInverse } from "../../hooks/useInverse.hook"
+import useRoom from "../../hooks/useRoom.hook"
 import { useAdjQuery } from "../../utils/useAdjQuery"
 
 type Params = Record<"team" | "score", string>
@@ -15,9 +15,7 @@ const Score = () => {
   const { activeMatch, getScore } = useMatches()
   const isInversed = useInverse()
   const teamSide = isInversed(params.team === "a" ? "teamA" : "teamB")
-  const teamSideLetter = teamSide === "teamA" ? "a" : "b"
-  const teamScore = getScore(activeMatch ?? defaultSeries)?.[teamSideLetter]
-    .final
+  const teamScore = getScore(activeMatch ?? defaultSeries)?.[teamSide].final
 
   return (
     <Box sx={{ height: 600, width: 600 }}>

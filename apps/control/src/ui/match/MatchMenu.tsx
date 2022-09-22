@@ -3,6 +3,7 @@ import { SanitizedSeries } from "interface/waypoint"
 import { Live } from "interface/ws"
 import { MouseEventHandler, useState } from "react"
 import {
+  Ban,
   ListDetails,
   Menu2,
   Pencil,
@@ -12,18 +13,17 @@ import {
 import { useLive, useMatches } from "utils/hooks"
 import { setLive } from "utils/socket/events"
 import { useAuth } from "../../context/auth/Auth.hooks"
-import { useBSave } from "../../context/bsave/bsave.hook"
 import { usePermission } from "../../hooks/usePermission.hook"
 
 interface MatchMenuProps extends Omit<MenuProps, "children"> {
   match: SanitizedSeries
   open: VoidFunction
+  openVeto: VoidFunction
 }
-const MatchMenu = ({ match, open, ...props }: MatchMenuProps) => {
+const MatchMenu = ({ match, open, openVeto, ...props }: MatchMenuProps) => {
   const [opened, setOpened] = useState(false)
   const isAllowed = usePermission()
   const { live } = useLive()
-  const bSave = useBSave()
 
   const { isActive, isNext, inSchedule } = useMatches()
 
@@ -32,6 +32,7 @@ const MatchMenu = ({ match, open, ...props }: MatchMenuProps) => {
   const next = isNext(matchId)
   const scheduled = inSchedule(matchId)
   const { accessToken } = useAuth()
+  const isReady = match.teamA.id && match.teamB.id
 
   const onClick: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.stopPropagation()
@@ -44,7 +45,6 @@ const MatchMenu = ({ match, open, ...props }: MatchMenuProps) => {
       e.stopPropagation()
       const data: Partial<Live> = { [key]: matchId }
       setLive(accessToken)(data)
-      bSave(data)
     }
 
   const clearAs =
@@ -53,7 +53,6 @@ const MatchMenu = ({ match, open, ...props }: MatchMenuProps) => {
       e.stopPropagation()
       const data: Partial<Live> = { [key]: "" }
       setLive(accessToken)(data)
-      bSave(data)
     }
 
   const addToSchedule: MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -63,7 +62,6 @@ const MatchMenu = ({ match, open, ...props }: MatchMenuProps) => {
     const schedule = [...live.schedule, item]
     const data: Partial<Live> = { schedule }
     setLive(accessToken)(data)
-    bSave(data)
   }
 
   const removeFromSchedule: MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -71,7 +69,16 @@ const MatchMenu = ({ match, open, ...props }: MatchMenuProps) => {
     const schedule = live.schedule.filter((s) => s.matchId !== matchId)
     const data: Partial<Live> = { schedule }
     setLive(accessToken)(data)
-    bSave(data)
+  }
+
+  const editMatch: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.stopPropagation()
+    open()
+  }
+
+  const editVeto: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.stopPropagation()
+    openVeto()
   }
 
   return (
@@ -87,9 +94,16 @@ const MatchMenu = ({ match, open, ...props }: MatchMenuProps) => {
           <Menu2 size={12}></Menu2>
         </ActionIcon>
       </Menu.Target>
-      <Menu.Dropdown>
-        <Menu.Item onClick={open} icon={<Pencil size={18} />}>
+      <Menu.Dropdown onClick={(e) => e.stopPropagation()}>
+        <Menu.Item onClick={editMatch} icon={<Pencil size={18} />}>
           Edit
+        </Menu.Item>
+        <Menu.Item
+          disabled={!isReady}
+          onClick={editVeto}
+          icon={<Ban size={18} />}
+        >
+          Map Veto
         </Menu.Item>
 
         {!active ? (

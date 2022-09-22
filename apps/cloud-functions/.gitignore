@@ -13,3 +13,5 @@ node_modules/
 .runtimeconfig.json
 .env
 .env.local
+.secret
+.secret.local

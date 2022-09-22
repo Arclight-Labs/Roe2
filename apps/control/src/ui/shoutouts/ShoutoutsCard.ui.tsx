@@ -14,7 +14,6 @@ import { decodeEntities } from "utils/general"
 import { useLive } from "utils/hooks"
 import { setLive } from "utils/socket/events"
 import { useAuth } from "../../context/auth/Auth.hooks"
-import { useBSave } from "../../context/bsave/bsave.hook"
 
 interface ShoutoutsCardProps extends Omit<CardProps, "children"> {
   tweet: TwitterApiResultsItem
@@ -22,7 +21,6 @@ interface ShoutoutsCardProps extends Omit<CardProps, "children"> {
 const ShoutoutsCard: FC<ShoutoutsCardProps> = ({ tweet, ...props }) => {
   const { accessToken } = useAuth()
   const img = tweet.images?.[0] || ""
-  const bSave = useBSave()
   const {
     live: { shoutouts = {} },
   } = useLive()
@@ -31,13 +29,11 @@ const ShoutoutsCard: FC<ShoutoutsCardProps> = ({ tweet, ...props }) => {
     const newShoutouts = { ...shoutouts, [tweet.id]: tweet }
     const newData = { shoutouts: newShoutouts }
     setLive(accessToken)(newData)
-    bSave(newData)
   }
   const unSelect = () => {
     const { [tweet.id]: omitted, ...newShoutouts } = shoutouts
     const newData = { shoutouts: newShoutouts }
     setLive(accessToken)(newData)
-    bSave(newData)
   }
 
   return (
