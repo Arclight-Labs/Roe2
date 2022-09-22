@@ -45,7 +45,7 @@ export const setRoom: SetRoom = (roomId, payload) => {
     const { admins, name, uniqueCode, avatar, id, owner, ...liveData } = room
     batch.set(roomRef, { admins, name, uniqueCode, avatar, id, owner })
     batch.set(liveRef, liveData)
-    batch.commit().catch(() => console.log("Failed to save in db"))
+    batch.commit().catch((e) => console.log("Failed to save in db", e))
     return room
   }
   const roomRef = db.doc(`rooms/${roomId}`) as DocumentReference<Room>
@@ -55,7 +55,7 @@ export const setRoom: SetRoom = (roomId, payload) => {
   const { admins, name, uniqueCode, avatar, id, owner, ...liveData } = payload
   batch.set(roomRef, { admins, name, uniqueCode, avatar, id, owner })
   batch.set(liveRef, liveData)
-  batch.commit().catch(() => console.log("Failed to save in db"))
+  batch.commit().catch((e) => console.log("Failed to save in db", e))
   setStore((s) => ({ ...s, rooms: { ...s.rooms, [roomId]: payload } }))
   return payload
 }
