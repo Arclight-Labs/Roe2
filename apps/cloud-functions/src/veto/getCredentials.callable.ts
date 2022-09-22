@@ -16,7 +16,8 @@ export const getCredentials = functions
   .https.onCall(async (props: Props, context) => {
     const { uid } = authCheck(context.auth)
     const { z } = await import("zod")
-    const crypto = await import("crypto-js")
+    const AES = await import("crypto-js/aes")
+    const utf8 = await import("crypto-js/enc-utf8")
 
     const schema = z.object({
       roomId: z.string(),
@@ -55,5 +56,5 @@ export const getCredentials = functions
     const secret = process.env.VETO_SECRET
     if (!password) throw new Err("not-found", "Veto not set")
     if (!secret) throw new Err("unimplemented", "Server error")
-    return crypto.AES.decrypt(password, secret).toString(crypto.enc.Utf8)
+    return AES.decrypt(password, secret).toString(utf8)
   })

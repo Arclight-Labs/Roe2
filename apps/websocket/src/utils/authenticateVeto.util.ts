@@ -1,4 +1,5 @@
-import crypto from "crypto-js"
+import AES from "crypto-js/aes"
+import utf8 from "crypto-js/enc-utf8"
 import "dotenv/config"
 import { Socket } from "socket.io"
 import { VetoPasswordType } from "utils/schema/veto.schema"
@@ -48,9 +49,7 @@ export const authenticateVeto =
       return false
     }
 
-    const password = crypto.AES.decrypt(accessToken, secret).toString(
-      crypto.enc.Utf8
-    )
+    const password = AES.decrypt(accessToken, secret).toString(utf8)
     if (accessToken !== password) {
       emitNotify(socket, {
         message: "Access Denied: incorrect password",
