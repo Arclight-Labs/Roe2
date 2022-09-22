@@ -1,21 +1,12 @@
-import {
-  getApp as getAdminApp,
-  getApps,
-  initializeApp,
-} from "firebase-admin/app"
+import { initializeApp } from "firebase-admin/app"
 import { getAuth as getAdminAuth } from "firebase-admin/auth"
 import { getFirestore } from "firebase-admin/firestore"
 import { getStorage as getAdminStorage } from "firebase-admin/storage"
 
-const appExists = (appName?: string) =>
-  appName
-    ? getApps().findIndex((app) => app.name === appName) >= 0
-    : !!getApps().length
-const getApp = () => (appExists() ? getAdminApp() : initApp())
-export const initApp = () => initializeApp()
-export const getDB = () => getFirestore(getApp())
-export const getAuth = () => getAdminAuth(getApp())
-export const getStorage = () => getAdminStorage(getApp())
+const app = initializeApp()
+export const getDB = () => getFirestore(app)
+export const getAuth = () => getAdminAuth(app)
+export const getStorage = () => getAdminStorage(app)
 
 if (process.env.NODE_ENV === "development") {
   process.env["FIRESTORE_EMULATOR_HOST"] = "localhost:8080"
