@@ -1,8 +1,10 @@
 import { auth } from "firebase-admin"
-import { db, functions } from "../admin"
+import { functions } from "../admin"
 import { userAdminFC } from "../converters/user.converter"
+import { getDB } from "../firesbase-admin"
 
 export const userCreate = functions.auth.user().onCreate(async (user) => {
+  const db = getDB()
   const userList = await auth().listUsers(2)
   const uid = user.uid
   const ref = db.doc(`users/${uid}`).withConverter(userAdminFC)

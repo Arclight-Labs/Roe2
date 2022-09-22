@@ -1,4 +1,7 @@
-import { WebsocketRoom } from "interface/ws"
+import { DocumentReference } from "firebase-admin/firestore"
+import { Room } from "interface"
+import { Broadcast, WebsocketRoom } from "interface/ws"
+import { getDB } from "utils/firebase/firebase-admin.instance"
 import { getStore, setStore } from "../store.server"
 
 type RoomMap = Record<string, WebsocketRoom>
@@ -30,11 +33,29 @@ export const setRoom: SetRoom = (roomId, payload) => {
   const store = getStore()
   const { rooms } = store
   const isFn = typeof payload === "function"
+  const db = getDB()
+  const batch = db.batch()
   if (isFn) {
     const room = payload(rooms[roomId])
     setStore((s) => ({ ...s, rooms: { ...s.rooms, [roomId]: room } }))
+    const roomRef = db.doc(`rooms/${roomId}`) as DocumentReference<Room>
+    const liveRef = roomRef
+      .collection("live")
+      .doc("broadcast") as DocumentReference<Broadcast>
+    const { admins, name, uniqueCode, avatar, id, owner, ...liveData } = room
+    batch.set(roomRef, { admins, name, uniqueCode, avatar, id, owner })
+    batch.set(liveRef, liveData)
+    batch.commit().catch(() => console.log("Failed to save in db"))
     return room
   }
+  const roomRef = db.doc(`rooms/${roomId}`) as DocumentReference<Room>
+  const liveRef = roomRef
+    .collection("live")
+    .doc("broadcast") as DocumentReference<Broadcast>
+  const { admins, name, uniqueCode, avatar, id, owner, ...liveData } = payload
+  batch.set(roomRef, { admins, name, uniqueCode, avatar, id, owner })
+  batch.set(liveRef, liveData)
+  batch.commit().catch(() => console.log("Failed to save in db"))
   setStore((s) => ({ ...s, rooms: { ...s.rooms, [roomId]: payload } }))
   return payload
 }

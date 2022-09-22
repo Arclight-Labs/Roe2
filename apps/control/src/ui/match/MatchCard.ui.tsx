@@ -19,12 +19,12 @@ import { tbd } from "utils/general"
 import { useMatches, useParticipants, useTournament } from "utils/hooks"
 import { setMatch } from "utils/socket/events"
 import { useAuth } from "../../context/auth/Auth.hooks"
-import { useBSave } from "../../context/bsave/bsave.hook"
 import { usePermission } from "../../hooks/usePermission.hook"
 import MatchBadges from "./MatchBadges.ui"
 import MatchCardTeam from "./MatchCardTeam.ui"
 import MatchMenu from "./MatchMenu"
 import MatchModal from "./MatchModal.ui"
+import MatchVetoModal from "./MatchVetoModal"
 
 type Series = SanitizedSeries
 interface MatchCardProps extends Omit<CardProps, "children"> {
@@ -37,12 +37,14 @@ const MatchCard = ({ match, small, ...props }: MatchCardProps) => {
   const { getScore: getFinalScore } = useMatches()
   const { accessToken } = useAuth()
   const { teamA, teamB } = match
+  const [vetoOpened, setVetoOpened] = useState(false)
+  const openVeto = () => setVetoOpened(true)
+  const closeVeto = () => setVetoOpened(false)
   const [opened, setOpened] = useState(false)
   const open = () => setOpened(true)
   const close = () => setOpened(false)
   const { id: tournamentId } = useTournament()
   const [loading, setLoading] = useState(false)
-  const bSave = useBSave()
 
   const aChalId = teamA.id
   const bChalId = teamB.id
@@ -64,7 +66,6 @@ const MatchCard = ({ match, small, ...props }: MatchCardProps) => {
       [`matches.${match.id}`]: newMatch,
     }
     setMatch(accessToken)(matchId, res)
-    bSave(newData)
     setLoading(false)
   }
 
@@ -89,7 +90,7 @@ const MatchCard = ({ match, small, ...props }: MatchCardProps) => {
               </ActionIcon>
             </Tooltip>
           )}
-          <MatchMenu match={match} open={open} />
+          <MatchMenu match={match} open={open} openVeto={openVeto} />
         </Group>
 
         <Group noWrap>
@@ -113,7 +114,7 @@ const MatchCard = ({ match, small, ...props }: MatchCardProps) => {
               }
             >
               <Title order={5} align="center" sx={{ whiteSpace: "nowrap" }}>
-                {scores.a.final} - {scores.b.final}
+                {scores.teamA.final} - {scores.teamB.final}
               </Title>
             </Tooltip>
           </Group>
@@ -121,6 +122,7 @@ const MatchCard = ({ match, small, ...props }: MatchCardProps) => {
         </Group>
       </Card>
       <MatchModal opened={opened} onClose={close} match={match} />
+      <MatchVetoModal opened={vetoOpened} onClose={closeVeto} match={match} />
     </>
   )
 }

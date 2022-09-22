@@ -1,5 +1,6 @@
 import { NotificationProps } from "@mantine/notifications"
 import { Waypoint } from "../"
+import { VetoSettings } from "../db"
 import {
   SanitizedParticipant,
   SanitizedParticipantMap,
@@ -20,6 +21,9 @@ export type SetMatches = (
 export type SetMatch = (
   accessToken: string
 ) => (matchId: string, data: Partial<SanitizedSeries>) => void
+export type SetVetoSettings = (
+  accessToken: string
+) => (matchId: string, data: Partial<VetoSettings>) => void
 export type SetParticipants = (
   accessToken: string
 ) => (payload: SanitizedParticipantMap) => void
@@ -55,4 +59,5 @@ export interface SocketEmitters extends SocketEmitterType {
   setRoom: SetRoom
   setParticipant: SetPariticipant
   setLive: SetLive
+  vetoSettings: SetVetoSettings
 }

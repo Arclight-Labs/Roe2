@@ -5,6 +5,7 @@ export const matchSchema = z.object({
   teamB: z.number().nullable(),
   scores: z.array(z.string().regex(/[0-9]+-[0-9]+/)),
   winnerId: z.number().nullable(),
+  bestOf: z.number().min(1).default(1).optional(),
 })
 
 export type MatchSchema = z.infer<typeof matchSchema>

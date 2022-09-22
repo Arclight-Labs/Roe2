@@ -12,7 +12,4 @@ export interface Broadcast extends Partial<Live> {
   participants: SanitizedParticipantMap
   roomId: string
 }
-interface Listeners {
-  listeners: Record<string, string>
-}
-export type WebsocketRoom = Room & Listeners & Broadcast
+export type WebsocketRoom = Room & Broadcast

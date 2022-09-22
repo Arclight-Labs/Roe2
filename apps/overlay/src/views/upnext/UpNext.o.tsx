@@ -1,7 +1,7 @@
+import { Box, Center, Grid, Group, Image, Stack, Text } from "@mantine/core"
+import { defaultSeries } from "utils/general/defaultValues"
 import { useMatches, useParticipants } from "utils/hooks"
 import useRoom from "../../hooks/useRoom.hook"
-import { Image, Box, Text, Group, Stack, Grid, Center } from "@mantine/core"
-import { defaultSeries } from "utils/general/defaultValues"
 import VS from "../../public/VS.png"
 
 const UpNext = () => {
@@ -18,8 +18,8 @@ const UpNext = () => {
   const aWinner = teamA === nextMatch?.winnerId
   const bWinner = teamB === nextMatch?.winnerId
 
-  const teamAScore = getScore(nextMatch ?? defaultSeries)?.["a"].final
-  const teamBScore = getScore(nextMatch ?? defaultSeries)?.["b"].final
+  const teamAScore = getScore(nextMatch ?? defaultSeries)?.["teamA"].final
+  const teamBScore = getScore(nextMatch ?? defaultSeries)?.["teamB"].final
 
   return (
     <Group sx={{ marginLeft: "5rem" }}>

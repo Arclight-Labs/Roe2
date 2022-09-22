@@ -19,7 +19,6 @@ import { RoomModel } from "utils/models/Room.model"
 import { AdSchema, adSchema } from "utils/schema/lowerthird.schema"
 import { setLive } from "utils/socket/events"
 import { useAuth } from "../../context/auth/Auth.hooks"
-import { useBSave } from "../../context/bsave/bsave.hook"
 import { useRoom } from "../../context/room/Room.hooks"
 import AdjImageDropzone from "../adj/AdjImageDropzone.ui"
 import AdjTextarea from "../adj/AdjTextArea.ui"
@@ -35,7 +34,6 @@ const AdForm: FC<AdFormProps> = ({ ad: { id, ...ad }, afterSubmit }) => {
   const { auth, accessToken } = useAuth()
   const room = useRoom()
   const { lt } = useLt()
-  const bSave = useBSave()
   const [uploading, setUploading] = useState(false)
   const [preview, setPreview] = useState<FilePreview>(new FilePreview())
   const handlers = useForm<AdSchema>({
@@ -65,7 +63,6 @@ const AdForm: FC<AdFormProps> = ({ ad: { id, ...ad }, afterSubmit }) => {
       const newData: Partial<Live> = { lt: newLt }
       setLive(accessToken)(newData)
       if (saveData) {
-        bSave(newData)
         afterSubmit?.()
       }
     }, console.error)
@@ -100,7 +97,6 @@ const AdForm: FC<AdFormProps> = ({ ad: { id, ...ad }, afterSubmit }) => {
     const newLt = { ...lt, data: newLtData }
     const newData = { lt: newLt }
     setLive(accessToken)(newData)
-    bSave(newData)
     afterSubmit?.()
   }
 

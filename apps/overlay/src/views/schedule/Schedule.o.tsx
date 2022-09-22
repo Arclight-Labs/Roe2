@@ -1,8 +1,8 @@
-import { useMatches, useParticipants } from "utils/hooks"
-import useRoom from "../../hooks/useRoom.hook"
-import { Image, Box, Text, Group, Grid, Center, Stack } from "@mantine/core"
+import { Box, Center, Grid, Group, Image, Stack, Text } from "@mantine/core"
 import { SanitizedSeries } from "interface/waypoint"
 import { defaultSeries, tbd } from "utils/general"
+import { useMatches, useParticipants } from "utils/hooks"
+import useRoom from "../../hooks/useRoom.hook"
 import VS from "../../public/VS.png"
 interface ScheduleProps {
   match: SanitizedSeries
@@ -23,8 +23,8 @@ const Schedule = ({ match }: ScheduleProps) => {
   const aWinner = aChalId === match?.winnerId
   const bWinner = bChalId === match?.winnerId
 
-  const teamAScore = getScore(match ?? defaultSeries)?.["a"]?.final
-  const teamBScore = getScore(match ?? defaultSeries)?.["b"]?.final
+  const teamAScore = getScore(match ?? defaultSeries)?.["teamA"]?.final
+  const teamBScore = getScore(match ?? defaultSeries)?.["teamB"]?.final
 
   return (
     <Group sx={{ marginBottom: "-22rem" }}>

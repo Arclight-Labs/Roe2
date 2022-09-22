@@ -12,4 +12,9 @@ export enum SocketEvent {
   Participants = "participants",
   SetParticipant = "setParticipant",
   SetLive = "setLive",
+  VetoMapPick = "vetoMapPick",
+  VetoSidePick = "vetoSidePick",
+  VetoSettings = "vetoSettings",
+  VetoRequestCredentials = "vetoRequestCredentials",
+  VetoRequestCredentialsResponse = "vetoRequestCredentialsResponse",
 }

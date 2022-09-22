@@ -14,8 +14,15 @@ type ImageProps = (status: Status) => ComponentProps<TablerIcon>
 interface Props {
   preview: string[]
   minHeight?: number
+  withText?: boolean
+  withImage?: boolean
 }
-export const DropzoneContent = ({ preview, minHeight = 220 }: Props) => {
+export const DropzoneContent = ({
+  preview,
+  minHeight = 220,
+  withText = true,
+  withImage = true,
+}: Props) => {
   const theme = useMantineTheme()
   const imageProps: ImageProps = (status) => ({
     style: { color: getIconColor(status, theme) },
@@ -40,24 +47,30 @@ export const DropzoneContent = ({ preview, minHeight = 220 }: Props) => {
         ))
       ) : (
         <>
-          <Dropzone.Accept>
-            <Upload {...imageProps("accept")} />
-          </Dropzone.Accept>
-          <Dropzone.Reject>
-            <X {...imageProps("reject")} />
-          </Dropzone.Reject>
-          <Dropzone.Idle>
-            <Photo {...imageProps("idle")} />
-          </Dropzone.Idle>
+          {withImage && (
+            <>
+              <Dropzone.Accept>
+                <Upload {...imageProps("accept")} />
+              </Dropzone.Accept>
+              <Dropzone.Reject>
+                <X {...imageProps("reject")} />
+              </Dropzone.Reject>
+              <Dropzone.Idle>
+                <Photo {...imageProps("idle")} />
+              </Dropzone.Idle>
+            </>
+          )}
 
-          <div>
-            <Text size="xl" inline>
-              Drag images here or click to select files
-            </Text>
-            <Text size="sm" color="dimmed" inline mt={7}>
-              Each file should not exceed 5mb
-            </Text>
-          </div>
+          {withText && (
+            <div>
+              <Text size="xl" inline>
+                Drag images here or click to select files
+              </Text>
+              <Text size="sm" color="dimmed" inline mt={7}>
+                Each file should not exceed 5mb
+              </Text>
+            </div>
+          )}
         </>
       )}
     </Group>

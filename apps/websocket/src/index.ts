@@ -4,6 +4,7 @@ import { Server } from "socket.io"
 import liveEvents from "./events/live"
 import roomEvents from "./events/room"
 import { tournamentEvents } from "./events/tournament.events"
+import vetoEvents from "./events/veto"
 
 const PORT = process.env.PORT || 1337
 
@@ -29,6 +30,7 @@ io.on("connection", async (socket) => {
   tournamentEvents(io, socket)
   roomEvents(io, socket)
   liveEvents(io, socket)
+  vetoEvents(io, socket)
 })
 
 server.listen(PORT, () => {

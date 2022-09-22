@@ -18,7 +18,6 @@ import { adjImageStyles, defaultAdjImage } from "utils/general"
 import { useLt } from "utils/hooks"
 import { setLive } from "utils/socket/events"
 import { useAuth } from "../../context/auth/Auth.hooks"
-import { useBSave } from "../../context/bsave/bsave.hook"
 import AdModal from "./AdModal.ui"
 
 interface AdCardProps {
@@ -30,7 +29,6 @@ const AdCard: FC<AdCardProps> = ({ ad }) => {
   const toggle = () => toggler()
   const close = () => toggler(false)
   const { ad: ltAd, lt } = useLt()
-  const bSave = useBSave()
   const { accessToken } = useAuth()
 
   const isActive = ltAd === ad.id
@@ -40,7 +38,6 @@ const AdCard: FC<AdCardProps> = ({ ad }) => {
     const newLt = { ...lt, data: newLtData }
     const saveData = { lt: newLt }
     setLive(accessToken)(saveData)
-    bSave?.(saveData)
   }
 
   return (

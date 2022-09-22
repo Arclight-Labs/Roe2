@@ -23,7 +23,6 @@ import {
 import { useLive } from "utils/hooks"
 import { setLive } from "utils/socket/events"
 import { useAuth } from "../../context/auth/Auth.hooks"
-import { useBSave } from "../../context/bsave/bsave.hook"
 import TalentBadges from "./TalentBadges.ui"
 import TalentModal from "./TalentModal.ui"
 interface TalentCardProps extends Omit<CardProps, "children"> {
@@ -36,7 +35,6 @@ const TalentCard: FC<TalentCardProps> = ({ data, ...props }) => {
 
   const { accessToken } = useAuth()
   const { live } = useLive()
-  const bSave = useBSave()
   const uid = data.uid || nanoid()
 
   const onCasterDelete = () => {
@@ -44,7 +42,6 @@ const TalentCard: FC<TalentCardProps> = ({ data, ...props }) => {
     const { [uid]: removeActiveTalent, ...activeTalents } = live.activeTalents
     const saveData: Partial<Live> = { talents, activeTalents }
     setLive(accessToken)(saveData)
-    bSave(saveData)
   }
 
   const onAddActiveCaster = () => {
@@ -57,14 +54,12 @@ const TalentCard: FC<TalentCardProps> = ({ data, ...props }) => {
       activeTalents: { ...activeTalents, [uid]: newActiveTalent },
     }
     setLive(accessToken)(saveData)
-    bSave(saveData)
   }
 
   const onRemoveActiveCaster = () => {
     const { [uid]: removeActiveTalent, ...activeTalents } = live.activeTalents
     const saveData: Partial<Live> = { activeTalents }
     setLive(accessToken)(saveData)
-    bSave(saveData)
   }
 
   return (

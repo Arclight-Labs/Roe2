@@ -1,4 +1,5 @@
 import type { User } from "interface"
+import { CoinFlip, Veto, VetoSettings } from "interface/db"
 import type { SanitizedParticipant, SanitizedSeries } from "interface/waypoint"
 import type { Broadcast, Live, Lowerthird } from "interface/ws"
 
@@ -12,6 +13,49 @@ import type {
   MatchPollItem,
   Ticker,
 } from "interface/ws/Live.interface"
+import { VetoMode, VetoSequenceSettingsItem } from "../schema/veto.schema"
+
+export const defaultVetoSettingsSequenceItem: VetoSequenceSettingsItem = {
+  action: "ban",
+  mode: null,
+  mapActor: "loser",
+  sideActor: "winner",
+}
+
+export const defaultVetoMode: VetoMode = {
+  id: "",
+  imageUrl: "",
+  mapPool: [],
+  name: "",
+}
+export const defaultVetoSettings: VetoSettings = {
+  type: "standard",
+  sequence: [],
+  mapPool: [],
+  modes: [],
+  timer: null,
+  autoStart: true,
+}
+
+export const defaultCoinFlip: CoinFlip = {
+  heads: null,
+  loser: null,
+  result: null,
+  tails: null,
+  winner: null,
+}
+
+export const defaultVeto: Veto = {
+  coinFlip: defaultCoinFlip,
+  settings: defaultVetoSettings,
+  currentSequence: 0,
+  passwords: {
+    teamA: "",
+    teamB: "",
+    host: "",
+  },
+  sequence: [],
+}
 
 export const defaultSeries: SanitizedSeries = {
   attachmentCount: 0,
@@ -46,6 +90,7 @@ export const defaultSeries: SanitizedSeries = {
   checkIns: {},
   custom: true,
   scoreReports: {},
+  veto: defaultVeto,
 }
 
 export const defaultParticipant: SanitizedParticipant = {

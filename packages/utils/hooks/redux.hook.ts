@@ -8,13 +8,13 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux"
 import { defaultSeries, tbd } from "../general"
 import {
   addMatch,
-  setMatches,
-  updateMatch,
-  setParticipants,
-  updateParticipant,
   addParticipant,
+  setMatches,
+  setParticipants,
+  updateMatch,
+  updateParticipant,
 } from "../redux"
-import type { RootState, AppDispatch } from "../redux/store"
+import type { AppDispatch, RootState } from "../redux/store"
 
 // Use throughout your app instead of plain `useDispatch` and `useSelector`
 export const useAppDispatch = () => useDispatch<AppDispatch>()
@@ -40,7 +40,7 @@ type SplitByBracket = (map: SeriesMap) => SplitByBracketReturn
 
 type Score = `${number}-${number}`
 type ScoreValue = { scores: number[]; final: number }
-type GetScoreReturn = Record<"a" | "b", ScoreValue>
+type GetScoreReturn = Record<"teamA" | "teamB", ScoreValue>
 type GetScore = (match: SanitizedSeries) => GetScoreReturn
 
 type GetTalentReturn = Record<string, User>
@@ -143,22 +143,22 @@ export const useMatches = () => {
   // ========= Get Score
   const getScore: GetScore = (match) => {
     const scores = (match.scores ?? ["0-0"]) as Score[]
-    let a: ScoreValue = { final: 0, scores: [] }
-    let b: ScoreValue = { final: 0, scores: [] }
+    let teamA: ScoreValue = { final: 0, scores: [] }
+    let teamB: ScoreValue = { final: 0, scores: [] }
     for (const score of scores) {
       const scoreTuple = score.split("-")
       const [aScore = 0, bScore = 0] = scoreTuple.map(Number)
-      a.scores.push(aScore)
-      b.scores.push(bScore)
+      teamA.scores.push(aScore)
+      teamB.scores.push(bScore)
       if (aScore > bScore) {
-        a.final++
+        teamA.final++
         continue
       }
       if (bScore > aScore) {
-        b.final++
+        teamB.final++
       }
     }
-    return { a, b }
+    return { teamA, teamB }
   }
 
   // ========= Get all affected matches

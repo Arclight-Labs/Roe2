@@ -12,19 +12,16 @@ import { SquareX } from "tabler-icons-react"
 import { useMatches } from "utils/hooks"
 import { setLive } from "utils/socket/events"
 import { useAuth } from "../../context/auth/Auth.hooks"
-import { useBSave } from "../../context/bsave/bsave.hook"
 import MatchCard from "../match/MatchCard.ui"
 import Confirm from "../popups/Confirm.ui"
 
 const LiveMatches = () => {
   const { accessToken } = useAuth()
   const { activeMatch, nextMatch, schedule } = useMatches()
-  const bSave = useBSave()
 
   const clearSchedule = () => {
     const saveData: Partial<Live> = { schedule: [] }
     setLive(accessToken)(saveData)
-    bSave(saveData)
   }
 
   return (

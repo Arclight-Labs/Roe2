@@ -1,5 +1,7 @@
-import { Err, functions, twitterAxios } from "../admin"
 import { TweetSearchResults } from "interface/utils/Twitter.interface"
+import { functions } from "../admin"
+import { twitterAxios } from "../utils/axios.util"
+import { Err } from "../utils/cfError"
 interface Props {
   search: string
 }

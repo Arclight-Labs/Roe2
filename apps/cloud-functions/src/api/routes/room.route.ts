@@ -1,7 +1,7 @@
 import { FastifyPluginCallback } from "fastify"
 import { Room } from "interface/db"
 import { WebsocketRoom } from "interface/ws"
-import { db } from "../../admin"
+import { getDB } from "../../firesbase-admin"
 import { Col, Doc } from "../../types"
 import { getRoomData } from "../utils/getRoomData.cfUtil"
 
@@ -9,6 +9,7 @@ interface Params {
   roomId: string
 }
 export const roomRoutes: FastifyPluginCallback = (sv, _, done) => {
+  const db = getDB()
   sv.get("/", async (req, res) => {
     const colRef = db.collection("rooms") as Col<Room>
     const snap = await colRef.get()
@@ -20,7 +21,6 @@ export const roomRoutes: FastifyPluginCallback = (sv, _, done) => {
       const data = await getRoomData(room)
       rooms[roomSnap.id] = data
     }
-
     res.status(200).send(rooms)
   })
 
