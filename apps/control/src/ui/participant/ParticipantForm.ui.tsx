@@ -36,13 +36,11 @@ export type ParticipantProps = Pick<SanitizedParticipant, Props> & {
 }
 export interface ParticipantFormProps {
   participant?: ParticipantProps
-  onCancel?: VoidFunction
   afterSubmit?: VoidFunction
 }
 
 const ParticipantForm = ({
   participant,
-  onCancel,
   afterSubmit,
 }: ParticipantFormProps) => {
   const room = useRoom()

@@ -68,7 +68,6 @@ const MatchVetoSequenceForm = ({ control, modes, sequence = [] }: Props) => {
       </Stack>
 
       <MatchVetoSequenceItemModal
-        control={control}
         append={append}
         opened={opened}
         onClose={onClose}

@@ -9,9 +9,7 @@ import {
   Title,
   Tooltip,
 } from "@mantine/core"
-import { PartialWithFieldValue } from "firebase/firestore"
 import { SanitizedSeries } from "interface/waypoint"
-import { Broadcast } from "interface/ws"
 import { MouseEventHandler, useState } from "react"
 import { Refresh } from "tabler-icons-react"
 import { getMatch } from "utils/axios"
@@ -61,10 +59,6 @@ const MatchCard = ({ match, small, ...props }: MatchCardProps) => {
     setLoading(true)
     const matchId = `${match.id}`
     const res = await getMatch(tournamentId, `${match.id}`)
-    const newMatch = { ...match, scores: res.scores }
-    const newData: PartialWithFieldValue<Broadcast> = {
-      [`matches.${match.id}`]: newMatch,
-    }
     setMatch(accessToken)(matchId, res)
     setLoading(false)
   }

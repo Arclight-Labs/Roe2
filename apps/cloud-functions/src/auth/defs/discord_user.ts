@@ -16,7 +16,7 @@ export interface DiscordUser {
 interface Application {
   id: string
   name: string
-  icon?: any
+  icon?: string
   description: string
   summary: string
   hook: boolean

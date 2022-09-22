@@ -34,7 +34,7 @@ export async function authenticate(
   } catch (e) {
     console.log(`[${socket.id}] error`, e)
     emitNotify(socket, {
-      message: (e as any).message || "Unable to authenticate your action",
+      message: "Unable to authenticate your action",
       color: "red",
     })
     return

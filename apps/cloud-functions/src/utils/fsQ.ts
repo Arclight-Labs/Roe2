@@ -1,11 +1,11 @@
-import { Query, WhereFilterOp } from "firebase-admin/firestore"
+import type { Primitive, Query, WhereFilterOp } from "firebase-admin/firestore"
 import col from "./fsCol"
 
-type QueryTuple = [string, WhereFilterOp, any]
+type QueryTuple = [string, WhereFilterOp, Primitive]
 
-export default function q<T extends Record<string, any>>(
+export default function q<T extends Record<string, unknown>>(
   path: string,
-  query: Partial<T> | Record<string, any>
+  query: Partial<T> | Record<string, Primitive>
 ) {
   const ref = col<T>(path)
   const entries = Object.entries(query)

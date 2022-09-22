@@ -1,10 +1,12 @@
+type UnknownObject = Record<string, unknown>
+
 function toCamelCase(str: string) {
   return str
     .toLowerCase()
     .replace(/([-_][a-z])/g, (match) => match.toUpperCase().replace(/[-_]/, ""))
 }
 
-function isObject(item: any) {
+function isObject(item: unknown) {
   return typeof item === "object" && !Array.isArray(item) && item !== null
 }
 
@@ -13,22 +15,25 @@ function isObject(item: any) {
  * @param obj
  * @returns
  */
-export function snakeToCamel(obj: Record<string, any>): Record<string, any> {
+export function snakeToCamel(obj: UnknownObject): UnknownObject {
   if (!isObject(obj)) return obj
   return Object.keys(obj).reduce((prev, key) => {
     // Check if current item is an object
     if (isObject(obj[key]))
-      return { ...prev, [toCamelCase(key)]: snakeToCamel(obj[key]) }
+      return {
+        ...prev,
+        [toCamelCase(key)]: snakeToCamel(obj[key] as UnknownObject),
+      }
 
     // Check if current item is an array
     if (Array.isArray(obj[key])) {
-      const arr = (obj[key] as any[]).map((data) =>
-        isObject(data) ? snakeToCamel(data) : data
+      const arr = (obj[key] as unknown[]).map((data) =>
+        isObject(data) ? snakeToCamel(data as UnknownObject) : data
       )
       return { ...prev, [toCamelCase(key)]: arr }
     }
 
     const newKey = toCamelCase(key)
     return { ...prev, [newKey]: obj[key] }
-  }, {} as Record<string, any>)
+  }, {} as UnknownObject)
 }

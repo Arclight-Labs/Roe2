@@ -143,8 +143,8 @@ export const useMatches = () => {
   // ========= Get Score
   const getScore: GetScore = (match) => {
     const scores = (match.scores ?? ["0-0"]) as Score[]
-    let teamA: ScoreValue = { final: 0, scores: [] }
-    let teamB: ScoreValue = { final: 0, scores: [] }
+    const teamA: ScoreValue = { final: 0, scores: [] }
+    const teamB: ScoreValue = { final: 0, scores: [] }
     for (const score of scores) {
       const scoreTuple = score.split("-")
       const [aScore = 0, bScore = 0] = scoreTuple.map(Number)

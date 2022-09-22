@@ -9,19 +9,17 @@ import {
   ModalProps,
   SimpleGrid,
 } from "@mantine/core"
-import { Control, FieldPath, UseFormSetValue } from "react-hook-form"
+import { FieldPath, UseFormSetValue } from "react-hook-form"
 import { defaultVetoMode } from "utils/general/defaultValues"
 import { VetoMap, VetoMode, VetoSettings } from "utils/schema/veto.schema"
 
 interface Props extends ModalProps {
-  control: Control<VetoSettings>
   setValue: UseFormSetValue<VetoSettings>
   mode: VetoMode
   mapPool: VetoMap[]
   modeIndex: number
 }
 const MatchVetoModesItemMapPoolForm = ({
-  control,
   modeIndex,
   mapPool,
   mode = defaultVetoMode,

@@ -60,7 +60,6 @@ const ParticipantModal = ({ participant, ...props }: ParticipantModalProps) => {
         <Divider />
         <ParticipantForm
           participant={participant}
-          onCancel={props.onClose}
           afterSubmit={props.onClose}
         />
       </Stack>

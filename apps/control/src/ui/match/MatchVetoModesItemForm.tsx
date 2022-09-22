@@ -133,7 +133,6 @@ const MatchVetoModesItemForm = ({
         mode={mode}
         onClose={() => setOpened(false)}
         modeIndex={index}
-        control={control}
       />
     </Card>
   )

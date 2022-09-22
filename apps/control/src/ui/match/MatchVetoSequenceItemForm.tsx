@@ -19,7 +19,6 @@ import {
 } from "@mantine/core"
 import { forwardRef, useState } from "react"
 import {
-  Control,
   UseFieldArrayAppend,
   UseFieldArrayUpdate,
   useForm,
@@ -44,7 +43,6 @@ import {
 } from "utils/schema/veto.schema"
 
 interface Props extends ModalProps {
-  control: Control<VetoSettings>
   append: UseFieldArrayAppend<VetoSettings, "sequence">
   update: UseFieldArrayUpdate<VetoSettings, "sequence">
   modes: VetoMode[]
@@ -55,7 +53,6 @@ interface Props extends ModalProps {
 }
 const MatchVetoSequenceItemModal = ({
   append,
-  control,
   modes = [],
   sequenceNumber,
   gotoPreviousSequence,
@@ -105,7 +102,7 @@ const MatchVetoSequenceItemModal = ({
   }, console.error)
 
   const ItemComponent = forwardRef<HTMLDivElement, SelectItem>(
-    ({ value, label, image, ...props }, ref) => (
+    ({ label, image, ...props }, ref) => (
       <div ref={ref} {...props}>
         <Group noWrap>
           <Avatar src={image} />

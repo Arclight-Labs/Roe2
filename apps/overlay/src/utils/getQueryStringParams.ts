@@ -8,7 +8,7 @@ export const getQueryStringParams = (query: string) => {
     ? (/^[?#]/.test(query) ? query.slice(1) : query)
         .split("&")
         .reduce<Record<string, string>>((params, param) => {
-          let [key, value] = param.split("=")
+          const [key, value] = param.split("=")
           params[key] = value
             ? decodeURIComponent(value.replace(/\+/g, " "))
             : ""
