@@ -8,6 +8,7 @@ import {
   Title,
 } from "@mantine/core"
 import { useQuery } from "react-query"
+import { Backhoe } from "tabler-icons-react"
 import { getAllTournaments } from "utils/axios"
 import TournamentCard from "../../ui/tournament/TournamentCard.ui"
 
@@ -17,6 +18,7 @@ const TournamentPage = () => {
   return (
     <Container size="xl">
       <Stack>
+        <Alert icon={<Backhoe />}>This page is under construction</Alert>
         <Title order={3}>Select Tournament</Title>
         <Group>
           {!data ? (

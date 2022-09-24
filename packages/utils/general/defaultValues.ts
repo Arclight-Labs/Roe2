@@ -194,5 +194,5 @@ export interface OBSConnectPayload {
 
 export const defaultObsCredential: OBSConnectPayload = {
   url: "ws://127.0.0.1:4455",
-  password: "i4OhnRGfneaTIu3B",
+  password: "",
 }
