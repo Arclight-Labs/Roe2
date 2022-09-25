@@ -57,6 +57,9 @@ const MlbbIngameScene = Loadable(
 const TeamCard = Loadable(
   lazy(() => import("../scenes/allg/components/team_card/TeamCard.o"))
 )
+const Nametag = Loadable(
+  lazy(() => import("../scenes/allg/components/nametag/Nametag.o"))
+)
 
 const Routes = () => {
   return useRoutes([
@@ -87,6 +90,11 @@ const Routes = () => {
                 {
                   path: "c",
                   children: [
+                    {
+                      path: "nametag/:index",
+                      element: <Nametag />,
+                    },
+                    {},
                     {
                       path: "team",
                       children: [

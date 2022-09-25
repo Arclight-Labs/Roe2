@@ -340,7 +340,7 @@ export const useLive = () => {
 
   const { invert } = live
 
-  const getAllTalents: GetTalent = () => {
+  const getAllTalents = () => {
     return live.talents
   }
   const getTalentByUID = (talentUID: string) => {
