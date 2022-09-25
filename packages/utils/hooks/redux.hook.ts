@@ -62,7 +62,7 @@ type GetAffectedMatces = (
 
 export const useMatches = () => {
   const matches = useAppSelector((s) => s.matches)
-  const { live } = useLive()
+  const { live, invert } = useLive()
 
   // ============ Split Playoffs and Groups
   const splitMatchesByType: SplitMatches = (matchMap) => {
@@ -159,6 +159,14 @@ export const useMatches = () => {
       }
     }
     return { teamA, teamB }
+  }
+
+  const getScoreWithInvert = (match: SanitizedSeries) => {
+    const scores = getScore(match)
+    return {
+      teamA: invert ? scores.teamB : scores.teamA,
+      teamB: invert ? scores.teamA : scores.teamB,
+    }
   }
 
   // ========= Get all affected matches
@@ -277,6 +285,7 @@ export const useMatches = () => {
     isNext,
     inSchedule,
     getMatch,
+    getScoreWithInvert,
   }
 }
 

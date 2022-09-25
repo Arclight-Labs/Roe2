@@ -2,6 +2,7 @@ import { FunctionComponent, lazy, Suspense } from "react"
 import { Outlet, useRoutes } from "react-router-dom"
 import Scene from "ui/Scene"
 import { SubwayPropBerlin } from "../fonts/SubwayProBerlin/Subway.font"
+import { TabletGothic } from "../fonts/TabletGothic/Tablet.font"
 
 function Loadable<T extends object = {}>(Component: FunctionComponent<T>) {
   return (props: T) => {
@@ -52,13 +53,18 @@ const MlbbIngameScene = Loadable(
   lazy(() => import("../scenes/allg/ingame/mlbb/Mlbb.ingame.scene"))
 )
 
+// ------------- COMPONENTS
+const TeamCard = Loadable(
+  lazy(() => import("../scenes/allg/components/team_card/TeamCard.o"))
+)
+
 const Routes = () => {
   return useRoutes([
     {
       path: "/:roomId",
       children: [
         {
-          path: "scenes",
+          path: "o",
           children: [
             {
               path: "allg",
@@ -66,6 +72,7 @@ const Routes = () => {
                 <Scene>
                   <Outlet />
                   <SubwayPropBerlin />
+                  <TabletGothic />
                 </Scene>
               ),
               children: [
@@ -75,6 +82,18 @@ const Routes = () => {
                     { path: "val", element: <ValorantIngameScene /> },
                     { path: "codm", element: <CodmIngameScene /> },
                     { path: "mlbb", element: <MlbbIngameScene /> },
+                  ],
+                },
+                {
+                  path: "c",
+                  children: [
+                    {
+                      path: "team",
+                      children: [
+                        { path: "a", element: <TeamCard side="teamA" /> },
+                        { path: "b", element: <TeamCard side="teamB" /> },
+                      ],
+                    },
                   ],
                 },
               ],
