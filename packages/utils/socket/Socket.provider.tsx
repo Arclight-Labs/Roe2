@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react"
+import React, { PropsWithChildren } from "react"
 import {
   errorEmit,
   joinRoom,
@@ -13,6 +13,8 @@ import {
   setRoom,
   setVetoSettings,
   tournament,
+  vetoClaimCoin,
+  vetoJoin,
 } from "./events"
 import { SocketContext, SocketContextDispatch } from "./Socket.context"
 import { socket } from "./Socket.instance"
@@ -34,10 +36,10 @@ export const SocketProvider = ({ children }: PropsWithChildren) => {
         setParticipant,
         setLive,
         vetoMapPick: () => {},
-        vetoRequestCredentials: () => {},
-        vetoRequestCredentialsResponse: () => {},
         vetoSettings: setVetoSettings,
         vetoSidePick: () => {},
+        vetoJoin,
+        vetoClaimCoin,
       }}
     >
       <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>

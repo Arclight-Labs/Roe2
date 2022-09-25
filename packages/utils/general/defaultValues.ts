@@ -13,7 +13,12 @@ import type {
   MatchPollItem,
   Ticker,
 } from "interface/ws/Live.interface"
-import { VetoMode, VetoSequenceSettingsItem } from "../schema/veto.schema"
+import { v4 } from "uuid"
+import {
+  VetoActor,
+  VetoMode,
+  VetoSequenceSettingsItem,
+} from "../schema/veto.schema"
 
 export const defaultVetoSettingsSequenceItem: VetoSequenceSettingsItem = {
   action: "ban",
@@ -45,6 +50,13 @@ export const defaultCoinFlip: CoinFlip = {
   winner: null,
 }
 
+export const defaultVetoActor: VetoActor = {
+  name: "",
+  socketId: "",
+  type: "host",
+  ready: false,
+  uuid: v4(),
+}
 export const defaultVeto: Veto = {
   coinFlip: defaultCoinFlip,
   settings: defaultVetoSettings,
@@ -55,6 +67,7 @@ export const defaultVeto: Veto = {
     host: "",
   },
   sequence: [],
+  actors: [],
 }
 
 export const defaultSeries: SanitizedSeries = {

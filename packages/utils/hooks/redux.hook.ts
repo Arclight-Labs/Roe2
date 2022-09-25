@@ -249,6 +249,11 @@ export const useMatches = () => {
   const groups = mapByGroup(groupsMatches)
   const brackets = splitByBracket(playoffsMatches)
 
+  const getMatch = (matchId: string = ""): SanitizedSeries | undefined => {
+    if (!matchId) return
+    return matches[matchId]
+  }
+
   return {
     nextMatch,
     activeMatch,
@@ -271,13 +276,14 @@ export const useMatches = () => {
     isActive,
     isNext,
     inSchedule,
+    getMatch,
   }
 }
 
 type Team = SanitizedParticipant
 type TeamMap = Record<string, Team>
 export const useParticipants = () => {
-  const { activeMatch = defaultSeries } = useMatches()
+  const { activeMatch = defaultSeries, getMatch } = useMatches()
   const { invert } = useLive()
   const participants = useAppSelector((s) => s.participants)
   const participantArr = Object.values(participants)
@@ -289,6 +295,15 @@ export const useParticipants = () => {
 
   const getActiveTeam = (teamSide: "teamA" | "teamB") => {
     return participantsByChalId[activeMatch[teamSide].id || ""] ?? tbd
+  }
+
+  const getTeam = (
+    seriesId: string,
+    team: "teamA" | "teamB"
+  ): SanitizedParticipant | undefined => {
+    const match = getMatch(seriesId)
+    if (!match) return
+    return participantsByChalId[match[team].id || ""]
   }
 
   const activeTeamA = getActiveTeam("teamA")
@@ -307,6 +322,7 @@ export const useParticipants = () => {
     activeTeamB,
     activeTeamAWithInvert,
     activeTeamBWithInvert,
+    getTeam,
   }
 }
 

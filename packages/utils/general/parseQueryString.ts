@@ -1,0 +1,18 @@
+/**
+ * Converts search query string into object
+ * @param query
+ * @returns
+ */
+export const parseQueryString = (query: string) => {
+  return query
+    ? (/^[?#]/.test(query) ? query.slice(1) : query)
+        .split("&")
+        .reduce<Record<string, string>>((params, param) => {
+          const [key, value] = param.split("=")
+          params[key] = value
+            ? decodeURIComponent(value.replace(/\+/g, " "))
+            : ""
+          return params
+        }, {})
+    : {}
+}

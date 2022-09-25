@@ -1,5 +1,5 @@
 import { randomUUID } from "crypto"
-import crypto from "crypto-js"
+import AES from "crypto-js/aes"
 import { SocketEvent } from "interface"
 import { defaultVeto } from "utils/general/defaultValues"
 import {
@@ -56,13 +56,12 @@ export const vetoSetSettings: EventFn<VetoSetSettingsFn> = (socket, io) => {
       passwords: {
         teamA:
           veto?.passwords?.teamA ||
-          crypto.AES.encrypt(randomUUID(), secret).toString(),
+          AES.encrypt(randomUUID(), secret).toString(),
         teamB:
           veto?.passwords?.teamB ||
-          crypto.AES.encrypt(randomUUID(), secret).toString(),
+          AES.encrypt(randomUUID(), secret).toString(),
         host:
-          veto?.passwords?.host ||
-          crypto.AES.encrypt(randomUUID(), secret).toString(),
+          veto?.passwords?.host || AES.encrypt(randomUUID(), secret).toString(),
       },
       sequence: res.data.sequence.map<VetoSequence>((seq) => ({
         action: seq.action,
@@ -81,5 +80,8 @@ export const vetoSetSettings: EventFn<VetoSetSettingsFn> = (socket, io) => {
 
     setSeries(room, seriesId, (series) => ({ ...series, veto: newVeto }))
     io.to(room).emit(SocketEvent.SetMatch, payload)
+    emitNotify(socket, {
+      message: "Veto settings updated",
+    })
   }
 }

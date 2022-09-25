@@ -4,6 +4,7 @@ import {
   Button,
   Card,
   Group,
+  LoadingOverlay,
   Select,
   Stack,
   Tabs,
@@ -12,7 +13,7 @@ import {
 import { useClipboard } from "@mantine/hooks"
 import { showNotification } from "@mantine/notifications"
 import { SanitizedSeries } from "interface/waypoint"
-import { MouseEventHandler } from "react"
+import { MouseEventHandler, useState } from "react"
 import { useHttpsCallable } from "react-firebase-hooks/functions"
 import { useForm } from "react-hook-form"
 import {
@@ -49,6 +50,7 @@ const MatchVetoSettingsForm = ({ match, onClose }: Props) => {
     "tournamentSeriesVeto-getCredentials"
   )
 
+  const [loading, setLoading] = useState(false)
   const clipboard = useClipboard()
   const [room] = useActiveRoom()
   const { vetoSettings } = useWsAction()
@@ -68,7 +70,6 @@ const MatchVetoSettingsForm = ({ match, onClose }: Props) => {
     (data) => {
       if (!accessToken) return
       vetoSettings(accessToken)(`${match.id}`, data)
-      onClose()
     },
     (err) => {
       const msg = Object.values(err)
@@ -105,8 +106,9 @@ const MatchVetoSettingsForm = ({ match, onClose }: Props) => {
         return
       }
       const { data } = validateRes
-
+      setLoading(true)
       const res = await executeCallable(data)
+      setLoading(false)
       if (!res) {
         showNotification({
           title: "Error",
@@ -185,6 +187,7 @@ const MatchVetoSettingsForm = ({ match, onClose }: Props) => {
       {isEdit && (
         <Stack>
           <Card withBorder>
+            <LoadingOverlay visible={loading} />
             <Stack>
               <Text>Links</Text>
               <Alert icon={<AlertTriangle size={16} />}>

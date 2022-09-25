@@ -1,4 +1,5 @@
 import { NotificationProps } from "@mantine/notifications"
+import { VetoJoin as VetoJoinSchema } from "utils/schema/veto.schema"
 import { Waypoint } from "../"
 import { VetoSettings } from "../db"
 import {
@@ -15,21 +16,34 @@ export type SocketEmitterRecord = Record<SocketEvent, SocketEmitterFn>
 export type SocketEmitterType = Omit<SocketEmitterRecord, "log">
 
 export type Ping = (date: number) => void
+
+// Matches
 export type SetMatches = (
   accessToken: string
 ) => (payload: SanitizedSeriesMap) => void
 export type SetMatch = (
   accessToken: string
 ) => (matchId: string, data: Partial<SanitizedSeries>) => void
+
+// Veto
 export type SetVetoSettings = (
   accessToken: string
 ) => (matchId: string, data: Partial<VetoSettings>) => void
+export type VetoJoin = (
+  accessToken: string
+) => (matchId: string, data: VetoJoinSchema) => void
+export type VetoClaimCoin = (
+  accessToken: string
+) => (matchId: string, data: VetoClaimCoin) => void
+// Participants
 export type SetParticipants = (
   accessToken: string
 ) => (payload: SanitizedParticipantMap) => void
 export type SetPariticipant = (
   accessToken: string
 ) => (teamId: string, payload: Partial<SanitizedParticipant>) => void
+
+// Tournament
 export type SetTournament = (
   accessToken: string
 ) => (payload: Partial<Waypoint.Tournament>) => void
@@ -60,4 +74,6 @@ export interface SocketEmitters extends SocketEmitterType {
   setParticipant: SetPariticipant
   setLive: SetLive
   vetoSettings: SetVetoSettings
+  vetoJoin: VetoJoin
+  vetoClaimCoin: VetoClaimCoin
 }

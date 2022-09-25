@@ -2,7 +2,7 @@ import { v4 as uuidV4 } from "uuid"
 import { z } from "zod"
 
 export const vetoTeamSchema = z.union([z.literal("teamA"), z.literal("teamB")])
-
+export type VetoTeam = z.infer<typeof vetoTeamSchema>
 export const vetoActionSchema = z.union([
   z.literal("ban"),
   z.literal("pick"),
@@ -26,6 +26,8 @@ export const CoinTeamResultSchema = z.union([
   z.literal("loser"),
 ])
 export type CoinTeamResult = z.infer<typeof CoinTeamResultSchema>
+
+export const coinSide = z.union([z.literal("heads"), z.literal("tails")])
 
 export const coinFlipSchema = z
   .object({
@@ -123,11 +125,6 @@ export const vetoSequenceItemSchema = z.object({
 
 export type VetoSequence = z.infer<typeof vetoSequenceItemSchema>
 
-export const vetoStatusSchema = z.union([
-  z.literal("pending"),
-  z.literal("complete"),
-])
-
 export const vetoAccessRequestItemSchema = z.object({
   uid: z.string(),
   ign: z.string(),
@@ -142,12 +139,23 @@ export const vetoPasswordSchema = z.object({
 export type VetoPasswordType = z.infer<typeof vetoPasswordTypeSchema>
 export type VetoPassword = z.infer<typeof vetoPasswordSchema>
 
+export const vetoActorSchema = z.object({
+  type: vetoPasswordTypeSchema,
+  name: z.string(),
+  socketId: z.string(),
+  ready: z.boolean().default(false),
+  uuid: z.string().uuid(),
+})
+
+export type VetoActor = z.infer<typeof vetoActorSchema>
+
 export const vetoSchema = z.object({
   settings: vetoSettingsSchema,
   passwords: vetoPasswordSchema,
   currentSequence: vetoSequenceSchema,
   coinFlip: coinFlipSchema,
   sequence: z.array(vetoSequenceItemSchema),
+  actors: z.array(vetoActorSchema).optional().default([]),
 })
 
 export type Veto = z.infer<typeof vetoSchema>
@@ -177,3 +185,19 @@ export const vetoPasswordRequestSchema = z.object({
   type: vetoPasswordTypeSchema,
 })
 export type VetoPasswordRequest = z.infer<typeof vetoPasswordRequestSchema>
+
+export const vetoJoinSchema = z.object({
+  name: z.string().min(1),
+  type: vetoPasswordTypeSchema,
+  uuid: z.string().uuid(),
+  ready: z.boolean().optional(),
+})
+
+export type VetoJoin = z.infer<typeof vetoJoinSchema>
+
+export const vetoClaimCoin = z.object({
+  teamSide: vetoTeamSchema,
+  coinSide: coinSide,
+})
+
+export type VetoClaimCoin = z.infer<typeof vetoClaimCoin>
