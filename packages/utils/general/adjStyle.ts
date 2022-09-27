@@ -1,5 +1,5 @@
-import { AdjImage, AdjSize } from "interface/ws/Live.interface"
 import { Sx } from "@mantine/styles"
+import { AdjImage, AdjSize } from "interface/ws/Live.interface"
 
 type AdjImageStyles = (image: AdjImage, defaultStyles?: AdjSize) => Partial<Sx>
 

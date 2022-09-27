@@ -5,7 +5,8 @@ import {
   SanitizedSeriesMap as SeriesMap,
 } from "interface/waypoint"
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux"
-import { defaultSeries, tbd } from "../general"
+import { defaultParticipant, defaultSeries, tbd } from "../general"
+import { defaultPlayer } from "../general/defaultValues"
 import {
   addMatch,
   addParticipant,
@@ -306,6 +307,17 @@ export const useParticipants = () => {
     return participantsByChalId[activeMatch[teamSide].id || ""] ?? tbd
   }
 
+  const getPlayer = (participantId: string, playerId: string = "") => {
+    const participant = participants[participantId] ?? defaultParticipant
+    const allPlayers = { ...participant.players, ...participant.subs }
+    return allPlayers[playerId] ?? defaultPlayer
+  }
+
+  const getFeaturedPlayer = (participantId: string) => {
+    const { featuredPlayer } = participants[participantId] ?? defaultParticipant
+    return getPlayer(participantId, featuredPlayer)
+  }
+
   const getTeam = (
     seriesId: string,
     team: "teamA" | "teamB"
@@ -332,6 +344,8 @@ export const useParticipants = () => {
     activeTeamAWithInvert,
     activeTeamBWithInvert,
     getTeam,
+    getPlayer,
+    getFeaturedPlayer,
   }
 }
 

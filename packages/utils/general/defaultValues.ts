@@ -1,6 +1,10 @@
 import type { User } from "interface"
 import { CoinFlip, Veto, VetoSettings } from "interface/db"
-import type { SanitizedParticipant, SanitizedSeries } from "interface/waypoint"
+import type {
+  SanitizedParticipant,
+  SanitizedSeries,
+  SanitizedUser,
+} from "interface/waypoint"
 import type { Broadcast, Live, Lowerthird } from "interface/ws"
 
 import type {
@@ -208,4 +212,16 @@ export interface OBSConnectPayload {
 export const defaultObsCredential: OBSConnectPayload = {
   url: "ws://127.0.0.1:4455",
   password: "",
+}
+
+export const defaultPhotoURL =
+  "https://ogs.gg/wp-content/uploads/2021/10/Misha3-1.png"
+
+export const defaultPlayer: SanitizedUser = {
+  path: "",
+  photoURL: "",
+  uid: "",
+  username: "",
+  verified: false,
+  stats: {},
 }

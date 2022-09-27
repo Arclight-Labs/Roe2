@@ -52,6 +52,9 @@ const CodmIngameScene = Loadable(
 const MlbbIngameScene = Loadable(
   lazy(() => import("../scenes/allg/ingame/mlbb/Mlbb.ingame.scene"))
 )
+const HeadToHead = Loadable(
+  lazy(() => import("../scenes/allg/headToHead/h2h.scene"))
+)
 
 // ------------- COMPONENTS
 const TeamCard = Loadable(
@@ -86,6 +89,10 @@ const Routes = () => {
                     { path: "codm", element: <CodmIngameScene /> },
                     { path: "mlbb", element: <MlbbIngameScene /> },
                   ],
+                },
+                {
+                  path: "headToHead",
+                  element: <HeadToHead />,
                 },
                 {
                   path: "c",
