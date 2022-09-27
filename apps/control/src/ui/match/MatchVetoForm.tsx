@@ -42,9 +42,8 @@ import MatchVetoSequenceForm from "./MatchVetoSequenceForm"
 
 interface Props {
   match: SanitizedSeries
-  onClose: VoidFunction
 }
-const MatchVetoSettingsForm = ({ match, onClose }: Props) => {
+const MatchVetoSettingsForm = ({ match }: Props) => {
   const [executeCallable] = useHttpsCallable<VetoPasswordRequest, string>(
     fn,
     "tournamentSeriesVeto-getCredentials"

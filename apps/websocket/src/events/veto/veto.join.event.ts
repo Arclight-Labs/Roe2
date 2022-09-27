@@ -53,7 +53,7 @@ export const vetoJoinEvent: EventFn<VetoJoinFn> = (socket, io) => {
     const getActor = (id: string) =>
       veto.actors.find((actor) => actor.socketId === id || actor.uuid === id)
 
-    const actors = !!getActor(uuid)
+    const actors = Boolean(getActor(uuid))
       ? veto.actors.map((actor) => {
           return actor.socketId !== socket.id && actor.uuid !== uuid
             ? actor

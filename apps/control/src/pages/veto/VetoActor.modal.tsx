@@ -4,7 +4,6 @@ import { useLocalStorage } from "@mantine/hooks"
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import {
-  Veto,
   VetoActor,
   vetoJoinSchema,
   VetoPasswordType,
@@ -14,14 +13,12 @@ import { v4 } from "uuid"
 
 interface Props extends ModalProps {
   accessToken: string
-  veto: Veto
   seriesId: string
   socketId: string
   teamSide: VetoPasswordType
 }
 const VetoActorModal = ({
   accessToken,
-  veto,
   socketId,
   teamSide,
   seriesId,

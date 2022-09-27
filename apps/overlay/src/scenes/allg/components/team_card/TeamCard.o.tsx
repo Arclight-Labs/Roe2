@@ -59,8 +59,10 @@ const TeamCard = ({ side }: Props) => {
     return side === "teamA" ? activeTeamAWithInvert : activeTeamBWithInvert
   }
 
-  const team = getTeam(side, !!noInvert)
-  const scores = !!noInvert
+  const noInvertBool = Boolean(noInvert)
+
+  const team = getTeam(side, noInvertBool)
+  const scores = noInvertBool
     ? getScore(activeMatch)
     : getScoreWithInvert(activeMatch)
 

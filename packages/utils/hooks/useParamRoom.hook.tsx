@@ -19,7 +19,7 @@ const useParamRoom = (customRoomId?: UseRoomProps) => {
 }
 export default useParamRoom
 
-export const ParamRoomProvider = ({ children }: PropsWithChildren<{}>) => {
+export const ParamRoomProvider = ({ children }: PropsWithChildren<object>) => {
   useParamRoom()
   return <>{children}</>
 }

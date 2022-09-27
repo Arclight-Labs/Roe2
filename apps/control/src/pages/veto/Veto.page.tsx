@@ -24,7 +24,6 @@ const VetoPage = () => {
             opened={!!veto && !activeActor && !isViewer && !!socket.id}
             socketId={socket.id}
             teamSide={side}
-            veto={veto}
           />
           <VetoWidget hook={hook} />
         </>

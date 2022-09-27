@@ -7,13 +7,15 @@ import { useActiveSocket } from "utils/socket/Socket.hooks"
 
 type Params = Record<"roomId" | "seriesId", string>
 type Query = { type: VetoPasswordType; accessToken: string }
+type VetoActor = { name: string; uuid: string }
 
 export const useVeto = () => {
   const socket = useActiveSocket()
-  const [{ uuid }] = useLocalStorage<{ name: string; uuid: string }>({
+  const [vetoActor] = useLocalStorage<VetoActor>({
     key: "vetoActor",
     defaultValue: { name: "", uuid: "" },
   })
+  const { uuid } = vetoActor
   const { search } = useLocation()
   const { accessToken, type: side } = parseQueryString(search) as Query
   const { seriesId = "" } = useParams<Params>()
@@ -93,5 +95,6 @@ export const useVeto = () => {
     socketId: socket.id,
     isActiveTeamReady,
     isOpponentReady,
+    readyToFlip,
   }
 }
