@@ -124,7 +124,11 @@ const PlayerForm = ({
           />
         </Dropzone>
         <Group spacing="sm">
-          <PlayerFormPhotoAdj control={control} setValue={setValue} />
+          <PlayerFormPhotoAdj
+            control={control}
+            setValue={setValue}
+            submit={saveFn}
+          />
           <PlayerFormStat control={control} />
         </Group>
 

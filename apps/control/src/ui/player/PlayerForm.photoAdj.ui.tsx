@@ -23,12 +23,16 @@ import { PlayerSchema } from "utils/schema/player.schema"
 interface Props {
   control: Control<PlayerSchema>
   setValue: UseFormSetValue<PlayerSchema>
+  submit: VoidFunction
 }
-const PlayerFormPhotoAdj: FC<Props> = ({ control, setValue }) => {
+const PlayerFormPhotoAdj: FC<Props> = ({ control, setValue, submit }) => {
   const { photoAdj = {}, photoURL = "" } = useWatch({ control })
   const [open, toggler] = useToggle([false, true])
   const toggle = () => toggler()
-  const onClose = () => toggler(false)
+  const onClose = () => {
+    submit()
+    toggler(false)
+  }
   const sample = "https://ogs.gg/wp-content/uploads/2021/10/Misha3-1.png"
 
   return (
@@ -96,9 +100,8 @@ const PlayerFormPhotoAdj: FC<Props> = ({ control, setValue }) => {
             />
           </Stack>
           <Group position="right">
-            <Text size="xs">Remember to save your changes!</Text>
             <Button size="xs" variant="light" onClick={onClose}>
-              Close
+              Save
             </Button>
           </Group>
         </Stack>
