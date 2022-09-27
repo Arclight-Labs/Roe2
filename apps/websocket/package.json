@@ -1,6 +1,6 @@
 {
   "name": "websocket",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "Websocket server used to communicate between the control and overlay",
   "main": "dist/index.js",
   "license": "MIT",
@@ -20,7 +20,7 @@
     "firebase-admin": "11.0.1",
     "interface": "*",
     "ip": "1.1.8",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "8.5.1",
     "socket.io": "4.5.2",
     "uuid": "9.0.0"
   },
