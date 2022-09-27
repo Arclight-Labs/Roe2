@@ -15,7 +15,7 @@ const MatchVetoModal = ({ match, ...props }: Props) => {
       size="lg"
       closeOnClickOutside={false}
     >
-      <MatchVetoSettingsForm onClose={props.onClose} match={match} />
+      <MatchVetoSettingsForm match={match} />
     </Modal>
   )
 }

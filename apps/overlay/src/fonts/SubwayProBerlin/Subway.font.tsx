@@ -1,5 +1,5 @@
 import { Global } from "@mantine/core"
-import medium from "./Subway-Pro-Berlin.otf"
+import medium from "./Subway.otf"
 
 export function SubwayPropBerlin() {
   return (

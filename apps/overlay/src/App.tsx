@@ -30,6 +30,8 @@ function App() {
             <MantineProvider
               theme={{
                 components: {
+                  Stack: { defaultProps: { spacing: 0 } },
+                  Group: { defaultProps: { spacing: 0 } },
                   Image: {
                     defaultProps: {
                       imageProps: { style: { borderImageWidth: 0 } },

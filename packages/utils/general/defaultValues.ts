@@ -1,6 +1,10 @@
 import type { User } from "interface"
 import { CoinFlip, Veto, VetoSettings } from "interface/db"
-import type { SanitizedParticipant, SanitizedSeries } from "interface/waypoint"
+import type {
+  SanitizedParticipant,
+  SanitizedSeries,
+  SanitizedUser,
+} from "interface/waypoint"
 import type { Broadcast, Live, Lowerthird } from "interface/ws"
 
 import type {
@@ -13,7 +17,12 @@ import type {
   MatchPollItem,
   Ticker,
 } from "interface/ws/Live.interface"
-import { VetoMode, VetoSequenceSettingsItem } from "../schema/veto.schema"
+import { v4 } from "uuid"
+import {
+  VetoActor,
+  VetoMode,
+  VetoSequenceSettingsItem,
+} from "../schema/veto.schema"
 
 export const defaultVetoSettingsSequenceItem: VetoSequenceSettingsItem = {
   action: "ban",
@@ -45,6 +54,13 @@ export const defaultCoinFlip: CoinFlip = {
   winner: null,
 }
 
+export const defaultVetoActor: VetoActor = {
+  name: "",
+  socketId: "",
+  type: "host",
+  ready: false,
+  uuid: v4(),
+}
 export const defaultVeto: Veto = {
   coinFlip: defaultCoinFlip,
   settings: defaultVetoSettings,
@@ -55,6 +71,7 @@ export const defaultVeto: Veto = {
     host: "",
   },
   sequence: [],
+  actors: [],
 }
 
 export const defaultSeries: SanitizedSeries = {
@@ -194,5 +211,17 @@ export interface OBSConnectPayload {
 
 export const defaultObsCredential: OBSConnectPayload = {
   url: "ws://127.0.0.1:4455",
-  password: "i4OhnRGfneaTIu3B",
+  password: "",
+}
+
+export const defaultPhotoURL =
+  "https://ogs.gg/wp-content/uploads/2021/10/Misha3-1.png"
+
+export const defaultPlayer: SanitizedUser = {
+  path: "",
+  photoURL: "",
+  uid: "",
+  username: "",
+  verified: false,
+  stats: {},
 }

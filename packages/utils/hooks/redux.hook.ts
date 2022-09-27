@@ -5,7 +5,8 @@ import {
   SanitizedSeriesMap as SeriesMap,
 } from "interface/waypoint"
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux"
-import { defaultSeries, tbd } from "../general"
+import { defaultParticipant, defaultSeries, tbd } from "../general"
+import { defaultPlayer } from "../general/defaultValues"
 import {
   addMatch,
   addParticipant,
@@ -62,7 +63,7 @@ type GetAffectedMatces = (
 
 export const useMatches = () => {
   const matches = useAppSelector((s) => s.matches)
-  const { live } = useLive()
+  const { live, invert } = useLive()
 
   // ============ Split Playoffs and Groups
   const splitMatchesByType: SplitMatches = (matchMap) => {
@@ -161,6 +162,14 @@ export const useMatches = () => {
     return { teamA, teamB }
   }
 
+  const getScoreWithInvert = (match: SanitizedSeries) => {
+    const scores = getScore(match)
+    return {
+      teamA: invert ? scores.teamB : scores.teamA,
+      teamB: invert ? scores.teamA : scores.teamB,
+    }
+  }
+
   // ========= Get all affected matches
   const getAffectedMatches: GetAffectedMatces = (matchId, winnerId, round) => {
     let affectedMatches: AffectedMatches = {}
@@ -249,6 +258,11 @@ export const useMatches = () => {
   const groups = mapByGroup(groupsMatches)
   const brackets = splitByBracket(playoffsMatches)
 
+  const getMatch = (matchId: string = ""): SanitizedSeries | undefined => {
+    if (!matchId) return
+    return matches[matchId]
+  }
+
   return {
     nextMatch,
     activeMatch,
@@ -271,13 +285,15 @@ export const useMatches = () => {
     isActive,
     isNext,
     inSchedule,
+    getMatch,
+    getScoreWithInvert,
   }
 }
 
 type Team = SanitizedParticipant
 type TeamMap = Record<string, Team>
 export const useParticipants = () => {
-  const { activeMatch = defaultSeries } = useMatches()
+  const { activeMatch = defaultSeries, getMatch } = useMatches()
   const { invert } = useLive()
   const participants = useAppSelector((s) => s.participants)
   const participantArr = Object.values(participants)
@@ -289,6 +305,26 @@ export const useParticipants = () => {
 
   const getActiveTeam = (teamSide: "teamA" | "teamB") => {
     return participantsByChalId[activeMatch[teamSide].id || ""] ?? tbd
+  }
+
+  const getPlayer = (participantId: string, playerId: string = "") => {
+    const participant = participants[participantId] ?? defaultParticipant
+    const allPlayers = { ...participant.players, ...participant.subs }
+    return allPlayers[playerId] ?? defaultPlayer
+  }
+
+  const getFeaturedPlayer = (participantId: string) => {
+    const { featuredPlayer } = participants[participantId] ?? defaultParticipant
+    return getPlayer(participantId, featuredPlayer)
+  }
+
+  const getTeam = (
+    seriesId: string,
+    team: "teamA" | "teamB"
+  ): SanitizedParticipant | undefined => {
+    const match = getMatch(seriesId)
+    if (!match) return
+    return participantsByChalId[match[team].id || ""]
   }
 
   const activeTeamA = getActiveTeam("teamA")
@@ -307,6 +343,9 @@ export const useParticipants = () => {
     activeTeamB,
     activeTeamAWithInvert,
     activeTeamBWithInvert,
+    getTeam,
+    getPlayer,
+    getFeaturedPlayer,
   }
 }
 
@@ -315,7 +354,7 @@ export const useLive = () => {
 
   const { invert } = live
 
-  const getAllTalents: GetTalent = () => {
+  const getAllTalents = () => {
     return live.talents
   }
   const getTalentByUID = (talentUID: string) => {

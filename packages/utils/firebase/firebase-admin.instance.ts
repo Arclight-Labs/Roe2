@@ -5,7 +5,9 @@ import { getFirestore } from "firebase-admin/firestore"
 import { getStorage as getAdminStorage } from "firebase-admin/storage"
 
 const base64 = process.env.FIREBASE_CREDENTIALS_BASE64 || ""
-const credentials = JSON.parse(Buffer.from(base64, "base64").toString("utf8"))
+const credentials = JSON.parse(
+  Buffer.from(base64, "base64").toString("utf8") || "{}"
+)
 const app = initializeApp(
   base64 ? { credential: cert(credentials) } : { projectId: "roe2-prod" }
 )

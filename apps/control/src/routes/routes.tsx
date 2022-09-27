@@ -1,6 +1,7 @@
 import { LoadingOverlay } from "@mantine/core"
 import { FunctionComponent, lazy, Suspense } from "react"
 import { Navigate, Outlet, useRoutes } from "react-router-dom"
+import { ParamRoomProvider } from "utils/hooks"
 import RoomProvider from "../context/room/Room.provider"
 import StatePage from "../pages/state/State.page"
 import AppShellWrapper from "../ui/AppShellWrapper.ui"
@@ -20,10 +21,10 @@ const IngamePage = Loadable(lazy(() => import("../pages/ingame")))
 const ShoutoutsPage = Loadable(lazy(() => import("../pages/shoutouts")))
 // const OverlaysPage = Loadable(lazy(() => import("../pages/overlays")))
 const ObsPage = Loadable(lazy(() => import("../pages/obs")))
-
 const QuickSettingsPage = Loadable(
   lazy(() => import("../pages/quick_settings"))
 )
+const VetoPage = Loadable(lazy(() => import("../pages/veto")))
 
 function Loadable<T extends object = {}>(Component: FunctionComponent<T>) {
   return (props: T) => {
@@ -37,6 +38,14 @@ function Loadable<T extends object = {}>(Component: FunctionComponent<T>) {
 
 const Routes = () => {
   return useRoutes([
+    {
+      path: "veto/:roomId/:seriesId",
+      element: (
+        <ParamRoomProvider>
+          <VetoPage />
+        </ParamRoomProvider>
+      ),
+    },
     {
       path: "auth",
       children: [
