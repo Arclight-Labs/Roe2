@@ -11,19 +11,18 @@ type VetoActor = { name: string; uuid: string }
 
 export const useVeto = () => {
   const socket = useActiveSocket()
-  const [vetoActor] = useLocalStorage<VetoActor>({
+  const [{ uuid }] = useLocalStorage<VetoActor>({
     key: "vetoActor",
     defaultValue: { name: "", uuid: "" },
   })
-  const { uuid } = vetoActor
   const { search } = useLocation()
-  const { accessToken, type: side } = parseQueryString(search) as Query
+  const { accessToken, type } = parseQueryString(search) as Query
   const { seriesId = "" } = useParams<Params>()
   const { getMatch } = useMatches()
   const { getTeam } = useParticipants()
   const match = getMatch(seriesId) || defaultSeries
-  const { veto } = match
-  const actors = veto?.actors || []
+  const veto = match.veto
+  const actors = match.veto?.actors || []
 
   const getActor = (id: string = "") => {
     return (
@@ -63,14 +62,14 @@ export const useVeto = () => {
   }
 
   const activeActor = getActor(uuid || socket.id)
-  const activeTeam = !!side && side !== "host" ? teams[side] : null
-  const activeTeamCoinStatus = getTeamCoinStatus(side)
+  const activeTeam = !!type && type !== "host" ? teams[type] : null
+  const activeTeamCoinStatus = getTeamCoinStatus(type)
 
   const isActiveTeamReady = actors.some(
-    (actor) => actor.type === side && actor.ready
+    (actor) => actor.type === type && actor.ready
   )
   const isOpponentReady = actors.some(
-    (actor) => actor.type !== side && actor.type !== "host" && actor.ready
+    (actor) => actor.type !== type && actor.type !== "host" && actor.ready
   )
 
   const isHostReady =
@@ -89,7 +88,7 @@ export const useVeto = () => {
     coinResult,
     activeTeam,
     activeTeamCoinStatus,
-    side: side as VetoPasswordType,
+    side: type as VetoPasswordType,
     accessToken,
     seriesId,
     socketId: socket.id,
