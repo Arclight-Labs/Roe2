@@ -1,6 +1,6 @@
 {
   "name": "utils",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "main": "index.ts",
   "files": [
     "hooks/**/*.ts",
@@ -17,19 +17,19 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "@mantine/notifications": "5.3.0",
+    "@mantine/notifications": "5.4.1",
     "@reduxjs/toolkit": "1.8.5",
-    "@tanstack/react-query": "4.3.4",
+    "@tanstack/react-query": "4.7.1",
     "axios": "0.27.2",
     "dotenv": "16.0.2",
-    "firebase": "9.9.4",
+    "firebase": "9.10.0",
     "firebase-admin": "11.0.1",
     "ip": "1.1.8",
     "lodash-es": "4.17.21",
     "nanoid": "4.0.0",
     "obs-websocket-js": "5.0.1",
     "react": "18.2.0",
-    "react-redux": "8.0.2",
+    "react-redux": "8.0.4",
     "redux": "4.2.0",
     "socket.io-client": "4.5.2",
     "uuid": "9.0.0",
@@ -37,10 +37,10 @@
   },
   "devDependencies": {
     "@types/ip": "1.1.0",
-    "@types/react": "18.0.20",
+    "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
     "interface": "*",
     "tsconfig": "*",
-    "typescript": "4.8.3"
+    "typescript": "4.8.4"
   }
 }
