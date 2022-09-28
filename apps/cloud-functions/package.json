@@ -1,6 +1,6 @@
 {
   "name": "cloud-functions",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "scripts": {
     "lint": "eslint --ext .js,.ts .",
     "dev": "sh getRuntimeconfig.sh && cd ../.. && firebase emulators:start --export-on-exit=./data --import=./data",
@@ -19,21 +19,21 @@
     "axios": "0.27.2",
     "crypto-js": "4.1.1",
     "dotenv": "16.0.2",
-    "fastify": "4.5.3",
+    "fastify": "4.6.0",
     "firebase-admin": "11.0.1",
-    "firebase-functions": "3.23.0",
+    "firebase-functions": "3.24.0",
     "zod": "3.19.1"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "5.37.0",
-    "@typescript-eslint/parser": "5.37.0",
-    "eslint": "8.23.1",
+    "@typescript-eslint/eslint-plugin": "5.38.1",
+    "@typescript-eslint/parser": "5.38.1",
+    "eslint": "8.24.0",
     "eslint-config-google": "0.14.0",
     "eslint-plugin-import": "2.26.0",
     "firebase-functions-test": "2.4.0",
     "interface": "*",
     "tsconfig": "*",
-    "typescript": "4.8.3"
+    "typescript": "4.8.4"
   },
   "private": true
 }
