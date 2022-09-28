@@ -5,6 +5,7 @@ import {
   GitFork,
   Headset,
   Icon,
+  Polaroid,
   Settings,
   Speakerphone,
   Tournament,
@@ -26,7 +27,7 @@ const routes: NavLink[] = [
   { link: "/state", label: "State", icon: Settings },
   { link: "/shoutouts", label: "Shoutouts", icon: Speakerphone },
   { link: "/obs", label: "OBS Integration", icon: Aperture },
-  // { link: "/overlays", label: "Overlays", icon: Polaroid },
+  { link: "/overlays", label: "Overlays", icon: Polaroid },
 ]
 
 export default routes

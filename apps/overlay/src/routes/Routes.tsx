@@ -63,6 +63,9 @@ const TeamCard = Loadable(
 const Nametag = Loadable(
   lazy(() => import("../scenes/allg/components/nametag/Nametag.o"))
 )
+const Match = Loadable(
+  lazy(() => import("../scenes/allg/components/match/Match.o"))
+)
 
 const Routes = () => {
   return useRoutes([
@@ -93,6 +96,10 @@ const Routes = () => {
                 {
                   path: "headToHead",
                   element: <HeadToHead />,
+                },
+                {
+                  path: "match/:type",
+                  element: <Match />,
                 },
                 {
                   path: "c",
