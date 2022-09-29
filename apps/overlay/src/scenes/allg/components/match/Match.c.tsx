@@ -1,6 +1,7 @@
-import { Group, Stack } from "@mantine/core"
 import { defaultSeries, tbd } from "utils/general"
 import { useMatches, useParticipants } from "utils/hooks"
+import G from "../../../../components/G.c"
+import S from "../../../../components/S"
 import Headline from "../text/Headline.ui"
 import Versus from "../vs/VS.c"
 import MatchTeam from "./Match.team.c"
@@ -15,11 +16,11 @@ const Match = ({ seriesId = "" }: Props) => {
   const teamB = getTeam(seriesId, "teamB") || tbd
   const scores = getScore(getMatch(seriesId) || defaultSeries)
   return (
-    <Group align="center">
-      <Group sx={{ position: "relative" }}>
+    <G align="center" noWrap>
+      <G sx={{ position: "relative" }}>
         <MatchTeam px={25} team={teamA} />
         <MatchTeam px={25} team={teamB} />
-        <Stack
+        <S
           sx={{
             justifyContent: "flex-end",
             position: "absolute",
@@ -30,7 +31,7 @@ const Match = ({ seriesId = "" }: Props) => {
             zIndex: 999,
           }}
         >
-          <Stack align="center">
+          <S align="center">
             <Versus size={85} mb={30} />
             <Headline
               mb={-10}
@@ -39,10 +40,10 @@ const Match = ({ seriesId = "" }: Props) => {
             >
               {scores.teamA.final}-{scores.teamB.final}
             </Headline>
-          </Stack>
-        </Stack>
-      </Group>
-    </Group>
+          </S>
+        </S>
+      </G>
+    </G>
   )
 }
 

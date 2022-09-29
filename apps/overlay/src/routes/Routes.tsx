@@ -108,7 +108,6 @@ const Routes = () => {
                       path: "nametag/:index",
                       element: <Nametag />,
                     },
-                    {},
                     {
                       path: "team",
                       children: [
