@@ -1,15 +1,14 @@
-import { Box, Image } from "@mantine/core"
+import { Box } from "@mantine/core"
+import { AnimatePresence, LayoutGroup, motion, Variants } from "framer-motion"
 import { LowerthirdData } from "interface/ws"
-import { useLive, useLt } from "utils/hooks"
-import LowerTicker from "./LowerTicker.o"
 import { ReactNode } from "react"
-import useRoom from "../../hooks/useRoom.hook"
-import AdSingle from "./AdSingle.o"
-import AdPool from "./AdPool.o"
-import { motion, AnimatePresence, Variants } from "framer-motion"
-import { LayoutGroup } from "framer-motion"
+import { useLive } from "utils/hooks"
+import useParamRoom from "utils/hooks/useParamRoom.hook"
 import BG from "../../public/LTBanner.png"
 import { useLTQuery } from "../../utils/useAdjQuery"
+import AdPool from "./AdPool.o"
+import AdSingle from "./AdSingle.o"
+import LowerTicker from "./LowerTicker.o"
 export interface LTProps {
   mode: keyof LowerthirdData
   isWS: boolean
@@ -45,7 +44,7 @@ const item: Variants = {
 }
 
 const LowerThirds = () => {
-  useRoom()
+  useParamRoom()
   const {
     live: {
       lt: { mode, show },
