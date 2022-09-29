@@ -48,7 +48,7 @@ const AdCard: FC<AdCardProps> = ({ ad }) => {
             {preview ? <EyeOff size={18} /> : <Eye size={18} />}
           </ActionIcon>
         </Tooltip>
-        <Menu>
+        <Menu withinPortal>
           <Menu.Item onClick={toggle} icon={<Pencil size={18} />}>
             Edit
           </Menu.Item>

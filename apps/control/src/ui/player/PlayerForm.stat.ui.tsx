@@ -44,6 +44,7 @@ const PlayerFormStat: FC<Props> = ({ control }) => {
       onClose={close}
       position="right-end"
       withArrow
+      width={300}
       closeOnClickOutside={false}
     >
       <Popover.Target>
@@ -64,6 +65,7 @@ const PlayerFormStat: FC<Props> = ({ control }) => {
                 shadow="xs"
               >
                 <Confirm
+                  width={100}
                   onConfirm={() => remove(index)}
                   dropdownProps={{
                     sx: { position: "absolute", top: 10, right: 10 },

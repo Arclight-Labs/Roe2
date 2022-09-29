@@ -20,6 +20,7 @@ const PlayerFormPopover = ({
       closeOnClickOutside={false}
       transition="pop"
       width={260}
+      withinPortal
       {...props}
     >
       <Popover.Target>{children}</Popover.Target>

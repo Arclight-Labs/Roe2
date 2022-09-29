@@ -148,7 +148,7 @@ const TournamentCard = ({ id, logo, name, org }: TournamentCardProps) => {
         <Group position="apart" p={0} align="start">
           <Image src={logo} height={50} width={50} radius="md" />
 
-          <Menu closeOnItemClick={false}>
+          <Menu closeOnItemClick={false} withinPortal>
             <Menu.Target>
               <ActionIcon>
                 {loading ? (
