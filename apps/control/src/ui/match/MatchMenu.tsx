@@ -88,6 +88,7 @@ const MatchMenu = ({ match, open, openVeto, ...props }: MatchMenuProps) => {
       opened={opened}
       onClose={close}
       transition="pop-top-right"
+      withinPortal
     >
       <Menu.Target>
         <ActionIcon onClick={isAllowed ? onClick : undefined}>

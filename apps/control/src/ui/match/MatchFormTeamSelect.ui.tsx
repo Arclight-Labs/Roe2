@@ -42,6 +42,7 @@ const MatchFormTeamSelect: FC<MatchFormTeamSelectProps> = ({
       onClose={close}
       position="top"
       withArrow
+      withinPortal
       {...props}
     >
       <Popover.Target {...targetProps}>
