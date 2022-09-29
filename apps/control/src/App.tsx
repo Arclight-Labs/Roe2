@@ -48,6 +48,10 @@ function App() {
                     theme={{
                       colorScheme,
                       headings: { fontFamily: "Greycliff CF, sans-serif" },
+                      components: {
+                        Menu: { defaultProps: { withinPortal: true } },
+                        Popover: { defaultProps: { withinPortal: true } },
+                      },
                     }}
                   >
                     <ObsProvider>

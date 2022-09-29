@@ -90,8 +90,8 @@ const MatchMenu = ({ match, open, openVeto, ...props }: MatchMenuProps) => {
       transition="pop-top-right"
     >
       <Menu.Target>
-        <ActionIcon size="xs" onClick={isAllowed ? onClick : undefined}>
-          <Menu2 size={12}></Menu2>
+        <ActionIcon onClick={isAllowed ? onClick : undefined}>
+          <Menu2 size={18}></Menu2>
         </ActionIcon>
       </Menu.Target>
       <Menu.Dropdown onClick={(e) => e.stopPropagation()}>
