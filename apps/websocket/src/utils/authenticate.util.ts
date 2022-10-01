@@ -27,8 +27,9 @@ export async function authenticate(
 
     const user = await auth.verifyIdToken(accessToken)
     const { uid } = user
-    if (!room.admins.includes(uid) && room.owner !== uid)
-      throw emitNotify(socket, notif)
+    if (!room.admins.includes(uid) && room.owner !== uid) {
+      throw new Error("User don't have admin privileges")
+    }
 
     return user
   } catch (e) {
