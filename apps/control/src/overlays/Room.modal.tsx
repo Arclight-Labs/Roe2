@@ -71,8 +71,6 @@ const RoomModal = ({ data: room, ...props }: RoomCreateModalProps) => {
   const save = (roomRef: DocumentReference<RoomModel>) =>
     handleSubmit(async (data) => {
       if (!auth) return
-      setLoading(true)
-
       // check if uniqueCode is unique
       const uniqueCode = data.uniqueCode
       if (uniqueCode && uniqueCode !== room?.uniqueCode) {
@@ -93,27 +91,29 @@ const RoomModal = ({ data: room, ...props }: RoomCreateModalProps) => {
         owner: room?.owner || auth.uid || "",
         uniqueCode: data.uniqueCode || "",
       }
-      const batch = writeBatch(db)
 
       const broadcastData = await getBroadcastData(roomRef.id)
-      const broadcastRef = getBroadcastRef(roomRef.id)
       const defaultBroadcastData = { ...defaultBroadcast, roomId: roomRef.id }
-      batch.set(roomRef, newData, { merge: true })
-      if (!broadcastData) {
-        batch.set(broadcastRef, defaultBroadcastData)
+      if (!room) {
+        setLoading(true)
+        const batch = writeBatch(db)
+        const broadcastRef = getBroadcastRef(roomRef.id)
+        batch.set(roomRef, newData, { merge: true })
+        if (!broadcastData) {
+          batch.set(broadcastRef, defaultBroadcastData)
+        }
+
+        await batch.commit()
+        setLoading(false)
       }
 
-      await batch.commit()
-      setLoading(false)
-
-      if (!data) {
-        const liveData = broadcastData ?? defaultBroadcastData
-        setRoom(accessToken)({ ...newData, ...liveData })
-      }
+      const liveData = broadcastData ?? defaultBroadcastData
+      setRoom(accessToken)({ ...newData, ...liveData })
 
       if (activeRoom?.id === roomRef.id) {
         setActiveRoom((s) => new RoomModel({ ...s?.toJSON(), ...newData }))
       }
+
       props.onClose()
     }, console.error)
 
