@@ -1,99 +1,148 @@
-import { useLocalStorage } from "@mantine/hooks"
+import { SanitizedParticipant } from "interface/waypoint"
 import { useLocation, useParams } from "react-router-dom"
 import { defaultSeries, parseQueryString } from "utils/general"
+import {
+  defaultCoinFlip,
+  defaultReadyCheck,
+  defaultVeto,
+  defaultVetoSettings,
+} from "utils/general/defaultValues"
 import { useMatches, useParticipants } from "utils/hooks"
 import { VetoPasswordType } from "utils/schema/veto.schema"
-import { useActiveSocket } from "utils/socket/Socket.hooks"
 
 type Params = Record<"roomId" | "seriesId", string>
 type Query = { type: VetoPasswordType; accessToken: string }
-type VetoActor = { name: string; uuid: string }
+interface CoinResult {
+  winner: SanitizedParticipant | null
+  loser: SanitizedParticipant | null
+  teamA: "winner" | "loser" | null
+  teamB: "winner" | "loser" | null
+}
 
 export const useVeto = () => {
-  const socket = useActiveSocket()
-  const [{ uuid }] = useLocalStorage<VetoActor>({
-    key: "vetoActor",
-    defaultValue: { name: "", uuid: "" },
-  })
   const { search } = useLocation()
-  const { accessToken, type } = parseQueryString(search) as Query
+  const { accessToken, type: side } = parseQueryString(search) as Query
   const { seriesId = "" } = useParams<Params>()
   const { getMatch } = useMatches()
   const { getTeam } = useParticipants()
   const match = getMatch(seriesId) || defaultSeries
   const veto = match.veto
-  const actors = match.veto?.actors || []
+  const {
+    sequence,
+    currentSequence,
+    coinFlip = defaultCoinFlip,
+    readyCheck = defaultReadyCheck,
+    settings = defaultVetoSettings,
+  } = veto || defaultVeto
 
-  const getActor = (id: string = "") => {
-    return (
-      actors.find((actor) => actor.socketId === id || actor.uuid === id) || null
-    )
+  const getMode = (id: string | null) => {
+    return settings.modes.find((mode) => mode.id === id) || null
   }
+
+  const getMap = (id: string | null) => {
+    return settings.mapPool.find((map) => map.id === id) || null
+  }
+
+  const sequenceItem = sequence[currentSequence]
 
   const teams = {
     teamA: getTeam(seriesId, "teamA"),
     teamB: getTeam(seriesId, "teamB"),
   }
 
-  const getTeamCoinStatus = (team?: "teamA" | "teamB" | "host") => {
-    if (!team || team === "host") return
-    return coinResult[team] || veto?.coinFlip?.heads === team
-      ? "picked heads"
-      : veto?.coinFlip?.tails === team
-      ? "picked tails"
-      : "pending"
-  }
-
-  const coinResult = {
-    winner: (veto?.coinFlip?.winner && teams[veto?.coinFlip?.winner]) || null,
-    loser: (veto?.coinFlip?.loser && teams[veto?.coinFlip?.loser]) || null,
+  const coinResult: CoinResult = {
+    winner: (coinFlip.winner && teams[coinFlip.winner]) || null,
+    loser: (coinFlip.loser && teams[coinFlip.loser]) || null,
     teamA:
-      veto?.coinFlip?.winner === "teamA"
+      coinFlip.winner === "teamA"
         ? "winner"
-        : veto?.coinFlip?.loser === "teamA"
+        : coinFlip.loser === "teamA"
         ? "loser"
         : null,
     teamB:
-      veto?.coinFlip?.winner === "teamB"
+      coinFlip.winner === "teamB"
         ? "winner"
-        : veto?.coinFlip?.loser === "teamB"
+        : coinFlip.loser === "teamB"
         ? "loser"
         : null,
   }
 
-  const activeActor = getActor(uuid || socket.id)
-  const activeTeam = !!type && type !== "host" ? teams[type] : null
-  const activeTeamCoinStatus = getTeamCoinStatus(type)
+  const getTeamCoinStatus = (team?: "teamA" | "teamB" | "host") => {
+    if (!team || team === "host") return
+    return (
+      coinResult[team] ||
+      (coinFlip.heads === team
+        ? "picked heads"
+        : coinFlip.tails === team
+        ? "picked tails"
+        : "pending")
+    )
+  }
 
-  const isActiveTeamReady = actors.some(
-    (actor) => actor.type === type && actor.ready
-  )
-  const isOpponentReady = actors.some(
-    (actor) => actor.type !== type && actor.type !== "host" && actor.ready
-  )
+  const coinStatus = coinFlip.result ? `${coinFlip.result} wins` : "pending"
+  const activeTeam = !!side && side !== "host" ? teams[side] : null
+  const activeTeamCoinStatus = getTeamCoinStatus(side)
+  const activeTeamCoinResult = side === "host" ? null : coinResult[side]
+  const isActiveTeamReady = (side !== "host" && !!readyCheck[side]) || false
+  const isOpponentReady =
+    side !== "host" && !!readyCheck[side === "teamA" ? "teamB" : "teamA"]
 
-  const isHostReady =
-    actors.some((actor) => actor.type === "host" && actor.ready) ||
-    !!veto?.settings.autoStart
+  const isYourTurn = (): boolean => {
+    if (!sequenceItem || side === "host") {
+      return false
+    }
 
+    switch (sequenceItem.status) {
+      case "pending":
+        return (
+          !!sequenceItem.mapActor &&
+          sequenceItem.mapActor === activeTeamCoinResult
+        )
+      case "awaitingMapPick":
+        return (
+          !!sequenceItem.mapActor &&
+          sequenceItem.mapActor === activeTeamCoinResult
+        )
+      case "awaitingSidePick":
+        return (
+          !!sequenceItem.sideActor &&
+          sequenceItem.sideActor === activeTeamCoinResult
+        )
+      default:
+        return false
+    }
+  }
+
+  const isHostReady = readyCheck.host || !!settings.autoStart
   const readyToFlip = isActiveTeamReady && isOpponentReady && isHostReady
+  const isComplete = () => {
+    return sequence.every((item) => item.status === "complete")
+  }
 
   return {
     veto,
-    getActor,
-    actors,
-    activeActor,
     match,
     teams,
     coinResult,
     activeTeam,
     activeTeamCoinStatus,
-    side: type as VetoPasswordType,
+    side: side as VetoPasswordType,
+    opponent: side === "teamA" ? "teamB" : "teamA",
     accessToken,
     seriesId,
-    socketId: socket.id,
     isActiveTeamReady,
     isOpponentReady,
     readyToFlip,
+    isYourTurn,
+    coinStatus,
+    coinFlip,
+    readyCheck,
+    settings,
+    currentSequence,
+    sequence,
+    sequenceItem,
+    isComplete,
+    getMode,
+    getMap,
   }
 }

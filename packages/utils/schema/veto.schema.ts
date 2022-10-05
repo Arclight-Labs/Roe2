@@ -21,11 +21,19 @@ export const vetoItemStatusSchema = z.union([
 
 export const vetoSequenceSchema = z.number().min(0)
 
-export const CoinTeamResultSchema = z.union([
+export const coinTeamResultSchema = z.union([
   z.literal("winner"),
   z.literal("loser"),
 ])
-export type CoinTeamResult = z.infer<typeof CoinTeamResultSchema>
+
+export type CoinTeamResult = z.infer<typeof coinTeamResultSchema>
+
+export const sideActorSchema = z.union([
+  z.literal("winner"),
+  z.literal("loser"),
+  z.literal("random"),
+])
+export type SideActor = z.infer<typeof sideActorSchema>
 
 export const coinSide = z.union([z.literal("heads"), z.literal("tails")])
 
@@ -52,8 +60,8 @@ export type CoinFlip = z.infer<typeof coinFlipSchema>
 export const vetoSequenceSettingsItemSchema = z.object({
   mode: z.string().nullable(),
   action: vetoActionSchema,
-  mapActor: CoinTeamResultSchema.nullable(),
-  sideActor: CoinTeamResultSchema.nullable(),
+  mapActor: coinTeamResultSchema.nullable(),
+  sideActor: sideActorSchema.nullable(),
 })
 export type VetoSequenceSettingsItem = z.infer<
   typeof vetoSequenceSettingsItemSchema
@@ -89,6 +97,8 @@ export const vetoSettingsSchema = z
     sequence: z.array(vetoSequenceSettingsItemSchema).default([]),
     modes: z.array(vetoModeSchema).default([]),
     mapPool: z.array(vetoMapSchema).default([]),
+    redSideName: z.string().min(1).default("Attacker"),
+    blueSideName: z.string().min(1).default("Defender"),
     timer: z.number().nullable(),
   })
   .refine(({ sequence, modes, mapPool, type }) => {
@@ -116,10 +126,10 @@ export const vetoSequenceItemSchema = z.object({
   action: vetoActionSchema.nullable(),
   mode: z.string().nullable(),
   status: vetoItemStatusSchema,
-  mapActor: CoinTeamResultSchema.nullable(),
+  mapActor: coinTeamResultSchema.nullable(),
   mapActorSide: vetoSideSchema.nullable(),
   mapPicked: z.string().nullable(),
-  sideActor: CoinTeamResultSchema.nullable(),
+  sideActor: sideActorSchema.nullable(),
   sidePicked: vetoSideSchema.nullable(),
 })
 
@@ -139,15 +149,13 @@ export const vetoPasswordSchema = z.object({
 export type VetoPasswordType = z.infer<typeof vetoPasswordTypeSchema>
 export type VetoPassword = z.infer<typeof vetoPasswordSchema>
 
-export const vetoActorSchema = z.object({
-  type: vetoPasswordTypeSchema,
-  name: z.string(),
-  socketId: z.string(),
-  ready: z.boolean().default(false),
-  uuid: z.string().uuid(),
+export const vetoReadyCheckSchema = z.object({
+  teamA: z.boolean().default(false),
+  teamB: z.boolean().default(false),
+  host: z.boolean().default(false),
 })
 
-export type VetoActor = z.infer<typeof vetoActorSchema>
+export type VetoReadyCheck = z.infer<typeof vetoReadyCheckSchema>
 
 export const vetoSchema = z.object({
   settings: vetoSettingsSchema,
@@ -155,7 +163,7 @@ export const vetoSchema = z.object({
   currentSequence: vetoSequenceSchema,
   coinFlip: coinFlipSchema,
   sequence: z.array(vetoSequenceItemSchema),
-  actors: z.array(vetoActorSchema).optional().default([]),
+  readyCheck: vetoReadyCheckSchema,
 })
 
 export type Veto = z.infer<typeof vetoSchema>
@@ -163,20 +171,18 @@ export type Veto = z.infer<typeof vetoSchema>
 export const vetoMapPickSchema = z.object({
   team: vetoTeamSchema,
   seriesId: z.string(),
-  vetoSequence: vetoSequenceSchema,
   map: z.string(),
 })
 
-export type VetoMapPickSchema = z.infer<typeof vetoMapPickSchema>
+export type VetoMapPick = z.infer<typeof vetoMapPickSchema>
 
 export const vetoSidePickSchema = z.object({
   team: vetoTeamSchema,
   seriesId: z.string(),
-  vetoSequence: vetoSequenceSchema,
   side: vetoSideSchema,
 })
 
-export type VetoSidePickSchema = z.infer<typeof vetoSidePickSchema>
+export type VetoSidePick = z.infer<typeof vetoSidePickSchema>
 
 // Requesting passwords from server
 export const vetoPasswordRequestSchema = z.object({
@@ -186,18 +192,16 @@ export const vetoPasswordRequestSchema = z.object({
 })
 export type VetoPasswordRequest = z.infer<typeof vetoPasswordRequestSchema>
 
-export const vetoJoinSchema = z.object({
-  name: z.string().min(1),
-  type: vetoPasswordTypeSchema,
-  uuid: z.string().uuid(),
-  ready: z.boolean().optional(),
+export const vetoReadySchema = z.object({
+  side: vetoPasswordTypeSchema,
+  ready: z.boolean(),
 })
 
-export type VetoJoin = z.infer<typeof vetoJoinSchema>
+export type VetoReady = z.infer<typeof vetoReadySchema>
 
-export const vetoClaimCoin = z.object({
+export const vetoClaimCoinSchema = z.object({
   teamSide: vetoTeamSchema,
   coinSide: coinSide,
 })
 
-export type VetoClaimCoin = z.infer<typeof vetoClaimCoin>
+export type VetoClaimCoin = z.infer<typeof vetoClaimCoinSchema>

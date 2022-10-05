@@ -9,6 +9,7 @@ import {
   Stack,
   Tabs,
   Text,
+  TextInput,
 } from "@mantine/core"
 import { useClipboard } from "@mantine/hooks"
 import { showNotification } from "@mantine/notifications"
@@ -34,8 +35,10 @@ import {
   VetoSettingsType,
 } from "utils/schema/veto.schema"
 import { useWsAction } from "utils/socket"
+import { vetoReset } from "utils/socket/events"
 import { useAuth } from "../../context/auth/Auth.hooks"
 import { useActiveRoom } from "../../hooks/useActiveRoom.hook"
+import Confirm from "../popups/Confirm.ui"
 import MatchVetoMapPoolForm from "./MatchVetoMapPoolForm"
 import MatchVetoModesForm from "./MatchVetoModesForm"
 import MatchVetoSequenceForm from "./MatchVetoSequenceForm"
@@ -54,10 +57,11 @@ const MatchVetoSettingsForm = ({ match }: Props) => {
   const [room] = useActiveRoom()
   const { vetoSettings } = useWsAction()
   const { accessToken } = useAuth()
-  const { control, setValue, watch, handleSubmit } = useForm<VetoSettings>({
-    defaultValues: match.veto?.settings ?? defaultVetoSettings,
-    resolver: zodResolver(vetoSettingsSchema),
-  })
+  const { control, setValue, watch, handleSubmit, register } =
+    useForm<VetoSettings>({
+      defaultValues: match.veto?.settings ?? defaultVetoSettings,
+      resolver: zodResolver(vetoSettingsSchema),
+    })
 
   const isEdit = !!match.veto
   const modes = watch("modes")
@@ -71,9 +75,11 @@ const MatchVetoSettingsForm = ({ match }: Props) => {
       vetoSettings(accessToken)(`${match.id}`, data)
     },
     (err) => {
+      console.log(err)
       const msg = Object.values(err)
         .map((e) => e.message)
         .join("\n")
+
       showNotification({
         title: "Error",
         message: msg,
@@ -130,6 +136,11 @@ const MatchVetoSettingsForm = ({ match }: Props) => {
     setValue("type", value || "standard")
   }
 
+  const restartVeto = () => {
+    const seriesId = match.id.toString()
+    vetoReset(accessToken)(seriesId)
+  }
+
   return (
     <Stack>
       <Select
@@ -178,6 +189,7 @@ const MatchVetoSettingsForm = ({ match }: Props) => {
                 setValue={setValue}
                 modes={modes ?? []}
                 sequence={sequence ?? []}
+                mapPool={mapPool ?? []}
               />
             </Tabs.Panel>
           </Tabs>
@@ -203,7 +215,20 @@ const MatchVetoSettingsForm = ({ match }: Props) => {
           </Card>
         </Stack>
       )}
+      <Card withBorder>
+        <Stack>
+          <TextInput {...register("redSideName")} label="Red Side Name" />
+          <TextInput {...register("blueSideName")} label="Blue Side Name" />
+        </Stack>
+      </Card>
       <Group sx={{ justifyContent: "flex-end" }}>
+        {isEdit && (
+          <Confirm onConfirm={restartVeto}>
+            <Button color="red" size="xs">
+              Restart Veto
+            </Button>
+          </Confirm>
+        )}
         <Button size="xs" onClick={onSubmit}>
           Save
         </Button>

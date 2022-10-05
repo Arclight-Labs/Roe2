@@ -8,4 +8,5 @@ export const matchesListen = (matches: SanitizedSeriesMap) => {
 
 export const setMatchListen = (payload: Payload.MatchUpdate) => {
   globalDispatch(updateMatch(payload))
+  console.log({ payload })
 }

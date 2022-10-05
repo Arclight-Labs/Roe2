@@ -41,13 +41,13 @@ const MatchVetoMapPoolItemForm = ({
     const uploadPath = `public/user/${auth.uid}/mapPool/${field.id}`
     const uploadRef = ref(storage, uploadPath)
     uploadFile(uploadRef, file).then(
-      (res) => {
-        if (!res) return
-        return getDownloadURL(res.ref).then((url) => {
+      async () => {
+        return getDownloadURL(uploadRef).then((url) => {
           setValue(`mapPool.${index}.imageUrl`, url)
         })
       },
       (err) => {
+        console.log({ err })
         showNotification({ message: err.message, title: "Error", color: "red" })
       }
     )

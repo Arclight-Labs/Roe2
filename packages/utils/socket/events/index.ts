@@ -15,4 +15,11 @@ export { setLiveListen } from "./SetLive.listen"
 export { setRoom } from "./SetRoom.emit"
 export { tournament } from "./Tournament.emit"
 export { tournamentListen } from "./Tournament.listen"
-export { setVetoSettings, vetoClaimCoin, vetoJoin } from "./Veto.emit"
+export {
+  setVetoSettings,
+  vetoClaimCoin,
+  vetoMapPick,
+  vetoReady,
+  vetoReset,
+  vetoSidePick,
+} from "./Veto.emit"

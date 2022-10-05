@@ -2,8 +2,8 @@ import { SocketEvent } from "interface/ws/SocketEvent.interface"
 import {
   CoinFlip,
   Veto,
-  vetoClaimCoin,
   VetoClaimCoin,
+  vetoClaimCoinSchema,
 } from "utils/schema/veto.schema"
 import { emitNotify } from "../../emitters"
 import { getVeto, setVeto } from "../../store/services/veto.store.service"
@@ -18,9 +18,9 @@ type VetoClaimCoinFn = (
   accessToken: string
 ) => Promise<void>
 
-export const vetoMapPick: EventFn<VetoClaimCoinFn> = (socket, io) => {
+export const vetoClaimCoin: EventFn<VetoClaimCoinFn> = (socket, io) => {
   return async (props, seriesId, accessToken) => {
-    const res = vetoClaimCoin.safeParse(props)
+    const res = vetoClaimCoinSchema.safeParse(props)
     if (!res.success)
       return emitNotify(socket, { message: "Invalid data", color: "red" })
 
@@ -50,15 +50,17 @@ export const vetoMapPick: EventFn<VetoClaimCoinFn> = (socket, io) => {
       })
     }
 
-    const opposingTeamReady = !!(veto.actors ?? []).some(
-      (actor) => actor.type === opposingTeam(teamSide) && actor.ready
-    )
+    const opposingTeamReady = !!veto.readyCheck[opposingTeam(teamSide)]
 
     if (!opposingTeamReady)
       return emitNotify(socket, {
         message: "Opposing team is not ready",
         color: "red",
       })
+
+    const flipACoin = () => {
+      return Math.random() >= 0.5 ? "heads" : "tails"
+    }
 
     const coinFlip: CoinFlip = {
       heads: coinSide === "heads" ? teamSide : opposingTeam(teamSide),
@@ -68,9 +70,20 @@ export const vetoMapPick: EventFn<VetoClaimCoinFn> = (socket, io) => {
       winner: null,
     }
 
+    if (veto.settings.autoStart) {
+      const result = flipACoin()
+      coinFlip.result = result
+      coinFlip.loser = coinSide === result ? opposingTeam(teamSide) : teamSide
+      coinFlip.winner = coinSide === result ? teamSide : opposingTeam(teamSide)
+      veto.sequence[0].status = "awaitingMapPick"
+    }
+
     const newVeto: Veto = { ...veto, coinFlip }
 
     setVeto(room, seriesId, (veto) => ({ ...veto, ...newVeto }))
-    io.to(room).emit(SocketEvent.SetMatch, { matchId: seriesId, veto: newVeto })
+    io.to(room).emit(SocketEvent.SetMatch, {
+      matchId: seriesId,
+      data: { veto: newVeto },
+    })
   }
 }

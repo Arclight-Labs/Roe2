@@ -2,8 +2,9 @@ import { useAutoAnimate } from "@formkit/auto-animate/react"
 import { Alert, Button, Stack } from "@mantine/core"
 import { useState } from "react"
 import { Control, useFieldArray, UseFormSetValue } from "react-hook-form"
-import { Bulb, Plus } from "tabler-icons-react"
+import { Bulb, Edit } from "tabler-icons-react"
 import {
+  VetoMap,
   VetoMode,
   VetoSequenceSettingsItem,
   VetoSettings,
@@ -15,9 +16,15 @@ interface Props {
   control: Control<VetoSettings>
   setValue: UseFormSetValue<VetoSettings>
   modes: VetoMode[]
+  mapPool: VetoMap[]
   sequence: VetoSequenceSettingsItem[]
 }
-const MatchVetoSequenceForm = ({ control, modes, sequence = [] }: Props) => {
+const MatchVetoSequenceForm = ({
+  control,
+  modes,
+  sequence = [],
+  mapPool,
+}: Props) => {
   const [parent] = useAutoAnimate<HTMLDivElement>()
   const [currentIndex, setCurrentIndex] = useState<number>(sequence.length)
   const { fields, append, remove, update, move } = useFieldArray({
@@ -47,10 +54,10 @@ const MatchVetoSequenceForm = ({ control, modes, sequence = [] }: Props) => {
       <Button
         size="xs"
         onClick={open}
-        leftIcon={<Plus size={16} />}
+        leftIcon={<Edit size={16} />}
         sx={{ alignSelf: "flex-start" }}
       >
-        Add Sequence
+        Edit Sequence
       </Button>
       <Stack ref={parent}>
         {fields.map((field, index) => (
@@ -72,6 +79,7 @@ const MatchVetoSequenceForm = ({ control, modes, sequence = [] }: Props) => {
         opened={opened}
         onClose={onClose}
         modes={modes}
+        mapPool={mapPool}
         sequenceNumber={currentIndex}
         gotoPreviousSequence={gotoPreviousSequence}
         gotoNextSequence={gotoNextSequence}

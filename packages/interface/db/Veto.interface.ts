@@ -1,7 +1,7 @@
 export type {
   CoinFlip,
   Veto,
-  VetoMapPickSchema,
+  VetoMapPick as VetoMapPickSchema,
   VetoSequence,
   VetoSettings,
   VetoSidePickSchema,

@@ -17,20 +17,25 @@ import type {
   MatchPollItem,
   Ticker,
 } from "interface/ws/Live.interface"
-import { v4 } from "uuid"
 import {
-  VetoActor,
+  VetoMap,
   VetoMode,
+  VetoReadyCheck,
   VetoSequenceSettingsItem,
 } from "../schema/veto.schema"
 
 export const defaultVetoSettingsSequenceItem: VetoSequenceSettingsItem = {
-  action: "ban",
+  action: "pick",
   mode: null,
   mapActor: "loser",
   sideActor: "winner",
 }
 
+export const defaultMap: VetoMap = {
+  id: "",
+  name: "",
+  imageUrl: "",
+}
 export const defaultVetoMode: VetoMode = {
   id: "",
   imageUrl: "",
@@ -44,6 +49,8 @@ export const defaultVetoSettings: VetoSettings = {
   modes: [],
   timer: null,
   autoStart: true,
+  blueSideName: "Defender",
+  redSideName: "Attacker",
 }
 
 export const defaultCoinFlip: CoinFlip = {
@@ -54,13 +61,12 @@ export const defaultCoinFlip: CoinFlip = {
   winner: null,
 }
 
-export const defaultVetoActor: VetoActor = {
-  name: "",
-  socketId: "",
-  type: "host",
-  ready: false,
-  uuid: v4(),
+export const defaultReadyCheck: VetoReadyCheck = {
+  teamA: false,
+  teamB: false,
+  host: false,
 }
+
 export const defaultVeto: Veto = {
   coinFlip: defaultCoinFlip,
   settings: defaultVetoSettings,
@@ -71,7 +77,7 @@ export const defaultVeto: Veto = {
     host: "",
   },
   sequence: [],
-  actors: [],
+  readyCheck: defaultReadyCheck,
 }
 
 export const defaultSeries: SanitizedSeries = {

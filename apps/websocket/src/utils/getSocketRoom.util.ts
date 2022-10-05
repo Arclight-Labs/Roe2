@@ -7,7 +7,7 @@ export const getSocketRoom: GetSocketRoom = (socket) => {
   if (!room) {
     emitNotify(socket, {
       title: "Error!",
-      message: "You are not in any room",
+      message: "You are not in any room, try to refresh the page",
       color: "red",
     })
     return null
