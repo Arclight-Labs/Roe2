@@ -139,7 +139,8 @@ export const vetoSidePick: EventFn<VetoSidePick> = (socket, io) => {
 
     while (
       sequence[currentSequence] &&
-      sequence[currentSequence].action === "decider"
+      sequence[currentSequence].action === "decider" &&
+      sequence[currentSequence].status !== "awaitingSidePick"
     ) {
       const randomSide = selectRandomSide()
       const nextSeq = sequence[currentSequence]
@@ -153,8 +154,9 @@ export const vetoSidePick: EventFn<VetoSidePick> = (socket, io) => {
           : nextSeq.mapActorSide
       nextSeq.sidePicked =
         nextSeq.sideActor === "random" ? randomSide : nextSeq.sidePicked
-      currentSequence = currentSequence + 1
-      if (sequence[currentSequence]) {
+      currentSequence =
+        currentSequence + (nextSeq.sideActor === "random" ? 1 : 0)
+      if (nextSeq.sideActor === "random" && sequence[currentSequence]) {
         sequence[currentSequence].status = "awaitingMapPick"
       }
     }
