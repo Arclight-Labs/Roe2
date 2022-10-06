@@ -108,6 +108,7 @@ const MatchVetoSequenceItemModal = ({
   }, console.error)
 
   const changeAction = (action: VetoAction) => {
+    if (action === "decider" && sequenceNumber === 0) return
     if (action === "ban") setValue("sideActor", null)
     setValue("action", action)
   }
