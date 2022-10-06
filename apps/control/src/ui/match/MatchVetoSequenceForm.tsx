@@ -17,12 +17,14 @@ interface Props {
   setValue: UseFormSetValue<VetoSettings>
   modes: VetoMode[]
   mapPool: VetoMap[]
+  seedWinner?: "teamA" | "teamB" | null
   sequence: VetoSequenceSettingsItem[]
 }
 const MatchVetoSequenceForm = ({
   control,
   modes,
   sequence = [],
+  seedWinner,
   mapPool,
 }: Props) => {
   const [parent] = useAutoAnimate<HTMLDivElement>()
@@ -70,11 +72,13 @@ const MatchVetoSequenceForm = ({
             key={field.id}
             index={index}
             sequence={field}
+            seedWinner={seedWinner}
           />
         ))}
       </Stack>
 
       <MatchVetoSequenceItemModal
+        seedWinner={seedWinner}
         append={append}
         opened={opened}
         onClose={onClose}

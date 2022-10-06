@@ -100,6 +100,7 @@ export const vetoSettingsSchema = z
     redSideName: z.string().min(1).default("Attacker"),
     blueSideName: z.string().min(1).default("Defender"),
     timer: z.number().nullable(),
+    seedWinner: vetoTeamSchema.nullable().optional(),
   })
   .refine(({ sequence, modes, mapPool, type }) => {
     const isValidSequence = sequence.every(({ mode }) => {

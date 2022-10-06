@@ -53,6 +53,7 @@ interface Props extends ModalProps {
   sequence: VetoSequenceSettingsItem[]
   gotoPreviousSequence: (index: number) => void
   gotoNextSequence: (index: number) => void
+  seedWinner?: "teamA" | "teamB" | null
 }
 const MatchVetoSequenceItemModal = ({
   append,
@@ -63,6 +64,7 @@ const MatchVetoSequenceItemModal = ({
   sequence = [],
   update,
   mapPool = [],
+  seedWinner,
   ...props
 }: Props) => {
   const [addMore, setAddMore] = useState(false)
@@ -138,6 +140,8 @@ const MatchVetoSequenceItemModal = ({
   const runOutOfMaps = () => {
     return mapsRemaining() <= 0
   }
+
+  const flipOrSeed = seedWinner ? "Seed" : "Coin Flip"
 
   return (
     <Modal
@@ -258,7 +262,7 @@ const MatchVetoSequenceItemModal = ({
                     <Center>
                       <Coin size={18} />
                       <Text pl="xs" size="sm">
-                        Coin Flip Winner
+                        {flipOrSeed} Winner
                       </Text>
                     </Center>
                   ),
@@ -269,7 +273,7 @@ const MatchVetoSequenceItemModal = ({
                     <Center>
                       <CoinOff size={18} />
                       <Text pl="xs" size="sm">
-                        Coin Flip Loser
+                        {flipOrSeed} Loser
                       </Text>
                     </Center>
                   ),
@@ -293,7 +297,7 @@ const MatchVetoSequenceItemModal = ({
                     <Center>
                       <Coin size={18} />
                       <Text pl="xs" size="sm">
-                        Coin Flip Winner
+                        {flipOrSeed} Winner
                       </Text>
                     </Center>
                   ),
@@ -304,7 +308,7 @@ const MatchVetoSequenceItemModal = ({
                     <Center>
                       <CoinOff size={18} />
                       <Text pl="xs" size="sm">
-                        Coin Flip Loser
+                        {flipOrSeed} Loser
                       </Text>
                     </Center>
                   ),
