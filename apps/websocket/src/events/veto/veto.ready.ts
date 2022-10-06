@@ -39,8 +39,14 @@ export const vetoReady: EventFn<VetoReadyFn> = (socket, io) => {
 
     const readyCheck = veto.readyCheck
     readyCheck[side] = ready
+    const sequence = veto.sequence
+    if (sequence[0]) {
+      sequence[0].status = veto.settings.seedWinner
+        ? "awaitingMapPick"
+        : sequence[0].status
+    }
 
-    const newVeto: Veto = { ...veto, readyCheck }
+    const newVeto: Veto = { ...veto, readyCheck, sequence }
 
     setVeto(room, seriesId, (veto) => ({ ...veto, ...newVeto }))
     io.to(room).emit(SocketEvent.SetMatch, {

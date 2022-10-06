@@ -19,6 +19,7 @@ import {
   CaretDown,
   CaretUp,
   Dice5,
+  Seeding,
   Trash,
 } from "tabler-icons-react"
 import Coin from "ui/Coin.ui"
@@ -33,7 +34,9 @@ interface Props {
   downDisabled: boolean
   index: number
   modes: VetoMode[]
+  seedWinner?: "teamA" | "teamB" | null
 }
+
 const MatchvetoSequenceItem = ({
   sequence: { action, mapActor, mode, sideActor },
   removeSequence,
@@ -41,6 +44,7 @@ const MatchvetoSequenceItem = ({
   downDisabled,
   move,
   modes,
+  seedWinner,
   index,
 }: Props) => {
   const currentMode = modes.find((m) => m.id === mode)
@@ -58,6 +62,7 @@ const MatchvetoSequenceItem = ({
       action === "ban" ? "red" : action === "pick" ? "blue" : "green"
     return theme.colors[color][colorIndex]
   }
+
   return (
     <Card withBorder>
       <Group noWrap align="flex-start">
@@ -84,9 +89,15 @@ const MatchvetoSequenceItem = ({
             <Card p="xs" withBorder sx={{ backgroundColor: getColor(7) }}>
               <Stack spacing={5}>
                 <Group spacing="xs">
-                  <Coin IconProps={{ size: 30 }} result={mapActor} />
+                  {seedWinner ? (
+                    <Seeding />
+                  ) : (
+                    <Coin IconProps={{ size: 30 }} result={mapActor} />
+                  )}
                   <Stack spacing={0}>
-                    <Text size="xs">Coin flip {mapActor}</Text>
+                    <Text size="xs">
+                      {seedWinner ? "Seed" : "Coin Flip"} {mapActor}
+                    </Text>
                     <Title order={6} sx={{ lineHeight: 1 }}>
                       {action.toUpperCase()}S MAP
                     </Title>
@@ -115,9 +126,15 @@ const MatchvetoSequenceItem = ({
                   </Group>
                 ) : (
                   <Group spacing="xs">
-                    <Coin IconProps={{ size: 30 }} result={sideActor} />
+                    {seedWinner ? (
+                      <Seeding />
+                    ) : (
+                      <Coin IconProps={{ size: 30 }} result={sideActor} />
+                    )}
                     <Stack spacing={0}>
-                      <Text size="xs">Coin flip {sideActor}</Text>
+                      <Text size="xs">
+                        {seedWinner ? "Seed" : "Coin flip"} {sideActor}
+                      </Text>
                       <Title order={6} sx={{ lineHeight: 1 }}>
                         Chooses side
                       </Title>

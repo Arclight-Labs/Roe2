@@ -49,6 +49,9 @@ export const vetoSetSettings: EventFn<VetoSetSettingsFn> = (socket, io) => {
       })
     }
 
+    const reverseSide = (team: "teamA" | "teamB") =>
+      team === "teamA" ? "teamB" : "teamA"
+
     const newVeto: Veto = {
       ...(veto ?? defaultVeto),
       settings: res.data,
@@ -63,7 +66,16 @@ export const vetoSetSettings: EventFn<VetoSetSettingsFn> = (socket, io) => {
         host:
           veto?.passwords?.host || AES.encrypt(randomUUID(), secret).toString(),
       },
-      coinFlip: defaultCoinFlip,
+      coinFlip: res.data.seedWinner
+        ? {
+            result: "heads",
+            winner: res.data.seedWinner,
+            loser: reverseSide(res.data.seedWinner),
+            heads: res.data.seedWinner,
+            tails: reverseSide(res.data.seedWinner),
+          }
+        : defaultCoinFlip,
+
       readyCheck: {
         host: false,
         teamA: false,

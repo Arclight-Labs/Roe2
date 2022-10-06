@@ -26,6 +26,7 @@ import {
 } from "tabler-icons-react"
 import { fn } from "utils/firebase"
 import { defaultVetoSettings } from "utils/general/defaultValues"
+import { useParticipants } from "utils/hooks"
 import {
   VetoPasswordRequest,
   vetoPasswordRequestSchema,
@@ -54,6 +55,12 @@ const MatchVetoSettingsForm = ({ match }: Props) => {
     "tournamentSeriesVeto-getCredentials"
   )
 
+  const { chalTeams } = useParticipants()
+
+  const teams = {
+    teamA: chalTeams[match.teamA.id || 0],
+    teamB: chalTeams[match.teamB.id || 0],
+  }
   const [loading, setLoading] = useState(false)
   const clipboard = useClipboard()
   const [room] = useActiveRoom()
@@ -68,8 +75,7 @@ const MatchVetoSettingsForm = ({ match }: Props) => {
   const isEdit = !!match.veto
 
   const watchAll = watch()
-  const { modes, mapPool, sequence, type: vetoType } = watchAll
-
+  const { modes, mapPool, sequence, type: vetoType, seedWinner } = watchAll
   const onSubmit = handleSubmit(
     (data) => {
       if (!accessToken) return
@@ -137,6 +143,10 @@ const MatchVetoSettingsForm = ({ match }: Props) => {
     setValue("type", value || "standard")
   }
 
+  const selectSeedWinner = (value: "teamA" | "teamB" | null) => {
+    setValue("seedWinner", value)
+  }
+
   const restartVeto = () => {
     const seriesId = match.id.toString()
     vetoReset(accessToken)(seriesId)
@@ -155,47 +165,71 @@ const MatchVetoSettingsForm = ({ match }: Props) => {
       />
 
       {vetoType === "standard" && (
-        <Card withBorder>
-          <Tabs variant="outline" defaultValue="mapPool">
-            <Tabs.List>
-              <Tabs.Tab value="mapPool" icon={<Photo size={14} />}>
-                Map Pool
-              </Tabs.Tab>
-              <Tabs.Tab value="modes" icon={<AdjustmentsAlt size={14} />}>
-                Modes
-              </Tabs.Tab>
-              <Tabs.Tab value="sequence" icon={<ListDetails size={14} />}>
-                Sequence
-              </Tabs.Tab>
-            </Tabs.List>
+        <>
+          <Select
+            clearable
+            label="Seed Winner (optional)"
+            value={seedWinner || ""}
+            onChange={selectSeedWinner}
+            data={[
+              {
+                value: "teamA",
+                label: teams.teamA?.name || "Team A",
+              },
+              { value: "teamB", label: teams.teamB?.name || "TeamB" },
+            ]}
+          />
+          <Card withBorder>
+            <Tabs variant="outline" defaultValue="mapPool">
+              <Tabs.List>
+                <Tabs.Tab value="mapPool" icon={<Photo size={14} />}>
+                  Map Pool
+                </Tabs.Tab>
+                <Tabs.Tab value="modes" icon={<AdjustmentsAlt size={14} />}>
+                  Modes
+                </Tabs.Tab>
+                <Tabs.Tab value="sequence" icon={<ListDetails size={14} />}>
+                  Sequence
+                </Tabs.Tab>
+              </Tabs.List>
 
-            <Tabs.Panel value="mapPool" pt="md">
-              <MatchVetoMapPoolForm
-                control={control}
-                setValue={setValue}
-              ></MatchVetoMapPoolForm>
-            </Tabs.Panel>
+              <Tabs.Panel value="mapPool" pt="md">
+                <MatchVetoMapPoolForm
+                  control={control}
+                  setValue={setValue}
+                ></MatchVetoMapPoolForm>
+              </Tabs.Panel>
 
-            <Tabs.Panel value="modes" pt="md">
-              <MatchVetoModesForm
-                mapPool={mapPool || []}
-                control={control}
-                setValue={setValue}
-                modes={modes ?? []}
-              />
-            </Tabs.Panel>
-            <Tabs.Panel value="sequence" pt="md">
-              <MatchVetoSequenceForm
-                control={control}
-                setValue={setValue}
-                modes={modes ?? []}
-                sequence={sequence ?? []}
-                mapPool={mapPool ?? []}
-              />
-            </Tabs.Panel>
-          </Tabs>
-        </Card>
+              <Tabs.Panel value="modes" pt="md">
+                <MatchVetoModesForm
+                  mapPool={mapPool || []}
+                  control={control}
+                  setValue={setValue}
+                  modes={modes ?? []}
+                />
+              </Tabs.Panel>
+              <Tabs.Panel value="sequence" pt="md">
+                <MatchVetoSequenceForm
+                  control={control}
+                  setValue={setValue}
+                  seedWinner={seedWinner}
+                  modes={modes ?? []}
+                  sequence={sequence ?? []}
+                  mapPool={mapPool ?? []}
+                />
+              </Tabs.Panel>
+            </Tabs>
+          </Card>
+        </>
       )}
+
+      <Card withBorder>
+        <Stack>
+          <TextInput {...register("redSideName")} label="Red Side Name" />
+          <TextInput {...register("blueSideName")} label="Blue Side Name" />
+        </Stack>
+      </Card>
+
       {isEdit && (
         <Stack>
           <Card withBorder>
@@ -216,12 +250,6 @@ const MatchVetoSettingsForm = ({ match }: Props) => {
           </Card>
         </Stack>
       )}
-      <Card withBorder>
-        <Stack>
-          <TextInput {...register("redSideName")} label="Red Side Name" />
-          <TextInput {...register("blueSideName")} label="Blue Side Name" />
-        </Stack>
-      </Card>
       <Group sx={{ justifyContent: "flex-end" }}>
         <Button
           variant="light"

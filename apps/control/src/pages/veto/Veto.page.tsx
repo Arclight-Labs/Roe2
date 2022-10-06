@@ -76,6 +76,7 @@ const VetoPage = () => {
     blue: settings.blueSideName,
   }
 
+  const { seedWinner } = settings
   return (
     <Container size="lg" sx={{ height: "100vh" }}>
       {!veto ? (
@@ -103,14 +104,22 @@ const VetoPage = () => {
                   </List>
                 </Card>
               </Timeline.Item>
-              <Timeline.Item title="Coin Flip" bullet={<Coin />} color="yellow">
+              <Timeline.Item
+                title={seedWinner ? "Seed" : "Coin Flip"}
+                bullet={<Coin />}
+                color="yellow"
+              >
                 <Card withBorder>
                   <Stack spacing={0}>
-                    <Text size="sm" sx={{ textTransform: "capitalize" }}>
-                      Result: {coinStatus}
-                    </Text>
+                    {!seedWinner && (
+                      <Text size="sm" sx={{ textTransform: "capitalize" }}>
+                        Result: {coinStatus}
+                      </Text>
+                    )}
                     <Group spacing="xs">
-                      <Text size="sm">Heads:</Text>
+                      <Text size="sm">
+                        {seedWinner ? "Seed Winner:" : "Heads:"}
+                      </Text>
                       {coinFlip.heads ? (
                         <ParticipantInline
                           team={teams[coinFlip.heads]}
@@ -127,7 +136,9 @@ const VetoPage = () => {
                       )}
                     </Group>
                     <Group spacing="xs">
-                      <Text size="sm">Tails:</Text>
+                      <Text size="sm">
+                        {seedWinner ? "Seed Loser:" : "Tails:"}
+                      </Text>
                       {coinFlip.tails ? (
                         <ParticipantInline
                           team={teams[coinFlip.tails]}
@@ -169,11 +180,15 @@ const VetoPage = () => {
                       <Stack>
                         <Text size="sm" color="dimmed">
                           {sequence.action !== "decider"
-                            ? ` Coin flip ${sequence.mapActor} ${sequence.action}s a
+                            ? ` ${seedWinner ? "Seed" : "Coin flip"} ${
+                                sequence.mapActor
+                              } ${sequence.action}s a
                            map.`
                             : `Map is selected randomly.`}
                           {sequence.sideActor && sequence.sideActor !== "random"
-                            ? ` Coin flip ${sequence.sideActor} chooses which side to play first`
+                            ? ` ${seedWinner ? "Seed" : "Coin flip"} ${
+                                sequence.sideActor
+                              } chooses which side to play first`
                             : ""}
                         </Text>
 

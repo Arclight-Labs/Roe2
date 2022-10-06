@@ -52,6 +52,7 @@ export const defaultVetoSettings: VetoSettings = {
   autoStart: true,
   blueSideName: "Defender",
   redSideName: "Attacker",
+  seedWinner: null,
 }
 
 export const defaultCoinFlip: CoinFlip = {
