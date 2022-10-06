@@ -9,6 +9,7 @@ export interface Live {
   activeTalents: Record<string, User & { role?: string }>
   talents: Record<string, User & { role?: string }>
   lt: Lowerthird
+  winnerFlash?: "teamA" | "teamB" | null
   shoutouts: Record<string, TwitterApiResultsItem>
 }
 

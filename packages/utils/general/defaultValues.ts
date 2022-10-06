@@ -193,6 +193,7 @@ export const defaultLive: Live = {
   talents: {},
   lt: defaultLowerthird,
   shoutouts: {},
+  winnerFlash: null,
 }
 
 export const defaultUser: User = {
