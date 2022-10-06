@@ -31,11 +31,13 @@ import {
   CircleOff,
   Coin,
   CoinOff,
+  Dice5,
 } from "tabler-icons-react"
 import { defaultVetoSettingsSequenceItem } from "utils/general/defaultValues"
 import {
   CoinTeamResult,
   VetoAction,
+  VetoMap,
   VetoMode,
   VetoSequenceSettingsItem,
   vetoSequenceSettingsItemSchema,
@@ -45,6 +47,7 @@ import {
 interface Props extends ModalProps {
   append: UseFieldArrayAppend<VetoSettings, "sequence">
   update: UseFieldArrayUpdate<VetoSettings, "sequence">
+  mapPool: VetoMap[]
   modes: VetoMode[]
   sequenceNumber: number
   sequence: VetoSequenceSettingsItem[]
@@ -59,6 +62,7 @@ const MatchVetoSequenceItemModal = ({
   gotoNextSequence,
   sequence = [],
   update,
+  mapPool = [],
   ...props
 }: Props) => {
   const [addMore, setAddMore] = useState(false)
@@ -88,18 +92,25 @@ const MatchVetoSequenceItemModal = ({
 
   const onSubmit = handleSubmit((data) => {
     if (data.action === "decider") {
-      data.sideActor = null
       data.mapActor = null
     }
 
     if (isEdit) {
-      update(sequenceNumber, data)
+      update(sequenceNumber, {
+        ...data,
+        sideActor: data.action === "ban" ? null : data.sideActor,
+      })
     } else {
       append(data)
     }
     if (!addMore) return props.onClose?.()
     moveSequence("next")()
   }, console.error)
+
+  const changeAction = (action: VetoAction) => {
+    if (action === "ban") setValue("sideActor", null)
+    setValue("action", action)
+  }
 
   const ItemComponent = forwardRef<HTMLDivElement, SelectItem>(
     ({ label, image, ...props }, ref) => (
@@ -112,6 +123,20 @@ const MatchVetoSequenceItemModal = ({
       </div>
     )
   )
+
+  const mapsRemaining = () => {
+    const applicableSequence = sequence.filter((s) => s.mode === mode)
+    const usedMapCount = applicableSequence.length
+    const currentMode = modes.find((m) => m.id === mode)
+    if (currentMode) {
+      return currentMode.mapPool.length - usedMapCount
+    }
+    return mapPool.length - usedMapCount
+  }
+
+  const runOutOfMaps = () => {
+    return mapsRemaining() <= 0
+  }
 
   return (
     <Modal
@@ -205,7 +230,7 @@ const MatchVetoSequenceItemModal = ({
                 value: "decider",
               },
             ]}
-            onChange={(value) => setValue("action", value as VetoAction)}
+            onChange={changeAction}
           />
         </Stack>
         {!!modeOptions.length && (
@@ -220,77 +245,91 @@ const MatchVetoSequenceItemModal = ({
         )}
 
         {action !== "decider" && (
-          <>
-            <Stack spacing={5}>
-              <Text size="sm">
-                Map <b>{action.toUpperCase()}</b> Actor
-              </Text>
-              <SegmentedControl
-                value={mapActor || ""}
-                data={[
-                  {
-                    label: (
-                      <Center>
-                        <Coin size={18} />
-                        <Text pl="xs" size="sm">
-                          Coin Flip Winner
-                        </Text>
-                      </Center>
-                    ),
-                    value: "winner",
-                  },
-                  {
-                    label: (
-                      <Center>
-                        <CoinOff size={18} />
-                        <Text pl="xs" size="sm">
-                          Coin Flip Loser
-                        </Text>
-                      </Center>
-                    ),
-                    value: "loser",
-                  },
-                ]}
-                onChange={(value) =>
-                  setValue("mapActor", value as CoinTeamResult)
-                }
-              />
-            </Stack>
-            <Stack spacing={5}>
-              <Text size="sm">Who chooses which side to play</Text>
-              <SegmentedControl
-                value={sideActor || ""}
-                data={[
-                  {
-                    label: (
-                      <Center>
-                        <Coin size={18} />
-                        <Text pl="xs" size="sm">
-                          Coin Flip Winner
-                        </Text>
-                      </Center>
-                    ),
-                    value: "winner",
-                  },
-                  {
-                    label: (
-                      <Center>
-                        <CoinOff size={18} />
-                        <Text pl="xs" size="sm">
-                          Coin Flip Loser
-                        </Text>
-                      </Center>
-                    ),
-                    value: "loser",
-                  },
-                ]}
-                onChange={(value) =>
-                  setValue("sideActor", value as CoinTeamResult)
-                }
-              />
-            </Stack>
-          </>
+          <Stack spacing={5}>
+            <Text size="sm">
+              Map <b>{action.toUpperCase()}</b> Actor
+            </Text>
+            <SegmentedControl
+              value={mapActor || ""}
+              data={[
+                {
+                  label: (
+                    <Center>
+                      <Coin size={18} />
+                      <Text pl="xs" size="sm">
+                        Coin Flip Winner
+                      </Text>
+                    </Center>
+                  ),
+                  value: "winner",
+                },
+                {
+                  label: (
+                    <Center>
+                      <CoinOff size={18} />
+                      <Text pl="xs" size="sm">
+                        Coin Flip Loser
+                      </Text>
+                    </Center>
+                  ),
+                  value: "loser",
+                },
+              ]}
+              onChange={(value) =>
+                setValue("mapActor", value as CoinTeamResult)
+              }
+            />
+          </Stack>
         )}
+        {action !== "ban" && (
+          <Stack spacing={5}>
+            <Text size="sm">Who chooses which side to play</Text>
+            <SegmentedControl
+              value={sideActor || ""}
+              data={[
+                {
+                  label: (
+                    <Center>
+                      <Coin size={18} />
+                      <Text pl="xs" size="sm">
+                        Coin Flip Winner
+                      </Text>
+                    </Center>
+                  ),
+                  value: "winner",
+                },
+                {
+                  label: (
+                    <Center>
+                      <CoinOff size={18} />
+                      <Text pl="xs" size="sm">
+                        Coin Flip Loser
+                      </Text>
+                    </Center>
+                  ),
+                  value: "loser",
+                },
+                {
+                  label: (
+                    <Center>
+                      <Dice5 />
+                      <Text pl="xs" size="sm">
+                        Random
+                      </Text>
+                    </Center>
+                  ),
+                  value: "random",
+                },
+              ]}
+              onChange={(value) =>
+                setValue("sideActor", value as CoinTeamResult)
+              }
+            />
+          </Stack>
+        )}
+        <Card withBorder>
+          <Center>Maps Remaining for this mode: {mapsRemaining()}</Center>
+        </Card>
         <Group
           mt="md"
           sx={{
@@ -303,7 +342,7 @@ const MatchVetoSequenceItemModal = ({
             checked={addMore}
             onChange={() => setAddMore((s) => !s)}
           />
-          <Button onClick={onSubmit}>
+          <Button onClick={onSubmit} disabled={runOutOfMaps() && !isEdit}>
             {isEdit ? "Update" : "Add"} Veto Sequence
           </Button>
         </Group>

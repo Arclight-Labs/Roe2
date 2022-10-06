@@ -8,6 +8,10 @@ type GetParticipant = (
   roomId: string,
   participantId: string
 ) => Participant | undefined
+type GetParticipantByChalId = (
+  roomId: string,
+  participantId: number | null
+) => Participant | undefined
 type SetAllParticipant = (roomId: string, data: ParticipantMap) => void
 type SetParticipantFn = (state: Participant) => Participant
 type SetParticipantPayload = SetParticipantFn | Participant
@@ -25,6 +29,17 @@ export const getAllParticipant: GetAllParticipant = (roomId) => {
 export const getParticipant: GetParticipant = (roomId, participantId) => {
   const room = getRoom(roomId)
   return (room?.participants ?? {})[participantId]
+}
+
+export const getParticipantByChalId: GetParticipantByChalId = (
+  roomId,
+  chalId
+) => {
+  const room = getRoom(roomId)
+  const participants = room?.participants ?? {}
+  return Object.values(participants).find(
+    (participant) => !!participant.chalId && participant.chalId === chalId
+  )
 }
 
 export const setAllParticipant: SetAllParticipant = (roomId, participants) => {

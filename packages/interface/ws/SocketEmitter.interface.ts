@@ -1,5 +1,10 @@
 import { NotificationProps } from "@mantine/notifications"
-import { VetoJoin as VetoJoinSchema } from "utils/schema/veto.schema"
+import {
+  VetoClaimCoin as VetoClaimCoinSchema,
+  VetoMapPick as VetoMapPickSchema,
+  VetoReady as VetoJoinSchema,
+  VetoSidePick as VetoSidePickSchema,
+} from "utils/schema/veto.schema"
 import { Waypoint } from "../"
 import { VetoSettings } from "../db"
 import {
@@ -29,12 +34,25 @@ export type SetMatch = (
 export type SetVetoSettings = (
   accessToken: string
 ) => (matchId: string, data: Partial<VetoSettings>) => void
-export type VetoJoin = (
+
+export type VetoReady = (
   accessToken: string
 ) => (matchId: string, data: VetoJoinSchema) => void
+
 export type VetoClaimCoin = (
   accessToken: string
-) => (matchId: string, data: VetoClaimCoin) => void
+) => (matchId: string, data: VetoClaimCoinSchema) => void
+
+export type VetoReset = (accessToken: string) => (matchId: string) => void
+
+export type VetoMapPick = (
+  accessToken: string
+) => (data: VetoMapPickSchema) => void
+
+export type VetoSidePick = (
+  accessToken: string
+) => (data: VetoSidePickSchema) => void
+
 // Participants
 export type SetParticipants = (
   accessToken: string
@@ -74,6 +92,9 @@ export interface SocketEmitters extends SocketEmitterType {
   setParticipant: SetPariticipant
   setLive: SetLive
   vetoSettings: SetVetoSettings
-  vetoJoin: VetoJoin
+  vetoReady: VetoReady
+  vetoReset: VetoReset
   vetoClaimCoin: VetoClaimCoin
+  vetoMapPick: VetoMapPick
+  vetoSidePick: VetoSidePick
 }

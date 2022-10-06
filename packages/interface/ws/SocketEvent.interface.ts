@@ -15,6 +15,7 @@ export enum SocketEvent {
   VetoMapPick = "vetoMapPick",
   VetoSidePick = "vetoSidePick",
   VetoSettings = "vetoSettings",
-  VetoJoin = "vetoJoin",
+  vetoReady = "vetoReady",
   VetoClaimCoin = "vetoClaimCoin",
+  VetoReset = "vetoReset",
 }

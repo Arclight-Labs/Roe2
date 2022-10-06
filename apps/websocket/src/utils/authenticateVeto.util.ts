@@ -52,7 +52,7 @@ export const authenticateVeto =
     const password = AES.decrypt(hashedPassword, secret).toString(Utf8)
     if (accessToken !== password) {
       emitNotify(socket, {
-        message: "Access Denied: incorrect password",
+        message: "Access Denied: Invalid Access Token",
         title: "Error",
         color: "red",
       })

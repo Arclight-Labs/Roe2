@@ -21,6 +21,7 @@ export const SocketContextDispatch = createContext<SocketEmitters>({
   vetoMapPick: () => () => {},
   vetoSettings: () => () => {},
   vetoSidePick: () => () => {},
-  vetoJoin: () => () => {},
+  vetoReady: () => () => {},
   vetoClaimCoin: () => () => {},
+  vetoReset: () => () => {},
 })

@@ -1,18 +1,26 @@
 import {
   ActionIcon,
+  Alert,
   AspectRatio,
   Card,
   Group,
-  Indicator,
   Stack,
+  Text,
   Title,
+  useMantineTheme,
 } from "@mantine/core"
 import {
   FieldArrayWithId,
   UseFieldArrayMove,
   UseFieldArrayRemove,
 } from "react-hook-form"
-import { CaretDown, CaretUp, Trash } from "tabler-icons-react"
+import {
+  AlertTriangle,
+  CaretDown,
+  CaretUp,
+  Dice5,
+  Trash,
+} from "tabler-icons-react"
 import Coin from "ui/Coin.ui"
 import { VetoMode, VetoSettings } from "utils/schema/veto.schema"
 import Confirm from "../popups/Confirm.ui"
@@ -23,7 +31,6 @@ interface Props {
   move: UseFieldArrayMove
   upDisabled: boolean
   downDisabled: boolean
-
   index: number
   modes: VetoMode[]
 }
@@ -41,77 +48,113 @@ const MatchvetoSequenceItem = ({
     if (direction === "up") return move(index, index - 1)
     move(index, index + 1)
   }
+
+  const theme = useMantineTheme()
+
+  const invalidMode = !!mode && !currentMode
+
+  const getColor = (colorIndex: number) => {
+    const color =
+      action === "ban" ? "red" : action === "pick" ? "blue" : "green"
+    return theme.colors[color][colorIndex]
+  }
   return (
-    <Indicator
-      showZero={false}
-      label={mode && !currentMode ? "‼️ Invalid mode" : ""}
-      size={20}
-    >
-      <Card withBorder>
-        <Group noWrap align="flex-start">
-          <Card
-            p="xs"
-            withBorder
-            sx={(theme) => ({
-              backgroundColor:
-                theme.colors[
-                  action === "ban"
-                    ? "red"
-                    : action === "pick"
-                    ? "blue"
-                    : "green"
-                ][9],
-            })}
-          >
-            <AspectRatio ratio={1} sx={{ width: 14 }}>
-              <Title order={4}>{index + 1}</Title>
-            </AspectRatio>
-          </Card>
-          <Group sx={{ flex: 1 }}>
-            {mapActor && (
-              <Card p="xs" withBorder>
-                <Stack spacing={5}>
-                  <Group>
-                    <Coin result={mapActor} />
-                    <Stack spacing={0}>
-                      <Title order={5} sx={{ lineHeight: 1 }}>
-                        MAP {action.toUpperCase()}
-                      </Title>
-                      {currentMode && (
+    <Card withBorder>
+      <Group noWrap align="flex-start">
+        <Card p="xs" withBorder sx={{ backgroundColor: getColor(7) }}>
+          <AspectRatio ratio={1} sx={{ width: 14 }}>
+            <Title order={4}>{index + 1}</Title>
+          </AspectRatio>
+        </Card>
+        <Group align="flex-start" sx={{ flex: 1 }} spacing="sm">
+          {action === "decider" && (
+            <Card p="xs" withBorder sx={{ backgroundColor: getColor(7) }}>
+              <Group spacing="xs">
+                <Dice5 size={30} />
+                <Stack spacing={0}>
+                  <Title order={6} sx={{ lineHeight: 1 }}>
+                    {action.toUpperCase()}
+                  </Title>
+                  <Text size="sm">Map is randomly selected</Text>
+                </Stack>
+              </Group>
+            </Card>
+          )}
+          {mapActor && (
+            <Card p="xs" withBorder sx={{ backgroundColor: getColor(7) }}>
+              <Stack spacing={5}>
+                <Group spacing="xs">
+                  <Coin IconProps={{ size: 30 }} result={mapActor} />
+                  <Stack spacing={0}>
+                    <Text size="xs">Coin flip {mapActor}</Text>
+                    <Title order={6} sx={{ lineHeight: 1 }}>
+                      {action.toUpperCase()}S MAP
+                    </Title>
+                    {!!mode &&
+                      (currentMode ? (
                         <Title order={6}>{currentMode.name}</Title>
-                      )}
+                      ) : (
+                        <Text color="red" size="xs">
+                          Invalid Mode
+                        </Text>
+                      ))}
+                  </Stack>
+                </Group>
+              </Stack>
+            </Card>
+          )}
+          {sideActor && (
+            <Card p="xs" withBorder>
+              <Stack spacing={5}>
+                {sideActor === "random" ? (
+                  <Group spacing="xs">
+                    <Dice5 size={30} />
+                    <Title order={6} sx={{ lineHeight: 1 }}>
+                      Sides are chosen randomly
+                    </Title>
+                  </Group>
+                ) : (
+                  <Group spacing="xs">
+                    <Coin IconProps={{ size: 30 }} result={sideActor} />
+                    <Stack spacing={0}>
+                      <Text size="xs">Coin flip {sideActor}</Text>
+                      <Title order={6} sx={{ lineHeight: 1 }}>
+                        Chooses side
+                      </Title>
                     </Stack>
                   </Group>
-                </Stack>
-              </Card>
-            )}
-            {sideActor && (
-              <Card p="xs" withBorder>
-                <Stack spacing={5}>
-                  <Group>
-                    <Coin result={sideActor} />
-                    <Title order={5}>Chooses side</Title>
-                  </Group>
-                </Stack>
-              </Card>
-            )}
-          </Group>
-          <Group spacing="xs" noWrap>
-            <ActionIcon disabled={upDisabled} onClick={moveDirection("up")}>
-              <CaretUp />
-            </ActionIcon>
-            <ActionIcon disabled={downDisabled} onClick={moveDirection("down")}>
-              <CaretDown />
-            </ActionIcon>
-            <Confirm onConfirm={() => removeSequence(index)}>
-              <ActionIcon color="red" variant="light">
-                <Trash size={14} />
-              </ActionIcon>
-            </Confirm>
-          </Group>
+                )}
+              </Stack>
+            </Card>
+          )}
+          {invalidMode && (
+            <Alert
+              p="xs"
+              title="Invalid Mode"
+              color="red"
+              icon={<AlertTriangle size={14} />}
+            >
+              <Text size="xs">
+                The mode used for this sequence does not exist
+              </Text>
+            </Alert>
+          )}
         </Group>
-      </Card>
-    </Indicator>
+        <Group spacing="xs" noWrap>
+          <ActionIcon disabled={upDisabled} onClick={moveDirection("up")}>
+            <CaretUp />
+          </ActionIcon>
+          <ActionIcon disabled={downDisabled} onClick={moveDirection("down")}>
+            <CaretDown />
+          </ActionIcon>
+          <Confirm onConfirm={() => removeSequence(index)}>
+            <ActionIcon color="red" variant="light">
+              <Trash size={14} />
+            </ActionIcon>
+          </Confirm>
+        </Group>
+      </Group>
+    </Card>
   )
 }
 
