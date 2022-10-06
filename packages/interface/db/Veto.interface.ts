@@ -4,5 +4,5 @@ export type {
   VetoMapPick as VetoMapPickSchema,
   VetoSequence,
   VetoSettings,
-  VetoSidePickSchema,
+  VetoSidePick as VetoSidePickSchema,
 } from "utils/schema/veto.schema"

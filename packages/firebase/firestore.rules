@@ -19,8 +19,8 @@ service cloud.firestore {
 
     function isAdmin() {
       return (
-        auth().token.admin == true
-        || auth().token.super_admin == true
+        !optional("admin", auth().token)
+        || !optional("super_admin", auth().token)
         || userDoc().data.type == "admin"
       )
     }
@@ -79,6 +79,12 @@ service cloud.firestore {
 
       allow get;
       allow list: if request.query.limit <= 50
+    }
+
+
+    match /veto_presets/{presetId} {
+      allow read;
+      allow delete: if isAdmin() || resource.data.id == uid();
     }
 
     match /rooms/{roomId} {

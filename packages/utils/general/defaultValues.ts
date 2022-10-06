@@ -20,6 +20,7 @@ import type {
 import {
   VetoMap,
   VetoMode,
+  VetoPreset,
   VetoReadyCheck,
   VetoSequenceSettingsItem,
 } from "../schema/veto.schema"
@@ -230,4 +231,9 @@ export const defaultPlayer: SanitizedUser = {
   username: "",
   verified: false,
   stats: {},
+}
+
+export const defaultVetoPreset: Omit<VetoPreset, "id" | "owner"> = {
+  name: "",
+  settings: defaultVetoSettings,
 }

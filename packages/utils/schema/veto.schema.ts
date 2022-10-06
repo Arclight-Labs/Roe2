@@ -205,3 +205,15 @@ export const vetoClaimCoinSchema = z.object({
 })
 
 export type VetoClaimCoin = z.infer<typeof vetoClaimCoinSchema>
+
+// Presets
+
+export const vetoPresetSchema = z.object({
+  name: z.string().min(1),
+  settings: vetoSettingsSchema,
+})
+
+export type VetoPreset = z.infer<typeof vetoPresetSchema> & {
+  owner: string
+  id: string
+}
