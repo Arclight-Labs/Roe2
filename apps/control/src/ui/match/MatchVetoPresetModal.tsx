@@ -10,7 +10,12 @@ import {
   TextInput,
 } from "@mantine/core"
 import { showNotification } from "@mantine/notifications"
-import { collection, deleteDoc, doc } from "firebase/firestore"
+import {
+  collection,
+  CollectionReference,
+  deleteDoc,
+  doc,
+} from "firebase/firestore"
 import { useState } from "react"
 import { useCollectionData } from "react-firebase-hooks/firestore"
 import { useHttpsCallable } from "react-firebase-hooks/functions"
@@ -34,13 +39,13 @@ const MatchVetoPresetModal = ({ settings, reset, ...props }: Props) => {
   const [opened, setOpened] = useState(false)
   const [selected, set] = useState<string | null>(null)
   const [presets = [], loading] = useCollectionData(
-    collection(db, "veto_presets")
+    collection(db, "veto_presets") as CollectionReference<VetoPreset>
   )
 
   const onConfirm = () => {
     const selectedPreset = presets.find((preset) => preset.id === selected)
     if (!selectedPreset) return
-    reset(selectedPreset.data)
+    reset(selectedPreset.settings)
     props.onClose()
   }
 
