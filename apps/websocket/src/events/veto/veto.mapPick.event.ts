@@ -152,7 +152,8 @@ export const vetoMapPick: EventFn<VetoMapPick> = (socket, io) => {
         const nextSeq = sequence[currentSequence]
         const pool = mapPool(currentSequence).map(({ id }) => id)
         nextSeq.mapPicked = pool[Math.floor(Math.random() * pool.length)]
-        nextSeq.status = "complete"
+        nextSeq.status =
+          nextSeq.sideActor === "random" ? "complete" : "awaitingSidePick"
         nextSeq.mapActorSide =
           nextSeq.sideActor === "random"
             ? reverseSide(randomSide)
