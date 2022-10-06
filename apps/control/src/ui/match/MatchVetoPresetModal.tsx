@@ -19,7 +19,7 @@ import {
 import { useState } from "react"
 import { useCollectionData } from "react-firebase-hooks/firestore"
 import { useHttpsCallable } from "react-firebase-hooks/functions"
-import { useForm, UseFormReset } from "react-hook-form"
+import { useForm, UseFormGetValues, UseFormReset } from "react-hook-form"
 import { db, fn } from "utils/firebase"
 import {
   VetoPreset,
@@ -29,9 +29,9 @@ import {
 import { useAuth } from "../../context/auth/Auth.hooks"
 interface Props extends ModalProps {
   reset: UseFormReset<VetoSettings>
-  settings: VetoSettings
+  getValues: UseFormGetValues<VetoSettings>
 }
-const MatchVetoPresetModal = ({ settings, reset, ...props }: Props) => {
+const MatchVetoPresetModal = ({ getValues, reset, ...props }: Props) => {
   const { user } = useAuth()
   const [callable, callableLoading] = useHttpsCallable<
     Omit<VetoPreset, "id" | "owner">
@@ -50,12 +50,12 @@ const MatchVetoPresetModal = ({ settings, reset, ...props }: Props) => {
   }
 
   const { register, handleSubmit } = useForm({
-    defaultValues: { name: "", settings },
+    defaultValues: { name: "", settings: getValues() },
     resolver: zodResolver(vetoPresetSchema),
   })
 
   const submit = handleSubmit(async (data) => {
-    await callable(data).catch((err) =>
+    await callable({ ...data, settings: getValues() }).catch((err) =>
       showNotification({ message: err.message })
     )
     setOpened(false)

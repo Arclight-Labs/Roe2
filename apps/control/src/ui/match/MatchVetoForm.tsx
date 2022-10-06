@@ -66,7 +66,7 @@ const MatchVetoSettingsForm = ({ match }: Props) => {
   const [room] = useActiveRoom()
   const { vetoSettings } = useWsAction()
   const { accessToken } = useAuth()
-  const { control, setValue, watch, handleSubmit, register, reset } =
+  const { control, setValue, watch, handleSubmit, register, reset, getValues } =
     useForm<VetoSettings>({
       defaultValues: match.veto?.settings ?? defaultVetoSettings,
       resolver: zodResolver(vetoSettingsSchema),
@@ -270,7 +270,7 @@ const MatchVetoSettingsForm = ({ match }: Props) => {
         </Button>
       </Group>
       <MatchVetoPresetModal
-        settings={watchAll}
+        getValues={getValues}
         opened={presetsOpened}
         onClose={() => setPresetsOpened(false)}
         reset={reset}
