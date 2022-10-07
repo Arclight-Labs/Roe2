@@ -11,6 +11,7 @@ import { useState } from "react"
 import { useLive, useMatches, useParticipants } from "utils/hooks"
 import { setLive, setMatch } from "utils/socket/events"
 import { useAuth } from "../../context/auth/Auth.hooks"
+import PlayerSelect from "../match/PlayerSelect.ui"
 import ParticipantInline from "../participant/ParticipantInline.ui"
 import Confirm from "../popups/Confirm.ui"
 
@@ -83,6 +84,15 @@ const ActiveMatchQuickActions = () => {
           onChange={(value) => setFlashTimer(value || 10)}
           label="Flash Timer (secs)"
         />
+        <Group position="center" grow>
+          <Card withBorder>
+            <PlayerSelect team={activeTeamA} />
+          </Card>
+          <Card withBorder>
+            <PlayerSelect team={activeTeamB} />
+          </Card>
+        </Group>
+
         {live.winnerFlash && (
           <Button color="red" onClick={() => setWinnerFlash(null)}>
             STOP WINNER FLASH
