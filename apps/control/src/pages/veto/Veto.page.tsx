@@ -10,7 +10,7 @@ import {
   ThemeIcon,
   Timeline,
 } from "@mantine/core"
-import { Check, Coin, Dice5, Minus, X } from "tabler-icons-react"
+import { Bulb, Check, Coin, Dice5, Minus, X } from "tabler-icons-react"
 import { useScreen } from "ui/Screen.hook"
 import ParticipantInline from "../../ui/participant/ParticipantInline.ui"
 import { useVeto } from "./Veto.hook"
@@ -65,8 +65,8 @@ const VetoPage = () => {
   }
 
   const { sm } = useScreen()
-  const actionPlurals = {
-    ban: "banned",
+  const actionPastTense = {
+    ban: "vetoed",
     pick: "picked",
     decider: "Decider map: ",
   }
@@ -236,7 +236,11 @@ const VetoPage = () => {
                                       </b>
                                     </Text>
                                     <Text size="sm">
-                                      {actionPlurals[sequence.action || "ban"]}
+                                      {
+                                        actionPastTense[
+                                          sequence.action || "ban"
+                                        ]
+                                      }
                                     </Text>
                                     <Text size="sm">
                                       <b>{getMap(sequence.mapPicked)?.name}</b>
@@ -321,6 +325,11 @@ const VetoPage = () => {
                               )}
                             </Center>
                           </Card>
+                        )}
+                        {sequence.description && (
+                          <Alert icon={<Bulb />} variant="filled">
+                            {sequence.description}
+                          </Alert>
                         )}
                       </Stack>
                     </Card>

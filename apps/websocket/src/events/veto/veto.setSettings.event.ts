@@ -90,6 +90,7 @@ export const vetoSetSettings: EventFn<VetoSetSettingsFn> = (socket, io) => {
         sidePicked: null,
         sideActor: seq.sideActor,
         status: "pending",
+        description: seq.description,
       })),
     }
 

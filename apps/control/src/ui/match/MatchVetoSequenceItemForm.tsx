@@ -15,6 +15,7 @@ import {
   Stack,
   Switch,
   Text,
+  Textarea,
   Title,
 } from "@mantine/core"
 import { forwardRef, useState } from "react"
@@ -68,7 +69,7 @@ const MatchVetoSequenceItemModal = ({
   ...props
 }: Props) => {
   const [addMore, setAddMore] = useState(false)
-  const { handleSubmit, watch, setValue, reset } =
+  const { handleSubmit, watch, setValue, reset, register } =
     useForm<VetoSequenceSettingsItem>({
       defaultValues: defaultVetoSettingsSequenceItem,
       resolver: zodResolver(vetoSequenceSettingsItemSchema),
@@ -337,6 +338,14 @@ const MatchVetoSequenceItemModal = ({
             />
           </Stack>
         )}
+
+        <Textarea
+          sx={{ width: "100%" }}
+          placeholder={"This pick is played on game 4"}
+          label="Description (optional)"
+          {...register("description")}
+          minRows={3}
+        />
         <Card withBorder>
           <Center>Maps Remaining for this mode: {mapsRemaining()}</Center>
         </Card>

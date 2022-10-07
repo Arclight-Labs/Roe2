@@ -30,6 +30,7 @@ export const defaultVetoSettingsSequenceItem: VetoSequenceSettingsItem = {
   mode: null,
   mapActor: "loser",
   sideActor: "winner",
+  description: "",
 }
 
 export const defaultMap: VetoMap = {

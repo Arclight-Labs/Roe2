@@ -62,6 +62,7 @@ export const vetoSequenceSettingsItemSchema = z.object({
   action: vetoActionSchema,
   mapActor: coinTeamResultSchema.nullable(),
   sideActor: sideActorSchema.nullable(),
+  description: z.string().nullable(),
 })
 export type VetoSequenceSettingsItem = z.infer<
   typeof vetoSequenceSettingsItemSchema
@@ -132,6 +133,7 @@ export const vetoSequenceItemSchema = z.object({
   mapPicked: z.string().nullable(),
   sideActor: sideActorSchema.nullable(),
   sidePicked: vetoSideSchema.nullable(),
+  description: z.string().nullable(),
 })
 
 export type VetoSequence = z.infer<typeof vetoSequenceItemSchema>

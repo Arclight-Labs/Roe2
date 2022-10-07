@@ -16,6 +16,7 @@ import {
 } from "react-hook-form"
 import {
   AlertTriangle,
+  Bulb,
   CaretDown,
   CaretUp,
   Dice5,
@@ -38,7 +39,7 @@ interface Props {
 }
 
 const MatchvetoSequenceItem = ({
-  sequence: { action, mapActor, mode, sideActor },
+  sequence: { action, mapActor, mode, sideActor, description },
   removeSequence,
   upDisabled,
   downDisabled,
@@ -154,6 +155,11 @@ const MatchvetoSequenceItem = ({
               <Text size="xs">
                 The mode used for this sequence does not exist
               </Text>
+            </Alert>
+          )}
+          {description && (
+            <Alert variant="filled" icon={<Bulb />}>
+              {description}
             </Alert>
           )}
         </Group>
