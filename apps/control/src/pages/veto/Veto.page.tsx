@@ -354,7 +354,11 @@ const VetoPage = () => {
                           </Card>
                         )}
                         {sequence.description && (
-                          <Alert icon={<Bulb />} variant="filled">
+                          <Alert
+                            icon={<Bulb />}
+                            variant="filled"
+                            sx={{ whiteSpace: "pre-wrap" }}
+                          >
                             {sequence.description}
                           </Alert>
                         )}

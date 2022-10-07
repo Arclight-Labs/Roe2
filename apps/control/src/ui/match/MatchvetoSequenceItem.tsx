@@ -158,7 +158,11 @@ const MatchvetoSequenceItem = ({
             </Alert>
           )}
           {description && (
-            <Alert variant="filled" icon={<Bulb />}>
+            <Alert
+              variant="filled"
+              icon={<Bulb />}
+              sx={{ whiteSpace: "pre-wrap" }}
+            >
               {description}
             </Alert>
           )}

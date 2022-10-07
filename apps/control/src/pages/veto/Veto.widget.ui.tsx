@@ -32,6 +32,7 @@ const VetoWidget = ({ hook }: Props) => {
     side,
     sequenceItem,
     isComplete,
+    settings,
   } = hook
 
   const ready = () => {
@@ -78,7 +79,12 @@ const VetoWidget = ({ hook }: Props) => {
                       <Title order={4} sx={{ lineHeight: 1 }}>
                         {activeTeam.name}
                       </Title>
-                      {<Text size="sm">Coin flip {activeTeamCoinStatus}</Text>}
+                      {
+                        <Text size="sm">
+                          {settings.seedWinner ? "Seed" : "Coin flip"}{" "}
+                          {activeTeamCoinStatus}
+                        </Text>
+                      }
                     </Stack>
                   </Group>
                   <Group>
