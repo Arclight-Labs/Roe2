@@ -56,6 +56,7 @@ export const vetoReset: EventFn<VetoResetFn> = (socket, io) => {
         sidePicked: null,
         sideActor: seq.sideActor,
         status: "pending",
+        description: seq.description || "",
       })),
     }
 
