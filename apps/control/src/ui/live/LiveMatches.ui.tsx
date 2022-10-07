@@ -3,21 +3,25 @@ import {
   Divider,
   Group,
   Stack,
+  Switch,
   Text,
   Title,
   Tooltip,
 } from "@mantine/core"
 import { Live } from "interface/ws"
+import { useState } from "react"
 import { SquareX } from "tabler-icons-react"
 import { useMatches } from "utils/hooks"
 import { setLive } from "utils/socket/events"
 import { useAuth } from "../../context/auth/Auth.hooks"
 import MatchCard from "../match/MatchCard.ui"
 import Confirm from "../popups/Confirm.ui"
+import ActiveMatchQuickActions from "./ActiveMatchActions.ui"
 
 const LiveMatches = () => {
   const { accessToken } = useAuth()
-  const { activeMatch, nextMatch, schedule } = useMatches()
+  const { activeMatch, nextMatch, schedule, matches } = useMatches()
+  const [showMatches, setShowMatches] = useState(false)
 
   const clearSchedule = () => {
     const saveData: Partial<Live> = { schedule: [] }
@@ -29,7 +33,10 @@ const LiveMatches = () => {
       <Stack spacing="xs">
         <Title order={4}>Active Match</Title>
         {activeMatch ? (
-          <MatchCard match={activeMatch} />
+          <>
+            <MatchCard match={activeMatch} />
+            <ActiveMatchQuickActions />
+          </>
         ) : (
           <Text align="center">No active match selected.</Text>
         )}
@@ -62,6 +69,18 @@ const LiveMatches = () => {
         ) : (
           <Text align="center">No schedule yet.</Text>
         )}
+      </Stack>
+      <Divider variant="dashed" />
+      <Stack>
+        <Switch
+          label="Show all matches"
+          checked={showMatches}
+          onChange={() => setShowMatches((s) => !s)}
+        />
+        {showMatches &&
+          Object.values(matches).map((match) => (
+            <MatchCard key={match.id} small match={match} withBorder />
+          ))}
       </Stack>
     </Stack>
   )

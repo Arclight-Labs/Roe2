@@ -30,6 +30,7 @@ export const defaultVetoSettingsSequenceItem: VetoSequenceSettingsItem = {
   mode: null,
   mapActor: "loser",
   sideActor: "winner",
+  description: "",
 }
 
 export const defaultMap: VetoMap = {
@@ -193,6 +194,7 @@ export const defaultLive: Live = {
   talents: {},
   lt: defaultLowerthird,
   shoutouts: {},
+  winnerFlash: null,
 }
 
 export const defaultUser: User = {

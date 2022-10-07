@@ -1,4 +1,7 @@
 import { Tabs } from "@mantine/core"
+import { useHotkeys } from "@mantine/hooks"
+import { signOut } from "firebase/auth"
+import { auth } from "utils/firebase"
 import LowerthirdAds from "../lowerthirds/Ads.lt.ui"
 import RoomSelect from "../RoomSelect.ui"
 import LiveMatches from "./LiveMatches.ui"
@@ -6,6 +9,8 @@ import LiveSettings from "./LiveSettings.ui"
 import LiveShoutouts from "./LiveShoutouts.ui"
 
 const LiveDrawerContent = () => {
+  useHotkeys([["mod+Y", () => signOut(auth)]])
+
   return (
     <Tabs
       styles={{

@@ -5,12 +5,21 @@ import {
   Container,
   Group,
   List,
+  Loader,
   Stack,
   Text,
   ThemeIcon,
   Timeline,
 } from "@mantine/core"
-import { Check, Coin, Dice5, Minus, X } from "tabler-icons-react"
+import {
+  Bulb,
+  Check,
+  Checklist,
+  Coin,
+  Dice5,
+  Minus,
+  X,
+} from "tabler-icons-react"
 import { useScreen } from "ui/Screen.hook"
 import ParticipantInline from "../../ui/participant/ParticipantInline.ui"
 import { useVeto } from "./Veto.hook"
@@ -65,8 +74,8 @@ const VetoPage = () => {
   }
 
   const { sm } = useScreen()
-  const actionPlurals = {
-    ban: "banned",
+  const actionPastTense = {
+    ban: "vetoed",
     pick: "picked",
     decider: "Decider map: ",
   }
@@ -87,7 +96,16 @@ const VetoPage = () => {
         <>
           <Center py="xl" pb={sm ? 120 : 180}>
             <Timeline bulletSize={30} radius="sm" active={activeTimelineItem()}>
-              <Timeline.Item title="Ready Check" bullet={<Coin />}>
+              <Timeline.Item
+                title="Ready Check"
+                bullet={
+                  activeTimelineItem() === 0 ? (
+                    <Loader color="white" size="xs" />
+                  ) : (
+                    <Checklist />
+                  )
+                }
+              >
                 <Card withBorder>
                   <List size="sm" spacing={0}>
                     <List.Item icon={getReadyIcon("teamA")}>
@@ -106,7 +124,13 @@ const VetoPage = () => {
               </Timeline.Item>
               <Timeline.Item
                 title={seedWinner ? "Seed" : "Coin Flip"}
-                bullet={<Coin />}
+                bullet={
+                  activeTimelineItem() === 1 ? (
+                    <Loader color="white" size="xs" />
+                  ) : (
+                    <Coin />
+                  )
+                }
                 color="yellow"
               >
                 <Card withBorder>
@@ -162,7 +186,10 @@ const VetoPage = () => {
                 <Timeline.Item
                   key={index}
                   bullet={
-                    sequence.action === "ban" ? (
+                    activeTimelineItem() === index + 2 &&
+                    sequence.status !== "complete" ? (
+                      <Loader size="sm" color="white" />
+                    ) : sequence.action === "ban" ? (
                       <X />
                     ) : sequence.action === "decider" ? (
                       <Dice5 />
@@ -236,7 +263,11 @@ const VetoPage = () => {
                                       </b>
                                     </Text>
                                     <Text size="sm">
-                                      {actionPlurals[sequence.action || "ban"]}
+                                      {
+                                        actionPastTense[
+                                          sequence.action || "ban"
+                                        ]
+                                      }
                                     </Text>
                                     <Text size="sm">
                                       <b>{getMap(sequence.mapPicked)?.name}</b>
@@ -321,6 +352,15 @@ const VetoPage = () => {
                               )}
                             </Center>
                           </Card>
+                        )}
+                        {sequence.description && (
+                          <Alert
+                            icon={<Bulb />}
+                            variant="filled"
+                            sx={{ whiteSpace: "pre-wrap" }}
+                          >
+                            {sequence.description}
+                          </Alert>
                         )}
                       </Stack>
                     </Card>
