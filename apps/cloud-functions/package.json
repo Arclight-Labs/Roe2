@@ -1,6 +1,6 @@
 {
   "name": "cloud-functions",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "scripts": {
     "lint": "eslint --ext .js,.ts .",
     "dev": "sh getRuntimeconfig.sh && cd ../.. && firebase emulators:start --export-on-exit=./data --import=./data",
@@ -19,7 +19,7 @@
     "axios": "0.27.2",
     "crypto-js": "4.1.1",
     "dotenv": "16.0.2",
-    "fastify": "4.6.0",
+    "fastify": "4.8.1",
     "firebase-admin": "11.0.1",
     "firebase-functions": "3.24.0",
     "zod": "3.19.1"
