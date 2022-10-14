@@ -10,8 +10,6 @@
   <a href="https://www.codacy.com/gh/AcadArena/Roe2/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=AcadArena/Roe2&amp;utm_campaign=Badge_Grade"><img src="https://app.codacy.com/project/badge/Grade/3b2f3c26e71d4949aced6e64ce9e3608"/></a>
 </p>
 
-
-
 # Remote Overlay Environment 2
 
 An overlay tool for tournaments hosted in [AcadArena](https://app.acadarena.com/) platform.
@@ -32,16 +30,6 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/lang/en/) as a package ma
 - `tsconfig`: `tsconfig.json`s used throughout the monorepo
 - `interface`: typescript types and interfaces
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
 ## Setup
 
 <!-- This repository is used in the `npx create-turbo` command, and selected when choosing which package manager you wish to use with your monorepo (Yarn). -->
@@ -58,7 +46,6 @@ To build you must have the same node version or higher.
 To build all apps and packages, run the following command:
 
 ```sh
-cd roe2
 yarn run build
 ```
 
@@ -67,6 +54,5 @@ yarn run build
 To develop all apps and packages, run the following command:
 
 ```
-cd roe2
 yarn run dev
 ```
