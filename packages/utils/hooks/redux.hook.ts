@@ -250,9 +250,9 @@ export const useMatches = () => {
     return !!live.schedule.find((s) => s.matchId === `${match}`)
   }
 
-  const nextMatch = matches[live.nextMatch]
-  const activeMatch = matches[live.activeMatch]
-  const schedule = live.schedule.map((s) => matches[s.matchId] ?? tbd)
+  const nextMatch: SanitizedSeries | undefined = matches[live.nextMatch]
+  const activeMatch: SanitizedSeries | undefined = matches[live.activeMatch]
+  const schedule = live.schedule.map((s) => matches[s.matchId] ?? defaultSeries)
 
   const { groupsMatches, playoffsMatches } = splitMatchesByType(matches ?? {})
   const groups = mapByGroup(groupsMatches)
