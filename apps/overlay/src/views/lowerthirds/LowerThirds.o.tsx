@@ -55,58 +55,60 @@ const LowerThirds = () => {
   const bgImage = isWS ? "" : `url("${BG}")`
 
   return (
-    <AnimatePresence>
-      {show && (
-        <LayoutGroup>
-          <motion.div
-            layout
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            variants={list}
-            style={{
-              backgroundImage: bgImage,
-              backgroundSize: "100% 100%",
-              width: 1585,
-              height: 300,
-              padding: "55px 50px",
-            }}
-          >
-            <Box
-              sx={{
-                position: "relative",
-                zIndex: 99,
-                width: "100%",
-                height,
-                overflow: "hidden",
+    <div>
+      <AnimatePresence>
+        {show && (
+          <LayoutGroup>
+            <motion.div
+              layout
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              variants={list}
+              style={{
+                backgroundImage: bgImage,
+                backgroundSize: "100% 100%",
+                width: 1585,
+                height: 300,
+                padding: "55px 50px",
               }}
             >
-              <AnimatePresence>
-                <motion.div
-                  key={mode}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                  variants={item}
-                  style={{
-                    position: "absolute",
-                    width: "100%",
-                    height: "100%",
-                    top: 0,
-                    left: 0,
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                  transition={{ duration: 0.5 }}
-                >
-                  {switchLT({ mode, isWS })}
-                </motion.div>
-              </AnimatePresence>
-            </Box>
-          </motion.div>
-        </LayoutGroup>
-      )}
-    </AnimatePresence>
+              <Box
+                sx={{
+                  position: "relative",
+                  zIndex: 99,
+                  width: "100%",
+                  height,
+                  overflow: "hidden",
+                }}
+              >
+                <AnimatePresence>
+                  <motion.div
+                    key={mode}
+                    initial="initial"
+                    animate="animate"
+                    exit="exit"
+                    variants={item}
+                    style={{
+                      position: "absolute",
+                      width: "100%",
+                      height: "100%",
+                      top: 0,
+                      left: 0,
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    {switchLT({ mode, isWS })}
+                  </motion.div>
+                </AnimatePresence>
+              </Box>
+            </motion.div>
+          </LayoutGroup>
+        )}
+      </AnimatePresence>
+    </div>
   )
 }
 

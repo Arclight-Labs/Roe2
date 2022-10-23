@@ -21,7 +21,7 @@ const LowerthirdsPage = () => {
           <Tabs.Panel value="ticker" py="sm">
             <LowerthirdTickerForm />
           </Tabs.Panel>
-          <Tabs.Panel value="lt" py="sm">
+          <Tabs.Panel value="ad" py="sm">
             <LowerthirdAds />
           </Tabs.Panel>
         </Tabs>

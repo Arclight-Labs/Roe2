@@ -23,7 +23,12 @@ const LowerthirdModeCard: FC<Props> = ({ value, label, hotkey, icon }) => {
   return (
     <Card onClick={onClick} sx={{ cursor: "pointer" }} withBorder>
       <Group noWrap>
-        <Radio size="lg" value={value} checked={mode === value} />
+        <Radio
+          size="lg"
+          value={value}
+          onChange={() => {}}
+          checked={mode === value}
+        />
         {icon}
         <div>
           <Text size="sm">{label}</Text>
