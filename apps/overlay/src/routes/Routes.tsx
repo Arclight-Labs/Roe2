@@ -52,6 +52,12 @@ const CodmIngameScene = Loadable(
 const MlbbIngameScene = Loadable(
   lazy(() => import("../scenes/allg/ingame/mlbb/Mlbb.ingame.scene"))
 )
+const LolIngameScene = Loadable(
+  lazy(() => import("../scenes/allg/ingame/lol/Lol.ingame.scene"))
+)
+const WrIngameScene = Loadable(
+  lazy(() => import("../scenes/allg/ingame/wr/Wr.ingame.scene"))
+)
 const HeadToHead = Loadable(
   lazy(() => import("../scenes/allg/headToHead/h2h.scene"))
 )
@@ -91,6 +97,8 @@ const Routes = () => {
                     { path: "val", element: <ValorantIngameScene /> },
                     { path: "codm", element: <CodmIngameScene /> },
                     { path: "mlbb", element: <MlbbIngameScene /> },
+                    { path: "lol", element: <LolIngameScene /> },
+                    { path: "wr", element: <WrIngameScene /> },
                   ],
                 },
                 {
