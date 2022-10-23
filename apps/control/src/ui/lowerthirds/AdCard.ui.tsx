@@ -13,7 +13,7 @@ import {
 import { useToggle } from "@mantine/hooks"
 import { Ad } from "interface/ws/Live.interface"
 import { FC } from "react"
-import { Eye, EyeOff, Pencil } from "tabler-icons-react"
+import { Eye, EyeOff, Menu2, Pencil } from "tabler-icons-react"
 import { adjImageStyles, defaultAdjImage } from "utils/general"
 import { useLt } from "utils/hooks"
 import { setLive } from "utils/socket/events"
@@ -49,22 +49,29 @@ const AdCard: FC<AdCardProps> = ({ ad }) => {
           </ActionIcon>
         </Tooltip>
         <Menu withinPortal>
-          <Menu.Item onClick={toggle} icon={<Pencil size={18} />}>
-            Edit
-          </Menu.Item>
-          {!isActive ? (
-            <Menu.Item onClick={setAd(ad.id)} icon={<Pencil size={18} />}>
-              Set as active
+          <Menu.Target>
+            <ActionIcon>
+              <Menu2 />
+            </ActionIcon>
+          </Menu.Target>
+          <Menu.Dropdown>
+            <Menu.Item onClick={toggle} icon={<Pencil size={18} />}>
+              Edit
             </Menu.Item>
-          ) : (
-            <Menu.Item
-              onClick={setAd("")}
-              icon={<Pencil size={18} />}
-              color="red"
-            >
-              Unset as active
-            </Menu.Item>
-          )}
+            {!isActive ? (
+              <Menu.Item onClick={setAd(ad.id)} icon={<Pencil size={18} />}>
+                Set as active
+              </Menu.Item>
+            ) : (
+              <Menu.Item
+                onClick={setAd("")}
+                icon={<Pencil size={18} />}
+                color="red"
+              >
+                Unset as active
+              </Menu.Item>
+            )}
+          </Menu.Dropdown>
         </Menu>
       </Group>
       <Group noWrap align="center">
@@ -72,7 +79,7 @@ const AdCard: FC<AdCardProps> = ({ ad }) => {
           size="xl"
           value=""
           checked={ad.id === ltAd}
-          onClick={setAd(ad.id)}
+          onChange={setAd(ad.id)}
         />
         <Box
           sx={{
