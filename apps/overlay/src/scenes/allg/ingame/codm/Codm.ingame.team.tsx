@@ -20,6 +20,8 @@ const CodmIngameTeam = ({ side, ...props }: Props) => {
   }
   const team = getActiveTeam(invert(side))
   const score = getScore(activeMatch ?? defaultSeries)?.[invert(side)].final
+  const bestof = activeMatch?.bestOf || 1
+  const maxMatchCount = Math.ceil(bestof / 2)
   return (
     <Group
       align="start"
@@ -68,7 +70,7 @@ const CodmIngameTeam = ({ side, ...props }: Props) => {
           flexDirection: side === "teamA" ? "row" : "row-reverse",
         }}
       >
-        {new Array(activeMatch?.bestOf || 1).fill(1).map((_, i) => (
+        {new Array(maxMatchCount).fill(1).map((_, i) => (
           <Stack
             key={i}
             justify="center"
