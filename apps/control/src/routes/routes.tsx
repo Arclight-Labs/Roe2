@@ -2,14 +2,18 @@ import { LoadingOverlay } from "@mantine/core"
 import { FunctionComponent, lazy, Suspense } from "react"
 import { Navigate, Outlet, useRoutes } from "react-router-dom"
 import { ParamRoomProvider } from "utils/hooks"
-import RoomProvider from "../context/room/Room.provider"
-import StatePage from "../pages/state/State.page"
-import AppShellWrapper from "../ui/AppShellWrapper.ui"
-import AuthGuard from "../ui/guards/AuthGuard"
-import RoomGuard from "../ui/guards/RoomGuard"
-import LiveDrawer from "../ui/live/LiveDrawer.ui"
-import RoomSelect from "../ui/RoomSelect.ui"
 
+// Lazy Loaded Components
+const RoomProvider = Loadable(
+  lazy(() => import("../context/room/Room.provider"))
+)
+const AppShellWrapper = Loadable(lazy(() => import("../ui/AppShellWrapper.ui")))
+const AuthGuard = Loadable(lazy(() => import("../ui/guards/AuthGuard")))
+const RoomGuard = Loadable(lazy(() => import("../ui/guards/RoomGuard")))
+const LiveDrawer = Loadable(lazy(() => import("../ui/live/LiveDrawer.ui")))
+const RoomSelect = Loadable(lazy(() => import("../ui/RoomSelect.ui")))
+
+// Lazy Loaded Pages
 const Login = Loadable(lazy(() => import("../pages/Login.page")))
 const SignUp = Loadable(lazy(() => import("../pages/SignUp.page")))
 const TournamentPage = Loadable(lazy(() => import("../pages/tournament")))
@@ -21,6 +25,7 @@ const IngamePage = Loadable(lazy(() => import("../pages/ingame")))
 const ShoutoutsPage = Loadable(lazy(() => import("../pages/shoutouts")))
 const OverlaysPage = Loadable(lazy(() => import("../pages/overlays")))
 const ObsPage = Loadable(lazy(() => import("../pages/obs")))
+const StatePage = Loadable(lazy(() => import("../pages/state/State.page")))
 const QuickSettingsPage = Loadable(
   lazy(() => import("../pages/quick_settings"))
 )
