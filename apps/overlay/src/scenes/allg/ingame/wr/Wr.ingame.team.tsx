@@ -17,25 +17,27 @@ const WrIngameTeam = ({ side, ...props }: Props) => {
     textAlign,
     flexDirection,
   }
+
   const team = getActiveTeam(invert(side))
   const score = getScore(activeMatch ?? defaultSeries)?.[invert(side)].final
-
   return (
     <Group
       align="start"
-      spacing={10}
       {...props}
       sx={{
-        width: 405,
+        width: 535,
+        height: 125,
         color: "white",
+        alignItems: "flex-end",
         ...reverseProps,
         ...props.sx,
       }}
     >
       <Box
         sx={{
-          height: 90,
-          width: 110,
+          alignSelf: "flex-start",
+          height: 81,
+          width: 126,
           backgroundImage: `url("${team.logo}")`,
           backgroundSize: "auto 80%",
           backgroundRepeat: "no-repeat",
@@ -43,8 +45,19 @@ const WrIngameTeam = ({ side, ...props }: Props) => {
           flexShrink: 0,
         }}
       />
-      <Group spacing={10} sx={{ flex: 1, flexDirection, letterSpacing: 4 }}>
-        <Text sx={{ fontFamily: "Subway", color: "#ffd200" }} size={43}>
+      <Group
+        spacing={15}
+        mb={-5}
+        pl={side == "teamA" ? 105 : 0}
+        pr={side == "teamB" ? 95 : 0}
+        sx={{
+          flexGrow: 1,
+          flexDirection,
+          letterSpacing: 4,
+        }}
+        noWrap
+      >
+        <Text sx={{ fontFamily: "Subway", color: "#ffd200" }} size={45}>
           {team.shortcode}
         </Text>
         <Text sx={{ fontFamily: "Subway" }} size={24}>
@@ -56,8 +69,9 @@ const WrIngameTeam = ({ side, ...props }: Props) => {
         align="center"
         pt={6}
         sx={{
-          height: 70,
-          width: 70,
+          flexShrink: 0,
+          height: 60,
+          width: 50,
         }}
       >
         <Text

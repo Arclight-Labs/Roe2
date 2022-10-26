@@ -54,12 +54,14 @@ const RoomDirectory: FC<Props> = ({ small }) => {
     }
   }
 
+  const activeRoomExists = !!rooms.some((room) => room.id === activeRoom?.id)
+
   return (
     <Stack>
       <Group align="center">
         <Title order={4}>
-          {activeRoom?.name
-            ? `Current Room: ${activeRoom.name}`
+          {activeRoomExists
+            ? `Current Room: ${activeRoom?.name}`
             : "Select a room"}
         </Title>
         <Button
