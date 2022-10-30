@@ -1,7 +1,7 @@
 {
   "name": "overlay",
   "private": true,
-  "version": "0.0.28",
+  "version": "0.0.29",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -23,8 +23,8 @@
     "utils": "*"
   },
   "devDependencies": {
-    "@types/react": "18.0.23",
-    "@types/react-dom": "18.0.7",
+    "@types/react": "18.0.24",
+    "@types/react-dom": "18.0.8",
     "@vitejs/plugin-react": "2.2.0",
     "tsconfig": "*",
     "typescript": "4.8.4",
