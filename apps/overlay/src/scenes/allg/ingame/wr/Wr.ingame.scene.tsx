@@ -8,6 +8,7 @@ const WrIngameScene = () => {
 
   return (
     <Group
+      spacing={110}
       sx={{
         height: "100%",
         width: "100%",
@@ -15,7 +16,7 @@ const WrIngameScene = () => {
         backgroundImage: `url("${bg}")`,
         backgroundSize: "contain",
         fontWeight: "bold",
-        justifyContent: "space-between",
+        justifyContent: "center",
         alignItems: "flex-start",
       }}
     >

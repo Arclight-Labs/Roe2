@@ -73,6 +73,10 @@ const Match = Loadable(
   lazy(() => import("../scenes/allg/components/match/Match.o"))
 )
 
+const AllGLowerThirds = Loadable(
+  lazy(() => import("../scenes/allg/components/lowerthirds/Lowerthirds.o"))
+)
+
 const Routes = () => {
   return useRoutes([
     {
@@ -112,6 +116,7 @@ const Routes = () => {
                 {
                   path: "c",
                   children: [
+                    { path: "lowerthirds", element: <AllGLowerThirds /> },
                     {
                       path: "nametag/:index",
                       element: <Nametag />,
