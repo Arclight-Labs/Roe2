@@ -1,7 +1,7 @@
 {
   "name": "control",
   "private": true,
-  "version": "0.0.37",
+  "version": "0.0.38",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -18,7 +18,7 @@
     "@mantine/modals": "5.6.3",
     "@mantine/notifications": "5.6.3",
     "@reduxjs/toolkit": "1.8.6",
-    "@tanstack/react-query": "4.13.0",
+    "@tanstack/react-query": "4.13.4",
     "firebase": "9.13.0",
     "ip": "1.1.8",
     "lodash-es": "4.17.21",
