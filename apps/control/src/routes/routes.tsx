@@ -1,7 +1,7 @@
 import { LoadingOverlay } from "@mantine/core"
 import { FunctionComponent, lazy, Suspense } from "react"
 import { Navigate, Outlet, useRoutes } from "react-router-dom"
-import { ParamRoomProvider } from "utils/hooks"
+import { ParamRoomProvider } from "utils/hooks/useParamRoom.hook"
 
 // Lazy Loaded Components
 const RoomProvider = Loadable(
@@ -16,7 +16,7 @@ const RoomSelect = Loadable(lazy(() => import("../ui/RoomSelect.ui")))
 // Lazy Loaded Pages
 const Login = Loadable(lazy(() => import("../pages/Login.page")))
 const SignUp = Loadable(lazy(() => import("../pages/SignUp.page")))
-const TournamentPage = Loadable(lazy(() => import("../pages/tournament")))
+// const TournamentPage = Loadable(lazy(() => import("../pages/tournament")))
 const ParticipantsPage = Loadable(lazy(() => import("../pages/participants")))
 const MatchesPage = Loadable(lazy(() => import("../pages/matches")))
 const TalentsPage = Loadable(lazy(() => import("../pages/talents")))
@@ -30,6 +30,11 @@ const QuickSettingsPage = Loadable(
   lazy(() => import("../pages/quick_settings"))
 )
 const VetoPage = Loadable(lazy(() => import("../pages/veto")))
+const RundownPage = Loadable(lazy(() => import("../pages/rundown")))
+const RundownItemPage = Loadable(
+  lazy(() => import("../pages/rundown/RundownItem.page"))
+)
+const RundownViewPage = Loadable(lazy(() => import("../pages/rundown_view")))
 
 function Loadable<T extends object = {}>(Component: FunctionComponent<T>) {
   return (props: T) => {
@@ -50,6 +55,10 @@ const Routes = () => {
           <VetoPage />
         </ParamRoomProvider>
       ),
+    },
+    {
+      path: "rundown/:rundownId",
+      element: <RundownViewPage />,
     },
     {
       path: "auth",
@@ -88,8 +97,8 @@ const Routes = () => {
       ),
       children: [
         { path: "rooms", element: <RoomSelect /> },
-        { path: "/", element: <Navigate to="tournaments" /> },
-        { path: "tournaments", element: <TournamentPage /> },
+        { path: "/", element: <Navigate to="participants" /> },
+        // { path: "tournaments", element: <TournamentPage /> },
         { path: "participants", element: <ParticipantsPage /> },
         { path: "matches", element: <MatchesPage /> },
         { path: "talents", element: <TalentsPage /> },
@@ -99,6 +108,8 @@ const Routes = () => {
         { path: "shoutouts", element: <ShoutoutsPage /> },
         { path: "obs", element: <ObsPage /> },
         { path: "overlays", element: <OverlaysPage /> },
+        { path: "rundown", element: <RundownPage /> },
+        { path: "rundown/:rundownId/edit", element: <RundownItemPage /> },
       ],
     },
   ])

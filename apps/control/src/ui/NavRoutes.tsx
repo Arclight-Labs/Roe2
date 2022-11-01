@@ -5,10 +5,10 @@ import {
   GitFork,
   Headset,
   Icon,
+  ListDetails,
   Polaroid,
   Settings,
   Speakerphone,
-  Tournament,
   Users,
 } from "tabler-icons-react"
 interface NavLink {
@@ -18,7 +18,7 @@ interface NavLink {
 }
 
 const routes: NavLink[] = [
-  { link: "/tournaments", label: "Tournament", icon: Tournament },
+  // { link: "/tournaments", label: "Tournament", icon: Tournament },
   { link: "/participants", label: "Participants", icon: Users },
   { link: "/matches", label: "Matches", icon: GitFork },
   { link: "/talents", label: "Talents", icon: Headset },
@@ -28,6 +28,7 @@ const routes: NavLink[] = [
   { link: "/shoutouts", label: "Shoutouts", icon: Speakerphone },
   { link: "/obs", label: "OBS Integration", icon: Aperture },
   { link: "/overlays", label: "Overlays", icon: Polaroid },
+  { link: "/rundown", label: "Rundown", icon: ListDetails },
 ]
 
 export default routes
