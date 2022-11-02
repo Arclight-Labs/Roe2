@@ -1,6 +1,6 @@
 {
   "name": "cloud-functions",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "scripts": {
     "lint": "eslint --ext .js,.ts .",
     "dev": "sh getRuntimeconfig.sh && cd ../.. && firebase emulators:start --export-on-exit=./data --import=./data",
@@ -30,7 +30,7 @@
     "eslint": "8.26.0",
     "eslint-config-google": "0.14.0",
     "eslint-plugin-import": "2.26.0",
-    "firebase-functions-test": "2.4.0",
+    "firebase-functions-test": "3.0.0",
     "interface": "*",
     "tsconfig": "*",
     "typescript": "4.8.4"
