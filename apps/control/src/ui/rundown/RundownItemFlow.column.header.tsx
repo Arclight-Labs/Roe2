@@ -31,7 +31,7 @@ interface Props {
   columnId: string
 }
 const RundownItemFlowColumnHeader = ({
-  rundown: { id, columns, roomId },
+  rundown: { id, columns },
   columnId,
 }: Props) => {
   const column = columns[columnId]
