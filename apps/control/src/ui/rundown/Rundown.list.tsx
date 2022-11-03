@@ -28,7 +28,7 @@ const RundownList = ({ roomId }: Props) => {
   const path = `rundowns`
   const ref = collection(db, path) as CollectionReference<Rundown>
   const q = query(ref, where("roomId", "==", roomId))
-  const [data = [], loading] = useCollectionData(ref)
+  const [data = [], loading] = useCollectionData(q)
 
   const gotoRundown =
     (rundownId: string): MouseEventHandler =>
