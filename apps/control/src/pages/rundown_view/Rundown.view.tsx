@@ -73,7 +73,12 @@ const RundownView = () => {
                       })}
                     >
                       <Card.Section>
-                        <Text px="xs" size="xs" color="dimmed">
+                        <Text
+                          px="xs"
+                          size="xs"
+                          color="dimmed"
+                          sx={{ whiteSpace: "pre-wrap" }}
+                        >
                           Director Callout
                         </Text>
                       </Card.Section>
