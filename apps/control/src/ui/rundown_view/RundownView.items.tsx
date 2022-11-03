@@ -5,10 +5,10 @@ import { Broadcast } from "interface/ws"
 import { useDocumentData } from "react-firebase-hooks/firestore"
 import { db } from "utils/firebase"
 import { defaultBroadcast } from "utils/general"
-import RundownViewItem from "./RundownView.Item"
+import RundownViewItem from "./RundownView.item"
 
 type Item = RundownFlowItem & { flowNumber: number }
-type Items = Record<"prev" | "curr" | "next", Item | null>
+type Items = Record<"prev" | "curr" | "next" | "nextnext", Item | null>
 
 interface Props {
   rundown: Rundown
@@ -23,7 +23,7 @@ const RundownViewItems = ({ rundown, hiddenColumns }: Props) => {
     "broadcast"
   ) as DocumentReference<Broadcast>
   const [broadcast = defaultBroadcast] = useDocumentData(ref)
-  const { curr, prev, next } = rundown.flow.reduce<Items>(
+  const { curr, prev, next, nextnext } = rundown.flow.reduce<Items>(
     (items, flowItem, i, arr) => {
       const { currentItem } = rundown
       const id = flowItem.id
@@ -33,6 +33,7 @@ const RundownViewItems = ({ rundown, hiddenColumns }: Props) => {
           prev: null,
           curr: arr[0] ? { ...arr[0], flowNumber: 1 } : null,
           next: arr[1] ? { ...arr[1], flowNumber: 2 } : null,
+          nextnext: arr[2] ? { ...arr[2], flowNumber: 3 } : null,
         }
       }
       if (id === currentItem) {
@@ -40,6 +41,7 @@ const RundownViewItems = ({ rundown, hiddenColumns }: Props) => {
           prev: arr[i - 1] ? { ...arr[i - 1], flowNumber: i } : null,
           curr: { ...flowItem, flowNumber: i + 1 },
           next: arr[i + 1] ? { ...arr[i + 1], flowNumber: i + 2 } : null,
+          nextnext: arr[i + 2] ? { ...arr[i + 2], flowNumber: i + 3 } : null,
         }
       }
       return items
@@ -48,6 +50,7 @@ const RundownViewItems = ({ rundown, hiddenColumns }: Props) => {
       curr: null,
       prev: null,
       next: null,
+      nextnext: null,
     }
   )
   return (
@@ -74,6 +77,15 @@ const RundownViewItems = ({ rundown, hiddenColumns }: Props) => {
             <RundownViewItem
               status="next"
               flowItem={next}
+              hiddenColumns={hiddenColumns}
+              rundown={rundown}
+              broadcast={broadcast}
+            />
+          )}
+          {!!nextnext && (
+            <RundownViewItem
+              status="next"
+              flowItem={nextnext}
               hiddenColumns={hiddenColumns}
               rundown={rundown}
               broadcast={broadcast}

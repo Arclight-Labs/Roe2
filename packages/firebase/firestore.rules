@@ -68,9 +68,7 @@ service cloud.firestore {
 
     function isRoomAdmin(roomId) {
       let ROOM = getAfter(/databases/$(database)/documents/rooms/$(roomId)).data;
-      return ((uid() == ROOM.owner|| uid() in ROOM.admins)
-        && requestData().roomId == roomId
-      )
+      return ((uid() == ROOM.owner|| uid() in ROOM.admins))
     }
 
 
@@ -104,10 +102,9 @@ service cloud.firestore {
         return (
           callout.text is string
           && callout.icon is string
-          && callout.style is map
-          && callout.style.keys().hasOnly(["color", "backgroundColor"])
-          && callout.style.color is string
-          && callout.style.backgroundColor is string
+          && callout.live is bool
+          && callout.textColor is string
+          && callout.backgroundColor is string
         )
       }
 
@@ -115,6 +112,8 @@ service cloud.firestore {
         return (
           rundown.id == rundownId
           && rundown.roomId is string
+          && rundown.roomId.size() > 0
+          && exists(/databases/$(database)/documents/rooms/$(rundown.roomId))
           && rundown.name is string
           && rundown.name.size() > 0
           && rundown.desc is string
@@ -127,7 +126,7 @@ service cloud.firestore {
           && rundown.columnOrder.hasAll(rundown.columns.keys())
           && rundown.columnOrder.hasOnly(rundown.columns.keys())
           && rundown.flow is list
-          && (isValidRundownCallout(rundown.callout) || optional("callout", rundown))
+          && isValidRundownCallout(rundown.callout)
         )
       }
 

@@ -12,27 +12,27 @@ export interface Rundown {
   columns: Record<string, RundownColumn>
   columnOrder: string[]
   currentItem: string
-  callout?: RundownCallout
+  callout: RundownCallout
 }
 
-export interface RundownCallout {
-  text: string
-  icon: string
-  style: RundownCalloutStyle
-}
-
-export interface RundownCalloutStyle {
-  color: string
+export interface RundownStyles {
+  textColor: string
   backgroundColor: string
 }
 
-export interface RundownColumn extends RundownFlowItemStyles {
+export interface RundownCallout extends RundownStyles {
+  text: string
+  icon: string
+  live: boolean
+}
+
+export interface RundownColumn extends RundownStyles {
   id: string
   name: string
   hidden: boolean
 }
 
-export interface RundownFlowItem extends RundownFlowItemStyles {
+export interface RundownFlowItem extends RundownStyles {
   roomId: string
   rundownId: string
   id: string
@@ -40,9 +40,4 @@ export interface RundownFlowItem extends RundownFlowItemStyles {
   desc: string
   matchId: string
   columns: Record<string, string>
-}
-
-export interface RundownFlowItemStyles {
-  backgroundColor: string
-  textColor: string
 }
