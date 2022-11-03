@@ -103,7 +103,9 @@ const RundownViewItem = ({
       </td>
       <td style={{ border: "none", transition: "all 0.15s ease-out" }}>
         <Card aKey={flowItem?.id + uuidv4()} status={status} {...props}>
-          <Text size="xl">{flowItem?.title}</Text>
+          <Text size="xl" weight="bold">
+            {flowItem?.title}
+          </Text>
           <Text size="md" sx={{ whiteSpace: "pre-wrap" }}>
             {flowItem?.desc}
           </Text>
@@ -121,9 +123,9 @@ const RundownViewItem = ({
               {flowItem?.matchId ? (
                 <Group noWrap>
                   <Avatar src={teamA.logo} />
-                  <Text size="sm">{teamA.shortname || "TBD"}</Text>
+                  <Text size="sm">{teamA.shortcode || "TBD"}</Text>
                   <Text>VS</Text>
-                  <Text size="sm">{teamB.shortname || "TBD"}</Text>
+                  <Text size="sm">{teamB.shortcode || "TBD"}</Text>
                   <Avatar src={teamB.logo} />
                 </Group>
               ) : (
