@@ -4,7 +4,7 @@ import { auth } from "utils/firebase"
 import AuthDataProvider from "./Auth.provider.data"
 import AuthNullProvider from "./Auth.provider.null"
 
-const AuthProvider = ({ children }: PropsWithChildren<{}>) => {
+const AuthProvider = ({ children }: PropsWithChildren) => {
   const [user, loading] = useAuthState(auth)
 
   if (!user) {
