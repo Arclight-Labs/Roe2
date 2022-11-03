@@ -31,7 +31,8 @@ const ShoutoutsCard: FC<ShoutoutsCardProps> = ({ tweet, ...props }) => {
     setLive(accessToken)(newData)
   }
   const unSelect = () => {
-    const { [tweet.id]: omitted, ...newShoutouts } = shoutouts
+    const newShoutouts = { ...shoutouts }
+    delete newShoutouts[tweet.id]
     const newData = { shoutouts: newShoutouts }
     setLive(accessToken)(newData)
   }

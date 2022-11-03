@@ -1,3 +1,3 @@
-export type WithAuth<T extends object = {}> = T & {
+export type WithAuth<T extends object> = T & {
   authorization: string
 }

@@ -1,13 +1,12 @@
 import {
+  ActionIcon,
   Container,
   Group,
   Loader,
+  SimpleGrid,
   Stack,
   TextInput,
   Title,
-  Text,
-  SimpleGrid,
-  ActionIcon,
 } from "@mantine/core"
 import { TwitterApiResults } from "interface/utils"
 import { FormEventHandler, useState } from "react"

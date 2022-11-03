@@ -1,12 +1,4 @@
-import {
-  Card,
-  CardSection,
-  Container,
-  Divider,
-  Stack,
-  Tabs,
-  Title,
-} from "@mantine/core"
+import { Container, Divider, Stack, Title } from "@mantine/core"
 import OverlayAll from "../../ui/overlays/OverlayAll.ui"
 
 const OverlaysPage = () => {

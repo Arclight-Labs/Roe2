@@ -29,7 +29,7 @@ const PlayerFormStat: FC<Props> = ({ control }) => {
     name: "stats",
   })
 
-  const onAdd: MouseEventHandler<HTMLButtonElement> = (e) => {
+  const onAdd: MouseEventHandler<HTMLButtonElement> = () => {
     const tempId = stats.length + 1
     append({
       id: `stat-${tempId}`,

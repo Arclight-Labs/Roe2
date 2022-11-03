@@ -142,7 +142,7 @@ const RundownItemFlowRow = ({ rows, row, columns, rowNumber }: Props) => {
             onClose={closeMatchSelect}
           >
             <Popover.Target>
-              {!!match ? (
+              {match ? (
                 <RundownItemFlowRowMatch
                   match={match}
                   onClick={openMatchSelect}

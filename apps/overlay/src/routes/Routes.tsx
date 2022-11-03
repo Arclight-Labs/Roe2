@@ -4,7 +4,7 @@ import Scene from "ui/Scene"
 import { SubwayPropBerlin } from "../fonts/SubwayProBerlin/Subway.font"
 import { TabletGothic } from "../fonts/TabletGothic/Tablet.font"
 
-function Loadable<T extends object = {}>(Component: FunctionComponent<T>) {
+function Loadable<T extends object>(Component: FunctionComponent<T>) {
   return (props: T) => {
     return (
       <Suspense>

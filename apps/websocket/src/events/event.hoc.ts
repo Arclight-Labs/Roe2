@@ -1,5 +1,5 @@
 import { Server, Socket } from "socket.io"
-export type EventFn<T extends Function = Function> = (
+export type EventFn<T extends Function = (...args: any[]) => any> = (
   socket: Socket,
   io: Server
 ) => T

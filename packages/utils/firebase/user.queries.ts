@@ -13,8 +13,8 @@ import {
 } from "@firebase/firestore"
 import { collection, query } from "firebase/firestore"
 import { User } from "interface"
-import { db } from "./firebase.instance"
 import { UserModel, UserUpdateData } from "../models/User.model"
+import { db } from "./firebase.instance"
 
 export const userFC: FirestoreDataConverter<UserModel> = {
   fromFirestore(snap: QueryDocumentSnapshot<User>, options) {
@@ -56,7 +56,7 @@ export async function getUserByUsername(username: string) {
   )
   const snap = await getDocs(q)
   const [doc] = snap.docs
-  return !!doc ? doc : null
+  return doc || null
 }
 
 export async function getUsers(username: string, searchLimit: number = 5) {

@@ -1,6 +1,5 @@
-import { Group, GroupProps, ThemeIcon } from "@mantine/core"
-import { SanitizedSeries } from "interface/waypoint"
-import { PlayerTrackNext, Select, ListDetails } from "tabler-icons-react"
+import { Group, GroupProps } from "@mantine/core"
+import { Select } from "tabler-icons-react"
 import { useLive } from "utils/hooks/redux.hook"
 import TalentBadge from "./TalentBadge.ui"
 

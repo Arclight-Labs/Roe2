@@ -14,7 +14,7 @@ export interface OverlayProps {
   overlay: [string, OverlayLink]
 }
 
-export const AdjTextOptions: FC<OverlayProps> = ({ overlay }) => {
+export const AdjTextOptions: FC<OverlayProps> = () => {
   return (
     <CardSection>
       <Accordion>

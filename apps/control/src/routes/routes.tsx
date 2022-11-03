@@ -36,7 +36,7 @@ const RundownItemPage = Loadable(
 )
 const RundownViewPage = Loadable(lazy(() => import("../pages/rundown_view")))
 
-function Loadable<T extends object = {}>(Component: FunctionComponent<T>) {
+function Loadable<T extends object>(Component: FunctionComponent<T>) {
   return (props: T) => {
     return (
       <Suspense fallback={<LoadingOverlay visible />}>

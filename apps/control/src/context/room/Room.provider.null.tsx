@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react"
 import { roomContext } from "./Room.context"
 
-const RoomNullProvider = ({ children }: PropsWithChildren<{}>) => (
+const RoomNullProvider = ({ children }: PropsWithChildren) => (
   <roomContext.Provider value={null}>{children}</roomContext.Provider>
 )
 

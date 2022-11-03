@@ -30,12 +30,10 @@ import { useMatches, useParticipants, useTournament } from "utils/hooks"
 import { useWsAction } from "utils/socket"
 import { useAuth } from "../../context/auth/Auth.hooks"
 import { useRoom } from "../../context/room/Room.hooks"
-import { usePermission } from "../../hooks/usePermission.hook"
 import Confirm from "../popups/Confirm.ui"
 
 type TournamentCardProps = Omit<CardProps, "children"> & ShallowTournament
 const TournamentCard = ({ id, logo, name, org }: TournamentCardProps) => {
-  const isAllowed = usePermission()
   const { accessToken } = useAuth()
   const room = useRoom()
   const [loading, setLoading] = useState(false)
@@ -89,7 +87,8 @@ const TournamentCard = ({ id, logo, name, org }: TournamentCardProps) => {
   const removeFromMultiTournament = async () => {
     setLoading(true)
     const { matches, participants } = await getTournament(id)
-    const { [id]: omitted, ...rest } = tournament.extends ?? {}
+    const rest = { ...(tournament.extends ?? {}) }
+    delete rest[id]
     const newMatches = Object.entries(
       currentMatches
     ).reduce<SanitizedSeriesMap>((acc, [matchId, match]) => {
