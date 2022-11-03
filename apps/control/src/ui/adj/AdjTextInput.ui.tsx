@@ -14,7 +14,7 @@ import { useFormContext } from "react-hook-form"
 
 type AdjFormTextProps = Record<string, AdjText>
 
-interface AdjTextInputProps<T extends AdjFormTextProps = {}> {
+interface AdjTextInputProps<T extends AdjFormTextProps> {
   name: keyof T
   textInputProps?: TextInputProps
   label?: string

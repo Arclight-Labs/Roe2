@@ -104,7 +104,8 @@ const PlayerForm = ({
   const onDelete = () => {
     const participantData = { ...participants[teamId] }
     const playerIds = participantData.playerIds
-    const { [playerId]: deletedPlayer, ...players } = participantData.players
+    const players = { ...participantData.players }
+    delete players[playerId]
     participantData.players = players
     participantData.playerIds = playerIds.filter((id) => id !== playerId)
     setParticipant(accessToken)(teamId, participantData)

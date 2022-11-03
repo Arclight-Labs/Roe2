@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react"
 import AppShell from "./AppShell.ui"
 
-const AppShellWrapper = ({ children }: PropsWithChildren<{}>) => {
+const AppShellWrapper = ({ children }: PropsWithChildren) => {
   return (
     <AppShell
       version={`${import.meta.env.PACKAGE_VERSION}${

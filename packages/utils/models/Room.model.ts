@@ -5,17 +5,17 @@ import {
   writeBatch,
 } from "firebase/firestore"
 import { Room, User } from "interface"
-import { Broadcast, WebsocketRoom } from "interface/ws"
+import { Broadcast } from "interface/ws"
 import { db } from "../firebase"
 import {
   addRoomAdmins,
+  getBroadcastRef,
   getRoomRef,
   requestRoomAccess,
   roomColRef,
   RoomUpdateData,
   setRoom,
   updateRoom,
-  getBroadcastRef,
 } from "../firebase/room.queries"
 interface RoomConstructor {
   id: string
@@ -80,7 +80,7 @@ export class RoomModel implements Room {
   }
 
   toJSON() {
-    const { ref, addAdmins, set, update, save, ...data } = this
-    return data as Room
+    const { id, name, avatar, admins, owner, uniqueCode } = this
+    return { id, name, avatar, admins, owner, uniqueCode }
   }
 }

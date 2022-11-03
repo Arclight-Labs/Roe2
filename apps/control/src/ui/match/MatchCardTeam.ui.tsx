@@ -12,11 +12,11 @@ const MatchCardTeam = ({ team, loser, small, ...props }: TeamProps) => {
 
   const TextDetails = (
     <Stack spacing={0}>
-      <Text lineClamp={1} sx={{ lineHeight: small ? 1 : "initial" }}>
-        {team.shortcode || team.shortname || team.name}
+      <Text size="xs" lineClamp={1} sx={{ lineHeight: small ? 1 : "initial" }}>
+        {team.shortcode}
       </Text>
-      <Text size="xs" lineClamp={1}>
-        {team.schoolShortcode || team.school}
+      <Text size={10} color="dimmed" lineClamp={1}>
+        {team.schoolShortcode}
       </Text>
     </Stack>
   )
@@ -25,7 +25,7 @@ const MatchCardTeam = ({ team, loser, small, ...props }: TeamProps) => {
       spacing="xs"
       {...props}
       sx={{ flex: 1, opacity: loser ? 0.5 : 1, ...props.sx }}
-      noWrap={small}
+      noWrap
     >
       <Tooltip label={TextDetails} disabled={xs && !small}>
         <Avatar src={team.logo} radius="md" size={small ? 35 : 50}>

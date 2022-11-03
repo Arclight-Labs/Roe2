@@ -87,13 +87,8 @@ const MatchCard = ({ match, small, ...props }: MatchCardProps) => {
           <MatchMenu match={match} open={open} openVeto={openVeto} />
         </Group>
 
-        <Group noWrap>
-          <MatchCardTeam
-            small={small}
-            team={a}
-            dir="rtl"
-            loser={!!winnerId && aLoser}
-          />
+        <Group noWrap position="apart">
+          <MatchCardTeam small={small} team={a} loser={!!winnerId && aLoser} />
           <Group position="center" sx={{ width: 70 }}>
             <Tooltip
               withinPortal
@@ -112,7 +107,12 @@ const MatchCard = ({ match, small, ...props }: MatchCardProps) => {
               </Title>
             </Tooltip>
           </Group>
-          <MatchCardTeam small={small} team={b} loser={!!winnerId && !aLoser} />
+          <MatchCardTeam
+            small={small}
+            team={b}
+            loser={!!winnerId && !aLoser}
+            dir="rtl"
+          />
         </Group>
       </Card>
       <MatchModal opened={opened} onClose={close} match={match} />

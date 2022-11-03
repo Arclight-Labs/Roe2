@@ -14,7 +14,7 @@ type SetRoom = (roomId: string, payload: SetRoomPayload) => WebsocketRoom
 
 export const getRoom: GetRoom = (roomId) => {
   const { rooms } = getStore()
-  let room = rooms[roomId]
+  const room = rooms[roomId]
   if (!room) {
     return Object.values(rooms).find((r) => r.uniqueCode === roomId)
   }

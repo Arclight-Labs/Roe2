@@ -8,7 +8,7 @@ type SetRoom = (
   accessToken: string
 ) => Promise<void>
 
-export const setRoom: EventFn<SetRoom> = (socket, io) => {
+export const setRoom: EventFn<SetRoom> = (socket) => {
   return async (room, accessToken) => {
     const auth = await authenticate(accessToken, socket)
     if (!auth) return

@@ -1,4 +1,8 @@
 {
+  "compilerOptions": {
+    "module": "ESNext",
+    "target": "ESNext"
+  },
   "extends": "tsconfig/vite.json",
   "includes": ["./"]
 }

@@ -39,7 +39,7 @@ export class UserModel implements User {
   }
 
   toJSON(): User {
-    const { ref, update, toJSON, set, ...data } = this
-    return data
+    const { _username, avatar, email, socialHandle, uid, username, type } = this
+    return { _username, avatar, email, socialHandle, uid, username, type }
   }
 }

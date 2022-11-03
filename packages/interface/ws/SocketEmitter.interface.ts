@@ -16,7 +16,7 @@ import {
 import { Live } from "./Live.interface"
 import { SocketEvent } from "./SocketEvent.interface"
 import { WebsocketRoom } from "./WebsocketStore.interface"
-export type SocketEmitterFn = Function
+export type SocketEmitterFn = CallableFunction
 export type SocketEmitterRecord = Record<SocketEvent, SocketEmitterFn>
 export type SocketEmitterType = Omit<SocketEmitterRecord, "log">
 

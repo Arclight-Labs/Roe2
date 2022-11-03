@@ -1,5 +1,5 @@
 import type { User } from "interface"
-import { CoinFlip, Veto, VetoSettings } from "interface/db"
+import { CoinFlip, Rundown, Veto, VetoSettings } from "interface/db"
 import type {
   SanitizedParticipant,
   SanitizedSeries,
@@ -239,4 +239,16 @@ export const defaultPlayer: SanitizedUser = {
 export const defaultVetoPreset: Omit<VetoPreset, "id" | "owner"> = {
   name: "",
   settings: defaultVetoSettings,
+}
+
+export const defaultRundown: Rundown = {
+  columnOrder: [],
+  columns: {},
+  currentItem: "",
+  desc: "",
+  flow: [],
+  id: "",
+  image: "",
+  name: "",
+  roomId: "",
 }

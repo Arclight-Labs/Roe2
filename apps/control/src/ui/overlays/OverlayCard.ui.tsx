@@ -21,7 +21,7 @@ import OverlayOptions, { OverlayProps } from "./OverlayOptions.ui"
 const OverlayCard: FC<OverlayProps> = ({ overlay }) => {
   const roomID = useRoom()?.id
   const link = `overlay.acadarena.com/${roomID}${overlay[1].link}`
-  const [linkValue, setLinkValue] = useState(link)
+  const [linkValue] = useState(link)
   const clipboard = useClipboard({ timeout: 500 })
 
   const onClickOverlay = () => {

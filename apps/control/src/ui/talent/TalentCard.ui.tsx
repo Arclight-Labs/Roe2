@@ -38,18 +38,18 @@ const TalentCard: FC<TalentCardProps> = ({ data, ...props }) => {
   const uid = data.uid || nanoid()
 
   const onCasterDelete = () => {
-    const { [uid]: removedTalent, ...talents } = live.talents
-    const { [uid]: removeActiveTalent, ...activeTalents } = live.activeTalents
+    const talents = { ...live.talents }
+    const activeTalents = { ...live.activeTalents }
+    delete talents[uid]
+    delete activeTalents[uid]
     const saveData: Partial<Live> = { talents, activeTalents }
     setLive(accessToken)(saveData)
   }
 
   const onAddActiveCaster = () => {
-    const { [uid]: addedActiveTalent, ...activeTalents } = live.activeTalents
-    const newActiveTalent: User = {
-      ...data,
-      uid,
-    }
+    const activeTalents = { ...live.activeTalents }
+    delete activeTalents[uid]
+    const newActiveTalent: User = { ...data, uid }
     const saveData: Partial<Live> = {
       activeTalents: { ...activeTalents, [uid]: newActiveTalent },
     }
@@ -57,7 +57,8 @@ const TalentCard: FC<TalentCardProps> = ({ data, ...props }) => {
   }
 
   const onRemoveActiveCaster = () => {
-    const { [uid]: removeActiveTalent, ...activeTalents } = live.activeTalents
+    const activeTalents = { ...live.activeTalents }
+    delete activeTalents[uid]
     const saveData: Partial<Live> = { activeTalents }
     setLive(accessToken)(saveData)
   }

@@ -48,7 +48,7 @@ export type Tournament = ID & {
   signup_cap?: null
   start_at?: Date | null
   started_at?: Date | null
-  started_checking_in_at?: String | null
+  started_checking_in_at?: string | null
   state?: string
   swiss_rounds?: number
   teams?: boolean

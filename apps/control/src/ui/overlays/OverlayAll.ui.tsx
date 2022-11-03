@@ -1,11 +1,7 @@
-import { CardProps, SimpleGrid, Stack, Title } from "@mantine/core"
+import { SimpleGrid, Stack, Title } from "@mantine/core"
 import { useState } from "react"
 import OverlayCard from "./OverlayCard.ui"
 import OverlayRoutes from "./OverlayRoutes"
-
-interface OverlayCardProps {
-  CardProps?: CardProps
-}
 
 const OverlayCards = Object.entries(
   OverlayRoutes({
@@ -17,8 +13,8 @@ const OverlayCards = Object.entries(
   })
 )
 
-const OverlayAll = ({ CardProps }: OverlayCardProps) => {
-  const [overlayValues, setOverlayValues] = useState(OverlayCards)
+const OverlayAll = () => {
+  const [overlayValues] = useState(OverlayCards)
 
   return (
     <SimpleGrid cols={4} spacing={"xs"} sx={{ justifyContent: "flex-start" }}>

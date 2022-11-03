@@ -1,6 +1,5 @@
-import { Group, GroupProps, ThemeIcon } from "@mantine/core"
-import { SanitizedSeries } from "interface/waypoint"
-import { PlayerTrackNext, Select, ListDetails } from "tabler-icons-react"
+import { Group, GroupProps } from "@mantine/core"
+import { ListDetails, PlayerTrackNext, Select } from "tabler-icons-react"
 import { useMatches } from "utils/hooks"
 import MatchBadge from "./MatchBadge.ui"
 

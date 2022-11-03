@@ -24,7 +24,7 @@ interface TalentModalProps {
 const TalentForm: FC<TalentModalProps> = ({ data, onCancel, afterSubmit }) => {
   const { live } = useLive()
   const { accessToken } = useAuth()
-  const { register, handleSubmit, setValue, getFieldState, setError } =
+  const { register, handleSubmit, setValue, getFieldState } =
     useForm<UserUpdate>({
       defaultValues: {
         avatar: data.avatar || "",
@@ -85,8 +85,10 @@ const TalentForm: FC<TalentModalProps> = ({ data, onCancel, afterSubmit }) => {
   }
 
   const onDelete = () => {
-    const { [uid]: removedTalent, ...talents } = live.talents
-    const { [uid]: removeActiveTalent, ...activeTalents } = live.activeTalents
+    const talents = { ...live.talents }
+    const activeTalents = { ...live.activeTalents }
+    delete talents[uid]
+    delete activeTalents[uid]
     const saveData: Partial<Live> = { talents, activeTalents }
     setLive(accessToken)(saveData)
     afterSubmit?.()

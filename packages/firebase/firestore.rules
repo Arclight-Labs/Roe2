@@ -37,6 +37,10 @@ service cloud.firestore {
       return request.resource.data
     }
 
+    function resourceData() {
+      return resource.data
+    }
+
     function fields(requiredFields, optionalFields) {
       let allFields = requiredFields.concat(optionalFields);
       return requestData().keys().hasAll(requiredFields) &&
@@ -59,6 +63,13 @@ service cloud.firestore {
         && user.socialHandle is string
         && user.avatar is string
         && user.type in ["admin", "talent", "default"]
+      )
+    }
+
+    function isRoomAdmin(roomId) {
+      let ROOM = getAfter(/databases/$(database)/documents/rooms/$(roomId)).data;
+      return ((uid() == ROOM.owner|| uid() in ROOM.admins)
+        && requestData().roomId == roomId
       )
     }
 
@@ -86,6 +97,49 @@ service cloud.firestore {
       allow read;
       allow delete: if isAdmin() || resource.data.id == uid();
     }
+
+    // Rundown
+    match /rundowns/{rundownId} {
+      function isValidRundownCallout(callout) {
+        return (
+          callout.text is string
+          && callout.icon is string
+          && callout.style is map
+          && callout.style.keys().hasOnly(["color", "backgroundColor"])
+          && callout.style.color is string
+          && callout.style.backgroundColor is string
+        )
+      }
+
+      function isValidRundownSetting(rundown) {
+        return (
+          rundown.id == rundownId
+          && rundown.roomId is string
+          && rundown.name is string
+          && rundown.name.size() > 0
+          && rundown.desc is string
+          && rundown.image is string
+          && rundown.currentItem is string
+          && rundown.columnOrder is list
+          && rundown.columns is map
+          && rundown.columns.keys().hasAll(rundown.columnOrder)
+          && rundown.columns.keys().hasOnly(rundown.columnOrder)
+          && rundown.columnOrder.hasAll(rundown.columns.keys())
+          && rundown.columnOrder.hasOnly(rundown.columns.keys())
+          && rundown.flow is list
+          && (isValidRundownCallout(rundown.callout) || optional("callout", rundown))
+        )
+      }
+
+      allow read;
+      allow create: if isRoomAdmin(requestData().roomId) && isValidRundownSetting(requestData())
+        && fields(["id", "roomId", "name", "desc", "image", "currentItem", "columnOrder", "columns", "flow"], ["callout"])
+      allow update: if isRoomAdmin(resourceData().roomId) && isValidRundownSetting(requestData())
+        && editFields(["name", "desc", "image", "currentItem", "columnOrder", "columns", "flow", "callout"])
+      allow delete: if isRoomAdmin(resourceData().roomId)
+    }
+
+
 
     match /rooms/{roomId} {
       function isRoom(room, roomId) {
@@ -121,15 +175,8 @@ service cloud.firestore {
       // Broadcast Data
 
       match /live/{docId} {
-        function isRoomAdmin() {
-          let ROOM = getAfter(/databases/$(database)/documents/rooms/$(roomId)).data;
-          return ((uid() == ROOM.owner|| uid() in ROOM.admins)
-            && requestData().roomId == roomId
-          )
-        }
-
         allow read;
-        allow create, update: if isRoomAdmin()
+        allow create, update: if isRoomAdmin(roomId)
       }
 
 
@@ -165,7 +212,7 @@ service cloud.firestore {
             && chat.message is string
             && chat.message.size() <= 2000
           )
-      }
+        }
 
         match /everyone {
           allow list: if request.query.limit <= 100

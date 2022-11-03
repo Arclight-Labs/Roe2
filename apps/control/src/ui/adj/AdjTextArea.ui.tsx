@@ -14,7 +14,7 @@ import { useFormContext } from "react-hook-form"
 
 type AdjFormTextProps = { [key: string]: AdjText }
 
-interface AdjTextareaProps<T extends AdjFormTextProps = {}> {
+interface AdjTextareaProps<T extends AdjFormTextProps> {
   name: keyof T
   label?: string
   textareaProps?: TextareaProps

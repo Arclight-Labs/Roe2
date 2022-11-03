@@ -15,17 +15,23 @@ const AuthDataProvider = ({
   useEffect(() => {
     let mounted = true
     if (!user) return mounted && setAccessToken("")
-    ;(async () => {
+
+    async function getIdToken() {
       try {
-        const token = await user.getIdToken()
+        const token = await user.getIdToken(true)
         if (mounted) setAccessToken(token)
-      } catch {}
-    })()
+      } catch {
+        if (mounted) setAccessToken("")
+      }
+    }
+
+    getIdToken()
 
     return () => {
       mounted = false
     }
   }, [user])
+
   if (loading) return <AuthNullProvider loading>{children}</AuthNullProvider>
 
   return q?.exists() && q.data().username ? (

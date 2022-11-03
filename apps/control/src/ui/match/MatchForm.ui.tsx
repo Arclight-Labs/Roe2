@@ -87,7 +87,7 @@ const MatchForm = ({
 
   const onChangeScore: ChangeScore = (team, matchIndex) => (e) => {
     const value = e.target.valueAsNumber
-    let newScores = scoresInput
+    const newScores = scoresInput
 
     let matchScore = newScores[matchIndex]
     const [aScore = 0, bScore = 0] = matchScore.split("-").map(Number)
@@ -116,7 +116,7 @@ const MatchForm = ({
         id: data.teamB,
       },
       winnerId: data.winnerId,
-      loserId: !!winnerId
+      loserId: winnerId
         ? winnerId !== data.teamA
           ? data.teamA
           : data.teamB
@@ -134,7 +134,8 @@ const MatchForm = ({
 
   const onDelete = () => {
     if (!match.custom) return
-    const { [match.id]: omitted, ...newMatches } = liveMatches
+    const newMatches = { ...liveMatches }
+    delete newMatches[match.id]
     setMatches(accessToken)(newMatches)
     afterSubmit?.()
   }
