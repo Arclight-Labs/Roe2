@@ -13,6 +13,7 @@ import { Rundown } from "interface/db"
 import { ArrowLeft, ArrowRight, Maximize, Minimize } from "tabler-icons-react"
 import { db } from "utils/firebase"
 import { useAuth } from "../../context/auth/Auth.hooks"
+import RundownViewCalloutSettings from "./RundownView.callout.settings"
 
 interface Props {
   rundown: Rundown
@@ -86,9 +87,7 @@ const RundownViewSettings = ({
       </Group>
       {!!auth && (
         <Group>
-          <Text size="xs" color="dimmed">
-            {rundown.currentItem || "No item selected"}
-          </Text>
+          <RundownViewCalloutSettings rundown={rundown} />
           <ActionIcon size="xl" variant="light" onClick={() => move("left")}>
             <ArrowLeft />
           </ActionIcon>

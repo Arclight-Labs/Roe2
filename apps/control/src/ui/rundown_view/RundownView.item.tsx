@@ -21,7 +21,8 @@ type CardPropsWithStatus = CardProps & Status
 const Card = forwardRef<HTMLDivElement, CardPropsWithStatus & { aKey: string }>(
   (props, ref) => {
     const { status } = props
-    const maxHeight = status === "next" ? 50 : status === "prev" ? 50 : "auto"
+    const maxHeight = status === "curr" ? "auto" : 50
+    const minHeight = status === "curr" ? 150 : "unset"
     return (
       <AnimatePresence>
         <Box style={{ height: "100%", overflow: "hidden" }}>
@@ -43,6 +44,7 @@ const Card = forwardRef<HTMLDivElement, CardPropsWithStatus & { aKey: string }>(
               sx={{
                 height: "100%",
                 maxHeight,
+                minHeight,
                 transition: "all 0.3s ease",
                 ...props.sx,
               }}
@@ -102,7 +104,7 @@ const RundownViewItem = ({
         </Card>
       </td>
       <td style={{ border: "none", transition: "all 0.15s ease-out" }}>
-        <Card aKey={flowItem?.id + uuidv4()} status={status} {...props}>
+        <Card aKey={flowItem?.id || uuidv4()} status={status} {...props}>
           <Text size="xl" weight="bold">
             {flowItem?.title}
           </Text>
@@ -113,7 +115,7 @@ const RundownViewItem = ({
       </td>
       {!hiddenColumns.includes("match") && (
         <td style={{ border: "none", height: "100%", width: 300 }}>
-          <Card aKey={flowItem?.id + uuidv4()} status={status} {...props}>
+          <Card aKey={flowItem?.id || uuidv4()} status={status} {...props}>
             <MantineCard.Section>
               <Text size={10} pl={5} color="dimmed">
                 Match
@@ -143,7 +145,7 @@ const RundownViewItem = ({
           const col = columns[column]?.name
           return col ? (
             <td style={{ border: "none", height: "100%" }}>
-              <Card aKey={flowItem?.id + uuidv4()} status={status} {...props}>
+              <Card aKey={flowItem?.id || uuidv4()} status={status} {...props}>
                 <MantineCard.Section>
                   <Text
                     size={10}

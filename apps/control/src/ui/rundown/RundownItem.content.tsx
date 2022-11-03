@@ -1,4 +1,5 @@
 import {
+  ActionIcon,
   Box,
   Button,
   Divider,
@@ -12,7 +13,8 @@ import { doc, DocumentReference } from "firebase/firestore"
 import { Rundown } from "interface/db"
 import { useState } from "react"
 import { useDocument } from "react-firebase-hooks/firestore"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
+import { ArrowRight } from "tabler-icons-react"
 import { db } from "utils/firebase"
 import RundownModalForm from "./Rundown.form"
 import RundownItemFlowList from "./RundownItemFlow.list"
@@ -26,6 +28,12 @@ const RundownContent = () => {
   const ref = doc(db, path) as DocumentReference<Rundown>
   const [snap, loading] = useDocument(ref)
   const data = snap?.data()
+
+  const nav = useNavigate()
+  const gotoRundown = () => {
+    nav(`/rundown/${rundownId}`)
+  }
+
   return data ? (
     <Stack spacing="xl">
       <Group position="apart">
@@ -47,6 +55,9 @@ const RundownContent = () => {
           </Stack>
         </Group>
         <Group>
+          <ActionIcon variant="light" onClick={gotoRundown}>
+            <ArrowRight />
+          </ActionIcon>
           <Button size="xs" onClick={open}>
             Edit
           </Button>

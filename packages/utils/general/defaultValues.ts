@@ -1,5 +1,11 @@
 import type { User } from "interface"
-import { CoinFlip, Rundown, Veto, VetoSettings } from "interface/db"
+import {
+  CoinFlip,
+  Rundown,
+  RundownCallout,
+  Veto,
+  VetoSettings,
+} from "interface/db"
 import type {
   SanitizedParticipant,
   SanitizedSeries,
@@ -241,6 +247,14 @@ export const defaultVetoPreset: Omit<VetoPreset, "id" | "owner"> = {
   settings: defaultVetoSettings,
 }
 
+export const defaultRundownCallout: RundownCallout = {
+  live: false,
+  backgroundColor: "",
+  icon: "",
+  text: "",
+  textColor: "",
+}
+
 export const defaultRundown: Rundown = {
   columnOrder: [],
   columns: {},
@@ -251,4 +265,5 @@ export const defaultRundown: Rundown = {
   image: "",
   name: "",
   roomId: "",
+  callout: defaultRundownCallout,
 }

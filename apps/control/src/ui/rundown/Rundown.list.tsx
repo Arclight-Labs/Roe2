@@ -3,6 +3,7 @@ import {
   Box,
   Card,
   Group,
+  Menu,
   Skeleton,
   Stack,
   Text,
@@ -10,6 +11,8 @@ import {
 import {
   collection,
   CollectionReference,
+  deleteDoc,
+  doc,
   query,
   where,
 } from "firebase/firestore"
@@ -17,7 +20,7 @@ import { Rundown } from "interface/db"
 import { MouseEventHandler } from "react"
 import { useCollectionData } from "react-firebase-hooks/firestore"
 import { useNavigate } from "react-router-dom"
-import { ArrowRight, Menu2 } from "tabler-icons-react"
+import { ArrowRight, Menu2, Trash } from "tabler-icons-react"
 import { db } from "utils/firebase"
 
 interface Props {
@@ -29,6 +32,11 @@ const RundownList = ({ roomId }: Props) => {
   const ref = collection(db, path) as CollectionReference<Rundown>
   const q = query(ref, where("roomId", "==", roomId))
   const [data = [], loading] = useCollectionData(q)
+
+  const deleteRundown = (id: string) => {
+    const ref = doc(db, path, id)
+    deleteDoc(ref)
+  }
 
   const gotoRundown =
     (rundownId: string): MouseEventHandler =>
@@ -68,9 +76,22 @@ const RundownList = ({ roomId }: Props) => {
                   <ActionIcon size="lg" onClick={gotoRundown(rundown.id)}>
                     <ArrowRight />
                   </ActionIcon>
-                  <ActionIcon size="lg">
-                    <Menu2 />
-                  </ActionIcon>
+                  <Menu>
+                    <Menu.Target>
+                      <ActionIcon size="lg">
+                        <Menu2 />
+                      </ActionIcon>
+                    </Menu.Target>
+                    <Menu.Dropdown>
+                      <Menu.Item
+                        icon={<Trash size={14} />}
+                        onClick={() => deleteRundown(rundown.id)}
+                        color="red"
+                      >
+                        Delete
+                      </Menu.Item>
+                    </Menu.Dropdown>
+                  </Menu>
                 </Group>
               </Group>
             </Card>

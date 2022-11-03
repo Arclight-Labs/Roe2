@@ -1,4 +1,6 @@
 import {
+  Affix,
+  Card,
   Center,
   LoadingOverlay,
   MantineProvider,
@@ -6,6 +8,7 @@ import {
   Text,
 } from "@mantine/core"
 import { doc, DocumentReference } from "firebase/firestore"
+import { AnimatePresence, motion } from "framer-motion"
 import { Rundown } from "interface/db"
 import { useState } from "react"
 import { useDocumentData } from "react-firebase-hooks/firestore"
@@ -48,6 +51,43 @@ const RundownView = () => {
               hiddenColumns={hiddenColumns}
               toggleColumn={toggleColumn}
             />
+            <AnimatePresence>
+              {rundown?.callout.live && (
+                <Affix
+                  position={{
+                    right: 10,
+                    bottom: 150,
+                  }}
+                >
+                  <motion.div
+                    initial={{ opacity: 0, x: "110%" }}
+                    animate={{ opacity: 1, x: "0%" }}
+                    exit={{ opacity: 0, x: "110%" }}
+                    style={{ transformOrigin: "bottom right" }}
+                  >
+                    <Card
+                      sx={(theme) => ({
+                        minWidth: 300,
+                        backgroundColor: theme.colors.gray[3],
+                        color: theme.colors.gray[9],
+                      })}
+                    >
+                      <Card.Section>
+                        <Text
+                          px="xs"
+                          size="xs"
+                          color="dimmed"
+                          sx={{ whiteSpace: "pre-wrap" }}
+                        >
+                          Director Callout
+                        </Text>
+                      </Card.Section>
+                      <Text size="xl">{rundown.callout.text}</Text>
+                    </Card>
+                  </motion.div>
+                </Affix>
+              )}
+            </AnimatePresence>
           </Stack>
         ) : (
           <Center>
