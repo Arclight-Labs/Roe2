@@ -1,6 +1,6 @@
 {
   "name": "utils",
-  "version": "1.0.28",
+  "version": "1.0.30",
   "main": "index.ts",
   "files": [
     "hooks/**/*.ts",
