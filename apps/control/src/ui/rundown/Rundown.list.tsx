@@ -1,3 +1,4 @@
+import { uuidv4 } from "@firebase/util"
 import {
   ActionIcon,
   Box,
@@ -14,13 +15,14 @@ import {
   deleteDoc,
   doc,
   query,
+  setDoc,
   where,
 } from "firebase/firestore"
 import { Rundown } from "interface/db"
 import { MouseEventHandler } from "react"
 import { useCollectionData } from "react-firebase-hooks/firestore"
 import { useNavigate } from "react-router-dom"
-import { ArrowRight, Menu2, Trash } from "tabler-icons-react"
+import { ArrowRight, Copy, Menu2, Trash } from "tabler-icons-react"
 import { db } from "utils/firebase"
 
 interface Props {
@@ -43,6 +45,16 @@ const RundownList = ({ roomId }: Props) => {
     () => {
       navigate(`/rundown/${rundownId}/edit`)
     }
+
+  const duplicateRundown = (rundown: Rundown) => {
+    const rundownId = uuidv4()
+    const ref = doc(db, path, rundownId)
+    setDoc(ref, {
+      ...rundown,
+      id: rundownId,
+      name: `${rundown.name} (copy)`,
+    })
+  }
   return (
     <Stack spacing="xs">
       {loading
@@ -83,6 +95,12 @@ const RundownList = ({ roomId }: Props) => {
                       </ActionIcon>
                     </Menu.Target>
                     <Menu.Dropdown>
+                      <Menu.Item
+                        icon={<Copy size={14} />}
+                        onClick={() => duplicateRundown(rundown)}
+                      >
+                        Duplicate
+                      </Menu.Item>
                       <Menu.Item
                         icon={<Trash size={14} />}
                         onClick={() => deleteRundown(rundown.id)}
