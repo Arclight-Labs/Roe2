@@ -1,7 +1,5 @@
 import {
   Ad,
-  Aperture,
-  DeviceGamepad,
   GitFork,
   Headset,
   Icon,
@@ -23,10 +21,10 @@ const routes: NavLink[] = [
   { link: "/matches", label: "Matches", icon: GitFork },
   { link: "/talents", label: "Talents", icon: Headset },
   { link: "/lowerthirds", label: "Lower Thirds", icon: Ad },
-  { link: "/ingame", label: "Ingame", icon: DeviceGamepad },
+  // { link: "/ingame", label: "Ingame", icon: DeviceGamepad },
   { link: "/state", label: "State", icon: Settings },
   { link: "/shoutouts", label: "Shoutouts", icon: Speakerphone },
-  { link: "/obs", label: "OBS Integration", icon: Aperture },
+  // { link: "/obs", label: "OBS Integration", icon: Aperture },
   { link: "/overlays", label: "Overlays", icon: Polaroid },
   { link: "/rundown", label: "Rundown", icon: ListDetails },
 ]
