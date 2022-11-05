@@ -69,8 +69,21 @@ const TeamCard = Loadable(
 const Nametag = Loadable(
   lazy(() => import("../scenes/allg/components/nametag/Nametag.o"))
 )
+
 const Match = Loadable(
   lazy(() => import("../scenes/allg/components/match/Match.o"))
+)
+
+const Schedule = Loadable(
+  lazy(() => import("../scenes/allg/components/schedule/Schedule.o"))
+)
+
+const ScheduleSlide = Loadable(
+  lazy(() => import("../scenes/allg/components/schedule_slide/ScheduleSlide.o"))
+)
+
+const ScheduleSingle = Loadable(
+  lazy(() => import("../scenes/allg/components/schedule/ScheduleSingle.o"))
 )
 
 const AllGLowerThirds = Loadable(
@@ -112,6 +125,18 @@ const Routes = () => {
                 {
                   path: "match/:type",
                   element: <Match />,
+                },
+                {
+                  path: "schedule",
+                  element: <Schedule />,
+                },
+                {
+                  path: "schedule/:num",
+                  element: <ScheduleSingle />,
+                },
+                {
+                  path: "scheduleSlide",
+                  element: <ScheduleSlide />,
                 },
                 {
                   path: "c",
