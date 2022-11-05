@@ -4,10 +4,6 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### 0.0.17 (2022-10-07)
 
-### ⚠ BREAKING CHANGES
-
-- **security:** This will require `yarn install` because the commitizen module was replaced
-
 ### Features
 
 - Initial Release
