@@ -3,12 +3,12 @@ import { AnimatePresence } from "framer-motion"
 import { SanitizedSeries } from "interface/waypoint"
 import { useEffect, useState } from "react"
 import { useMatches } from "utils/hooks"
-import useRoom from "../../hooks/useRoom.hook"
+import useParamRoom from "utils/hooks/useParamRoom.hook"
 import CustomCarousel from "../lowerthirds/CustomCarousel.o"
-import Schedule from "../schedule/Schedule.o"
+import Match from "../match/Match.c"
 
-const NextSchedule = () => {
-  useRoom()
+const ScheduleSlide = () => {
+  useParamRoom()
   const { schedule, nextMatch } = useMatches()
   const [index, setIndex] = useState(0)
 
@@ -21,9 +21,9 @@ const NextSchedule = () => {
   }
 
   const animation = {
-    initial: { opacity: 0, x: 350 },
-    animate: { opacity: 1, x: 0 },
-    exit: { opacity: 0, x: -350 },
+    initial: { opacity: 0, y: -20 },
+    animate: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: 20 },
   }
 
   const transition = {
@@ -45,8 +45,8 @@ const NextSchedule = () => {
                 <Box
                   key={match.id}
                   sx={{
-                    height: "100%",
-                    width: "100%",
+                    height: 250,
+                    width: 600,
                     position: "absolute",
                     overflow: "hidden",
                     zIndex: 99,
@@ -67,18 +67,18 @@ const NextSchedule = () => {
                       >
                         <Text
                           sx={{
-                            fontFamily: "Industry",
-                            fontSize: 50,
+                            fontFamily: "Subway",
                             color: "#ffffff",
                             lineHeight: 1,
+                            fontSize: 40,
                           }}
                           align="center"
                         >
                           {isNextMatch(match ?? "", nextMatch ?? "")
-                            ? `UP NEXT`
-                            : `TODAY'S MATCHES`}
+                            ? `Up Next`
+                            : `Today's Matches`}
                         </Text>
-                        <Schedule key={match.id} match={match} />
+                        <Match key={match.id} seriesId={`${match.id}`} />
                       </Stack>
                     </Center>
                   </CustomCarousel>
@@ -90,4 +90,4 @@ const NextSchedule = () => {
     </div>
   )
 }
-export default NextSchedule
+export default ScheduleSlide

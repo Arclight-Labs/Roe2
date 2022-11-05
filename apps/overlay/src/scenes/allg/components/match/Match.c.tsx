@@ -7,19 +7,37 @@ import Versus from "../vs/VS.c"
 import MatchTeam from "./Match.team.c"
 
 interface Props {
+  blurLoser?: boolean
   seriesId?: string
 }
-const Match = ({ seriesId = "" }: Props) => {
+const Match = ({ seriesId = "", blurLoser = false }: Props) => {
   const { getTeam } = useParticipants()
   const { getScore, getMatch } = useMatches()
   const teamA = getTeam(seriesId, "teamA") || tbd
   const teamB = getTeam(seriesId, "teamB") || tbd
-  const scores = getScore(getMatch(seriesId) || defaultSeries)
+  const match = getMatch(seriesId) || defaultSeries
+  const scores = getScore(match)
+
+  const isLoser = (side: "teamA" | "teamB") => {
+    if (!blurLoser) return false
+    const teams = { teamA, teamB }
+    const hasWinner = !!match.winnerId
+    return hasWinner && match.winnerId !== teams[side].chalId
+  }
+
   return (
     <G align="center" noWrap>
       <G sx={{ position: "relative" }}>
-        <MatchTeam px={25} team={teamA} />
-        <MatchTeam px={25} team={teamB} />
+        <MatchTeam
+          sx={{ opacity: isLoser("teamA") ? 0.5 : 1 }}
+          px={25}
+          team={teamA}
+        />
+        <MatchTeam
+          sx={{ opacity: isLoser("teamB") ? 0.5 : 1 }}
+          px={25}
+          team={teamB}
+        />
         <S
           sx={{
             justifyContent: "flex-end",
