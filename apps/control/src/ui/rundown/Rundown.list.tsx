@@ -51,6 +51,7 @@ const RundownList = ({ roomId }: Props) => {
     const ref = doc(db, path, rundownId)
     setDoc(ref, {
       ...rundown,
+      flow: rundown.flow.map((row) => ({ ...row, rundownId, id: uuidv4() })),
       id: rundownId,
       name: `${rundown.name} (copy)`,
     })
