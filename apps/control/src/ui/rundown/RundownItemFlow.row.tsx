@@ -1,3 +1,4 @@
+import { uuidv4 } from "@firebase/util"
 import { zodResolver } from "@hookform/resolvers/zod"
 import {
   ActionIcon,
@@ -11,12 +12,19 @@ import {
   TextInput,
   TextInputProps,
 } from "@mantine/core"
-import { hideNotification, showNotification } from "@mantine/notifications"
 import { doc, DocumentReference, setDoc } from "firebase/firestore"
 import { Rundown, RundownColumn, RundownFlowItem } from "interface/db"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
-import { Menu2, Select, Trash } from "tabler-icons-react"
+import {
+  ChevronDown,
+  ChevronUp,
+  Menu2,
+  RowInsertBottom,
+  RowInsertTop,
+  Select,
+  Trash,
+} from "tabler-icons-react"
 import { db } from "utils/firebase"
 import { useMatches } from "utils/hooks"
 import {
@@ -82,36 +90,77 @@ const RundownItemFlowRow = ({ rows, row, columns, rowNumber }: Props) => {
   }
 
   const submit = handleSubmit((data) => {
-    showNotification({
-      id: "save",
-      message: "Saving...",
-      loading: true,
-      autoClose: false,
-      disallowClose: true,
-    })
-    const path = `rundowns/${row.rundownId}`
-    const ref = doc(db, path) as DocumentReference<Rundown>
     const newFlow = rows.map((r) => (r.id === row.id ? { ...r, ...data } : r))
-    setDoc(ref, { flow: newFlow }, { mergeFields: ["flow"] })
-      .then(
-        () => {},
-        (err) =>
-          showNotification({
-            id: "save",
-            message: err.message,
-            loading: false,
-            autoClose: true,
-          })
-      )
-      .finally(() => hideNotification("save"))
+    save({ flow: newFlow })
   })
 
   const deleteRow = () => {
+    const newFlow = rows.filter((r) => r.id !== row.id)
+    save({ flow: newFlow })
+  }
+
+  const moveRowUp = () => {
+    const index = rowNumber - 1
+    if (index <= 0) return
+    const newFlow = [...rows]
+    const temp = newFlow[index]
+    newFlow[index] = newFlow[index - 1]
+    newFlow[index - 1] = temp
+    save({ flow: newFlow })
+  }
+
+  const moveRowDown = () => {
+    const index = rowNumber - 1
+    if (index >= rows.length - 1) return
+    const newFlow = [...rows]
+    const temp = newFlow[index]
+    newFlow[index] = newFlow[index + 1]
+    newFlow[index + 1] = temp
+    save({ flow: newFlow })
+  }
+
+  const insertRowBottom = () => {
+    const newFlow: RundownFlowItem[] = [
+      ...rows.slice(0, rowNumber),
+      {
+        backgroundColor: "",
+        columns: {},
+        title: "",
+        desc: "",
+        id: uuidv4(),
+        matchId: row.matchId,
+        roomId: row.roomId,
+        rundownId: row.rundownId,
+        textColor: "",
+      },
+      ...rows.slice(rowNumber),
+    ]
+    save({ flow: newFlow })
+  }
+
+  const insertRowTop = () => {
+    const newFlow: RundownFlowItem[] = [
+      ...rows.slice(0, rowNumber - 1),
+      {
+        backgroundColor: "",
+        columns: {},
+        title: "",
+        desc: "",
+        id: uuidv4(),
+        matchId: row.matchId,
+        roomId: row.roomId,
+        rundownId: row.rundownId,
+        textColor: "",
+      },
+      ...rows.slice(rowNumber - 1),
+    ]
+    save({ flow: newFlow })
+  }
+
+  const save = (data: Partial<Rundown>) => {
     const path = `rundowns/${row.rundownId}`
     const ref = doc(db, path) as DocumentReference<Rundown>
-    const newFlow = rows.filter((r) => r.id !== row.id)
-    setDoc(ref, { flow: newFlow }, { mergeFields: ["flow"] }).then(() => {},
-    console.error)
+    setDoc(ref, data, { mergeFields: ["flow"] }).catch(console.error)
   }
 
   return (
@@ -203,22 +252,42 @@ const RundownItemFlowRow = ({ rows, row, columns, rowNumber }: Props) => {
         </td>
       ))}
       <td>
-        <Menu withArrow>
-          <Menu.Target>
-            <ActionIcon>
-              <Menu2 size={14} />
-            </ActionIcon>
-          </Menu.Target>
-          <Menu.Dropdown>
-            <Menu.Item
-              onClick={deleteRow}
-              color="red"
-              icon={<Trash size={14} />}
-            >
-              Delete
-            </Menu.Item>
-          </Menu.Dropdown>
-        </Menu>
+        <Stack align="center" spacing="xs">
+          <ActionIcon size="xs" onClick={moveRowUp}>
+            <ChevronUp size={14} />
+          </ActionIcon>
+          <Menu withArrow>
+            <Menu.Target>
+              <ActionIcon>
+                <Menu2 size={14} />
+              </ActionIcon>
+            </Menu.Target>
+            <Menu.Dropdown>
+              <Menu.Item
+                onClick={insertRowTop}
+                icon={<RowInsertTop size={14} />}
+              >
+                Insert Top
+              </Menu.Item>
+              <Menu.Item
+                onClick={insertRowBottom}
+                icon={<RowInsertBottom size={14} />}
+              >
+                Insert Bottom
+              </Menu.Item>
+              <Menu.Item
+                onClick={deleteRow}
+                color="red"
+                icon={<Trash size={14} />}
+              >
+                Delete
+              </Menu.Item>
+            </Menu.Dropdown>
+          </Menu>
+          <ActionIcon size="xs" onClick={moveRowDown}>
+            <ChevronDown size={14} />
+          </ActionIcon>
+        </Stack>
       </td>
     </tr>
   )
