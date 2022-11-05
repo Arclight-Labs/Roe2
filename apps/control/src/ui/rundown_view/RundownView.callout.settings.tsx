@@ -40,7 +40,11 @@ const RundownViewCalloutSettings = ({ rundown }: Props) => {
 
   return (
     <Group>
-      <Textarea {...register("text")} label="Director Callout" />
+      <Textarea
+        sx={{ minWidth: 400 }}
+        {...register("text")}
+        label="Director Callout"
+      />
       <Switch checked={live} onChange={toggle} />
     </Group>
   )
