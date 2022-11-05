@@ -29,6 +29,9 @@ const PlayerFormPhotoAdj: FC<Props> = ({ control, setValue, submit }) => {
   const { photoAdj = {}, photoURL = "" } = useWatch({ control })
   const [open, toggler] = useToggle([false, true])
   const toggle = () => toggler()
+  const apply = () => {
+    submit()
+  }
   const onClose = () => {
     submit()
     toggler(false)
@@ -100,6 +103,9 @@ const PlayerFormPhotoAdj: FC<Props> = ({ control, setValue, submit }) => {
             />
           </Stack>
           <Group position="right">
+            <Button size="xs" variant="light" onClick={apply}>
+              Apply
+            </Button>
             <Button size="xs" variant="light" onClick={onClose}>
               Save
             </Button>
