@@ -9,7 +9,6 @@ import {
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import routes from "./NavRoutes"
-import OBSConnection from "./obs/OBSConnection.ui"
 import RoomButton from "./room/RoomButton.ui"
 import UserButton from "./user/UserButton.ui"
 
@@ -136,7 +135,7 @@ export function NavbarSimple({ version }: Props) {
       </Navbar.Section>
 
       <Navbar.Section className={classes.footer}>
-        <OBSConnection variant="button" />
+        {/* <OBSConnection variant="button" /> */}
         <RoomButton />
         <UserButton />
       </Navbar.Section>
