@@ -78,7 +78,7 @@ const PlayerForm = ({
 
     setParticipant(accessToken)(teamId, participant)
     setLoading(false)
-    afterSubmit?.()
+    // afterSubmit?.()
   }, console.error)
 
   const uploadAndSet: FormEventHandler = async (e) => {
