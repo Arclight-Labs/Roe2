@@ -61,6 +61,9 @@ const WrIngameScene = Loadable(
 const HeadToHead = Loadable(
   lazy(() => import("../scenes/allg/headToHead/h2h.scene"))
 )
+const HeadToHeadLogo = Loadable(
+  lazy(() => import("../scenes/allg/headToHead/h2h.logo.scene"))
+)
 
 // ------------- COMPONENTS
 const TeamCard = Loadable(
@@ -121,6 +124,10 @@ const Routes = () => {
                 {
                   path: "headToHead",
                   element: <HeadToHead />,
+                },
+                {
+                  path: "headToHeadLogo",
+                  element: <HeadToHeadLogo />,
                 },
                 {
                   path: "match/:type",
