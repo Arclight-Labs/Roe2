@@ -2,7 +2,6 @@ import { Box, Center, Stack, Text } from "@mantine/core"
 import { AnimatePresence } from "framer-motion"
 import { SanitizedSeries } from "interface/waypoint"
 import { useEffect, useState } from "react"
-import { defaultSeries } from "utils/general"
 import { useMatches } from "utils/hooks"
 import useParamRoom from "utils/hooks/useParamRoom.hook"
 import CustomCarousel from "../lowerthirds/CustomCarousel.o"
@@ -10,7 +9,7 @@ import Match from "../match/Match.c"
 
 const ScheduleSlide = () => {
   useParamRoom()
-  const { schedule, nextMatch = defaultSeries } = useMatches()
+  const { schedule, nextMatch } = useMatches()
   const [index, setIndex] = useState(0)
 
   const handleNext = () => {
@@ -61,11 +60,7 @@ const ScheduleSlide = () => {
                     transition={transition}
                   >
                     <Center>
-                      <Stack
-                        sx={{
-                          overflow: "hidden",
-                        }}
-                      >
+                      <Stack sx={{ overflow: "hidden" }}>
                         <Text
                           sx={{
                             fontFamily: "Subway",
@@ -75,7 +70,9 @@ const ScheduleSlide = () => {
                           }}
                           align="center"
                         >
-                          {`Match ${i + 1}`}
+                          {isNextMatch(match ?? "", nextMatch ?? "")
+                            ? `Match ${i + 1} (Up Next)`
+                            : `Match ${i + 1}`}
                         </Text>
                         <Match key={match.id} seriesId={`${match.id}`} />
                       </Stack>
