@@ -1660,15 +1660,15 @@
   dependencies:
     "@babel/runtime" "^7.13.10"
 
-"@reduxjs/toolkit@1.8.6":
-  version "1.8.6"
-  resolved "https://registry.yarnpkg.com/@reduxjs/toolkit/-/toolkit-1.8.6.tgz#147fb7957befcdb75bc9c1230db63628e30e4332"
-  integrity sha512-4Ia/Loc6WLmdSOzi7k5ff7dLK8CgG2b8aqpLsCAJhazAzGdp//YBUSaj0ceW6a3kDBDNRrq5CRwyCS0wBiL1ig==
+"@reduxjs/toolkit@1.9.0":
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/@reduxjs/toolkit/-/toolkit-1.9.0.tgz#76b264fcea677d256b18f86cc77e00743a9e02b0"
+  integrity sha512-ak11IrjYcUXRqlhNPwnz6AcvA2ynJTu8PzDbbqQw4a3xR4KZtgiqbNblQD+10CRbfK4+5C79SOyxnT9dhBqFnA==
   dependencies:
-    immer "^9.0.7"
-    redux "^4.1.2"
-    redux-thunk "^2.4.1"
-    reselect "^4.1.5"
+    immer "^9.0.16"
+    redux "^4.2.0"
+    redux-thunk "^2.4.2"
+    reselect "^4.1.7"
 
 "@remix-run/router@1.0.3":
   version "1.0.3"
@@ -1777,17 +1777,17 @@
     "@svgr/hast-util-to-babel-ast" "^6.5.0"
     svg-parser "^2.0.4"
 
-"@tanstack/query-core@4.14.1":
-  version "4.14.1"
-  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-4.14.1.tgz#a74c4da03e79a8be07fa5ab2ebc12865146915e2"
-  integrity sha512-mUejKoFDe4NZB8jQJR1uuAl6IwvkUpOD2m8NcuTVPOu0pcxeeFPdrnHaljwOEFPtlqXoiiIIQGYy6whjCMN+iQ==
+"@tanstack/query-core@4.14.3":
+  version "4.14.3"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-4.14.3.tgz#9ab6763b61d5e491816483f3aeed771c1fbd657b"
+  integrity sha512-1OrxZk5jSKAjTIDgH/OHa6GfVpgGDVbCVf3KHQjXLFdutK4PSSXQIyX7I1HvBR3mYKyvFPo6yXKNG7QrkwUj9g==
 
-"@tanstack/react-query@4.14.1":
-  version "4.14.1"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-4.14.1.tgz#336545119b191e2096c394a3f2df2744cdc5e041"
-  integrity sha512-cRgNzigw4GSPwGlTEkXi8hi/xgUnSEt9jCkiC8oAT3PEIdsQ50onZcpXd+JNJcZk2RTh8KM1fGyWz6xYLiY8bg==
+"@tanstack/react-query@4.14.3":
+  version "4.14.3"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-4.14.3.tgz#3bafea000480463de35721c742265730e2973550"
+  integrity sha512-PP7DEFsOMl/JaGQr1B4IeGN3lqHrC5EpG+AgG03OlVIOQMtXNhb0N66Nt1pdrladvzYsKD20L3O3550rBzgLtg==
   dependencies:
-    "@tanstack/query-core" "4.14.1"
+    "@tanstack/query-core" "4.14.3"
     use-sync-external-store "^1.2.0"
 
 "@tootallnate/once@2":
@@ -4829,10 +4829,10 @@ immediate@~3.0.5:
   resolved "https://registry.yarnpkg.com/immediate/-/immediate-3.0.6.tgz#9db1dbd0faf8de6fbe0f5dd5e56bb606280de69b"
   integrity sha512-XXOFtyqDjNDAQxVfYxuF7g9Il/IbWmmlQg2MYKOH8ExIT1qg6xc4zyS3HaEEATgs1btfzxq15ciUiY7gjSXRGQ==
 
-immer@^9.0.7:
-  version "9.0.15"
-  resolved "https://registry.yarnpkg.com/immer/-/immer-9.0.15.tgz#0b9169e5b1d22137aba7d43f8a81a495dd1b62dc"
-  integrity sha512-2eB/sswms9AEUSkOm4SbV5Y7Vmt/bKRwByd52jfLkW4OLYeaTP3EEiJ9agqU0O/tq6Dk62Zfj+TJSqfm1rLVGQ==
+immer@^9.0.16:
+  version "9.0.16"
+  resolved "https://registry.yarnpkg.com/immer/-/immer-9.0.16.tgz#8e7caab80118c2b54b37ad43e05758cdefad0198"
+  integrity sha512-qenGE7CstVm1NrHQbMh8YaSzTZTFNP3zPqr3YU0S0UY441j4bJTg4A2Hh5KAhwgaiU6ZZ1Ar6y/2f4TblnMReQ==
 
 import-fresh@^3.0.0, import-fresh@^3.2.1:
   version "3.3.0"
@@ -6642,12 +6642,12 @@ redent@^3.0.0:
     indent-string "^4.0.0"
     strip-indent "^3.0.0"
 
-redux-thunk@^2.4.1:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.4.1.tgz#0dd8042cf47868f4b29699941de03c9301a75714"
-  integrity sha512-OOYGNY5Jy2TWvTL1KgAlVy6dcx3siPJ1wTq741EPyUKfn6W6nChdICjZwCd0p8AZBs5kWpZlbkXW2nE/zjUa+Q==
+redux-thunk@^2.4.2:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.4.2.tgz#b9d05d11994b99f7a91ea223e8b04cf0afa5ef3b"
+  integrity sha512-+P3TjtnP0k/FEjcBL5FZpoovtvrTNT/UXd4/sluaSyrURlSlhLSzEdfsTBW7WsKB6yPvgd7q/iZPICFjW4o57Q==
 
-redux@4.2.0, redux@^4.1.2:
+redux@4.2.0, redux@^4.2.0:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/redux/-/redux-4.2.0.tgz#46f10d6e29b6666df758780437651eeb2b969f13"
   integrity sha512-oSBmcKKIuIR4ME29/AeNUnl5L+hvBq7OaJWzaptTQJAntaPvxIJqfnjbaEiCzzaIz+XmVILfqAM3Ob0aXLPfjA==
@@ -6695,10 +6695,10 @@ requizzle@^0.2.3:
   dependencies:
     lodash "^4.17.14"
 
-reselect@^4.1.5:
-  version "4.1.6"
-  resolved "https://registry.yarnpkg.com/reselect/-/reselect-4.1.6.tgz#19ca2d3d0b35373a74dc1c98692cdaffb6602656"
-  integrity sha512-ZovIuXqto7elwnxyXbBtCPo9YFEr3uJqj2rRbcOOog1bmu2Ag85M4hixSwFWyaBMKXNgvPaJ9OSu9SkBPIeJHQ==
+reselect@^4.1.7:
+  version "4.1.7"
+  resolved "https://registry.yarnpkg.com/reselect/-/reselect-4.1.7.tgz#56480d9ff3d3188970ee2b76527bd94a95567a42"
+  integrity sha512-Zu1xbUt3/OPwsXL46hvOOoQrap2azE7ZQbokq61BQfiXvhewsKDwhMeZjTX9sX0nvw1t/U5Audyn1I9P/m9z0A==
 
 resolve-dir@^1.0.0, resolve-dir@^1.0.1:
   version "1.0.1"
