@@ -1,7 +1,7 @@
 {
   "name": "control",
   "private": true,
-  "version": "0.0.39",
+  "version": "0.0.40",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -31,7 +31,7 @@
     "react-firebase-hooks": "5.0.3",
     "react-hook-form": "7.39.1",
     "react-query": "3.39.2",
-    "react-redux": "8.0.4",
+    "react-redux": "8.0.5",
     "react-router-dom": "6.4.3",
     "redux": "4.2.0",
     "tabler-icons-react": "1.55.0",
