@@ -1,6 +1,6 @@
 {
   "name": "utils",
-  "version": "1.0.30",
+  "version": "1.0.31",
   "main": "index.ts",
   "files": [
     "hooks/**/*.ts",
@@ -29,7 +29,7 @@
     "nanoid": "4.0.0",
     "obs-websocket-js": "5.0.2",
     "react": "18.2.0",
-    "react-redux": "8.0.4",
+    "react-redux": "8.0.5",
     "redux": "4.2.0",
     "socket.io-client": "4.5.3",
     "uuid": "9.0.0",
