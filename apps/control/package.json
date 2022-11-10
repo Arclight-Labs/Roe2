@@ -1,7 +1,7 @@
 {
   "name": "control",
   "private": true,
-  "version": "0.0.46",
+  "version": "0.0.47",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -20,7 +20,7 @@
     "@reduxjs/toolkit": "1.9.0",
     "@tanstack/react-query": "4.14.5",
     "firebase": "9.13.0",
-    "framer-motion": "7.6.4",
+    "framer-motion": "7.6.5",
     "ip": "1.1.8",
     "lodash-es": "4.17.21",
     "obs-websocket-js": "5.0.2",
