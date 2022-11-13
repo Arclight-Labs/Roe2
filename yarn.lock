@@ -3614,12 +3614,10 @@ esbuild-openbsd-64@0.15.13:
   resolved "https://registry.yarnpkg.com/esbuild-openbsd-64/-/esbuild-openbsd-64-0.15.13.tgz#45e8a5fd74d92ad8f732c43582369c7990f5a0ac"
   integrity sha512-nkuDlIjF/sfUhfx8SKq0+U+Fgx5K9JcPq1mUodnxI0x4kBdCv46rOGWbuJ6eof2n3wdoCLccOoJAbg9ba/bT2w==
 
-esbuild-register@3.4.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/esbuild-register/-/esbuild-register-3.4.0.tgz#cdbd19fd24c2cc61bd9ab50c783217c6dffc859c"
-  integrity sha512-EquMnCzCeHTMJIzThI5Le7MCUYkoX3Prk7/hpZ1mUAwHsvalmgTeXdip+SAId9QmKN0TgxPA90x3OWqAOpR16g==
-  dependencies:
-    debug "^4.3.4"
+esbuild-register@3.3.3:
+  version "3.3.3"
+  resolved "https://registry.yarnpkg.com/esbuild-register/-/esbuild-register-3.3.3.tgz#5bd80025c80caf77e6484ced5cc77233b1d39688"
+  integrity sha512-eFHOkutgIMJY5gc8LUp/7c+LLlDqzNi9T6AwCZ2WKKl3HmT+5ef3ZRyPPxDOynInML0fgaC50yszPKfPnjC0NQ==
 
 esbuild-sunos-64@0.15.11:
   version "0.15.11"
@@ -6536,15 +6534,15 @@ react-fast-marquee@1.3.5:
   resolved "https://registry.yarnpkg.com/react-fast-marquee/-/react-fast-marquee-1.3.5.tgz#e53995027102fbec92da90606d7ca89703db9903"
   integrity sha512-eOqLoz4iVVBvi2wN/web8hd2XX9y2Z6CYR7g++7nTVHlTOXBtqyARQJ9rYNpbp179hAzloMx0yBFAo8LpNYmKQ==
 
-react-firebase-hooks@5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/react-firebase-hooks/-/react-firebase-hooks-5.1.0.tgz#0f69c97c44eb155f1bdae009c8ffe4b712939a97"
-  integrity sha512-R+2cRCNoA3pw3l9yI90up5/iVhNO3ZgRh+1PPBCj8nIZfcsZHLCktacRhXbzcKX0G47ldHXC9JLsFWOmjzvcxA==
+react-firebase-hooks@5.0.3:
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/react-firebase-hooks/-/react-firebase-hooks-5.0.3.tgz#3125a382d6b72deee776fe1df9e0c8173cf36d5d"
+  integrity sha512-0+V2XwInZJNjW8B2cm+U21Hlv4xnp/1tJqIoDg2rjyWzKTQ9VoLPQ9PAt+fMqPumjLz5uCIREY7YqGSSjc439Q==
 
-react-hook-form@7.39.2:
-  version "7.39.2"
-  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.39.2.tgz#1003ed63dcc4efc96be686e9aef481f63b58715b"
-  integrity sha512-rCeCa1+sIcgI9PjgGmev9bVqHCwYwhjkbsXitr+giQ/P0mf/AGwUBtCdKC1lRu7egrxbLwqO9cWNWpXW4FrsHA==
+react-hook-form@7.39.1:
+  version "7.39.1"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.39.1.tgz#ded87d4b3f6692d1f9219515f78ca282b6e1ebf7"
+  integrity sha512-MiF9PCILN5KulhSGbnjohMiTOrB47GerDTichMNP0y2cPUu1GTRFqbunOxCE9N1499YTLMV/ne4gFzqCp1rxrQ==
 
 react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
