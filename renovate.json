@@ -3,7 +3,6 @@
     "config:base",
     "group:allNonMajor",
     ":separateMultipleMajorReleases",
-    ":automergeMinor",
     ":automergePr",
     ":automergeRequireAllStatusChecks",
     ":ignoreUnstable",
