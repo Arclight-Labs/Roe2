@@ -30,6 +30,7 @@ const HeadToHeadTeam = ({ team = tbd, side, ...props }: Props) => {
         width,
         position: "absolute",
         top: "50%",
+        transform: "translateY(-270px)",
         ...stackStyles[side],
         ...props.sx,
         zIndex: 999,
