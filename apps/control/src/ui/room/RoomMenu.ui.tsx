@@ -40,13 +40,7 @@ export function RoomMenu({
 
   return (
     <Group position="center" sx={{ width: "100%" }}>
-      <Menu
-        {...props}
-        withArrow
-        position="bottom"
-        transition="pop"
-        withinPortal
-      >
+      <Menu {...props} withArrow position="bottom" transition="pop">
         <Menu.Target {...targetProps}>{children}</Menu.Target>
         <Menu.Dropdown {...dropdownProps}>
           <Stack>

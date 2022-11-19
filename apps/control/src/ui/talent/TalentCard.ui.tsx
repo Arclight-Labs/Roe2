@@ -71,7 +71,7 @@ const TalentCard: FC<TalentCardProps> = ({ data, ...props }) => {
         sx={{ top: 2, right: 2, position: "absolute" }}
       >
         <TalentBadges talentId={data.uid} />
-        <Menu position="bottom-end" transition="pop-top-right" withinPortal>
+        <Menu position="bottom-end" transition="pop-top-right">
           <Menu.Target>
             <ActionIcon variant="filled">
               <Menu2 size={14} />

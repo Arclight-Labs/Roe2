@@ -53,7 +53,7 @@ const OBSConnection = ({ variant = "button" }: Props) => {
 
   return (
     <Stack>
-      <Popover withArrow withinPortal>
+      <Popover withArrow>
         <Popover.Target>
           {variant === "button" ? (
             <UnstyledButton className={classes.room} component="div">

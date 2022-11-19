@@ -44,7 +44,6 @@ const Confirm: FC<ConfirmProps> = ({
       position="top"
       withArrow
       transition="pop"
-      withinPortal
       {...props}
     >
       <Popover.Target {...targetProps}>

@@ -29,13 +29,7 @@ export function UserMenu({
   const close = () => isOpened(false)
   return (
     <Group position="center">
-      <Menu
-        {...props}
-        withArrow
-        position="bottom"
-        transition="pop"
-        withinPortal
-      >
+      <Menu {...props} withArrow position="bottom" transition="pop">
         <Menu.Target {...targetProps}>{children}</Menu.Target>
         <Menu.Dropdown {...dropdownProps}>
           <LoadingOverlay visible={!user} />
