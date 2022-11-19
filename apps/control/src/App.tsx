@@ -1,16 +1,18 @@
-import { ColorScheme, ColorSchemeProvider } from "@mantine/core"
+import {
+  ColorScheme,
+  ColorSchemeProvider,
+  MantineProvider,
+} from "@mantine/core"
 import { useHotkeys, useLocalStorage } from "@mantine/hooks"
 import { NotificationsProvider } from "@mantine/notifications"
 import { useEffect } from "react"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { Provider } from "react-redux"
 import { BrowserRouter } from "react-router-dom"
-import { MantineProvider } from "ui"
 import { connectEmulators } from "utils/firebase"
 import { store } from "utils/redux"
 import { SocketProvider } from "utils/socket"
 import AuthProvider from "./context/auth/Auth.provider"
-import { ObsProvider } from "./context/obs"
 import { GreycliffCF } from "./fonts/GreyCliffCF/GreyCliffCF.font"
 import Routes from "./routes"
 export const queryClient = new QueryClient()
@@ -45,16 +47,20 @@ function App() {
                   toggleColorScheme={toggleColorScheme}
                 >
                   <MantineProvider
-                    withNormalizeCSS
                     withGlobalStyles
+                    withNormalizeCSS
                     theme={{
                       colorScheme,
                       headings: { fontFamily: "Greycliff CF, sans-serif" },
+                      components: {
+                        Kbd: { defaultProps: { sx: { fontSize: 10 } } },
+                        Card: { styles: { root: { overflow: "visible" } } },
+                        Popover: { defaultProps: { withinPortal: true } },
+                        Menu: { defaultProps: { withinPortal: true } },
+                      },
                     }}
                   >
-                    <ObsProvider>
-                      <Routes />
-                    </ObsProvider>
+                    <Routes />
                     <GreycliffCF />
                   </MantineProvider>
                 </ColorSchemeProvider>
