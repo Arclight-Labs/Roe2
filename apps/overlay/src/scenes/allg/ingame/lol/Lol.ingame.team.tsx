@@ -14,7 +14,7 @@ const LolIngameTeam = ({ side, ...props }: Props) => {
 
   const textAlign = side == "teamA" ? "left" : "right"
   const flexDirection = side == "teamA" ? "row" : "row-reverse"
-  const width = side == "teamA" ? 615 : 608
+  const width = side == "teamA" ? 478 : 474
   const reverseProps: GroupProps["sx"] = {
     textAlign,
     flexDirection,
@@ -40,7 +40,12 @@ const LolIngameTeam = ({ side, ...props }: Props) => {
           flexShrink: 0,
         }}
       />
-      <Group spacing={10} sx={{ flex: 1, flexDirection, letterSpacing: 4 }}>
+      <Group
+        spacing={10}
+        sx={{ flex: 1, flexDirection, letterSpacing: 4 }}
+        w="100%"
+        noWrap
+      >
         <Text sx={{ fontFamily: "Subway", color: "#ffd200" }} size={38}>
           {team.shortcode}
         </Text>
