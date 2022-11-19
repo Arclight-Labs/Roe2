@@ -91,7 +91,6 @@ const MatchCard = ({ match, small, ...props }: MatchCardProps) => {
           <MatchCardTeam small={small} team={a} loser={!!winnerId && aLoser} />
           <Group position="center" sx={{ width: 70 }}>
             <Tooltip
-              withinPortal
               label={
                 <Stack spacing="xs">
                   {match.scores.map((score, index) => (
