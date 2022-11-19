@@ -48,7 +48,7 @@ const AdCard: FC<AdCardProps> = ({ ad }) => {
             {preview ? <EyeOff size={18} /> : <Eye size={18} />}
           </ActionIcon>
         </Tooltip>
-        <Menu withinPortal>
+        <Menu>
           <Menu.Target>
             <ActionIcon>
               <Menu2 />
