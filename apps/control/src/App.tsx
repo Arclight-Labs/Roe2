@@ -45,6 +45,8 @@ function App() {
                   toggleColorScheme={toggleColorScheme}
                 >
                   <MantineProvider
+                    withNormalizeCSS
+                    withGlobalStyles
                     theme={{
                       colorScheme,
                       headings: { fontFamily: "Greycliff CF, sans-serif" },
