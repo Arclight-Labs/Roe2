@@ -17,7 +17,12 @@ export const api = functions.https.onRequest(async (cfReq, cfRes) => {
   })
 
   // Routes
-  fastify.register(roomRoutes, { prefix: "api/rooms" })
+  fastify.get("/api/status", (_, res) => {
+    res.status(200).send("Server is running")
+    return
+  })
+
+  fastify.register(roomRoutes, { prefix: "/api/rooms" })
 
   fastify.ready((err) => {
     if (err) {
