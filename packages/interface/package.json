@@ -1,6 +1,6 @@
 {
   "name": "interface",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "main": "index.ts",
   "types": "index.ts",
   "author": "AcadArena",
@@ -8,9 +8,9 @@
   "private": true,
   "devDependencies": {
     "tsconfig": "*",
-    "typescript": "4.8.4"
+    "typescript": "4.9.3"
   },
   "dependencies": {
-    "@mantine/notifications": "5.7.1"
+    "@mantine/notifications": "5.8.3"
   }
 }
