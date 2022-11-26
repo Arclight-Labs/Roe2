@@ -1,6 +1,6 @@
 {
   "name": "config",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "index.js",
   "license": "MIT",
   "files": [
@@ -10,9 +10,9 @@
   "dependencies": {
     "eslint-config-next": "^13.0.1",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-react": "7.31.10"
+    "eslint-plugin-react": "7.31.11"
   },
   "devDependencies": {
-    "eslint-plugin-react": "7.31.10"
+    "eslint-plugin-react": "7.31.11"
   }
 }
