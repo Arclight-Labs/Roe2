@@ -49,6 +49,7 @@ const CodmIngameTeam = ({ side, ...props }: Props) => {
         spacing={15}
         mt={-7}
         px={10}
+        h={118}
         sx={{
           flex: 1,
           flexDirection,
@@ -65,6 +66,7 @@ const CodmIngameTeam = ({ side, ...props }: Props) => {
       <Group
         p={14}
         spacing={8}
+        h={118}
         sx={{
           flexShrink: 0,
           flexDirection: side === "teamA" ? "row" : "row-reverse",

@@ -1,7 +1,7 @@
 import { Group } from "@mantine/core"
 import useRoom from "../../../../hooks/useRoom.hook"
 import CodmIngameTeam from "./Codm.ingame.team"
-import bg from "./codm_ingame.png"
+import bg from "./codm.png"
 
 const CodmIngameScene = () => {
   useRoom()
